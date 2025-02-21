@@ -1,0 +1,122 @@
+# Cursor 项目开发规范
+
+## 技术栈要求
+
+1. 必须使用以下技术栈:
+   - Next.js 15
+   - TypeScript
+   - Tailwind CSS
+   - shadcn/ui
+   - React 18+
+
+## 组件开发规范
+
+1. 创建新组件前检查现有组件:
+   ```typescript
+   src/components/ui        // 通用UI组件
+   src/components/shared    // 共享业务组件
+   src/components/[feature] // 特定功能组件
+   ```
+
+2. 组件目录结构:
+   ```
+   ComponentName/
+   ├── index.tsx      // 组件主文件
+   ├── types.ts       // 类型定义
+   └── styles.css     // 可选的特殊样式
+   ```
+
+3. 标准组件模板:
+   ```typescript
+   import { FC } from 'react'
+   import { cn } from '@/lib/utils'
+   
+   interface ComponentProps {
+     className?: string
+     // 其他 props 定义
+   }
+   
+   export const Component: FC<ComponentProps> = ({
+     className,
+     ...props
+   }) => {
+     return (
+       <div className={cn("base-styles", className)}>
+         {/* 组件内容 */}
+       </div>
+     )
+   }
+   ```
+
+## shadcn/ui 使用规范
+
+1. 组件引入方式:
+   ```typescript
+   import { Button } from "@/components/ui/button"
+   import { Input } from "@/components/ui/input"
+   ```
+
+2. 主题配置:
+   - 使用 tailwind.config.ts 配置主题
+   - 遵循设计系统的颜色和间距变量
+
+## 项目结构规范
+
+1. 目录结构:
+   ```
+   src/
+   ├── app/          // 页面路由
+   ├── components/   // 组件
+   ├── lib/         // 工具函数
+   ├── hooks/       // 自定义 hooks
+   └── types/       // 全局类型
+   ```
+
+2. 导入路径规范:
+   ```typescript
+   // 使用绝对路径导入
+   import { Component } from "@/components/Component"
+   import { useHook } from "@/hooks/useHook"
+   ```
+
+## 类型定义规范
+
+1. 基础类型:
+   ```typescript
+   // types/common.ts
+   export interface BaseProps {
+     className?: string
+     children?: React.ReactNode
+   }
+   ```
+
+2. 组件类型:
+   ```typescript
+   interface ComponentProps extends BaseProps {
+     // 组件特定属性
+   }
+   ```
+
+## 新组件创建流程
+
+1. 检查是否已有类似组件
+2. 确定组件的具体需求和功能
+3. 创建组件目录和文件
+4. 实现组件逻辑
+5. 添加必要的类型定义
+6. 编写组件文档(可选)
+
+## 代码风格
+
+1. 使用 TypeScript 严格模式
+2. 优先使用函数式组件
+3. 使用 ESLint 和 Prettier 保持代码风格一致
+4. 组件属性使用 interface 定义
+5. 导出的组件使用 PascalCase 命名
+
+## 性能优化
+
+1. 合理使用 React.memo
+2. 避免不必要的重渲染
+3. 使用适当的图片优化策略
+4. 实现组件懒加载
