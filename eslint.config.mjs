@@ -15,6 +15,11 @@ const eslintConfig = [
     "next/typescript",
     "plugin:react-hooks/recommended"
   ),
+  {
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off", // 关闭 no-explicit-any 规则
+    },
+  },
 ];
 
 export default eslintConfig;

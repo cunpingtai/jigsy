@@ -164,10 +164,10 @@ export const createPiece3DEffect = (path: string) => {
       y2: 100,
     },
     colorStops: [
-      { offset: 0, color: "rgba(0,0,0,0.2)" },
+      { offset: 0, color: "rgba(0,0,0,0.0)" },
       { offset: 0.4, color: "rgba(0,0,0,0)" },
       { offset: 0.6, color: "rgba(0,0,0,0)" },
-      { offset: 1, color: "rgba(0,0,0,0.2)" },
+      { offset: 1, color: "rgba(0,0,0,1)" },
     ],
   });
 
@@ -195,7 +195,7 @@ export const createPiece3DEffect = (path: string) => {
     left: 0,
     top: 0,
     fill: "rgba(0,0,0,0)",
-    stroke: "rgba(0,0,0,0.4)",
+    stroke: "rgba(0,0,0,0.8)",
     strokeWidth: 3,
     selectable: false,
     evented: false,

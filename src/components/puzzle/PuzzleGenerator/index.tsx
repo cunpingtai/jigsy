@@ -63,7 +63,7 @@ export const PuzzleGenerator = forwardRef<PuzzleGameRef, PuzzleGeneratorProps>(
       : { width: 0, height: 0 };
 
     return (
-      <div className="w-full h-full p-4">
+      <div className="w-full h-full relative">
         <div className="w-full h-full" ref={measureRef}>
           {mounted && image ? (
             <PuzzleGame

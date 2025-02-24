@@ -9,6 +9,7 @@ import {
   Crosshair,
   Check,
   PictureInPicture2,
+  Palette,
 } from "lucide-react";
 import { GameToolbar } from "./GameToolbar";
 import { GameStats } from "./GameStats";
@@ -17,6 +18,21 @@ import { PuzzleConfigType, PuzzleGenerator } from "../PuzzleGenerator";
 import { DistributionStrategy } from "../PuzzleGenerator/types";
 import { PuzzleGameRef } from "../PuzzleGenerator/PuzzleGame";
 import { cn } from "@/lib/utils";
+import { TextureSelector } from "../TextureSelector";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import Image from "next/image";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface PuzzleGameProps {
   puzzle: {
@@ -38,8 +54,55 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
   const [piecesPlaced, setPiecesPlaced] = useState(0);
   const [enablePanning, setEnablePanning] = useState(false);
   const [fixCenter, setFixCenter] = useState(0);
-  const [showHint, setShowHint] = useState(false);
   const puzzleGameRef = useRef<PuzzleGameRef>(null);
+  const [showTextureDialog, setShowTextureDialog] = useState(false);
+  const [selectedTexture, setSelectedTexture] = useState("bg-primary/50");
+  const [isGameStarted, setIsGameStarted] = useState(false);
+  const [showStartDialog, setShowStartDialog] = useState(true);
+  const timerRef = useRef<NodeJS.Timeout>(null);
+  const [showSettingsDialog, setShowSettingsDialog] = useState(false);
+  const [tempSettings, setTempSettings] = useState({
+    pieces: puzzle.pieces,
+    distribution: DistributionStrategy.SURROUNDING,
+  });
+
+  const piecesOptions = [
+    { value: 12, label: "新手 (12片)" },
+    { value: 24, label: "入门 (24片)" },
+    { value: 48, label: "简单 (48片)" },
+    { value: 96, label: "普通 (96片)" },
+    { value: 144, label: "进阶 (144片)" },
+    { value: 288, label: "困难 (288片)" },
+    { value: 432, label: "挑战 (432片)" },
+    { value: 576, label: "专家 (576片)" },
+    { value: 720, label: "大师 (720片)" },
+    { value: 864, label: "精英 (864片)" },
+    { value: 1008, label: "王者 (1008片)" },
+    { value: 1152, label: "传说 (1152片)" },
+    { value: 1296, label: "史诗 (1296片)" },
+    { value: 1440, label: "神话 (1440片)" },
+    { value: 1584, label: "天神 (1584片)" },
+    { value: 1728, label: "至尊 (1728片)" },
+    { value: 1872, label: "终极 (1872片)" },
+  ];
+
+  const distributionOptions = [
+    {
+      value: DistributionStrategy.SURROUNDING,
+      label: "环绕模式",
+      description: "拼图块围绕在画布四周",
+    },
+    {
+      value: DistributionStrategy.CENTER_SCATTER,
+      label: "中心扩散",
+      description: "拼图块从中心向外散开分布",
+    },
+    {
+      value: DistributionStrategy.SPREAD_OUT,
+      label: "均匀分散",
+      description: "拼图块均匀分布在整个画布上",
+    },
+  ];
 
   const handleZoomChange = useCallback((newZoom: number) => {
     setZoomLevel(Math.floor(newZoom * 100));
@@ -73,25 +136,68 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
     }));
   }, [showGrid, showPreview]);
 
+  useEffect(() => {
+    if (isGameStarted && !isPaused) {
+      timerRef.current = setInterval(() => {
+        setTimeElapsed((prev) => prev + 1);
+      }, 1000);
+    }
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, [isGameStarted, isPaused]);
+
+  const handleStartGame = () => {
+    setShowStartDialog(false);
+    setIsGameStarted(true);
+  };
+
+  const handleSettingsConfirm = () => {
+    setConfig((prev) => ({
+      ...prev,
+      tilesX: Math.floor(Math.sqrt(tempSettings.pieces)),
+      tilesY: Math.floor(Math.sqrt(tempSettings.pieces)),
+      distributionStrategy: tempSettings.distribution,
+    }));
+
+    setIsGameStarted(false);
+    setShowStartDialog(true);
+    setTimeElapsed(0);
+    setPiecesPlaced(0);
+    setZoomLevel(100);
+    setFixCenter(0);
+    setShowSettingsDialog(false);
+  };
+
+  const handleSettingsOpen = () => {
+    setShowSettingsDialog(true);
+  };
+
   return (
     <div className="flex h-screen overflow-hidden">
       <GameToolbar
         showPreview={showPreview}
         showGrid={showGrid}
-        showHint={showHint}
         enablePanning={enablePanning}
         onEnablePanningToggle={() => setEnablePanning(!enablePanning)}
-        isPaused={isPaused}
-        onPauseToggle={() => setIsPaused(!isPaused)}
+        isPaused={isPaused || !isGameStarted}
+        onPauseToggle={() => {
+          setIsPaused(!isPaused);
+          setIsGameStarted(true);
+        }}
         onReset={() => {
-          /* 实现重置逻辑 */
+          setIsGameStarted(false);
+          setShowStartDialog(true);
+          setTimeElapsed(0);
+          setPiecesPlaced(0);
+          setZoomLevel(100);
+          setFixCenter(0);
         }}
         onPreviewToggle={() => setShowPreview(!showPreview)}
         onGridToggle={() => setShowGrid(!showGrid)}
-        onHintToggle={() => setShowHint(!showHint)}
-        onSettingsOpen={() => {
-          /* 实现设置打开逻辑 */
-        }}
+        onSettingsOpen={handleSettingsOpen}
       />
 
       <div className="flex-1 flex flex-col">
@@ -165,12 +271,20 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
                 {zoomLevel}%
               </span>
             </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 text-muted-foreground hover:text-primary"
+              onClick={() => setShowTextureDialog(true)}
+            >
+              <Palette className="h-4 w-4" />
+            </Button>
           </div>
         </div>
 
-        <div className="flex-1 bg-background relative">
+        <div className="flex-1 bg-background relative overflow-hidden">
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-full h-full bg-card/50 relative">
+            <div className={cn("w-full h-full relative", selectedTexture)}>
               <PuzzleGenerator
                 {...config}
                 ref={puzzleGameRef}
@@ -222,6 +336,120 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
           </div>
         </div>
       </div>
+
+      <Dialog open={showTextureDialog} onOpenChange={setShowTextureDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>选择背景纹理</DialogTitle>
+          </DialogHeader>
+          <TextureSelector
+            selectedTexture={selectedTexture}
+            onSelect={(texture) => {
+              setSelectedTexture(texture);
+              setShowTextureDialog(false);
+            }}
+          />
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showStartDialog} onOpenChange={setShowStartDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>准备开始</DialogTitle>
+          </DialogHeader>
+          <div className="flex flex-col items-center gap-4 py-4">
+            <Image
+              src={puzzle.image}
+              alt={puzzle.title}
+              className="w-full h-48 object-contain rounded-lg"
+              width={600}
+              height={400}
+            />
+            <div className="text-center">
+              <h3 className="font-semibold">{puzzle.title}</h3>
+              <p className="text-sm text-muted-foreground mt-1">
+                难度: {puzzle.difficulty} | 拼图数量: {puzzle.pieces}片
+              </p>
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <Button onClick={handleStartGame}>开始游戏</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showSettingsDialog} onOpenChange={setShowSettingsDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>游戏设置</DialogTitle>
+          </DialogHeader>
+          <div className="flex flex-col gap-4 py-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">拼图数量</label>
+              <Select
+                value={tempSettings.pieces.toString()}
+                onValueChange={(value) =>
+                  setTempSettings((prev) => ({
+                    ...prev,
+                    pieces: parseInt(value),
+                  }))
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="选择拼图数量" />
+                </SelectTrigger>
+                <SelectContent>
+                  {piecesOptions.map((option) => (
+                    <SelectItem
+                      key={option.value}
+                      value={option.value.toString()}
+                    >
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">分布策略</label>
+              <Select
+                value={tempSettings.distribution}
+                onValueChange={(value: DistributionStrategy) =>
+                  setTempSettings((prev) => ({ ...prev, distribution: value }))
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="选择分布策略" />
+                </SelectTrigger>
+                <SelectContent>
+                  {distributionOptions.map((option) => (
+                    <SelectItem
+                      key={option.value}
+                      value={option.value}
+                      className="flex flex-col items-start py-2"
+                    >
+                      <div>{option.label}</div>
+                      <div className="text-xs text-muted-foreground mt-1">
+                        {option.description}
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <div className="flex justify-end gap-3">
+            <Button
+              variant="outline"
+              onClick={() => setShowSettingsDialog(false)}
+            >
+              取消
+            </Button>
+            <Button onClick={handleSettingsConfirm}>确定并重新开始</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

@@ -12,7 +12,6 @@ import {
   TimerReset,
   Grid3X3,
   Image as ImageIcon,
-  Lightbulb,
   Settings2,
   Move,
 } from "lucide-react";
@@ -23,12 +22,10 @@ interface GameToolbarProps {
   enablePanning?: boolean; // 添加拖动模式状态
   showGrid?: boolean;
   showPreview?: boolean;
-  showHint?: boolean;
   onPauseToggle: () => void;
   onReset: () => void;
   onPreviewToggle: () => void;
   onGridToggle: () => void;
-  onHintToggle: () => void;
   onSettingsOpen: () => void;
   onEnablePanningToggle?: () => void; // 添加拖动模式切换处理函数
 }
@@ -37,14 +34,12 @@ export const GameToolbar: FC<GameToolbarProps> = ({
   isPaused,
   showPreview,
   showGrid,
-  showHint,
   onPauseToggle,
   enablePanning = false,
   onEnablePanningToggle,
   onReset,
   onPreviewToggle,
   onGridToggle,
-  onHintToggle,
   onSettingsOpen,
 }) => {
   const tools = [
@@ -77,12 +72,6 @@ export const GameToolbar: FC<GameToolbarProps> = ({
       label: enablePanning ? "自由拖动" : "拖动模式",
       onClick: onEnablePanningToggle,
       className: enablePanning ? "!bg-accent text-accent-foreground" : "",
-    },
-    {
-      icon: Lightbulb,
-      label: "提示",
-      onClick: onHintToggle,
-      className: showHint ? "!bg-accent text-accent-foreground" : "",
     },
     null, // 分隔线
     {

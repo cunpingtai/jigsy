@@ -112,9 +112,7 @@ export function useFabricCanvas(
       enableRetinaScaling: false, // 禁用视网膜缩放以提升性能
       stopContextMenu: false, // 禁用右键菜单
       selection: false, // 禁用多选功能
-      selectionColor: "rgba(100, 100, 255, 0.3)", // 选择框的填充颜色
-      selectionBorderColor: "#e2b74a", // 选择框的边框颜色
-      selectionLineWidth: 1,
+      backgroundColor: "transparent",
     });
     setFabricCanvas(fabricCanvas);
 
@@ -154,69 +152,24 @@ export function useFabricCanvas(
     };
   }, [fabricCanvas, handleZoomChange, zoomStep]);
 
-  // // 对象移动事件监听;
-  // useEffect(() => {
-  //   if (!fabricCanvas) return;
-  //   function onObjectMoving(e: any) {
-  //     const movingObject = e.target as fabric.Object;
-  //     if (movingObject) {
-  //       // 将移动的对象置于顶层
-  //       fabricCanvas!.bringObjectToFront(movingObject);
-  //       fabricCanvas!.renderAll();
-  //     }
-  //   }
+  // 对象移动事件监听;
+  useEffect(() => {
+    if (!fabricCanvas) return;
+    function onObjectMoving(e: any) {
+      const movingObject = e.target as fabric.Object;
+      if (movingObject) {
+        // 将移动的对象置于顶层
+        fabricCanvas!.bringObjectToFront(movingObject);
+        fabricCanvas!.renderAll();
+      }
+    }
 
-  //   function onObjectMoving2(e: any) {
-  //     const obj = e.target;
-  //     if (!obj) return;
-
-  //     // 获取对象的实际位置（不包括视觉效果）
-  //     const left = obj.left ?? 0;
-  //     const top = obj.top ?? 0;
-
-  //     // 获取画布尺寸
-  //     const canvasWidth = fabricCanvas!.width ?? 0;
-  //     const canvasHeight = fabricCanvas!.height ?? 0;
-
-  //     // 检查是否在边界内（考虑对象尺寸）
-  //     if (
-  //       left >= 0 &&
-  //       top >= 0 &&
-  //       left + (obj.width ?? 0) <= canvasWidth &&
-  //       top + (obj.height ?? 0) <= canvasHeight
-  //     ) {
-  //       // 如果在边界内，更新最后的有效位置
-  //       lastGoodRef.current = {
-  //         left,
-  //         top,
-  //       };
-  //     } else {
-  //       // 如果超出边界，恢复到最后的有效位置
-  //       obj.set({
-  //         left: lastGoodRef.current.left,
-  //         top: lastGoodRef.current.top,
-  //       });
-  //     }
-
-  //     // 更新对象坐标
-  //     obj.setCoords();
-  //   }
-
-  //   // 添加对象移动事件监听
-  //   fabricCanvas.on("object:moving", onObjectMoving);
-  //   // 监听移动事件
-  //   fabricCanvas.on("object:moving", onObjectMoving2);
-
-  //   return () => {
-  //     fabricCanvas.off("object:moving", onObjectMoving);
-  //     fabricCanvas.off("object:moving", onObjectMoving2);
-
-  //     lastGoodRef.current = {
-  //       left: 0,
-  //       top: 0,
-  //     };
-  //   };
-  // }, [fabricCanvas]);
+    // 添加对象移动事件监听
+    fabricCanvas.on("object:moving", onObjectMoving);
+    return () => {
+      fabricCanvas.off("object:moving", onObjectMoving);
+    };
+  }, [fabricCanvas]);
 
   return {
     fabricCanvas,
@@ -412,9 +365,12 @@ export function usePieceBackground(
         fill: "transparent",
         stroke: "white",
         strokeWidth: 2,
+        visible: false,
       });
 
-      const newImage = new fabric.Image(tempCanvas);
+      const newImage = new fabric.Image(tempCanvas, {
+        visible: false,
+      });
 
       // 创建组合
       const group = new fabric.Group([newImage, gridPath], {

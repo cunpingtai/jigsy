@@ -129,6 +129,7 @@ export type PuzzleGameRef = {
   handleValidate: () => void;
   handleAutoComplete: () => void;
   validationStatus: "none" | "success" | "fail";
+  pieceTotal: number;
 };
 
 export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
@@ -499,6 +500,7 @@ export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
       handleValidate,
       handleAutoComplete,
       validationStatus,
+      pieceTotal: pieces.length,
     }));
 
     return (

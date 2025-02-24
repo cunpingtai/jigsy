@@ -1,0 +1,342 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+// 产品故事
+// 用户创建了一个拼图，配置了拼图的参数，然后生成了一个拼图，打上标签，加入到某个组
+// 组是归属于分类的，产品归属于组的
+// 标签可以有多个
+// 拼图只能属于一个组，一个组只能属于一个分类
+// StandardAtom 是抽象的标准原子，通用化定义，在当前业务是拼图
+// UserAtomRecord 是用户对标准原子的使用记录，比如用户玩过拼图
+// UserAtomRecord meta 是用户对标准原子的使用记录的元数据
+
+model User {
+  id            Int              @id @default(autoincrement())
+  email         String          @unique
+  name          String?
+  avatar        String?
+  points        Int             @default(0)
+  level         Int             @default(1)
+  posts         Post[]
+  comments      Comment[]
+  pointsHistory PointsHistory[]
+  atoms         StandardAtom[]   // 用户创建的拼图
+  atomRecords   UserAtomRecord[] // 用户的拼图记录
+  favorites     Favorite[]       // 用户收藏
+  goals         Goal[]           // 用户目标
+  fieldConfigs  FieldConfig[]    // 用户的字段配置
+  postLikes     PostLike[]       // 用户点赞的帖子
+  atomLikes     AtomLike[]       // 用户点赞的原子
+  atomComments  AtomComment[]    // 用户评论的原子
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  @@map("jigsaw_user")
+}
+
+model StandardAtom {
+  id          Int       @id @default(autoincrement())
+  title       String    // 原子标题
+  content     String    @db.Text  // 原子内容
+  coverImage  String?   // 封面图片
+  userId      Int      // 创建者
+  user        User     @relation(fields: [userId], references: [id])
+  category    Category @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  viewCount   Int      @default(0)  // 查看次数
+  likes       AtomLike[] // 点赞关联
+  likesCount  Int      @default(0)  // 点赞数
+  comments    AtomComment[] // 评论关联
+  status      AtomStatus @default(PUBLISHED)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  tags        TagsOnAtoms[] // 添加这个反向关联字段
+  group       Group    @relation(fields: [groupId], references: [id])
+  groupId     Int
+  fieldConfigs FieldConfig[]
+  records     UserAtomRecord[]
+  favorites   Favorite[]
+  @@map("jigsaw_puzzle")
+  @@index([userId])
+  @@index([categoryId])
+  @@index([status])
+  @@index([likesCount])
+  @@index([groupId])
+}
+
+enum StandardAtomStatus {
+  DRAFT
+  PUBLISHED
+  DELETED
+}
+
+model Tag {
+  id          Int           @id @default(autoincrement())
+  name        String        @unique
+  description String?
+  atoms       TagsOnAtoms[] // 多对多关系
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  @@map("jigsaw_tag")
+}
+
+// 标签和拼图的多对多关联表
+model TagsOnAtoms {
+  atomId    Int
+  tagId     Int
+  atom      StandardAtom  @relation(fields: [atomId], references: [id])
+  tag       Tag          @relation(fields: [tagId], references: [id])
+  createdAt DateTime     @default(now())
+  @@id([atomId, tagId])
+  @@map("jigsaw_tags_on_atoms")
+  @@index([atomId])
+  @@index([tagId])
+}
+
+model Category {
+  id          Int            @id @default(autoincrement())
+  name        String         @unique
+  description String?
+  atoms       StandardAtom[] // 添加这个反向关联字段
+  groups      Group[]  // 一对多关系
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@map("jigsaw_category")
+}
+
+model Group {
+  id          Int           @id @default(autoincrement())
+  name        String
+  description String?
+  categoryId  Int
+  category    Category      @relation(fields: [categoryId], references: [id])
+  atoms       StandardAtom[] // 一对多关系
+  
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  @@map("jigsaw_group")
+  @@index([categoryId])
+}
+
+model UserAtomRecord {
+  id        Int          @id @default(autoincrement())
+  userId    Int
+  user      User         @relation(fields: [userId], references: [id])
+  atomId    Int
+  atom      StandardAtom @relation(fields: [atomId], references: [id])
+  meta      Json?        // 用户使用记录的元数据
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  @@map("jigsaw_user_atom_record")
+  @@index([userId])
+  @@index([atomId])
+}
+
+model FieldConfig {
+  id          Int          @id @default(autoincrement())
+  userId      Int
+  user        User         @relation(fields: [userId], references: [id])
+  atomId      Int
+  atom        StandardAtom @relation(fields: [atomId], references: [id])
+  recordId    Int
+  name        String
+  description String?
+  title       String
+  value       String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  @@map("jigsaw_field_config")
+  @@index([userId])
+  @@index([atomId])
+}
+
+model Favorite {
+  id        Int          @id @default(autoincrement())
+  userId    Int
+  user      User         @relation(fields: [userId], references: [id])
+  atomId    Int
+  atom      StandardAtom @relation(fields: [atomId], references: [id])
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  @@map("jigsaw_favorite")
+  @@index([userId])
+  @@index([atomId])
+}
+
+// 目标模型
+model Goal {
+  id          Int       @id @default(autoincrement())
+  title       String    // 目标标题
+  current     Int       // 当前进度 (如: 15)
+  target      Int       // 目标值 (如: 20)
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  streaks     Streak[]  // 一对多关系
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  @@index([userId])
+  @@map("jigsaw_goal")
+}
+
+// 连续打卡记录
+model Streak {
+  id        Int       @id @default(autoincrement())
+  date      DateTime  // 打卡日期
+  userId    Int
+  goalId    Int
+  goal      Goal      @relation(fields: [goalId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  @@map("jigsaw_streak")
+  @@index([userId, goalId])
+  @@index([goalId])
+}
+
+// 积分历史记录
+model PointsHistory {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  points      Int      // 变动积分值（可正可负）
+  type        String   // 积分类型：发帖/评论/签到等
+  description String   // 变动说明
+  createdAt   DateTime @default(now())
+  @@index([userId])
+  @@map("jigsaw_points_history")
+}
+
+// 帖子模型
+model Post {
+  id          Int       @id @default(autoincrement())
+  title       String
+  content     String    @db.Text
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  comments    Comment[]
+  likes       PostLike[] // 修改为关联点赞表
+  likesCount  Int       @default(0) // 点赞数统计
+  views       Int       @default(0)
+  tags        String?
+  status      PostStatus @default(PUBLISHED)
+  featured    Featured? // 关联精选表
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  @@map("jigsaw_post")
+  @@index([userId])
+  @@index([status])
+}
+
+// 新增精选模型
+model Featured {
+  id          Int      @id @default(autoincrement())
+  postId      Int      @unique // 一篇文章只能被精选一次
+  post        Post     @relation(fields: [postId], references: [id])
+  reason      String?  // 精选原因
+  order       Int      @default(0) // 排序权重
+  featuredAt  DateTime @default(now()) // 精选时间
+  featuredBy  Int      // 由哪个管理员设置的精选
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@index([postId])
+  @@index([featuredBy])
+  @@map("jigsaw_featured")
+}
+
+// 新增帖子点赞模型
+model PostLike {
+  id        Int      @id @default(autoincrement())
+  postId    Int
+  post      Post     @relation(fields: [postId], references: [id])
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([postId, userId]) // 防止重复点赞
+  @@index([postId]) // 优化查询性能
+  @@index([userId])
+  @@map("jigsaw_post_like")
+}
+
+// 评论模型
+model Comment {
+  id        Int       @id @default(autoincrement())
+  content   String
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id])
+  postId    Int
+  post      Post      @relation(fields: [postId], references: [id])
+  parentId  Int?      // 父评论ID，用于回复功能
+  parent    Comment?  @relation("CommentToComment", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies   Comment[] @relation("CommentToComment")
+  likes     Int       @default(0)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  @@index([userId])
+  @@index([postId])
+  @@index([parentId])
+  @@index([likes])
+  @@map("jigsaw_comment")
+}
+
+// 帖子状态枚举
+enum PostStatus {
+  DRAFT      // 草稿
+  PUBLISHED  // 已发布
+  DELETED    // 已删除
+}
+
+// 原子点赞模型
+model AtomLike {
+  id            Int           @id @default(autoincrement())
+  standardAtomId Int
+  standardAtom  StandardAtom @relation(fields: [standardAtomId], references: [id])
+  userId        Int
+  user          User         @relation(fields: [userId], references: [id])
+  createdAt     DateTime     @default(now())
+
+  @@unique([standardAtomId, userId]) // 防止重复点赞
+  @@index([standardAtomId])
+  @@index([userId])
+}
+
+// 原子评论模型
+model AtomComment {
+  id            Int           @id @default(autoincrement())
+  content       String        // 评论内容
+  standardAtomId Int
+  standardAtom  StandardAtom @relation(fields: [standardAtomId], references: [id])
+  userId        Int
+  user          User         @relation(fields: [userId], references: [id])
+  parentId      Int?         // 父评论ID
+  parent        AtomComment? @relation("AtomCommentReplies", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies       AtomComment[] @relation("AtomCommentReplies")
+  likes        Int          @default(0)  // 评论点赞数
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  @@index([standardAtomId])
+  @@index([userId])
+  @@index([parentId])
+  @@index([likes])
+}
+
+// 原子状态枚举
+enum AtomStatus {
+  DRAFT      // 草稿
+  PUBLISHED  // 已发布
+  DELETED    // 已删除
+}
+
+
