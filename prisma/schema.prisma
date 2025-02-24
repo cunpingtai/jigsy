@@ -41,6 +41,7 @@ model User {
   postLikes     PostLike[]       // 用户点赞的帖子
   atomLikes     AtomLike[]       // 用户点赞的原子
   atomComments  AtomComment[]    // 用户评论的原子
+  challenges    UserChallenge[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
   @@map("jigsaw_user")
@@ -68,6 +69,7 @@ model StandardAtom {
   fieldConfigs FieldConfig[]
   records     UserAtomRecord[]
   favorites   Favorite[]
+  challenges  Challenge[]
   @@map("jigsaw_puzzle")
   @@index([userId])
   @@index([categoryId])
@@ -309,6 +311,7 @@ model AtomLike {
   @@unique([standardAtomId, userId]) // 防止重复点赞
   @@index([standardAtomId])
   @@index([userId])
+  @@map("jigsaw_atom_like")
 }
 
 // 原子评论模型
@@ -330,6 +333,7 @@ model AtomComment {
   @@index([userId])
   @@index([parentId])
   @@index([likes])
+  @@map("jigsaw_atom_comment")
 }
 
 // 原子状态枚举
@@ -337,6 +341,137 @@ enum AtomStatus {
   DRAFT      // 草稿
   PUBLISHED  // 已发布
   DELETED    // 已删除
+}
+
+// 活动模型
+model Challenge {
+  id          Int       @id @default(autoincrement())
+  title       String    // 活动标题
+  description String    // 活动描述
+  type        ChallengeType // 活动类型：每日/每周
+  startTime   DateTime  // 开始时间
+  endTime     DateTime  // 结束时间
+  atomId      Int      // 关联的拼图
+  atom        StandardAtom @relation(fields: [atomId], references: [id])
+  rewards     Int      // 奖励积分
+  participants UserChallenge[] // 参与记录
+  status      ChallengeStatus @default(ACTIVE)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([type])
+  @@index([status])
+  @@index([atomId])
+  @@map("jigsaw_challenge")
+}
+
+// 用户参与记录
+model UserChallenge {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  challengeId Int
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+  completed   Boolean   @default(false)
+  completedAt DateTime?
+  score       Int?     // 得分
+  createdAt   DateTime  @default(now())
+
+  @@unique([userId, challengeId])
+  @@index([userId])
+  @@index([challengeId])
+  @@index([completed])
+  @@map("jigsaw_user_challenge")
+}
+
+// 活动类型
+enum ChallengeType {
+  DAILY    // 每日挑战
+  WEEKLY   // 每周挑战
+}
+
+// 活动状态
+enum ChallengeStatus {
+  ACTIVE    // 进行中
+  ENDED     // 已结束
+  UPCOMING  // 即将开始
+}
+
+// 基础教程模型（抽象）
+model Tutorial {
+  id          Int           @id @default(autoincrement())
+  title       String        // 标题
+  description String        @db.Text  // 描述
+  coverImage  String        // 封面
+  duration    Int           // 时长(分钟)
+  level       Level         // 难度级别
+  viewCount   Int          @default(0)
+  learnCount  Int          @default(0)
+  rating      Float        @default(0)
+  type        TutorialType // 教程类型
+  format      ContentFormat // 内容格式
+  // 根据格式关联不同内容
+  article     ArticleContent?
+  video       VideoContent?
+  link        LinkContent?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  @@index([type])
+  @@index([format])
+  @@index([level])
+  @@index([viewCount])
+  @@index([learnCount])
+  @@index([rating])
+  @@map("jigsaw_tutorial")
+}
+
+// 文章内容
+model ArticleContent {
+  id          Int       @id @default(autoincrement())
+  content     String    @db.Text  // 文章内容
+  tutorialId  Int       @unique   // 一对一关系
+  tutorial    Tutorial  @relation(fields: [tutorialId], references: [id])
+  @@index([tutorialId])
+  @@map("jigsaw_article_content")
+}
+
+// 视频内容
+model VideoContent {
+  id          Int       @id @default(autoincrement())
+  videoUrl    String    // 视频链接
+  platform    String    // 视频平台
+  tutorialId  Int       @unique
+  tutorial    Tutorial  @relation(fields: [tutorialId], references: [id])
+  @@index([tutorialId])
+  @@map("jigsaw_video_content")
+}
+
+// 外部链接
+model LinkContent {
+  id          Int       @id @default(autoincrement())
+  url         String    // 外部链接
+  website     String    // 网站名称
+  tutorialId  Int       @unique
+  tutorial    Tutorial  @relation(fields: [tutorialId], references: [id])
+  @@index([tutorialId])
+  @@map("jigsaw_link_content")
+}
+
+enum ContentFormat {
+  ARTICLE     // 文章教程
+  VIDEO       // 视频教程
+  LINK        // 外部链接
+}
+
+enum Level {
+  BEGINNER      // 初级
+  INTERMEDIATE  // 中级
+  ADVANCED      // 高级
+}
+
+enum TutorialType {
+  GUIDE         // 详细攻略
+  TIPS          // 实用技巧
 }
 
 
