@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   DistributionStrategy,
@@ -45,6 +44,8 @@ export function useFabricCanvas(
   config?: {
     width?: number;
     height?: number;
+    lineColor?: string;
+    lineWidth?: number;
     zoomStep?: number;
     zoom?: number;
     minZoom?: number;
@@ -346,9 +347,12 @@ export function usePieceBackground(
     path: string;
     container?: HTMLDivElement | null;
     fabricCanvas?: fabric.Canvas | null;
+    lineColor?: string;
+    lineWidth?: number;
   }
 ) {
-  const { width, height, path, container, fabricCanvas } = config;
+  const { width, height, path, container, fabricCanvas, lineColor, lineWidth } =
+    config;
   const [pieceBackground, setPieceBackground] = useState<{
     path: fabric.Path;
     image: fabric.Image;
@@ -363,8 +367,8 @@ export function usePieceBackground(
         left: 0,
         top: 0,
         fill: "transparent",
-        stroke: "white",
-        strokeWidth: 2,
+        stroke: lineColor || "white",
+        strokeWidth: lineWidth || 2,
         visible: false,
       });
 

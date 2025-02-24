@@ -1,8 +1,12 @@
-import { PuzzleGenerator } from "./generator";
+import { PieceEdges, PuzzleGenerator } from "./generator";
 import * as fabric from "fabric";
 export interface PuzzlePiece {
   id: string;
   path: string;
+  edges: PieceEdges;
+  tabHeight: number;
+  pieceWidth: number;
+  pieceHeight: number;
   row: number;
   col: number;
   width: number;
@@ -27,11 +31,19 @@ export class PuzzleSplitter {
 
     for (let row = 0; row < tilesY; row++) {
       for (let col = 0; col < tilesX; col++) {
-        const path = this.puzzleGenerator.generatePiecePath(row, col);
+        const { path, edges } = this.puzzleGenerator.generatePiecePath(
+          row,
+          col
+        );
+        const dimensions = this.puzzleGenerator.getPieceDimensions(row, col);
         const piece = new fabric.Path(path);
         pieces.push({
           id: `piece-${row}-${col}`,
           path,
+          edges,
+          tabHeight: dimensions.tabHeight,
+          pieceWidth: this.puzzleGenerator.pieceWidth,
+          pieceHeight: this.puzzleGenerator.pieceHeight,
           row,
           col,
           width: piece.width,

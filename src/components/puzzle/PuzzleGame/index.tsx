@@ -58,32 +58,67 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
   const [showTextureDialog, setShowTextureDialog] = useState(false);
   const [selectedTexture, setSelectedTexture] = useState("bg-primary/50");
   const [isGameStarted, setIsGameStarted] = useState(false);
-  const [showStartDialog, setShowStartDialog] = useState(true);
+  const [showStartDialog, setShowStartDialog] = useState(false);
   const timerRef = useRef<NodeJS.Timeout>(null);
   const [showSettingsDialog, setShowSettingsDialog] = useState(false);
+  const [refresh, setRefresh] = useState(0);
   const [tempSettings, setTempSettings] = useState({
     pieces: puzzle.pieces,
     distribution: DistributionStrategy.SURROUNDING,
+    lineColor: "#000000",
+    lineWidth: 2,
   });
 
   const piecesOptions = [
-    { value: 12, label: "新手 (12片)" },
-    { value: 24, label: "入门 (24片)" },
-    { value: 48, label: "简单 (48片)" },
-    { value: 96, label: "普通 (96片)" },
-    { value: 144, label: "进阶 (144片)" },
-    { value: 288, label: "困难 (288片)" },
-    { value: 432, label: "挑战 (432片)" },
-    { value: 576, label: "专家 (576片)" },
-    { value: 720, label: "大师 (720片)" },
-    { value: 864, label: "精英 (864片)" },
-    { value: 1008, label: "王者 (1008片)" },
-    { value: 1152, label: "传说 (1152片)" },
-    { value: 1296, label: "史诗 (1296片)" },
-    { value: 1440, label: "神话 (1440片)" },
-    { value: 1584, label: "天神 (1584片)" },
-    { value: 1728, label: "至尊 (1728片)" },
-    { value: 1872, label: "终极 (1872片)" },
+    { value: 4, label: "新手 (4片)" },
+    { value: 9, label: "入门 (9片)" },
+    { value: 16, label: "新手 (16片)" }, // 4x4
+    { value: 25, label: "入门 (25片)" }, // 5x5
+    { value: 36, label: "入门 (36片)" }, // 6x6
+    { value: 49, label: "简单 (49片)" }, // 7x7
+    { value: 64, label: "简单 (64片)" }, // 8x8
+    { value: 81, label: "普通 (81片)" }, // 9x9
+    { value: 100, label: "普通 (100片)" }, // 10x10
+    { value: 121, label: "进阶 (121片)" }, // 11x11
+    { value: 144, label: "进阶 (144片)" }, // 12x12
+    { value: 169, label: "困难 (169片)" }, // 13x13
+    { value: 196, label: "困难 (196片)" }, // 14x14
+    { value: 225, label: "困难 (225片)" }, // 15x15
+    { value: 256, label: "挑战 (256片)" }, // 16x16
+    { value: 289, label: "挑战 (289片)" }, // 17x17
+    { value: 324, label: "专家 (324片)" }, // 18x18
+    { value: 361, label: "专家 (361片)" }, // 19x19
+    { value: 400, label: "大师 (400片)" }, // 20x20
+    { value: 441, label: "大师 (441片)" }, // 21x21
+    { value: 484, label: "精英 (484片)" }, // 22x22
+    { value: 529, label: "精英 (529片)" }, // 23x23
+    { value: 576, label: "王者 (576片)" }, // 24x24
+    { value: 625, label: "王者 (625片)" }, // 25x25
+    { value: 676, label: "传说 (676片)" }, // 26x26
+    { value: 729, label: "传说 (729片)" }, // 27x27
+    { value: 784, label: "史诗 (784片)" }, // 28x28
+    { value: 841, label: "史诗 (841片)" }, // 29x29
+    { value: 900, label: "神话 (900片)" }, // 30x30
+    { value: 961, label: "神话 (961片)" }, // 31x31
+    { value: 1024, label: "神话 (1024片)" }, // 32x32
+    { value: 1089, label: "神话 (1089片)" }, // 33x33
+    { value: 1156, label: "神话 (1156片)" }, // 34x34
+    { value: 1225, label: "神话 (1225片)" }, // 35x35
+    { value: 1296, label: "神话 (1296片)" }, // 36x36
+    { value: 1369, label: "神话 (1369片)" }, // 37x37
+    { value: 1444, label: "神话 (1444片)" }, // 38x38
+    { value: 1521, label: "神话 (1521片)" }, // 39x39
+    { value: 1600, label: "神话 (1600片)" }, // 40x40
+    { value: 1681, label: "神话 (1681片)" }, // 41x41
+    { value: 1764, label: "神话 (1764片)" }, // 42x42
+    { value: 1849, label: "神话 (1849片)" }, // 43x43
+    { value: 1936, label: "神话 (1936片)" }, // 44x44
+    { value: 2025, label: "神话 (2025片)" }, // 45x45
+    { value: 2116, label: "神话 (2116片)" }, // 46x46
+    { value: 2209, label: "神话 (2209片)" }, // 47x47
+    { value: 2304, label: "神话 (2304片)" }, // 48x48
+    { value: 2401, label: "神话 (2401片)" }, // 49x49
+    { value: 2500, label: "神话 (2500片)" }, // 50x50
   ];
 
   const distributionOptions = [
@@ -104,6 +139,15 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
     },
   ];
 
+  const lineColorOptions = [
+    { value: "#000000", label: "黑色" },
+    { value: "#FFFFFF", label: "白色" },
+    { value: "#6b7280", label: "灰色" },
+    { value: "#3b82f6", label: "蓝色" },
+    { value: "#10b981", label: "绿色" },
+    { value: "#ef4444", label: "红色" },
+  ];
+
   const handleZoomChange = useCallback((newZoom: number) => {
     setZoomLevel(Math.floor(newZoom * 100));
   }, []);
@@ -113,10 +157,10 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
   }, []);
 
   const [config, setConfig] = useState<Omit<PuzzleConfigType, "image">>({
-    tilesX: 10,
-    tilesY: 10,
-    width: 600,
-    height: 600,
+    tilesX: 2,
+    tilesY: 2,
+    width: 2000,
+    height: 200,
     distributionStrategy: DistributionStrategy.SURROUNDING,
     seed: 2048,
     tabSize: 20,
@@ -126,6 +170,8 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
     zoomStep: 0.1,
     minZoom: 0.5,
     maxZoom: 2,
+    lineColor: "#000000",
+    lineWidth: 2,
   });
 
   useEffect(() => {
@@ -155,28 +201,45 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
   };
 
   const handleSettingsConfirm = () => {
-    setConfig((prev) => ({
-      ...prev,
-      tilesX: Math.floor(Math.sqrt(tempSettings.pieces)),
-      tilesY: Math.floor(Math.sqrt(tempSettings.pieces)),
-      distributionStrategy: tempSettings.distribution,
-    }));
-
     setIsGameStarted(false);
-    setShowStartDialog(true);
+    setShowStartDialog(false);
     setTimeElapsed(0);
     setPiecesPlaced(0);
     setZoomLevel(100);
     setFixCenter(0);
     setShowSettingsDialog(false);
+    setEnablePanning(false);
+    setConfig((prev) => ({
+      ...prev,
+      tilesX: Math.floor(Math.sqrt(tempSettings.pieces)),
+      tilesY: Math.floor(Math.sqrt(tempSettings.pieces)),
+      distributionStrategy: tempSettings.distribution,
+      lineColor: tempSettings.lineColor,
+      lineWidth: tempSettings.lineWidth,
+    }));
+    setRefresh((prev) => prev + 1);
   };
 
   const handleSettingsOpen = () => {
     setShowSettingsDialog(true);
   };
 
+  useEffect(() => {
+    if (isGameStarted) {
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.altKey || e.metaKey || e.key === "Alt" || e.key === "Meta") {
+          setEnablePanning((prev) => !prev);
+        }
+      };
+      window.document.addEventListener("keydown", handleKeyDown);
+      return () => {
+        window.document.removeEventListener("keydown", handleKeyDown);
+      };
+    }
+  }, [isGameStarted]);
+
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden" key={refresh}>
       <GameToolbar
         showPreview={showPreview}
         showGrid={showGrid}
@@ -238,7 +301,6 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
                 className="h-8 w-8 text-muted-foreground hover:text-primary"
                 onClick={() => {
                   setFixCenter(Date.now());
-                  setZoomLevel(100);
                 }}
               >
                 <Crosshair className="h-4 w-4" />
@@ -267,9 +329,13 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
               >
                 <ZoomIn className="h-4 w-4" />
               </Button>
-              <span className="text-sm text-muted-foreground w-12">
+              <Button
+                variant="ghost"
+                className="h-8 text-muted-foreground hover:text-primary"
+                onClick={() => setZoomLevel(100)}
+              >
                 {zoomLevel}%
-              </span>
+              </Button>
             </div>
             <Button
               variant="ghost"
@@ -288,6 +354,9 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
               <PuzzleGenerator
                 {...config}
                 ref={puzzleGameRef}
+                onLoaded={() => {
+                  setShowStartDialog(true);
+                }}
                 zoom={zoomLevel / 100}
                 onZoomChange={handleZoomChange}
                 imageUrl={puzzle.image}
@@ -313,7 +382,14 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
               variant="default"
               size="sm"
               onClick={() => {
-                puzzleGameRef.current?.handleValidate();
+                puzzleGameRef.current?.handleValidate().then((completed) => {
+                  if (completed) {
+                    setTimeout(() => {
+                      setFixCenter(Date.now());
+                      setZoomLevel(100);
+                    }, 300);
+                  }
+                });
               }}
               className="gap-2"
             >
@@ -430,13 +506,62 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
                       className="flex flex-col items-start py-2"
                     >
                       <div>{option.label}</div>
-                      <div className="text-xs text-muted-foreground mt-1">
+                      {/* <div className="text-xs text-muted-foreground mt-1">
                         {option.description}
+                      </div> */}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">线条颜色</label>
+              <Select
+                value={tempSettings.lineColor}
+                onValueChange={(value) =>
+                  setTempSettings((prev) => ({ ...prev, lineColor: value }))
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="选择线条颜色" />
+                </SelectTrigger>
+                <SelectContent>
+                  {lineColorOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      <div className="flex items-center gap-2">
+                        <div
+                          className="w-4 h-4 rounded-full"
+                          style={{
+                            backgroundColor: option.value,
+                            border: "1px solid #e2e8f0",
+                          }}
+                        />
+                        <span>{option.label}</span>
                       </div>
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <label className="text-sm font-medium">线条宽度</label>
+                <span className="text-sm text-muted-foreground">
+                  {tempSettings.lineWidth}px
+                </span>
+              </div>
+              <Slider
+                value={[tempSettings.lineWidth]}
+                onValueChange={(value) =>
+                  setTempSettings((prev) => ({ ...prev, lineWidth: value[0] }))
+                }
+                min={0.5}
+                max={3}
+                step={0.5}
+                className="w-full"
+              />
             </div>
           </div>
           <div className="flex justify-end gap-3">

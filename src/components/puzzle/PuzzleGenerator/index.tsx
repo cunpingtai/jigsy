@@ -13,11 +13,14 @@ export type PuzzleConfigType = Omit<
 
 type PuzzleGeneratorProps = {
   imageUrl: string;
+  width?: number;
+  height?: number;
+  onLoaded?: () => void;
 } & PuzzleConfigType;
 
 export const PuzzleGenerator = forwardRef<PuzzleGameRef, PuzzleGeneratorProps>(
-  ({ ...config }, ref) => {
-    const { imageUrl, ...restConfig } = config;
+  ({ onLoaded, ...config }, ref) => {
+    const { imageUrl, width, height, ...restConfig } = config;
     const [measureRef, { width: containerWidth, height: containerHeight }] =
       useMeasure<HTMLDivElement>();
     const [mounted, setMounted] = useState(false);
@@ -48,19 +51,31 @@ export const PuzzleGenerator = forwardRef<PuzzleGameRef, PuzzleGeneratorProps>(
 
     useEffect(() => {
       if (!image) {
-        loadImage();
+        loadImage().then(() => {
+          setTimeout(() => {
+            setMounted(true);
+            onLoaded?.();
+          }, 1000);
+        });
       }
-    }, [image, loadImage]);
+    }, [image, loadImage, onLoaded]);
 
-    useEffect(() => {
-      setTimeout(() => {
-        setMounted(true);
-      }, 1000);
-    }, []);
+    let fitSize = { width: 0, height: 0 };
 
-    const fitSize = image
-      ? calculateFitSize(image.width!, image.height!)
-      : { width: 0, height: 0 };
+    if (width || height) {
+      if (width && height) {
+        fitSize = calculateFitSize(width, height);
+      } else {
+        fitSize = calculateFitSize(
+          Math.min(width || containerWidth, containerWidth),
+          Math.min(height || containerHeight, containerHeight)
+        );
+      }
+    } else {
+      fitSize = image
+        ? calculateFitSize(image.width!, image.height!)
+        : { width: 0, height: 0 };
+    }
 
     return (
       <div className="w-full h-full relative">

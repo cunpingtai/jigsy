@@ -7,7 +7,7 @@ const puzzleData = {
   id: 1,
   title: "星空下的樱花",
   image: "https://cdn.mos.cms.futurecdn.net/Y8oFodGLyPJZRtKjyFjBLN-1200-80.jpg",
-  pieces: 1000,
+  pieces: 4,
   difficulty: "medium",
 };
 

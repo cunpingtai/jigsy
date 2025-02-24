@@ -1,4 +1,5 @@
 import * as fabric from "fabric";
+import { PieceEdges } from "./generator";
 
 export interface PuzzleConfig {
   seed: number;
@@ -13,7 +14,11 @@ export interface PuzzleConfig {
 export interface PuzzlePiece {
   id: string;
   path: string;
+  tabHeight: number;
+  pieceWidth: number;
+  pieceHeight: number;
   row: number;
+  edges: PieceEdges;
   col: number;
   width: number;
   height: number;
@@ -33,6 +38,8 @@ export interface PiecePosition {
 export interface PuzzleGameProps {
   image: fabric.Image;
   showGrid: boolean;
+  lineColor?: string;
+  lineWidth?: number;
   showPreview: boolean;
   containerWidth: number;
   containerHeight: number;

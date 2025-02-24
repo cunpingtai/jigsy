@@ -8,7 +8,10 @@ import React, {
 } from "react";
 import type { PuzzleGameProps } from "./types";
 import * as fabric from "fabric";
-import { checkPuzzleCompletion } from "./puzzleValidator";
+import {
+  checkPuzzleCompletion,
+  checkRelativePositions,
+} from "./puzzleValidator";
 import {
   createAnimationLoop,
   createExplosionParticles,
@@ -126,7 +129,7 @@ fabric.Canvas.prototype.toggleDragMode = function (dragMode) {
 };
 
 export type PuzzleGameRef = {
-  handleValidate: () => void;
+  handleValidate: () => Promise<boolean>;
   handleAutoComplete: () => void;
   validationStatus: "none" | "success" | "fail";
   pieceTotal: number;
@@ -143,6 +146,8 @@ export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
       tilesY,
       seed,
       tabSize,
+      lineColor,
+      lineWidth,
       jitter,
       distributionStrategy,
       image,
@@ -201,6 +206,8 @@ export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
 
     const { pieceBackground } = usePieceBackground(image, {
       fabricCanvas,
+      lineColor,
+      lineWidth,
       container: containerRef.current,
       width,
       height,
@@ -252,10 +259,48 @@ export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
       "none" | "success" | "fail"
     >("none");
 
+    const handleGroupsAnimation = useCallback(async () => {
+      if (!fabricCanvas || !containerRef.current) return;
+
+      const canvas = fabricCanvas;
+      const animationLoop = createAnimationLoop(canvas);
+      const { x, y } = getDiffCenterCoords();
+
+      // 所有拼图块同时移动到正确位置
+      groups.forEach(({ target, piece }) => {
+        const newLeft = piece.x + x;
+        const newTop = piece.y + y;
+
+        animationLoop.addAnimation({
+          obj: target,
+          startProps: {
+            left: target.left || 0,
+            top: target.top || 0,
+            angle: target.angle || 0,
+          },
+          endProps: {
+            left: newLeft,
+            top: newTop,
+            angle: 0,
+          },
+          duration: 500,
+        });
+      });
+
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          animationLoop.clear();
+          resolve(true);
+        }, 500);
+      });
+    }, [fabricCanvas, getDiffCenterCoords, groups]);
+
     const playCompletionAnimation = useCallback(
       async (image: fabric.Image, canvas: fabric.Canvas) => {
         const animationLoop = createAnimationLoop(canvas);
         const { x, y } = getDiffCenterCoords();
+
+        await handleGroupsAnimation();
 
         // 创建爆炸效果
         const particles = createExplosionParticles(
@@ -336,7 +381,7 @@ export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
 
         animationLoop.clear();
       },
-      [getDiffCenterCoords, height, width]
+      [getDiffCenterCoords, handleGroupsAnimation, height, width]
     );
 
     const playFailAnimation = useCallback((canvas: fabric.Canvas) => {
@@ -344,7 +389,7 @@ export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
 
       // 震动动画
       const shakeAnimation = async () => {
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 1; i++) {
           // 震动3次
           for (const obj of objects) {
             const originalLeft = obj.left || 0;
@@ -424,77 +469,57 @@ export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
         });
       });
     }, []);
+    const handleValidate = useCallback(async () => {
+      if (!fabricCanvas) return false;
+      if (!image) return false;
 
-    const handleValidate = useCallback(() => {
-      if (!fabricCanvas) return;
-      if (!image) return;
-
-      const currentPositions: Record<string, { x: number; y: number }> = {};
+      const currentPositions: Record<
+        string,
+        {
+          x: number;
+          y: number;
+          width: number;
+          height: number;
+          target: fabric.Object;
+        }
+      > = {};
       groups.forEach(({ id, target }) => {
         currentPositions[id] = {
           x: target.left || 0,
           y: target.top || 0,
+          width: target.width || 0,
+          height: target.height || 0,
+          target,
         };
       });
       const { x, y } = getDiffCenterCoords();
 
       const completed = checkPuzzleCompletion(x, y, pieces, currentPositions);
-
-      if (completed) {
+      const completed2 = checkRelativePositions(pieces, currentPositions);
+      if (completed || completed2) {
         setValidationStatus("success");
-        playCompletionAnimation(image, fabricCanvas);
+        await playCompletionAnimation(image, fabricCanvas);
       } else {
         setValidationStatus("fail");
         playFailAnimation(fabricCanvas);
-
-        // 3秒后重置状态
-        setTimeout(() => {
-          setValidationStatus("none");
-        }, 3000);
       }
+
+      return completed || completed2;
     }, [
+      fabricCanvas,
       image,
       groups,
       getDiffCenterCoords,
       pieces,
       playCompletionAnimation,
-      fabricCanvas,
       playFailAnimation,
     ]);
 
     const handleAutoComplete = useCallback(() => {
-      if (!fabricCanvas || !containerRef.current) return;
-
-      const canvas = fabricCanvas;
-      const animationLoop = createAnimationLoop(canvas);
-      const { x, y } = getDiffCenterCoords();
-
-      // 所有拼图块同时移动到正确位置
-      groups.forEach(({ target, piece }) => {
-        const newLeft = piece.x + x;
-        const newTop = piece.y + y;
-
-        animationLoop.addAnimation({
-          obj: target,
-          startProps: {
-            left: target.left || 0,
-            top: target.top || 0,
-            angle: target.angle || 0,
-          },
-          endProps: {
-            left: newLeft,
-            top: newTop,
-            angle: 0,
-          },
-          duration: 500,
-        });
-      });
-
-      setTimeout(() => {
-        animationLoop.clear();
+      handleGroupsAnimation().then(() => {
         handleValidate();
-      }, 500);
-    }, [fabricCanvas, getDiffCenterCoords, groups, handleValidate]);
+      });
+    }, [handleGroupsAnimation, handleValidate]);
 
     useImperativeHandle(ref, () => ({
       handleValidate,

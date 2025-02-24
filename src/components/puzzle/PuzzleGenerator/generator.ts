@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 interface PuzzleConfig {
   seed: number;
   tabSize: number;
@@ -10,7 +9,7 @@ interface PuzzleConfig {
 }
 
 // 定义边缘类型枚举
-enum EdgeType {
+export enum EdgeType {
   FLAT = "FLAT",
   TAB = "TAB", // 凸起
   HOLE = "HOLE", // 凹陷
@@ -20,17 +19,28 @@ enum EdgeType {
 interface EdgeParams {
   type: EdgeType;
   params: {
+    // 第一个控制点的水平偏移量
     a: number;
+
+    // 中间控制点的水平偏移量
     b: number;
+
+    // 所有控制点的垂直偏移量
     c: number;
+
+    // 第二个控制点的水平偏移量
     d: number;
+
+    // 最后一个控制点的垂直偏移量
     e: number;
+
+    // 是否翻转边缘形状（true表示凹陷，false表示凸起）
     flip: boolean;
   };
 }
 
 // 定义piece边缘信息接口
-interface PieceEdges {
+export interface PieceEdges {
   top: EdgeParams;
   right: EdgeParams;
   bottom: EdgeParams;
@@ -71,8 +81,8 @@ export class PuzzleGenerator {
   // 添加存储边缘信息的Map
   private edgeInfoMap: Map<string, PieceEdges> = new Map();
 
-  private pieceWidth: number = 0;
-  private pieceHeight: number = 0;
+  pieceWidth: number = 0;
+  pieceHeight: number = 0;
 
   private random(): number {
     const x = Math.sin(this.seed) * 10000;
@@ -329,7 +339,13 @@ export class PuzzleGenerator {
     return this.edgeInfoMap.get(key);
   }
 
-  generatePiecePath(row: number, col: number): string {
+  generatePiecePath(
+    row: number,
+    col: number
+  ): {
+    path: string;
+    edges: PieceEdges;
+  } {
     const edges = this.getPieceEdges(row, col);
 
     if (!edges) {
@@ -340,7 +356,7 @@ export class PuzzleGenerator {
 
     const path = this.generateSinglePiecePath(row, col, edges);
 
-    return path;
+    return { path, edges };
   }
 
   private generateSinglePiecePath(
@@ -558,20 +574,46 @@ export class PuzzleGenerator {
     const baseWidth = this.pieceWidth;
     const baseHeight = this.pieceHeight;
 
-    // 计算每个边的延伸
-    const tabHeight = this.pieceWidth * this.t * 3.0;
+    // 计算凸起高度 - 移除多余的 3.0 倍数
+    const tabHeight = this.pieceWidth * this.t;
 
-    // 根据边的类型计算延伸
-    const leftExtend = edges.left.type === EdgeType.TAB ? tabHeight : 0;
-    const rightExtend = edges.right.type === EdgeType.TAB ? tabHeight : 0;
-    const topExtend = edges.top.type === EdgeType.TAB ? tabHeight : 0;
-    const bottomExtend = edges.bottom.type === EdgeType.TAB ? tabHeight : 0;
+    // 计算每个边的实际延伸（考虑凹凸）
+    const leftExtend =
+      edges.left.type === EdgeType.TAB
+        ? tabHeight
+        : edges.left.type === EdgeType.HOLE
+        ? -tabHeight
+        : 0;
+    const rightExtend =
+      edges.right.type === EdgeType.TAB
+        ? tabHeight
+        : edges.right.type === EdgeType.HOLE
+        ? -tabHeight
+        : 0;
+    const topExtend =
+      edges.top.type === EdgeType.TAB
+        ? tabHeight
+        : edges.top.type === EdgeType.HOLE
+        ? -tabHeight
+        : 0;
+    const bottomExtend =
+      edges.bottom.type === EdgeType.TAB
+        ? tabHeight
+        : edges.bottom.type === EdgeType.HOLE
+        ? -tabHeight
+        : 0;
+
+    // 计算总的尺寸（基础尺寸加上凸起或凹陷的影响）
+    const totalWidth =
+      baseWidth + Math.max(0, leftExtend) + Math.max(0, rightExtend);
+    const totalHeight =
+      baseHeight + Math.max(0, topExtend) + Math.max(0, bottomExtend);
 
     return {
       baseWidth,
       baseHeight,
-      totalWidth: baseWidth + leftExtend + rightExtend,
-      totalHeight: baseHeight + topExtend + bottomExtend,
+      totalWidth,
+      totalHeight,
       tabHeight,
     };
   }
