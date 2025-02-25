@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 import { Providers } from "./providers";
 import "./globals.css";
+import { neobrutalism } from "@clerk/themes";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,10 +21,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning={true}>
-      <body className={`gradient-bg antialiased`}>
-        <Providers>{children}</Providers>
-      </body>
-    </html>
+    <ClerkProvider appearance={{ baseTheme: neobrutalism }}>
+      <html lang="en" suppressHydrationWarning={true}>
+        <body className={`gradient-bg antialiased`}>
+          <Providers>
+            <SignedOut>
+              <SignInButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+            {children}
+          </Providers>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

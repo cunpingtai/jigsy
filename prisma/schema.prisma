@@ -25,6 +25,7 @@ datasource db {
 
 model User {
   id            Int              @id @default(autoincrement())
+  clerkId       String           @unique
   email         String          @unique
   name          String?
   avatar        String?
@@ -41,6 +42,8 @@ model User {
   postLikes     PostLike[]       // 用户点赞的帖子
   atomLikes     AtomLike[]       // 用户点赞的原子
   atomComments  AtomComment[]    // 用户评论的原子
+  atomCommentLikes  AtomCommentLike[]    // 用户评论的原子点赞
+  commentLikes  CommentLike[]    // 用户评论的点赞
   challenges    UserChallenge[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
@@ -58,9 +61,8 @@ model StandardAtom {
   categoryId  Int
   viewCount   Int      @default(0)  // 查看次数
   likes       AtomLike[] // 点赞关联
-  likesCount  Int      @default(0)  // 点赞数
   comments    AtomComment[] // 评论关联
-  status      AtomStatus @default(PUBLISHED)
+  status      AtomStatus @default(DRAFT)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   tags        TagsOnAtoms[] // 添加这个反向关联字段
@@ -74,7 +76,6 @@ model StandardAtom {
   @@index([userId])
   @@index([categoryId])
   @@index([status])
-  @@index([likesCount])
   @@index([groupId])
 }
 
@@ -131,7 +132,8 @@ model Group {
   @@map("jigsaw_group")
   @@index([categoryId])
 }
-
+// UserAtomRecord 是用户对标准原子的使用记录，比如用户玩过拼图
+// UserAtomRecord meta 是用户对标准原子的使用记录的元数据
 model UserAtomRecord {
   id        Int          @id @default(autoincrement())
   userId    Int
@@ -231,7 +233,7 @@ model Post {
   likesCount  Int       @default(0) // 点赞数统计
   views       Int       @default(0)
   tags        String?
-  status      PostStatus @default(PUBLISHED)
+  status      PostStatus @default(DRAFT)
   featured    Featured? // 关联精选表
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
@@ -271,27 +273,6 @@ model PostLike {
   @@map("jigsaw_post_like")
 }
 
-// 评论模型
-model Comment {
-  id        Int       @id @default(autoincrement())
-  content   String
-  userId    Int
-  user      User      @relation(fields: [userId], references: [id])
-  postId    Int
-  post      Post      @relation(fields: [postId], references: [id])
-  parentId  Int?      // 父评论ID，用于回复功能
-  parent    Comment?  @relation("CommentToComment", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  replies   Comment[] @relation("CommentToComment")
-  likes     Int       @default(0)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  @@index([userId])
-  @@index([postId])
-  @@index([parentId])
-  @@index([likes])
-  @@map("jigsaw_comment")
-}
-
 // 帖子状态枚举
 enum PostStatus {
   DRAFT      // 草稿
@@ -307,8 +288,9 @@ model AtomLike {
   userId        Int
   user          User         @relation(fields: [userId], references: [id])
   createdAt     DateTime     @default(now())
-
+  
   @@unique([standardAtomId, userId]) // 防止重复点赞
+  @@unique([userId, standardAtomId]) // 防止重复点赞
   @@index([standardAtomId])
   @@index([userId])
   @@map("jigsaw_atom_like")
@@ -325,16 +307,65 @@ model AtomComment {
   parentId      Int?         // 父评论ID
   parent        AtomComment? @relation("AtomCommentReplies", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   replies       AtomComment[] @relation("AtomCommentReplies")
-  likes        Int          @default(0)  // 评论点赞数
+  likes        AtomCommentLike[] // 评论点赞数
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
 
   @@index([standardAtomId])
   @@index([userId])
   @@index([parentId])
-  @@index([likes])
   @@map("jigsaw_atom_comment")
 }
+
+model AtomCommentLike {
+  id        Int      @id @default(autoincrement())
+  commentId Int
+  comment   AtomComment @relation(fields: [commentId], references: [id])
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  @@unique([commentId, userId])
+  @@unique([userId, commentId])
+  @@index([commentId])
+  @@index([userId])
+  @@map("jigsaw_atom_comment_like")
+}
+
+model CommentLike {
+  id        Int      @id @default(autoincrement())
+  commentId Int
+  comment   Comment @relation(fields: [commentId], references: [id])
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  @@unique([commentId, userId])
+  @@unique([userId, commentId])
+  @@index([commentId])
+  @@index([userId])
+  @@map("jigsaw_comment_like")
+}
+
+
+// 评论模型
+model Comment {
+  id        Int       @id @default(autoincrement())
+  content   String
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id])
+  postId    Int
+  post      Post      @relation(fields: [postId], references: [id])
+  parentId  Int?      // 父评论ID，用于回复功能
+  parent    Comment?  @relation("CommentToComment", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies   Comment[] @relation("CommentToComment")
+  likes     CommentLike[] // 评论点赞数
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  @@index([userId])
+  @@index([postId])
+  @@index([parentId])
+  @@map("jigsaw_comment")
+}
+
 
 // 原子状态枚举
 enum AtomStatus {
