@@ -31,17 +31,14 @@ interface PuzzleSettingsProps {
   onChange: (meta: PuzzleMeta) => void;
 }
 
-const piecesOptions = [
-  { value: 4, label: "4 片 (2×2)" },
-  { value: 9, label: "9 片 (3×3)" },
-  { value: 16, label: "16 片 (4×4)" },
-  { value: 36, label: "36 片 (6×6)" },
-  { value: 64, label: "64 片 (8×8)" },
-  { value: 100, label: "100 片 (10×10)" },
-  { value: 256, label: "256 片 (16×16)" },
-  { value: 1024, label: "1024 片 (32×32)" },
-  { value: 4096, label: "4096 片 (64×64)" },
-];
+const piecesOptions = new Array(70).fill(0).map((_, i) => {
+  const value = i + 2;
+  const label = `${value * value} 片 (${value}×${value})`;
+  return {
+    value,
+    label,
+  };
+});
 
 export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
   config,

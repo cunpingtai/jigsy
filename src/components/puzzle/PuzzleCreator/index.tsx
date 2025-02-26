@@ -19,6 +19,7 @@ import {
   Hash,
 } from "lucide-react";
 import { DistributionStrategy } from "../PuzzleGenerator/types";
+import { Button } from "@/components/ui/button";
 
 type PuzzleType = "image" | "solid" | "gradient" | "emoji" | "text" | "symbol";
 
@@ -226,6 +227,13 @@ export const PuzzleCreator: FC = () => {
               />
             </CardContent>
           </Card>
+          {image ? (
+            <Card>
+              <CardContent className="p-6">
+                <Button className="w-full">创建拼图</Button>
+              </CardContent>
+            </Card>
+          ) : null}
         </div>
       </div>
     </div>
