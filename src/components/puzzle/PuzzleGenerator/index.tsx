@@ -16,11 +16,12 @@ type PuzzleGeneratorProps = {
   width?: number;
   height?: number;
   onLoaded?: () => void;
+  preview?: boolean;
 } & PuzzleConfigType;
 
 export const PuzzleGenerator = forwardRef<PuzzleGameRef, PuzzleGeneratorProps>(
   ({ onLoaded, ...config }, ref) => {
-    const { imageUrl, width, height, ...restConfig } = config;
+    const { imageUrl, width, height, preview, ...restConfig } = config;
     const [measureRef, { width: containerWidth, height: containerHeight }] =
       useMeasure<HTMLDivElement>();
     const [mounted, setMounted] = useState(false);
@@ -58,7 +59,7 @@ export const PuzzleGenerator = forwardRef<PuzzleGameRef, PuzzleGeneratorProps>(
           }, 1000);
         });
       }
-    }, [image, loadImage, onLoaded]);
+    }, [image, preview, loadImage, onLoaded]);
 
     let fitSize = { width: 0, height: 0 };
 
@@ -80,13 +81,14 @@ export const PuzzleGenerator = forwardRef<PuzzleGameRef, PuzzleGeneratorProps>(
     return (
       <div className="w-full h-full relative">
         <div className="w-full h-full" ref={measureRef}>
-          {mounted && image ? (
+          {preview && mounted && image ? (
             <PuzzleGame
               {...restConfig}
+              preview={preview}
               ref={ref}
               image={image}
-              width={fitSize.width}
-              height={fitSize.height}
+              width={Math.max(Math.min(fitSize.width, 4096), 200)}
+              height={Math.max(Math.min(fitSize.height, 4096), 200)}
               containerWidth={containerWidth}
               containerHeight={containerHeight}
             />

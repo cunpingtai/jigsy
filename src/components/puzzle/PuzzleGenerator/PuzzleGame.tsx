@@ -140,6 +140,7 @@ export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
     {
       showGrid,
       showPreview,
+      preview,
       width,
       height,
       tilesX,
@@ -198,11 +199,19 @@ export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
       jitter,
     });
 
-    const { pieces, positions } = usePuzzleSplitter(puzzleGenerator, {
-      width: containerWidth,
-      height: containerHeight,
-      distributionStrategy,
-    });
+    const { x, y } = getDiffCenterCoords();
+
+    const { pieces, positions } = usePuzzleSplitter(
+      puzzleGenerator,
+      {
+        x,
+        y,
+        width: containerWidth,
+        height: containerHeight,
+        distributionStrategy,
+      },
+      preview
+    );
 
     const { pieceBackground } = usePieceBackground(image, {
       fabricCanvas,

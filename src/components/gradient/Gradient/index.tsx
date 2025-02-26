@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { FC, useEffect, useRef, useState, useMemo } from "react";
 import * as fabric from "fabric";

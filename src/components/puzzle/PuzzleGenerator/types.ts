@@ -37,6 +37,7 @@ export interface PiecePosition {
 
 export interface PuzzleGameProps {
   image: fabric.Image;
+  preview?: boolean;
   showGrid: boolean;
   lineColor?: string;
   lineWidth?: number;

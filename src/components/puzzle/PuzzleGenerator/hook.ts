@@ -180,12 +180,15 @@ export function useFabricCanvas(
 export function usePuzzleSplitter(
   puzzleGenerator: PuzzleGenerator,
   config: {
+    x: number;
+    y: number;
     width: number;
     height: number;
     distributionStrategy: DistributionStrategy;
-  }
+  },
+  preview?: boolean
 ) {
-  const { width, height, distributionStrategy } = config;
+  const { x, y, width, height, distributionStrategy } = config;
   const [pieces, setPieces] = useState<PuzzlePiece[]>([]);
   const [positions, setPositions] = useState<Record<string, PiecePosition>>({});
 
@@ -201,14 +204,14 @@ export function usePuzzleSplitter(
       const position = generatePiecePosition(piece, width, height, strategy);
       initialPositions[piece.id] = {
         ...position,
-        x: Math.max(0, position.x),
-        y: Math.max(0, position.y),
+        x: preview ? piece.x + x : Math.max(0, position.x),
+        y: preview ? piece.y + y : Math.max(0, position.y),
       };
     });
 
     setPieces(initialPieces);
     setPositions(initialPositions);
-  }, [width, height, puzzleGenerator, distributionStrategy]);
+  }, [preview, width, height, puzzleGenerator, distributionStrategy, x, y]);
 
   return {
     pieces,
@@ -232,6 +235,7 @@ export function useGeneratePieces(
       id: string;
       target: fabric.Group;
       piece: PuzzlePiece;
+      path: fabric.Path;
     }[]
   >([]);
 
@@ -305,6 +309,7 @@ export function useGeneratePieces(
           id: piece.id,
           target: group,
           piece,
+          path,
         };
       });
 
@@ -322,14 +327,15 @@ export function useGeneratePieces(
   useEffect(() => {
     if (!image) return;
     if (!fabricCanvas) return;
-
+    console.log("generatePieces");
     const groups = generatePieces(image, fabricCanvas);
     setGroups(groups);
 
     return () => {
-      console.log("dispose");
-      groups.forEach(({ target }) => {
+      groups.forEach(({ target, path }) => {
         target.dispose();
+        target.removeAll();
+        path.dispose();
       });
     };
   }, [image, generatePieces, fabricCanvas]);
@@ -396,7 +402,15 @@ export function usePieceBackground(
         group,
       };
     },
-    [width, height, container, path]
+    [
+      width,
+      height,
+      path,
+      lineColor,
+      lineWidth,
+      container?.offsetLeft,
+      container?.offsetTop,
+    ]
   );
 
   useEffect(() => {
@@ -408,6 +422,7 @@ export function usePieceBackground(
 
     return () => {
       pieceBackground?.group.dispose();
+      pieceBackground?.group.removeAll();
       pieceBackground?.path.dispose();
       pieceBackground?.image.dispose();
     };

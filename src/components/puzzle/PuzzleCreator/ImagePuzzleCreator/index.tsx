@@ -1,18 +1,25 @@
 import { FC, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { ImagePlus, Upload, X } from "lucide-react";
 import Image from "next/image";
 
-export const ImagePuzzleCreator: FC = () => {
+type ImagePuzzleCreatorProps = {
+  onImageUpload: (image?: string | null) => void;
+};
+
+export const ImagePuzzleCreator: FC<ImagePuzzleCreatorProps> = ({
+  onImageUpload,
+}) => {
   const [image, setImage] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
   const handleImageUpload = (file: File) => {
     const reader = new FileReader();
     reader.onload = (e) => {
-      setImage(e.target?.result as string);
+      const imageUrl = e.target?.result as string;
+      setImage(imageUrl);
+      onImageUpload(imageUrl);
     };
     reader.readAsDataURL(file);
   };
@@ -60,7 +67,10 @@ export const ImagePuzzleCreator: FC = () => {
               variant="destructive"
               size="icon"
               className="absolute top-2 right-2"
-              onClick={() => setImage(null)}
+              onClick={() => {
+                setImage(null);
+                onImageUpload(null);
+              }}
             >
               <X className="h-4 w-4" />
             </Button>
@@ -71,7 +81,7 @@ export const ImagePuzzleCreator: FC = () => {
             <p className="text-muted-foreground text-sm mb-2">
               拖放图片到这里，或者
             </p>
-            <Label htmlFor="image-upload" className="cursor-pointer">
+            <div className="flex flex-col items-center">
               <Input
                 id="image-upload"
                 type="file"
@@ -82,32 +92,21 @@ export const ImagePuzzleCreator: FC = () => {
                   if (file) handleImageUpload(file);
                 }}
               />
-              <Button variant="secondary" size="sm">
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => document.getElementById("image-upload")?.click()}
+              >
                 <Upload className="h-4 w-4 mr-2" />
                 选择图片
               </Button>
-            </Label>
+            </div>
             <p className="text-xs text-muted-foreground mt-4">
               支持 JPG、PNG、WebP 格式，建议尺寸 1920x1080 像素
             </p>
           </div>
         )}
       </div>
-
-      {image && (
-        <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label>图片滤镜</Label>
-              {/* 添加滤镜选项 */}
-            </div>
-            <div>
-              <Label>图片效果</Label>
-              {/* 添加效果选项 */}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

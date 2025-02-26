@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { UserMenu } from "../UserMenu";
+import { SignedIn } from "@clerk/nextjs";
 
 const navigationItems = [
   {
@@ -45,6 +46,7 @@ const navigationItems = [
     icon: Puzzle,
     label: "拼图编辑器",
     href: "/puzzle/create",
+    private: true,
   },
   {
     icon: Video,
@@ -61,18 +63,6 @@ const navigationItems = [
 export const Header: FC = () => {
   const { theme, setTheme } = useTheme();
 
-  // 模拟用户数据，实际应该从用户认证系统获取
-  const user = {
-    name: "张三",
-    email: "zhangsan@example.com",
-    avatar: "https://github.com/shadcn.png",
-  };
-
-  const handleSignOut = () => {
-    // 处理退出登录逻辑
-    console.log("用户退出登录");
-  };
-
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between mx-auto">
@@ -85,18 +75,26 @@ export const Header: FC = () => {
 
           <NavigationMenu className="hidden md:flex">
             <NavigationMenuList>
-              {navigationItems.map((item) => (
-                <NavigationMenuItem key={item.href}>
-                  <Link href={item.href} legacyBehavior passHref>
-                    <NavigationMenuLink
-                      className={navigationMenuTriggerStyle()}
-                    >
-                      <item.icon className="w-4 h-4 mr-2" />
-                      {item.label}
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-              ))}
+              {navigationItems.map((item) => {
+                const c = (
+                  <NavigationMenuItem key={item.href}>
+                    <Link href={item.href} legacyBehavior passHref>
+                      <NavigationMenuLink
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        <item.icon className="w-4 h-4 mr-2" />
+                        {item.label}
+                      </NavigationMenuLink>
+                    </Link>
+                  </NavigationMenuItem>
+                );
+
+                if (item.private) {
+                  return <SignedIn key={item.href}>{c}</SignedIn>;
+                }
+
+                return c;
+              })}
             </NavigationMenuList>
           </NavigationMenu>
 
@@ -140,10 +138,12 @@ export const Header: FC = () => {
             <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
             <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           </Button>
-          <Button className="transition-transform hover:scale-105">
-            创建拼图
-          </Button>
-          <UserMenu user={user} onSignOut={handleSignOut} />
+          <SignedIn>
+            <Button className="transition-transform hover:scale-105">
+              创建拼图
+            </Button>
+          </SignedIn>
+          <UserMenu />
         </div>
       </div>
     </header>

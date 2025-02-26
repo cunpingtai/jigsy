@@ -1,4 +1,5 @@
-import { FC, useState } from "react";
+"use client";
+import { FC, useMemo, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ImagePuzzleCreator } from "./ImagePuzzleCreator";
@@ -8,7 +9,7 @@ import { EmojiPuzzleCreator } from "./EmojiPuzzleCreator";
 import { TextPuzzleCreator } from "./TextPuzzleCreator";
 import { SymbolPuzzleCreator } from "./SymbolPuzzleCreator";
 import { PuzzlePreview } from "./PuzzlePreview";
-import { PuzzleSettings } from "./PuzzleSettings";
+import { PuzzleMeta, PuzzleSettings } from "./PuzzleSettings";
 import {
   Image as ImageIcon,
   Palette,
@@ -17,6 +18,7 @@ import {
   Type,
   Hash,
 } from "lucide-react";
+import { DistributionStrategy } from "../PuzzleGenerator/types";
 
 type PuzzleType = "image" | "solid" | "gradient" | "emoji" | "text" | "symbol";
 
@@ -55,12 +57,106 @@ const tabs = [
 
 export const PuzzleCreator: FC = () => {
   const [activeTab, setActiveTab] = useState<PuzzleType>("image");
-  const [puzzleConfig, setPuzzleConfig] = useState({
+  const [image, setImage] = useState<string | null>();
+  const [config, setConfig] = useState<PuzzleMeta>({
+    tilesX: 2,
+    tilesY: 2,
+    width: 0,
+    height: 0,
+    distributionStrategy: DistributionStrategy.SURROUNDING,
+    seed: 2048,
+    tabSize: 20,
+    jitter: 4,
+    showGrid: true,
+    showPreview: false,
+    zoomStep: 0.1,
+    minZoom: 0.5,
+    maxZoom: 2,
+    lineColor: "#000000",
+    lineWidth: 2,
     title: "",
     description: "",
-    difficulty: "medium",
-    pieces: 100,
+    difficulty: "",
+    pieces: 4,
   });
+
+  const difficulty = useMemo(() => {
+    // 根据拼图数量和类型计算难度
+    const puzzleTypeComplexity = {
+      image: 1, // 普通图片
+      solid: 1.5, // 纯色背景更难
+      gradient: 1.3, // 渐变背景
+      emoji: 0.9, // Emoji相对简单
+      text: 1.1, // 文字
+      symbol: 1.2, // 符号
+    };
+
+    const complexityFactor = puzzleTypeComplexity[activeTab];
+    const effectivePieces = config.pieces * complexityFactor;
+
+    if (effectivePieces <= 50) return "easy";
+    if (effectivePieces <= 200) return "medium";
+    if (effectivePieces <= 1000) return "hard";
+    return "expert";
+  }, [config.pieces, activeTab]);
+
+  const difficultyLabel = useMemo(() => {
+    return difficulty === "easy"
+      ? "简单"
+      : difficulty === "medium"
+      ? "中等"
+      : difficulty === "hard"
+      ? "困难"
+      : "专家";
+  }, [difficulty]);
+
+  const useTime = useMemo(() => {
+    // 使用经验公式计算预计完成时间
+    const puzzleTypeComplexity = {
+      image: 1.1, // 普通图片
+      solid: 1.2, // 纯色背景更难
+      gradient: 1.15, // 渐变背景
+      emoji: 1.05, // Emoji相对简单
+      text: 1.1, // 文字
+      symbol: 1.15, // 符号
+    };
+
+    // 难度影响指数 b
+    const b = puzzleTypeComplexity[activeTab];
+
+    // 经验相关系数 k (假设中级玩家)
+    const k = 0.04;
+
+    // 根据拼图数量使用不同的计算公式
+    let timeInMinutes;
+
+    if (config.pieces < 10) {
+      // 少于10片：基础时间 + 每片增加时间
+      timeInMinutes = Math.max(1, 0.5 + 0.1 * config.pieces);
+    } else if (config.pieces <= 100) {
+      // 10-100片：线性增长
+      timeInMinutes = 0.1 * config.pieces + 1;
+    } else if (config.pieces <= 300) {
+      // 100-300片
+      timeInMinutes = 0.2 * config.pieces + 1;
+    } else if (config.pieces <= 500) {
+      // 300-500片
+      timeInMinutes = 0.4 * config.pieces + 1;
+    } else if (config.pieces <= 1000) {
+      // 500-1000片
+      timeInMinutes = 0.7 * config.pieces + 1;
+    } else {
+      // 1000片以上
+      timeInMinutes = 0.9 * config.pieces + 1;
+    }
+
+    // 四舍五入到整数分钟
+    return Math.round(timeInMinutes);
+  }, [config.pieces, activeTab]);
+
+  const handleImageUpload = (image?: string | null) => {
+    setImage(image);
+  };
 
   return (
     <div className="container mx-auto">
@@ -88,7 +184,7 @@ export const PuzzleCreator: FC = () => {
 
                 <div className="mt-6">
                   <TabsContent value="image">
-                    <ImagePuzzleCreator />
+                    <ImagePuzzleCreator onImageUpload={handleImageUpload} />
                   </TabsContent>
                   <TabsContent value="solid">
                     <SolidColorPuzzleCreator />
@@ -109,21 +205,24 @@ export const PuzzleCreator: FC = () => {
               </Tabs>
             </CardContent>
           </Card>
+
+          <Card>
+            <CardContent className="p-6">
+              <PuzzleSettings config={config} onChange={setConfig} />
+            </CardContent>
+          </Card>
         </div>
 
         {/* 右侧：预览和设置 */}
-        <div className="space-y-6">
+        <div className="space-y-6 lg:sticky lg:top-20 lg:self-start">
           <Card>
             <CardContent className="p-6">
-              <PuzzlePreview type={activeTab} />
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <PuzzleSettings
-                config={puzzleConfig}
-                onChange={setPuzzleConfig}
+              <PuzzlePreview
+                config={config}
+                type={activeTab}
+                image={image}
+                useTime={useTime}
+                difficulty={difficultyLabel}
               />
             </CardContent>
           </Card>
