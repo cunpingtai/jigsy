@@ -1,3 +1,4 @@
+import { currentUserId } from "@/app/api/util";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
@@ -7,13 +8,11 @@ export async function POST(
   { params }: { params: { atomId: string } }
 ) {
   try {
-    const body = await req.json();
-    const { userId } = body;
     const atomId = params.atomId;
 
-    // 验证必要参数
+    const userId = await currentUserId();
     if (!userId) {
-      return NextResponse.json({ error: "用户ID是必需的" }, { status: 400 });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     // 验证原子是否存在
@@ -28,7 +27,7 @@ export async function POST(
 
     // 验证用户是否存在
     const user = await prisma.user.findUnique({
-      where: { id: parseInt(userId) },
+      where: { id: userId },
       select: { id: true },
     });
 
@@ -39,7 +38,7 @@ export async function POST(
     // 检查是否已收藏
     const existingFavorite = await prisma.favorite.findFirst({
       where: {
-        userId: parseInt(userId),
+        userId,
         atomId: parseInt(atomId),
       },
     });
@@ -51,7 +50,7 @@ export async function POST(
     // 创建收藏
     const favorite = await prisma.favorite.create({
       data: {
-        userId: parseInt(userId),
+        userId,
         atomId: parseInt(atomId),
       },
     });
@@ -78,18 +77,16 @@ export async function DELETE(
   { params }: { params: { atomId: string } }
 ) {
   try {
-    const { searchParams } = new URL(req.url);
-    const userId = searchParams.get("userId");
-    const atomId = params.atomId;
-
+    const userId = await currentUserId();
     if (!userId) {
-      return NextResponse.json({ error: "用户ID是必需的" }, { status: 400 });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const atomId = params.atomId;
     // 验证收藏是否存在
     const existingFavorite = await prisma.favorite.findFirst({
       where: {
-        userId: parseInt(userId),
+        userId,
         atomId: parseInt(atomId),
       },
     });
@@ -117,50 +114,5 @@ export async function DELETE(
   } catch (error) {
     console.error("取消收藏失败:", error);
     return NextResponse.json({ error: "取消收藏失败" }, { status: 500 });
-  }
-}
-
-// 获取收藏状态
-export async function GET(
-  req: Request,
-  { params }: { params: { atomId: string } }
-) {
-  try {
-    const { searchParams } = new URL(req.url);
-    const userId = searchParams.get("userId");
-    const atomId = params.atomId;
-
-    // 如果提供了用户ID，则获取该用户的收藏状态
-    if (userId) {
-      const favorite = await prisma.favorite.findFirst({
-        where: {
-          userId: parseInt(userId),
-          atomId: parseInt(atomId),
-        },
-      });
-
-      // 获取收藏数
-      const favoritesCount = await prisma.favorite.count({
-        where: { atomId: parseInt(atomId) },
-      });
-
-      return NextResponse.json({
-        favorited: !!favorite,
-        favoritesCount,
-      });
-    }
-    // 否则只返回收藏数
-    else {
-      const favoritesCount = await prisma.favorite.count({
-        where: { atomId: parseInt(atomId) },
-      });
-
-      return NextResponse.json({
-        favoritesCount,
-      });
-    }
-  } catch (error) {
-    console.error("获取收藏状态失败:", error);
-    return NextResponse.json({ error: "获取收藏状态失败" }, { status: 500 });
   }
 }

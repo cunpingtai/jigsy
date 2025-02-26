@@ -1,3 +1,4 @@
+import { currentUserId } from "@/app/api/util";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
@@ -7,14 +8,12 @@ export async function POST(
   { params }: { params: { commentId: string } }
 ) {
   try {
-    const body = await req.json();
-    const { userId } = body;
-    const commentId = params.commentId;
-
-    // 验证必要参数
+    const userId = await currentUserId();
     if (!userId) {
-      return NextResponse.json({ error: "用户ID是必需的" }, { status: 400 });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+
+    const commentId = params.commentId;
 
     // 验证评论是否存在
     const comment = await prisma.comment.findUnique({
@@ -26,21 +25,11 @@ export async function POST(
       return NextResponse.json({ error: "评论不存在" }, { status: 404 });
     }
 
-    // 验证用户是否存在
-    const user = await prisma.user.findUnique({
-      where: { id: parseInt(userId) },
-      select: { id: true },
-    });
-
-    if (!user) {
-      return NextResponse.json({ error: "用户不存在" }, { status: 404 });
-    }
-
     // 检查是否已点赞
     const existingLike = await prisma.commentLike.findUnique({
       where: {
         userId_commentId: {
-          userId: parseInt(userId),
+          userId,
           commentId: parseInt(commentId),
         },
       },
@@ -53,7 +42,7 @@ export async function POST(
     // 创建点赞
     await prisma.commentLike.create({
       data: {
-        userId: parseInt(userId),
+        userId,
         commentId: parseInt(commentId),
       },
     });
@@ -79,19 +68,18 @@ export async function DELETE(
   { params }: { params: { commentId: string } }
 ) {
   try {
-    const { searchParams } = new URL(req.url);
-    const userId = searchParams.get("userId");
-    const commentId = params.commentId;
-
+    const userId = await currentUserId();
     if (!userId) {
-      return NextResponse.json({ error: "用户ID是必需的" }, { status: 400 });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+
+    const commentId = params.commentId;
 
     // 验证点赞是否存在
     const existingLike = await prisma.commentLike.findUnique({
       where: {
         userId_commentId: {
-          userId: parseInt(userId),
+          userId,
           commentId: parseInt(commentId),
         },
       },
@@ -105,7 +93,7 @@ export async function DELETE(
     await prisma.commentLike.delete({
       where: {
         userId_commentId: {
-          userId: parseInt(userId),
+          userId,
           commentId: parseInt(commentId),
         },
       },
@@ -132,19 +120,18 @@ export async function GET(
   { params }: { params: { commentId: string } }
 ) {
   try {
-    const { searchParams } = new URL(req.url);
-    const userId = searchParams.get("userId");
-    const commentId = params.commentId;
-
+    const userId = await currentUserId();
     if (!userId) {
-      return NextResponse.json({ error: "用户ID是必需的" }, { status: 400 });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+
+    const commentId = params.commentId;
 
     // 获取点赞状态
     const like = await prisma.commentLike.findUnique({
       where: {
         userId_commentId: {
-          userId: parseInt(userId),
+          userId,
           commentId: parseInt(commentId),
         },
       },

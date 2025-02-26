@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { AtomStatus } from "@prisma/client";
+import { currentUserId } from "../util";
 
 enum DistributionStrategy {
   SURROUNDING = "surrounding",
@@ -10,13 +11,17 @@ enum DistributionStrategy {
 
 // 创建原子
 export async function POST(req: Request) {
+  const userId = await currentUserId();
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const body = await req.json();
     const {
       title,
       content,
       coverImage,
-      userId,
       categoryId,
       groupId,
       status = AtomStatus.PUBLISHED,
@@ -196,156 +201,18 @@ export async function POST(req: Request) {
   }
 }
 
-// 删除原子
-export async function DELETE(req: Request) {
-  try {
-    const { searchParams } = new URL(req.url);
-    const id = searchParams.get("id");
-
-    if (!id) {
-      return NextResponse.json({ error: "需要提供原子 ID" }, { status: 400 });
-    }
-
-    // 使用事务确保原子和配置同时删除
-    await prisma.$transaction(async (tx) => {
-      // 1. 删除相关的 FieldConfig
-      await tx.fieldConfig.deleteMany({
-        where: { atomId: parseInt(id) },
-      });
-
-      // 2. 删除原子
-      await tx.standardAtom.delete({
-        where: { id: parseInt(id) },
-      });
-    });
-
-    return NextResponse.json({ message: "删除成功" });
-  } catch (error) {
-    console.error("删除原子失败:", error);
-    return NextResponse.json({ error: "删除原子失败" }, { status: 500 });
-  }
-}
-
-// 更新原子
-export async function PUT(req: Request) {
-  try {
-    const body = await req.json();
-    const {
-      id,
-      tags,
-      // 拼图配置参数
-      tilesX,
-      tilesY,
-      width,
-      height,
-      distributionStrategy,
-      seed,
-      tabSize,
-      jitter,
-      lineColor,
-      lineWidth,
-      background,
-      ...restData
-    } = body;
-
-    if (!id) {
-      return NextResponse.json({ error: "需要提供原子 ID" }, { status: 400 });
-    }
-
-    // 使用事务进行更新
-    const result = await prisma.$transaction(async (tx) => {
-      // 1. 更新原子基本信息
-      const atom = await tx.standardAtom.update({
-        where: { id: parseInt(id) },
-        data: {
-          ...restData,
-          ...(tags && {
-            tags: {
-              deleteMany: {}, // 先删除所有现有标签
-              create: tags.map((tagId: number) => ({
-                tag: {
-                  connect: { id: tagId },
-                },
-              })),
-            },
-          }),
-        },
-      });
-
-      // 2. 更新配置字段
-      const configUpdates = [
-        { name: "tilesX", value: String(tilesX) },
-        { name: "tilesY", value: String(tilesY) },
-        { name: "width", value: String(width) },
-        { name: "height", value: String(height) },
-        { name: "distributionStrategy", value: distributionStrategy },
-        { name: "seed", value: String(seed) },
-        { name: "tabSize", value: String(tabSize) },
-        { name: "jitter", value: String(jitter) },
-        { name: "lineColor", value: lineColor },
-        { name: "lineWidth", value: String(lineWidth) },
-        { name: "background", value: background },
-      ].filter((config) => config.value !== undefined);
-
-      // 批量更新配置
-      for (const config of configUpdates) {
-        await tx.fieldConfig.updateMany({
-          where: {
-            atomId: atom.id,
-            name: config.name,
-          },
-          data: {
-            value: config.value,
-          },
-        });
-      }
-
-      // 3. 获取更新后的完整数据
-      return await tx.standardAtom.findUnique({
-        where: { id: parseInt(id) },
-        include: {
-          tags: {
-            include: {
-              tag: true,
-            },
-          },
-          category: true,
-          group: true,
-          fieldConfigs: true,
-          user: {
-            select: {
-              id: true,
-              name: true,
-              avatar: true,
-            },
-          },
-        },
-      });
-    });
-
-    return NextResponse.json(result);
-  } catch (error) {
-    console.error("更新原子失败:", error);
-    return NextResponse.json({ error: "更新原子失败" }, { status: 500 });
-  }
-}
-
 // 获取原子
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const id = searchParams.get("id");
     const title = searchParams.get("title");
 
-    if (!id && !title) {
-      return NextResponse.json(
-        { error: "需要提供 ID 或标题" },
-        { status: 400 }
-      );
+    if (!title) {
+      return NextResponse.json({ error: "需要提供标题" }, { status: 400 });
     }
 
     const atom = await prisma.standardAtom.findFirst({
-      where: id ? { id: parseInt(id) } : title ? { title } : {},
+      where: { title },
       include: {
         tags: {
           include: {
@@ -387,65 +254,3 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "获取原子失败" }, { status: 500 });
   }
 }
-
-// const createAtom = await fetch("/api/atom", {
-//   method: "POST",
-//   body: JSON.stringify({
-//     title: "测试拼图",
-//     content: {
-//       /* 拼图内容 */
-//     },
-//     coverImage: "https://example.com/image.jpg",
-//     userId: 1,
-//     categoryId: 1,
-//     groupId: 1,
-//     tags: [1, 2, 3],
-//     // 拼图配置
-//     tilesX: 3,
-//     tilesY: 3,
-//     width: 800,
-//     height: 600,
-//     distributionStrategy: "surrounding",
-//     seed: 12345,
-//     tabSize: 30,
-//     jitter: 0.5,
-//     lineColor: "#000000",
-//     lineWidth: 2,
-//     background: "#FFFFFF",
-//   }),
-// });
-
-// 更新原子
-// const updateAtom = await fetch('/api/atom', {
-//   method: 'PUT',
-//   body: JSON.stringify({
-//     id: 1,
-//     title: '新标题',
-//     content: '新内容',
-//     tags: [4, 5, 6],
-//     // 更新配置
-//     tilesX: 4,
-//     tilesY: 4,
-//     width: 1000,
-//     // 其他配置字段保持不变
-//   })
-// });
-
-// 删除原子
-// const deleteAtom = await fetch('/api/atom?id=1', {
-//   method: 'DELETE'
-// });
-
-// // 获取原子
-// const getAtom = await fetch('/api/atom?id=1');
-// // 返回数据包含格式化的配置：
-// // {
-// //   ...原子信息,
-// //   fieldConfigs: [...原始配置数组],
-// //   config: {
-// //     tilesX: "4",
-// //     tilesY: "4",
-// //     width: "1000",
-// //     ...其他配置
-// //   }
-// // }

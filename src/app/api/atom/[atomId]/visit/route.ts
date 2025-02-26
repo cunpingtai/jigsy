@@ -1,20 +1,18 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST(
+  req: Request,
+  { params }: { params: { atomId: string } }
+) {
   try {
-    const body = await req.json();
-    const { id } = body;
-
-    if (!id) {
-      return NextResponse.json({ error: "需要提供原子 ID" }, { status: 400 });
-    }
+    const atomId = parseInt(params.atomId);
 
     // 使用事务确保原子存在且更新计数准确
     const atom = await prisma.$transaction(async (tx) => {
       // 1. 检查原子是否存在
       const existingAtom = await tx.standardAtom.findUnique({
-        where: { id: parseInt(id) },
+        where: { id: atomId },
       });
 
       if (!existingAtom) {
@@ -23,7 +21,7 @@ export async function POST(req: Request) {
 
       // 2. 更新访问次数
       return await tx.standardAtom.update({
-        where: { id: parseInt(id) },
+        where: { id: atomId },
         data: {
           viewCount: {
             increment: 1,
@@ -36,7 +34,6 @@ export async function POST(req: Request) {
         },
       });
     });
-
     return NextResponse.json(atom);
   } catch (error) {
     console.error("更新访问次数失败:", error);
@@ -76,20 +73,3 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "获取访问统计失败" }, { status: 500 });
   }
 }
-
-// 记录访问
-// const recordView = await fetch('/api/atom/view', {
-//   method: 'POST',
-//   body: JSON.stringify({
-//     id: 1
-//   })
-// });
-
-// // 获取访问统计
-// const getViews = await fetch('/api/atom/view?id=1');
-// // 返回格式：
-// // {
-// //   id: 1,
-// //   title: "原子标题",
-// //   viewCount: 100
-// // }

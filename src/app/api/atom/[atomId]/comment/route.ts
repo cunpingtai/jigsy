@@ -1,3 +1,4 @@
+import { currentUserId } from "@/app/api/util";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
@@ -111,8 +112,13 @@ export async function POST(
 ) {
   try {
     const body = await req.json();
-    const { content, userId, parentId } = body;
+    const { content, parentId } = body;
     const atomId = params.atomId;
+
+    const userId = await currentUserId();
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
     // 验证必要参数
     if (!content || !userId) {
@@ -134,7 +140,7 @@ export async function POST(
 
     // 验证用户是否存在
     const user = await prisma.user.findUnique({
-      where: { id: parseInt(userId) },
+      where: { id: userId },
       select: { id: true },
     });
 
@@ -167,7 +173,7 @@ export async function POST(
       data: {
         content,
         standardAtomId: parseInt(atomId),
-        userId: parseInt(userId),
+        userId: userId,
         ...(parentId && { parentId: parseInt(parentId) }),
       },
       include: {
@@ -187,58 +193,3 @@ export async function POST(
     return NextResponse.json({ error: "创建评论失败" }, { status: 500 });
   }
 }
-
-// 获取原子评论列表
-// const getComments = await fetch('/api/atom/1/comment?page=1&pageSize=10&sortBy=createdAt&order=desc');
-
-// // 创建评论
-// const createComment = await fetch('/api/atom/1/comment', {
-//   method: 'POST',
-//   body: JSON.stringify({
-//     content: '这是一条评论',
-//     userId: 1
-//   })
-// });
-
-// // 创建回复
-// const createReply = await fetch('/api/atom/1/comment', {
-//   method: 'POST',
-//   body: JSON.stringify({
-//     content: '这是一条回复',
-//     userId: 2,
-//     parentId: 5 // 父评论ID
-//   })
-// });
-
-// // 更新评论
-// const updateComment = await fetch('/api/comment/5', {
-//   method: 'PUT',
-//   body: JSON.stringify({
-//     content: '更新后的评论内容',
-//     userId: 1 // 验证权限
-//   })
-// });
-
-// // 删除评论
-// const deleteComment = await fetch('/api/comment/5?userId=1', {
-//   method: 'DELETE'
-// });
-
-// // 获取单个评论
-// const getComment = await fetch('/api/comment/5');
-
-// // 点赞评论
-// const likeComment = await fetch('/api/comment/5/like', {
-//   method: 'POST',
-//   body: JSON.stringify({
-//     userId: 1
-//   })
-// });
-
-// // 取消点赞
-// const unlikeComment = await fetch('/api/comment/5/like?userId=1', {
-//   method: 'DELETE'
-// });
-
-// // 获取点赞状态
-// const getLikeStatus = await fetch('/api/comment/5/like?userId=1');
