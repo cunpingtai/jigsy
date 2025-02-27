@@ -2,15 +2,17 @@ import { currentUserId } from "@/app/api/util";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-// 获取原子评论列表
+// 获取评论列表
 export async function GET(
   req: Request,
-  { params }: { params: { atomId: string } }
+  { params }: { params: Promise<{ postId: string }> }
 ) {
   try {
     const { searchParams } = new URL(req.url);
-    const atomId = params.atomId;
+    const { postId } = await params;
 
+    // 获取当前用户ID
+    const userId = await currentUserId();
     // 分页参数
     const page = parseInt(searchParams.get("page") || "1");
     const pageSize = parseInt(searchParams.get("pageSize") || "10");
@@ -20,29 +22,23 @@ export async function GET(
     const order = searchParams.get("order") || "desc";
 
     // 验证原子是否存在
-    const atom = await prisma.standardAtom.findUnique({
-      where: { id: parseInt(atomId) },
+    const post = await prisma.post.findUnique({
+      where: { id: parseInt(postId) },
       select: { id: true },
     });
 
-    if (!atom) {
-      return NextResponse.json({ error: "原子不存在" }, { status: 404 });
+    if (!post) {
+      return NextResponse.json({ error: "帖子不存在" }, { status: 404 });
     }
 
     // 获取评论总数
-    const total = await prisma.atomComment.count({
-      where: {
-        standardAtomId: parseInt(atomId),
-        parentId: null, // 只计算顶级评论
-      },
+    const total = await prisma.comment.count({
+      where: { postId: parseInt(postId), parentId: null },
     });
 
     // 获取评论列表
-    const comments = await prisma.atomComment.findMany({
-      where: {
-        standardAtomId: parseInt(atomId),
-        parentId: null, // 只查询顶级评论
-      },
+    const comments = await prisma.comment.findMany({
+      where: { postId: parseInt(postId), parentId: null },
       include: {
         user: {
           select: {
@@ -79,6 +75,22 @@ export async function GET(
       take: pageSize,
     });
 
+    const likedComments = userId
+      ? await prisma.commentLike.findMany({
+          where: {
+            commentId: { in: comments.map((c) => c.id) },
+            userId: userId,
+          },
+          select: {
+            commentId: true,
+          },
+        })
+      : [];
+
+    const likedCommentsMap = new Map(
+      likedComments.map((lc) => [lc.commentId, true])
+    );
+
     // 格式化返回数据
     const formattedComments = comments.map((comment) => ({
       id: comment.id,
@@ -92,6 +104,7 @@ export async function GET(
         user: reply.user,
         createdAt: reply.createdAt,
       })),
+      isLiked: likedCommentsMap.get(comment.id) || false,
       createdAt: comment.createdAt,
       updatedAt: comment.updatedAt,
     }));
@@ -114,12 +127,12 @@ export async function GET(
 // 创建评论
 export async function POST(
   req: Request,
-  { params }: { params: { atomId: string } }
+  { params }: { params: { postId: string } }
 ) {
   try {
     const body = await req.json();
     const { content, parentId } = body;
-    const atomId = params.atomId;
+    const postId = params.postId;
 
     const userId = await currentUserId();
     if (!userId) {
@@ -135,13 +148,13 @@ export async function POST(
     }
 
     // 验证原子是否存在
-    const atom = await prisma.standardAtom.findUnique({
-      where: { id: parseInt(atomId) },
+    const post = await prisma.post.findUnique({
+      where: { id: parseInt(postId) },
       select: { id: true },
     });
 
-    if (!atom) {
-      return NextResponse.json({ error: "原子不存在" }, { status: 404 });
+    if (!post) {
+      return NextResponse.json({ error: "帖子不存在" }, { status: 404 });
     }
 
     // 验证用户是否存在
@@ -156,9 +169,9 @@ export async function POST(
 
     // 如果有父评论ID，验证父评论是否存在
     if (parentId) {
-      const parentComment = await prisma.atomComment.findUnique({
+      const parentComment = await prisma.comment.findUnique({
         where: { id: parseInt(parentId) },
-        select: { id: true, standardAtomId: true },
+        select: { id: true, postId: true },
       });
 
       if (!parentComment) {
@@ -166,19 +179,19 @@ export async function POST(
       }
 
       // 确保父评论属于同一个原子
-      if (parentComment.standardAtomId !== parseInt(atomId)) {
+      if (parentComment.postId !== parseInt(postId)) {
         return NextResponse.json(
-          { error: "父评论不属于该原子" },
+          { error: "父评论不属于该帖子" },
           { status: 400 }
         );
       }
     }
 
     // 创建评论
-    const comment = await prisma.atomComment.create({
+    const comment = await prisma.comment.create({
       data: {
         content,
-        standardAtomId: parseInt(atomId),
+        postId: parseInt(postId),
         userId: userId,
         ...(parentId && { parentId: parseInt(parentId) }),
       },

@@ -136,9 +136,20 @@ export async function GET(
             },
           },
         },
+        posts: {
+          include: {
+            post: {
+              select: {
+                id: true,
+                title: true,
+              },
+            },
+          },
+        },
         _count: {
           select: {
             atoms: true,
+            posts: true,
           },
         },
       },
@@ -155,6 +166,8 @@ export async function GET(
       description: tag.description,
       atomsCount: tag._count.atoms,
       atoms: tag.atoms.map((a) => a.atom),
+      posts: tag.posts.map((p) => p.post),
+      postsCount: tag._count.posts,
       createdAt: tag.createdAt,
       updatedAt: tag.updatedAt,
     };

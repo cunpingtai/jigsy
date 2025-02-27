@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 
-export async function currentUserId() {
+export async function getCurrentUser() {
   const clerkUser = await currentUser();
   if (!clerkUser) {
     return null;
@@ -14,5 +14,10 @@ export async function currentUserId() {
     return null;
   }
 
-  return user.id;
+  return user;
+}
+
+export async function currentUserId() {
+  const user = await getCurrentUser();
+  return user?.id;
 }

@@ -1,17 +1,25 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import { StandardAtomStatus } from "@prisma/client";
+import { StandardAtomStatus, UserRole } from "@prisma/client";
+import { getCurrentUser } from "../../../util";
 
-export async function PATCH(req: Request) {
+export async function PATCH(
+  req: Request,
+  { params }: { params: { atomId: string } }
+) {
   try {
-    const body = await req.json();
-    const { id, status } = body;
+    const user = await getCurrentUser();
+    if (!user || user.role !== UserRole.ADMIN) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
-    if (!id || !status) {
-      return NextResponse.json(
-        { error: "需要提供原子 ID 和状态" },
-        { status: 400 }
-      );
+    const atomId = parseInt(params.atomId);
+    const body = await req.json();
+
+    const { status } = body;
+
+    if (!status) {
+      return NextResponse.json({ error: "需要提供原子状态" }, { status: 400 });
     }
 
     // 验证状态值是否有效
@@ -20,7 +28,7 @@ export async function PATCH(req: Request) {
     }
 
     const atom = await prisma.standardAtom.update({
-      where: { id: parseInt(id) },
+      where: { id: atomId },
       data: { status },
       include: {
         tags: {
@@ -59,12 +67,3 @@ export async function PATCH(req: Request) {
     return NextResponse.json({ error: "更新原子状态失败" }, { status: 500 });
   }
 }
-
-// 更新原子状态
-// const updateStatus = await fetch('/api/atom/status', {
-//   method: 'PATCH',
-//   body: JSON.stringify({
-//     id: 1,
-//     status: 'PUBLISHED' // 或 'DRAFT' 或 'DELETED'
-//   })
-// });

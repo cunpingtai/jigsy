@@ -47,6 +47,8 @@ model User {
   challenges    UserChallenge[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
+  role      UserRole? @default(USER)
+
   @@map("jigsaw_user")
 }
 
@@ -72,6 +74,7 @@ model StandardAtom {
   records     UserAtomRecord[]
   favorites   Favorite[]
   challenges  Challenge[]
+  featured    AtomFeatured?
   @@map("jigsaw_puzzle")
   @@index([userId])
   @@index([categoryId])
@@ -90,6 +93,7 @@ model Tag {
   name        String        @unique
   description String?
   atoms       TagsOnAtoms[] // 多对多关系
+  posts       TagsOnPosts[] // 多对多关系
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   @@map("jigsaw_tag")
@@ -105,6 +109,18 @@ model TagsOnAtoms {
   @@id([atomId, tagId])
   @@map("jigsaw_tags_on_atoms")
   @@index([atomId])
+  @@index([tagId])
+}
+
+model TagsOnPosts {
+  postId    Int            
+  tagId     Int 
+  post      Post          @relation(fields: [postId], references: [id])
+  tag       Tag           @relation(fields: [tagId], references: [id])
+  createdAt DateTime      @default(now())
+  @@id([postId, tagId])
+  @@map("jigsaw_tags_on_posts")
+  @@index([postId])
   @@index([tagId])
 }
 
@@ -230,9 +246,7 @@ model Post {
   user        User      @relation(fields: [userId], references: [id])
   comments    Comment[]
   likes       PostLike[] // 修改为关联点赞表
-  likesCount  Int       @default(0) // 点赞数统计
-  views       Int       @default(0)
-  tags        String?
+  tags        TagsOnPosts[]
   status      PostStatus @default(DRAFT)
   featured    Featured? // 关联精选表
   createdAt   DateTime  @default(now())
@@ -258,6 +272,21 @@ model Featured {
   @@map("jigsaw_featured")
 }
 
+model AtomFeatured {
+  id          Int      @id @default(autoincrement())
+  atomId      Int      @unique
+  atom        StandardAtom @relation(fields: [atomId], references: [id])
+  reason      String?  // 精选原因
+  order       Int      @default(0) // 排序权重
+  featuredAt  DateTime @default(now()) // 精选时间
+  featuredBy  Int      // 由哪个管理员设置的精选
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@index([atomId])
+  @@index([featuredBy])
+  @@map("jigsaw_atom_featured")
+}
+
 // 新增帖子点赞模型
 model PostLike {
   id        Int      @id @default(autoincrement())
@@ -268,9 +297,15 @@ model PostLike {
   createdAt DateTime @default(now())
 
   @@unique([postId, userId]) // 防止重复点赞
+  @@unique([userId, postId]) // 防止重复点赞
   @@index([postId]) // 优化查询性能
   @@index([userId])
   @@map("jigsaw_post_like")
+}
+
+enum UserRole {
+  ADMIN
+  USER
 }
 
 // 帖子状态枚举

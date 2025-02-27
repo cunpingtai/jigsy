@@ -24,7 +24,7 @@ export async function POST(req: Request) {
       coverImage,
       categoryId,
       groupId,
-      status = AtomStatus.PUBLISHED,
+      status = AtomStatus.DRAFT,
       tags = [],
       // 拼图配置参数
       tilesX,
@@ -52,13 +52,13 @@ export async function POST(req: Request) {
           categoryId,
           groupId,
           status,
-          tags: {
-            create: tags.map((tagId: number) => ({
-              tag: {
-                connect: { id: tagId },
-              },
-            })),
-          },
+          // tags: {
+          //   create: tags.map((tagId: number) => ({
+          //     tag: {
+          //       connect: { id: tagId },
+          //     },
+          //   })),
+          // },
         },
         include: {
           tags: {
@@ -69,6 +69,11 @@ export async function POST(req: Request) {
           category: true,
           group: true,
         },
+      });
+
+      // 关联标签
+      await tx.tagsOnAtoms.createMany({
+        data: tags.map((tag: any) => ({ atomId: atom.id, tagId: tag })),
       });
 
       // 2. 创建字段配置

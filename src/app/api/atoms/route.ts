@@ -1,16 +1,11 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { AtomStatus } from "@prisma/client";
-import { currentUserId } from "../../util";
 
+// 获取所有原子
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-
-    const userId = await currentUserId();
-    if (!userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
 
     // 分页参数
     const page = parseInt(searchParams.get("page") || "1");
@@ -26,11 +21,10 @@ export async function GET(req: Request) {
     const groupId = searchParams.get("groupId");
     const tagId = searchParams.get("tagId");
     const status = searchParams.get("status") as AtomStatus | null;
+    const featured = searchParams.get("featured");
 
     // 构建查询条件
-    const where: any = {
-      userId,
-    };
+    const where: any = {};
 
     if (title) {
       where.title = {
@@ -58,6 +52,20 @@ export async function GET(req: Request) {
       where.status = status;
     }
 
+    if (featured === "true") {
+      where.featured = {
+        some: {
+          status: true,
+        },
+      };
+    } else if (featured === "false") {
+      where.featured = {
+        none: {
+          status: true,
+        },
+      };
+    }
+
     // 计算总数
     const total = await prisma.standardAtom.count({ where });
 
@@ -79,6 +87,7 @@ export async function GET(req: Request) {
             avatar: true,
           },
         },
+        featured: true,
       },
       orderBy: {
         [sortBy]: sortOrder,
@@ -105,6 +114,7 @@ export async function GET(req: Request) {
         return {
           ...atom,
           config,
+          isFeatured: atom.featured,
         };
       })
     );
@@ -124,10 +134,3 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "获取原子列表失败" }, { status: 500 });
   }
 }
-
-// 使用示例:
-// 基础查询: GET /api/atom/list
-// 分页: GET /api/atom/list?page=2&pageSize=20
-// 排序: GET /api/atom/list?sortBy=title&sortOrder=asc
-// 过滤: GET /api/atom/list?title=测试&categoryId=1&status=PUBLISHED
-// 组合: GET /api/atom/list?page=1&pageSize=10&sortBy=createdAt&sortOrder=desc&userId=1

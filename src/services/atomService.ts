@@ -1,3 +1,4 @@
+import { Featured, StandardAtomStatus } from "@prisma/client";
 import {
   PaginatedData,
   QueryParams,
@@ -17,6 +18,11 @@ export const createAtomService = (api: {
   patch: <T>(url: string, data?: any) => Promise<T>;
 }) => {
   return {
+    // 获取用户的所有原子
+    getAtoms: (params?: QueryParams): Promise<PaginatedData<Atom>> => {
+      return api.get(`/atoms`, params);
+    },
+
     // 获取单个原子
     getAtomById: (id: number): Promise<Atom> => {
       return api.get(`/atom/${id}`);
@@ -65,6 +71,28 @@ export const createAtomService = (api: {
     // 取消收藏原子
     unfavoriteAtom: (atomId: number): Promise<void> => {
       return api.del(`/atom/${atomId}/favorite`);
+    },
+
+    // 更新原子状态
+    updateAtomStatus: (
+      atomId: number,
+      status: StandardAtomStatus
+    ): Promise<Atom> => {
+      return api.patch(`/atom/${atomId}/status`, { status });
+    },
+
+    // 添加精选
+    addAtomToFeatured: (
+      atomId: number,
+      reason: string,
+      order: number
+    ): Promise<Featured> => {
+      return api.post(`/atom/${atomId}/featured`, { reason, order });
+    },
+
+    // 取消精选
+    removeAtomFromFeatured: (atomId: number): Promise<void> => {
+      return api.del(`/atom/${atomId}/featured`);
     },
 
     // 开始游戏

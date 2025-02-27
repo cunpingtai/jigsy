@@ -1,500 +1,238 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import { useSearchParams } from "next/navigation";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Card,
-  CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Loader2 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
+import Link from "next/link";
+import { Tag } from "lucide-react";
 import * as client from "@/services/client";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Tag } from "@/services/types";
+import { Tag as TagType } from "@/services/types";
+
+interface TagData {
+  id: number;
+  name: string;
+  description: string | null;
+  atomsCount: number;
+  atoms: Array<{
+    id: number;
+    title: string;
+    coverImage: string | null;
+    status: string;
+  }>;
+  postsCount: number;
+  posts: Array<{
+    id: number;
+    title: string;
+    status: string;
+  }>;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export default function TagDemo() {
-  // 状态管理
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [activeTab, setActiveTab] = useState("create");
+  const searchParams = useSearchParams();
+  const tagName = searchParams.get("name") || "";
+  const [tagData, setTagData] = useState<TagType | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // 标签列表
-  const [tags, setTags] = useState<Tag[]>([]);
-  const [tagsLoading, setTagsLoading] = useState(false);
-
-  // 创建标签表单
-  const [tagName, setTagName] = useState("");
-  const [tagDescription, setTagDescription] = useState("");
-
-  // 更新标签表单
-  const [updateTagId, setUpdateTagId] = useState("");
-  const [updateTagName, setUpdateTagName] = useState("");
-  const [updateTagDescription, setUpdateTagDescription] = useState("");
-
-  // 查询标签表单
-  const [searchTagId, setSearchTagId] = useState("");
-  const [searchTagName, setSearchTagName] = useState("");
-  const [searchResult, setSearchResult] = useState<Tag | null>(null);
-  const [searchLoading, setSearchLoading] = useState(false);
-
-  // 加载标签列表
-  const fetchTags = async () => {
-    setTagsLoading(true);
-    try {
-      const response = await client.tagService.getTags();
-      setTags(response || []);
-    } catch (err: any) {
-      setError(err.message || "获取标签列表失败");
-      console.error("获取标签列表错误:", err);
-    } finally {
-      setTagsLoading(false);
-    }
-  };
-
-  // 创建标签
-  const handleCreateTag = async () => {
-    if (!tagName) {
-      setError("标签名称不能为空");
-      return;
-    }
-
-    setLoading(true);
-    setError("");
-    setSuccess("");
-
-    try {
-      const response = await client.tagService.createTag({
-        name: tagName,
-        description: tagDescription,
-      });
-
-      setSuccess("标签创建成功");
-      setTagName("");
-      setTagDescription("");
-      fetchTags(); // 刷新标签列表
-    } catch (err: any) {
-      setError(err.message || "创建标签失败");
-      console.error("创建标签错误:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // 更新标签
-  const handleUpdateTag = async () => {
-    if (!updateTagId) {
-      setError("请选择要更新的标签");
-      return;
-    }
-
-    if (!updateTagName) {
-      setError("标签名称不能为空");
-      return;
-    }
-
-    setLoading(true);
-    setError("");
-    setSuccess("");
-
-    try {
-      const response = await client.tagService.updateTag(
-        parseInt(updateTagId),
-        {
-          name: updateTagName,
-          description: updateTagDescription,
-        }
-      );
-
-      setSuccess("标签更新成功");
-      fetchTags(); // 刷新标签列表
-    } catch (err: any) {
-      setError(err.message || "更新标签失败");
-      console.error("更新标签错误:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // 删除标签
-  const handleDeleteTag = async (id: number) => {
-    if (!confirm("确定要删除这个标签吗？")) {
-      return;
-    }
-
-    setError("");
-    setSuccess("");
-
-    try {
-      await client.tagService.deleteTag(id);
-      setSuccess("标签删除成功");
-      fetchTags(); // 刷新标签列表
-    } catch (err: any) {
-      setError(err.message || "删除标签失败");
-      console.error("删除标签错误:", err);
-    }
-  };
-
-  // 查询标签
-  const handleSearchTag = async () => {
-    if (!searchTagId && !searchTagName) {
-      setError("请输入标签ID或名称");
-      return;
-    }
-
-    setSearchLoading(true);
-    setError("");
-    setSuccess("");
-    setSearchResult(null);
-
-    try {
-      let response;
-      if (searchTagId) {
-        response = await client.tagService.getTag(parseInt(searchTagId));
-      } else {
-        response = await client.tagService.getTagByName(searchTagName);
-      }
-
-      setSearchResult(response);
-      setSuccess("标签查询成功");
-    } catch (err: any) {
-      setError(err.message || "查询标签失败");
-      console.error("查询标签错误:", err);
-    } finally {
-      setSearchLoading(false);
-    }
-  };
-
-  // 选择标签进行编辑
-  const selectTagForEdit = (tag: Tag) => {
-    setUpdateTagId(tag.id.toString());
-    setUpdateTagName(tag.name);
-    setUpdateTagDescription(tag.description || "");
-    setActiveTab("update");
-  };
-
-  // 初始加载
   useEffect(() => {
-    fetchTags();
-  }, []);
+    if (!tagName) {
+      setError("请提供标签名称");
+      setLoading(false);
+      return;
+    }
+
+    const fetchTagData = async () => {
+      try {
+        setLoading(true);
+        const response = await client.tagService.getTagByName(tagName);
+
+        setTagData(response);
+        setError(null);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "获取标签数据失败");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTagData();
+  }, [tagName]);
+
+  if (loading) {
+    return <TagSkeleton />;
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[50vh] p-4">
+        <Tag className="w-12 h-12 text-gray-400 mb-4" />
+        <h2 className="text-xl font-semibold text-gray-700 mb-2">出错了</h2>
+        <p className="text-gray-500">{error}</p>
+      </div>
+    );
+  }
+
+  if (!tagData) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[50vh] p-4">
+        <Tag className="w-12 h-12 text-gray-400 mb-4" />
+        <h2 className="text-xl font-semibold text-gray-700 mb-2">未找到标签</h2>
+        <p className="text-gray-500">找不到名为 &quot;{tagName}&quot; 的标签</p>
+      </div>
+    );
+  }
 
   return (
-    <Card className="w-full max-w-4xl mx-auto">
-      <CardHeader>
-        <CardTitle>标签管理</CardTitle>
-      </CardHeader>
-      <CardContent>
-        {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4">
-            {error}
-          </div>
+    <div className="container mx-auto py-8 px-4">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold flex items-center gap-2">
+          <Tag className="h-6 w-6" />
+          {tagData.name}
+        </h1>
+        {tagData.description && (
+          <p className="mt-2 text-gray-600">{tagData.description}</p>
         )}
-        {success && (
-          <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded mb-4">
-            {success}
-          </div>
-        )}
+        <div className="mt-4 flex gap-4">
+          <Badge variant="outline" className="text-sm">
+            {tagData.atomsCount} 个原子
+          </Badge>
+          <Badge variant="outline" className="text-sm">
+            {tagData.postsCount} 篇文章
+          </Badge>
+        </div>
+      </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid grid-cols-4 mb-4">
-            <TabsTrigger value="create">创建标签</TabsTrigger>
-            <TabsTrigger value="update">更新标签</TabsTrigger>
-            <TabsTrigger value="search">查询标签</TabsTrigger>
-            <TabsTrigger value="list">标签列表</TabsTrigger>
-          </TabsList>
+      <Tabs defaultValue="atoms" className="w-full">
+        <TabsList className="mb-6">
+          <TabsTrigger value="atoms">原子 ({tagData.atomsCount})</TabsTrigger>
+          <TabsTrigger value="posts">文章 ({tagData.postsCount})</TabsTrigger>
+        </TabsList>
 
-          <TabsContent value="create">
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="tagName">标签名称</Label>
-                <Input
-                  id="tagName"
-                  placeholder="输入标签名称"
-                  value={tagName}
-                  onChange={(e) => setTagName(e.target.value)}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="tagDescription">标签描述</Label>
-                <Textarea
-                  id="tagDescription"
-                  placeholder="输入标签描述（可选）"
-                  value={tagDescription}
-                  onChange={(e) => setTagDescription(e.target.value)}
-                />
-              </div>
-
-              <Button
-                onClick={handleCreateTag}
-                disabled={loading}
-                className="w-full"
-              >
-                {loading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    创建中...
-                  </>
-                ) : (
-                  "创建标签"
-                )}
-              </Button>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="update">
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="updateTagId">选择标签</Label>
-                <select
-                  id="updateTagId"
-                  className="w-full p-2 border rounded"
-                  value={updateTagId}
-                  onChange={(e) => {
-                    setUpdateTagId(e.target.value);
-                    const selectedTag = tags.find(
-                      (t) => t.id.toString() === e.target.value
-                    );
-                    if (selectedTag) {
-                      setUpdateTagName(selectedTag.name);
-                      setUpdateTagDescription(selectedTag.description || "");
-                    }
-                  }}
-                >
-                  <option value="">-- 选择标签 --</option>
-                  {tags.map((tag) => (
-                    <option key={tag.id} value={tag.id}>
-                      {tag.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="updateTagName">标签名称</Label>
-                <Input
-                  id="updateTagName"
-                  placeholder="输入新的标签名称"
-                  value={updateTagName}
-                  onChange={(e) => setUpdateTagName(e.target.value)}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="updateTagDescription">标签描述</Label>
-                <Textarea
-                  id="updateTagDescription"
-                  placeholder="输入新的标签描述（可选）"
-                  value={updateTagDescription}
-                  onChange={(e) => setUpdateTagDescription(e.target.value)}
-                />
-              </div>
-
-              <Button
-                onClick={handleUpdateTag}
-                disabled={loading}
-                className="w-full"
-              >
-                {loading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    更新中...
-                  </>
-                ) : (
-                  "更新标签"
-                )}
-              </Button>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="search">
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="searchTagId">标签ID</Label>
-                  <Input
-                    id="searchTagId"
-                    placeholder="输入标签ID"
-                    value={searchTagId}
-                    onChange={(e) => setSearchTagId(e.target.value)}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="searchTagName">标签名称</Label>
-                  <Input
-                    id="searchTagName"
-                    placeholder="输入标签名称"
-                    value={searchTagName}
-                    onChange={(e) => setSearchTagName(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <Button
-                onClick={handleSearchTag}
-                disabled={searchLoading}
-                className="w-full"
-              >
-                {searchLoading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    查询中...
-                  </>
-                ) : (
-                  "查询标签"
-                )}
-              </Button>
-
-              {searchResult && (
-                <div className="mt-4 p-4 border rounded">
-                  <h3 className="text-lg font-medium">查询结果</h3>
-                  <div className="mt-2 space-y-2">
-                    <p>
-                      <span className="font-medium">ID:</span> {searchResult.id}
-                    </p>
-                    <p>
-                      <span className="font-medium">名称:</span>{" "}
-                      {searchResult.name}
-                    </p>
-                    <p>
-                      <span className="font-medium">描述:</span>{" "}
-                      {searchResult.description || "无"}
-                    </p>
-                    <p>
-                      <span className="font-medium">原子数量:</span>{" "}
-                      {searchResult.atomsCount || 0}
-                    </p>
-                    <p>
-                      <span className="font-medium">创建时间:</span>{" "}
-                      {new Date(searchResult.createdAt).toLocaleString()}
-                    </p>
-                  </div>
-                  <div className="mt-4 flex space-x-2">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => selectTagForEdit(searchResult)}
-                    >
-                      编辑
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      onClick={() => handleDeleteTag(searchResult.id)}
-                    >
-                      删除
-                    </Button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="list">
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <h3 className="text-lg font-medium">标签列表</h3>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={fetchTags}
-                  disabled={tagsLoading}
-                >
-                  {tagsLoading ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      刷新中
-                    </>
-                  ) : (
-                    "刷新"
-                  )}
-                </Button>
-              </div>
-
-              <div className="border rounded overflow-hidden">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>ID</TableHead>
-                      <TableHead>名称</TableHead>
-                      <TableHead>描述</TableHead>
-                      <TableHead>原子数量</TableHead>
-                      <TableHead>创建时间</TableHead>
-                      <TableHead>操作</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {tagsLoading ? (
-                      <TableRow>
-                        <TableCell colSpan={6} className="text-center py-4">
-                          <Loader2 className="h-6 w-6 animate-spin mx-auto" />
-                        </TableCell>
-                      </TableRow>
-                    ) : tags.length === 0 ? (
-                      <TableRow>
-                        <TableCell colSpan={6} className="text-center py-4">
-                          暂无数据
-                        </TableCell>
-                      </TableRow>
-                    ) : (
-                      tags.map((tag) => (
-                        <TableRow key={tag.id}>
-                          <TableCell>{tag.id}</TableCell>
-                          <TableCell>{tag.name}</TableCell>
-                          <TableCell>
-                            {tag.description || (
-                              <span className="text-gray-400">无</span>
-                            )}
-                          </TableCell>
-                          <TableCell>{tag.atomsCount || 0}</TableCell>
-                          <TableCell>
-                            {new Date(tag.createdAt).toLocaleString()}
-                          </TableCell>
-                          <TableCell>
-                            <div className="flex space-x-1">
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() => selectTagForEdit(tag)}
-                              >
-                                编辑
-                              </Button>
-                              <Button
-                                size="sm"
-                                variant="destructive"
-                                onClick={() => handleDeleteTag(tag.id)}
-                              >
-                                删除
-                              </Button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))
+        <TabsContent value="atoms" className="space-y-6">
+          {tagData.atoms.length === 0 ? (
+            <EmptyState type="atom" />
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {tagData.atoms.map((atom) => (
+                <Link href={`/atom/${atom.id}`} key={atom.id}>
+                  <Card className="h-full hover:shadow-md transition-shadow">
+                    {atom.coverImage && (
+                      <div className="relative w-full h-40 overflow-hidden rounded-t-lg">
+                        <Image
+                          src={atom.coverImage}
+                          alt={atom.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
                     )}
-                  </TableBody>
-                </Table>
-              </div>
+                    <CardHeader className={atom.coverImage ? "pt-4" : ""}>
+                      <CardTitle className="line-clamp-2">
+                        {atom.title}
+                      </CardTitle>
+                      <CardDescription>
+                        <Badge
+                          variant={
+                            atom.status === "PUBLISHED"
+                              ? "default"
+                              : "secondary"
+                          }
+                        >
+                          {atom.status === "PUBLISHED" ? "已发布" : "草稿"}
+                        </Badge>
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
+                </Link>
+              ))}
             </div>
-          </TabsContent>
-        </Tabs>
-      </CardContent>
-      <CardFooter className="text-sm text-gray-500">
-        此组件用于演示标签相关API，包括创建、更新、查询和删除标签
-      </CardFooter>
-    </Card>
+          )}
+        </TabsContent>
+
+        <TabsContent value="posts" className="space-y-6">
+          {tagData.posts.length === 0 ? (
+            <EmptyState type="post" />
+          ) : (
+            <div className="grid grid-cols-1 gap-4">
+              {tagData.posts.map((post) => (
+                <Link href={`/post/${post.id}`} key={post.id}>
+                  <Card className="hover:shadow-md transition-shadow">
+                    <CardHeader>
+                      <CardTitle>{post.title}</CardTitle>
+                      <CardDescription>
+                        <Badge
+                          variant={
+                            post.status === "PUBLISHED"
+                              ? "default"
+                              : "secondary"
+                          }
+                        >
+                          {post.status === "PUBLISHED" ? "已发布" : "草稿"}
+                        </Badge>
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          )}
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}
+
+function EmptyState({ type }: { type: "atom" | "post" }) {
+  return (
+    <div className="flex flex-col items-center justify-center py-12 px-4 border border-dashed rounded-lg">
+      <Tag className="w-12 h-12 text-gray-400 mb-4" />
+      <h3 className="text-xl font-medium text-gray-700 mb-2">
+        没有{type === "atom" ? "原子" : "文章"}
+      </h3>
+      <p className="text-gray-500 text-center max-w-md">
+        该标签下暂时没有{type === "atom" ? "原子" : "文章"}内容
+      </p>
+    </div>
+  );
+}
+
+function TagSkeleton() {
+  return (
+    <div className="container mx-auto py-8 px-4 animate-pulse">
+      <div className="mb-8">
+        <div className="h-10 w-48 bg-gray-200 rounded mb-4"></div>
+        <div className="h-4 w-full max-w-md bg-gray-200 rounded mb-4"></div>
+        <div className="flex gap-4 mt-4">
+          <div className="h-6 w-20 bg-gray-200 rounded"></div>
+          <div className="h-6 w-20 bg-gray-200 rounded"></div>
+        </div>
+      </div>
+
+      <div className="mb-6">
+        <div className="h-10 w-64 bg-gray-200 rounded"></div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[1, 2, 3, 4, 5, 6].map((i) => (
+          <div key={i} className="rounded-lg overflow-hidden">
+            <div className="h-40 bg-gray-200"></div>
+            <div className="p-4">
+              <div className="h-6 w-full bg-gray-200 rounded mb-2"></div>
+              <div className="h-4 w-16 bg-gray-200 rounded"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

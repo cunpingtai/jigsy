@@ -2,7 +2,7 @@ import { cookies, headers } from "next/headers";
 import { directFetch } from "./fetch";
 // 服务端 API 基础 URL
 const API_BASE_URL =
-  process.env.SERVER_API_BASE_URL || "http://localhost:3002/api";
+  process.env.SERVER_API_BASE_URL || "http://localhost:3001/api";
 
 // 创建请求头
 const createHeaders = async () => {

@@ -30,6 +30,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { StandardAtomStatus } from "@prisma/client";
+import { Badge } from "@/components/ui/badge";
 
 export default function AtomDemo() {
   // 状态管理
@@ -284,6 +286,21 @@ export default function AtomDemo() {
       fetchGameRecords();
     } catch (err: any) {
       setError(err.message || "结束游戏失败");
+    }
+  };
+
+  // 更新原子状态
+  const handleUpdateAtomStatus = async (
+    id: number,
+    status: StandardAtomStatus
+  ) => {
+    try {
+      const newStatus = status === "PUBLISHED" ? "DRAFT" : "PUBLISHED";
+      const data = await client.atomService.updateAtomStatus(id, newStatus);
+      setSuccess(`更新原子状态成功`);
+      handleGetAtom();
+    } catch (err: any) {
+      setError(err.message || "更新原子状态失败");
     }
   };
 
@@ -565,6 +582,9 @@ export default function AtomDemo() {
                   </h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
+                      <Badge>{atomDetails.status}</Badge>
+                    </div>
+                    <div>
                       <img
                         src={atomDetails.coverImage}
                         alt={atomDetails.title}
@@ -636,6 +656,18 @@ export default function AtomDemo() {
                   </div>
 
                   <div className="mt-4 flex space-x-2">
+                    {/* 更新状态 */}
+                    <Button
+                      size="sm"
+                      onClick={() =>
+                        handleUpdateAtomStatus(
+                          atomDetails.id,
+                          atomDetails.status
+                        )
+                      }
+                    >
+                      更新状态
+                    </Button>
                     <Button
                       size="sm"
                       onClick={() => handleRecordVisit(atomDetails.id)}
@@ -705,6 +737,7 @@ export default function AtomDemo() {
                       <TableHead>分类</TableHead>
                       <TableHead>分组</TableHead>
                       <TableHead>查看次数</TableHead>
+                      <TableHead>状态</TableHead>
                       <TableHead>创建时间</TableHead>
                       <TableHead>操作</TableHead>
                     </TableRow>
@@ -730,6 +763,9 @@ export default function AtomDemo() {
                           <TableCell>{atom.category?.name || "无"}</TableCell>
                           <TableCell>{atom.group?.name || "无"}</TableCell>
                           <TableCell>{atom.viewCount || 0}</TableCell>
+                          <TableCell>
+                            <Badge>{atom.status}</Badge>
+                          </TableCell>
                           <TableCell>
                             {new Date(atom.createdAt).toLocaleString()}
                           </TableCell>

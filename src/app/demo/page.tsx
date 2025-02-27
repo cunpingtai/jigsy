@@ -6,7 +6,12 @@ import Category from "./category";
 import Group from "./group";
 import GroupsCategories from "./groups-categories";
 import Atom from "./atom";
+import Tags from "./tags";
+import { Toaster } from "sonner";
+import FeatureAtom from "./feature-atom";
+import AtomComment from "./atom-comment";
 import Tag from "./tag";
+import GroupDemo from "./group-atoms";
 
 export default async function Demo() {
   const { userId } = await auth();
@@ -19,14 +24,19 @@ export default async function Demo() {
 
   return (
     <div className="flex flex-col gap-4">
-      <p>Welcome, {user?.emailAddresses[0]?.emailAddress}!</p>
+      <GroupDemo />
       <Tag />
+      <Toaster />
+      <p>Welcome, {user?.emailAddresses[0]?.emailAddress}!</p>
+      <AtomComment />
+      <Tags />
       <SyncUser user={user!} />
       <User />
       <Category />
       <Group />
       <GroupsCategories />
       <Atom />
+      <FeatureAtom />
       {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
       {/* <UserProfile />
       <UserButton /> */}

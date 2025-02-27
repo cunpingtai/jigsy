@@ -21,6 +21,36 @@ export async function DELETE(
       await tx.standardAtom.delete({
         where: { id: parseInt(atomId) },
       });
+
+      // 3. 删除原子标签
+      await tx.tagsOnAtoms.deleteMany({
+        where: { atomId: parseInt(atomId) },
+      });
+
+      // 4. 删除原子点赞
+      await tx.atomLike.deleteMany({
+        where: { standardAtomId: parseInt(atomId) },
+      });
+
+      // 5. 删除原子收藏
+      await tx.favorite.deleteMany({
+        where: { atomId: parseInt(atomId) },
+      });
+
+      // 6. 删除原子评论
+      await tx.atomComment.deleteMany({
+        where: { standardAtomId: parseInt(atomId) },
+      });
+
+      // 7. 删除原子挑战
+      await tx.challenge.deleteMany({
+        where: { atomId: parseInt(atomId) },
+      });
+
+      // 8. 删除原子精选
+      await tx.atomFeatured.deleteMany({
+        where: { atomId: parseInt(atomId) },
+      });
     });
 
     return NextResponse.json({ message: "删除成功" });

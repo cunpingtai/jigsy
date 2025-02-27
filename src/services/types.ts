@@ -127,6 +127,7 @@ export interface Atom {
   favoriteCount: number;
   config?: AtomConfig;
   createdAt: string;
+  isFeatured: boolean;
   updatedAt: string;
 }
 
@@ -205,7 +206,9 @@ export interface Tag {
   name: string;
   description?: string;
   atomsCount?: number;
-  atoms?: any[];
+  postsCount?: number;
+  atoms: any[];
+  posts: any[];
   createdAt: string;
   updatedAt: string;
 }
@@ -220,4 +223,143 @@ export interface CreateTagParams {
 export interface UpdateTagParams {
   name?: string;
   description?: string;
+}
+
+// 精选原子类型
+export interface AtomFeatured {
+  id: number;
+  reason: string;
+  featuredAt: string;
+  atom: {
+    id: number;
+    title: string;
+    content: string;
+    user: User;
+    commentsCount: number;
+    likesCount: number;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
+// 精选帖子类型
+export interface PostFeatured {
+  id: number;
+  reason: string;
+  featuredAt: string;
+  post: {
+    id: number;
+    title: string;
+    content: string;
+    user: User;
+    commentsCount: number;
+    likesCount: number;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
+// 评论用户信息
+export interface CommentUser {
+  id: number;
+  name: string;
+  avatar?: string;
+}
+
+// 评论回复类型
+export interface CommentReply {
+  id: number;
+  content: string;
+  user: CommentUser;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// 原子评论类型
+export interface AtomComment {
+  id: number;
+  content: string;
+  user: CommentUser;
+  likesCount: number;
+  repliesCount: number;
+  isLiked: boolean;
+  replies?: CommentReply[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+// 评论创建参数
+export interface CreateCommentParams {
+  content: string;
+  parentId?: number;
+}
+
+// 评论更新参数
+export interface UpdateCommentParams {
+  content: string;
+}
+
+// 评论点赞状态
+export interface CommentLikeStatus {
+  liked: boolean;
+  likesCount: number;
+}
+
+// 文章类型
+export interface Post {
+  id: number;
+  isLiked: boolean;
+  title: string;
+  content: string;
+  coverImage?: string;
+  userId: number;
+  user: User;
+  categoryId?: number;
+  category?: Category;
+  tags?: Tag[];
+  commentsCount: number;
+  likesCount: number;
+  viewsCount: number;
+  isFeatured: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// 创建文章参数
+export interface CreatePostParams {
+  title: string;
+  content: string;
+  coverImage?: string;
+  categoryId?: number;
+  tags?: string[];
+}
+
+// 更新文章参数
+export interface UpdatePostParams {
+  title?: string;
+  content?: string;
+  coverImage?: string;
+  categoryId?: number;
+  tags?: string[];
+}
+
+// 文章评论类型
+export interface PostComment {
+  id: number;
+  content: string;
+  postId: number;
+  userId: number;
+  user: CommentUser;
+  parentId?: number;
+  likesCount: number;
+  isLiked: boolean;
+  replies?: PostComment[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+// 文章点赞状态
+export interface PostLikeStatus {
+  liked: boolean;
+  likesCount: number;
 }
