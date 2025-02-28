@@ -4,10 +4,10 @@ import { NextResponse } from "next/server";
 // 获取标签
 export async function GET(
   req: Request,
-  { params }: { params: { name: string } }
+  { params }: { params: Promise<{ name: string }> }
 ) {
   try {
-    const { name } = params;
+    const { name } = await params;
     const tag = await prisma.tag.findFirst({
       where: { name },
       include: {

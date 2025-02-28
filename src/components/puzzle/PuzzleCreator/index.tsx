@@ -20,7 +20,8 @@ import {
 } from "lucide-react";
 import { DistributionStrategy } from "../PuzzleGenerator/types";
 import { Button } from "@/components/ui/button";
-
+import * as client from "@/services/client";
+import { toast } from "sonner";
 type PuzzleType = "image" | "solid" | "gradient" | "emoji" | "text" | "symbol";
 
 const tabs = [
@@ -79,6 +80,7 @@ export const PuzzleCreator: FC = () => {
     description: "",
     difficulty: "",
     pieces: 4,
+    tags: [],
   });
 
   const difficulty = useMemo(() => {
@@ -112,22 +114,6 @@ export const PuzzleCreator: FC = () => {
   }, [difficulty]);
 
   const useTime = useMemo(() => {
-    // 使用经验公式计算预计完成时间
-    const puzzleTypeComplexity = {
-      image: 1.1, // 普通图片
-      solid: 1.2, // 纯色背景更难
-      gradient: 1.15, // 渐变背景
-      emoji: 1.05, // Emoji相对简单
-      text: 1.1, // 文字
-      symbol: 1.15, // 符号
-    };
-
-    // 难度影响指数 b
-    const b = puzzleTypeComplexity[activeTab];
-
-    // 经验相关系数 k (假设中级玩家)
-    const k = 0.04;
-
     // 根据拼图数量使用不同的计算公式
     let timeInMinutes;
 
@@ -153,11 +139,52 @@ export const PuzzleCreator: FC = () => {
 
     // 四舍五入到整数分钟
     return Math.round(timeInMinutes);
-  }, [config.pieces, activeTab]);
+  }, [config.pieces]);
+
+  const [loading, setLoading] = useState(false);
+
+  const handleCreatePuzzle = async () => {
+    setLoading(true);
+
+    if (!image) {
+      return;
+    }
+    try {
+      const atomData = {
+        title: config.title,
+        content: config.description,
+        coverImage: image,
+        categoryId: config.categoryId,
+        groupId: config.groupId,
+        tilesX: config.tilesX,
+        tilesY: config.tilesY,
+        width: config.width,
+        height: config.height,
+        distributionStrategy: config.distributionStrategy,
+        seed: config.seed,
+        tabSize: config.tabSize,
+        jitter: config.jitter,
+        lineColor: config.lineColor,
+        lineWidth: config.lineWidth,
+        background: "",
+        tags: config.tags,
+      };
+
+      await client.atomService.createAtom(atomData);
+
+      toast.success("原子创建成功");
+    } catch (err: any) {
+      toast.error("创建原子失败");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleImageUpload = (image?: string | null) => {
     setImage(image);
   };
+
+  console.log(config.categoryId);
 
   return (
     <div className="container mx-auto">
@@ -214,7 +241,7 @@ export const PuzzleCreator: FC = () => {
           </Card>
         </div>
 
-        {/* 右侧：预览和设置 */}
+        {/* 右侧：预览 */}
         <div className="space-y-6 lg:sticky lg:top-20 lg:self-start">
           <Card>
             <CardContent className="p-6">
@@ -230,7 +257,13 @@ export const PuzzleCreator: FC = () => {
           {image ? (
             <Card>
               <CardContent className="p-6">
-                <Button className="w-full">创建拼图</Button>
+                <Button
+                  disabled={loading || !image}
+                  onClick={handleCreatePuzzle}
+                  className="w-full"
+                >
+                  创建拼图
+                </Button>
               </CardContent>
             </Card>
           ) : null}

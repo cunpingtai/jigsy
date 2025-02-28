@@ -5,9 +5,10 @@ import { NextResponse } from "next/server";
 // 更新游戏记录（游戏进行中或结束）
 export async function PUT(
   req: Request,
-  { params }: { params: { recordId: string } }
+  { params }: { params: Promise<{ recordId: string }> }
 ) {
   try {
+    const { recordId } = await params;
     const body = await req.json();
 
     const userId = await currentUserId();
@@ -16,7 +17,6 @@ export async function PUT(
     }
 
     const { meta } = body;
-    const recordId = params.recordId;
 
     // 验证必要参数
     if (!meta) {
@@ -80,15 +80,14 @@ export async function PUT(
 // 删除游戏记录
 export async function DELETE(
   req: Request,
-  { params }: { params: { recordId: string } }
+  { params }: { params: Promise<{ recordId: string }> }
 ) {
   try {
+    const { recordId } = await params;
     const userId = await currentUserId();
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-
-    const recordId = params.recordId;
 
     // 验证记录是否存在
     const existingRecord = await prisma.userAtomRecord.findUnique({

@@ -1,6 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -36,37 +37,40 @@ export default function NewPostPage() {
   const [searchLoading, setSearchLoading] = useState(false);
 
   // 搜索标签
-  const searchTags = async (query: string) => {
-    try {
-      setSearchLoading(true);
-      let tags: Tag[];
+  const searchTags = useCallback(
+    async (query: string) => {
+      try {
+        setSearchLoading(true);
+        let tags: Tag[];
 
-      if (query.trim() === "") {
-        // 如果搜索为空，获取所有标签（限制20个）
-        const response = await fetch("/api/tags");
-        tags = await response.json();
-      } else {
-        // 否则搜索匹配的标签
-        const response = await fetch(
-          `/api/tags/search?q=${encodeURIComponent(query)}`
-        );
-        tags = await response.json();
+        if (query.trim() === "") {
+          // 如果搜索为空，获取所有标签（限制20个）
+          const response = await fetch("/api/tags");
+          tags = await response.json();
+        } else {
+          // 否则搜索匹配的标签
+          const response = await fetch(
+            `/api/tags/search?q=${encodeURIComponent(query)}`
+          );
+          tags = await response.json();
+        }
+
+        // 过滤掉已选择的标签
+        const filteredTags = tags
+          .filter(
+            (tag) => !selectedTags.some((selected) => selected.id === tag.id)
+          )
+          .slice(0, 20); // 限制最多显示20个标签
+
+        setAvailableTags(filteredTags);
+      } catch (error) {
+        console.error("搜索标签失败:", error);
+      } finally {
+        setSearchLoading(false);
       }
-
-      // 过滤掉已选择的标签
-      const filteredTags = tags
-        .filter(
-          (tag) => !selectedTags.some((selected) => selected.id === tag.id)
-        )
-        .slice(0, 20); // 限制最多显示20个标签
-
-      setAvailableTags(filteredTags);
-    } catch (error) {
-      console.error("搜索标签失败:", error);
-    } finally {
-      setSearchLoading(false);
-    }
-  };
+    },
+    [selectedTags]
+  );
 
   // 选择标签
   const selectTag = (tag: Tag) => {
@@ -134,7 +138,7 @@ export default function NewPostPage() {
   useEffect(() => {
     // 初始加载标签列表
     searchTags("");
-  }, []);
+  }, [searchTags]);
 
   // 当搜索词变化时，搜索标签
   useEffect(() => {
@@ -143,7 +147,7 @@ export default function NewPostPage() {
     }, 300);
 
     return () => clearTimeout(delaySearch);
-  }, [tagSearch]);
+  }, [searchTags, tagSearch]);
 
   return (
     <div className="container mx-auto py-8">

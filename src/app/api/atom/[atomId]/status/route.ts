@@ -5,15 +5,15 @@ import { getCurrentUser } from "../../../util";
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { atomId: string } }
+  { params }: { params: Promise<{ atomId: string }> }
 ) {
   try {
+    const { atomId } = await params;
     const user = await getCurrentUser();
     if (!user || user.role !== UserRole.ADMIN) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const atomId = parseInt(params.atomId);
     const body = await req.json();
 
     const { status } = body;
@@ -28,7 +28,7 @@ export async function PATCH(
     }
 
     const atom = await prisma.standardAtom.update({
-      where: { id: atomId },
+      where: { id: parseInt(atomId) },
       data: { status },
       include: {
         tags: {

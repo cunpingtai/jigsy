@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { getCurrentUser } from "../../util";
+import { UserRole } from "@prisma/client";
 
 // 删除分组
 export async function DELETE(
@@ -7,6 +9,15 @@ export async function DELETE(
   { params }: { params: Promise<{ groupId: string }> }
 ) {
   try {
+    const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    if (user.role !== UserRole.ADMIN) {
+      return NextResponse.json({ error: "Permission denied" }, { status: 403 });
+    }
+
     const { groupId } = await params;
 
     // 检查分组是否存在
@@ -46,6 +57,15 @@ export async function PUT(
   { params }: { params: Promise<{ groupId: string }> }
 ) {
   try {
+    const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    if (user.role !== UserRole.ADMIN) {
+      return NextResponse.json({ error: "Permission denied" }, { status: 403 });
+    }
+
     const { groupId } = await params;
     const body = await req.json();
     const { name, description, categoryId } = body;

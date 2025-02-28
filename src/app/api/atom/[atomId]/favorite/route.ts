@@ -5,10 +5,10 @@ import { NextResponse } from "next/server";
 // 添加收藏
 export async function POST(
   req: Request,
-  { params }: { params: { atomId: string } }
+  { params }: { params: Promise<{ atomId: string }> }
 ) {
   try {
-    const atomId = params.atomId;
+    const { atomId } = await params;
 
     const userId = await currentUserId();
     if (!userId) {
@@ -74,15 +74,15 @@ export async function POST(
 // 取消收藏
 export async function DELETE(
   req: Request,
-  { params }: { params: { atomId: string } }
+  { params }: { params: Promise<{ atomId: string }> }
 ) {
   try {
+    const { atomId } = await params;
     const userId = await currentUserId();
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const atomId = params.atomId;
     // 验证收藏是否存在
     const existingFavorite = await prisma.favorite.findFirst({
       where: {

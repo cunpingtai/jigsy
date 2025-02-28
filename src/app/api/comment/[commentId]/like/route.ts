@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 // 点赞评论
 export async function POST(
   req: Request,
-  { params }: { params: { commentId: string } }
+  { params }: { params: Promise<{ commentId: string }> }
 ) {
   try {
     const userId = await currentUserId();
@@ -13,7 +13,7 @@ export async function POST(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const commentId = params.commentId;
+    const { commentId } = await params;
 
     // 验证评论是否存在
     const comment = await prisma.comment.findUnique({
@@ -65,7 +65,7 @@ export async function POST(
 // 取消点赞
 export async function DELETE(
   req: Request,
-  { params }: { params: { commentId: string } }
+  { params }: { params: Promise<{ commentId: string }> }
 ) {
   try {
     const userId = await currentUserId();
@@ -73,7 +73,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const commentId = params.commentId;
+    const { commentId } = await params;
 
     // 验证点赞是否存在
     const existingLike = await prisma.commentLike.findUnique({
@@ -117,7 +117,7 @@ export async function DELETE(
 // 获取评论点赞状态
 export async function GET(
   req: Request,
-  { params }: { params: { commentId: string } }
+  { params }: { params: Promise<{ commentId: string }> }
 ) {
   try {
     const userId = await currentUserId();
@@ -125,7 +125,7 @@ export async function GET(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const commentId = params.commentId;
+    const { commentId } = await params;
 
     // 获取点赞状态
     const like = await prisma.commentLike.findUnique({

@@ -5,10 +5,10 @@ import { NextResponse } from "next/server";
 // 获取评论的回复列表
 export async function GET(
   req: Request,
-  { params }: { params: { commentId: string } }
+  { params }: { params: Promise<{ commentId: string }> }
 ) {
   try {
-    const commentId = parseInt(params.commentId);
+    const { commentId } = await params;
     const { searchParams } = new URL(req.url);
 
     // 分页参数
@@ -18,7 +18,7 @@ export async function GET(
     // 验证评论是否存在
     const comment = await prisma.comment.findUnique({
       where: {
-        id: commentId,
+        id: parseInt(commentId),
       },
       select: { id: true },
     });
@@ -29,12 +29,12 @@ export async function GET(
 
     // 获取回复总数
     const total = await prisma.comment.count({
-      where: { parentId: commentId },
+      where: { parentId: parseInt(commentId) },
     });
 
     // 获取回复列表
     const replies = await prisma.comment.findMany({
-      where: { parentId: commentId },
+      where: { parentId: parseInt(commentId) },
       include: {
         user: {
           select: {
@@ -84,12 +84,12 @@ export async function GET(
 // 创建回复
 export async function POST(
   req: Request,
-  { params }: { params: { commentId: string } }
+  { params }: { params: Promise<{ commentId: string }> }
 ) {
   try {
     const body = await req.json();
     const { content } = body;
-    const commentId = parseInt(params.commentId);
+    const { commentId } = await params;
 
     // 获取当前用户ID
     const userId = await currentUserId();
@@ -105,7 +105,7 @@ export async function POST(
     // 验证评论是否存在
     const comment = await prisma.comment.findUnique({
       where: {
-        id: commentId,
+        id: parseInt(commentId),
       },
       select: { id: true, postId: true },
     });
@@ -130,7 +130,7 @@ export async function POST(
         content,
         postId: comment.postId,
         userId: userId,
-        parentId: commentId,
+        parentId: parseInt(commentId),
       },
       include: {
         user: {

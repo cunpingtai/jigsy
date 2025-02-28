@@ -5,15 +5,14 @@ import { NextResponse } from "next/server";
 // 点赞原子
 export async function POST(
   req: Request,
-  { params }: { params: { atomId: string } }
+  { params }: { params: Promise<{ atomId: string }> }
 ) {
   try {
+    const { atomId } = await params;
     const userId = await currentUserId();
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-
-    const atomId = params.atomId;
 
     // 验证原子是否存在
     const atom = await prisma.standardAtom.findUnique({
@@ -64,15 +63,14 @@ export async function POST(
 // 取消点赞
 export async function DELETE(
   req: Request,
-  { params }: { params: { atomId: string } }
+  { params }: { params: Promise<{ atomId: string }> }
 ) {
   try {
+    const { atomId } = await params;
     const userId = await currentUserId();
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-
-    const atomId = params.atomId;
 
     // 验证点赞是否存在
     const existingLike = await prisma.atomLike.findFirst({

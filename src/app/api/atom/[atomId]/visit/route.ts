@@ -3,16 +3,16 @@ import { NextResponse } from "next/server";
 
 export async function POST(
   req: Request,
-  { params }: { params: { atomId: string } }
+  { params }: { params: Promise<{ atomId: string }> }
 ) {
   try {
-    const atomId = parseInt(params.atomId);
+    const { atomId } = await params;
 
     // 使用事务确保原子存在且更新计数准确
     const atom = await prisma.$transaction(async (tx) => {
       // 1. 检查原子是否存在
       const existingAtom = await tx.standardAtom.findUnique({
-        where: { id: atomId },
+        where: { id: parseInt(atomId) },
       });
 
       if (!existingAtom) {
@@ -21,7 +21,7 @@ export async function POST(
 
       // 2. 更新访问次数
       return await tx.standardAtom.update({
-        where: { id: atomId },
+        where: { id: parseInt(atomId) },
         data: {
           viewCount: {
             increment: 1,

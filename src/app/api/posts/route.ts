@@ -59,12 +59,16 @@ export async function GET(req: Request) {
       take: pageSize,
     });
 
-    // 获取当前用户点赞的帖子
-    const likedPosts = await prisma.postLike.findMany({
-      where: { userId: userId },
-    });
+    let likedPostsMap: Map<number, boolean> = new Map();
 
-    const likedPostsMap = new Map(likedPosts.map((lp) => [lp.postId, true]));
+    if (userId) {
+      // 获取当前用户点赞的帖子
+      const likedPosts = await prisma.postLike.findMany({
+        where: { userId: userId },
+      });
+
+      likedPostsMap = new Map(likedPosts.map((lp) => [lp.postId, true]));
+    }
 
     // 格式化返回数据
     const formattedPosts = posts.map((post) => ({

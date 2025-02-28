@@ -1,3 +1,4 @@
+import { currentUserId } from "@/app/api/util";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
@@ -7,7 +8,6 @@ export async function POST(
 ) {
   try {
     const { clerkId } = await params;
-    console.log("POST /api/users/clerk/[clerkId]", clerkId);
     const { ...updateData } = await req.json();
 
     if (!clerkId) {
@@ -48,8 +48,12 @@ export async function GET(
   req: Request,
   { params }: { params: Promise<{ clerkId: string }> }
 ) {
-  console.log("GET /api/users/clerk/[clerkId]");
   try {
+    const userId = await currentUserId();
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { clerkId } = await params;
     const user = await prisma.user.findUnique({
       where: { clerkId: clerkId },

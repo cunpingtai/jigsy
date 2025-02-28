@@ -1,19 +1,20 @@
-import { currentUserId } from "@/app/api/util";
+import { currentUserId, getCurrentUser } from "@/app/api/util";
 import { prisma } from "@/lib/prisma";
+import { UserRole } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 // 获取单个评论
 export async function GET(
   req: Request,
-  { params }: { params: { commentId: string } }
+  { params }: { params: Promise<{ commentId: string }> }
 ) {
   try {
-    const commentId = parseInt(params.commentId);
+    const { commentId } = await params;
 
     // 获取评论
     const comment = await prisma.comment.findUnique({
       where: {
-        id: commentId,
+        id: parseInt(commentId),
       },
       include: {
         user: {
@@ -77,12 +78,12 @@ export async function GET(
 // 更新评论
 export async function PUT(
   req: Request,
-  { params }: { params: { commentId: string } }
+  { params }: { params: Promise<{ commentId: string }> }
 ) {
   try {
     const body = await req.json();
     const { content } = body;
-    const commentId = parseInt(params.commentId);
+    const { commentId } = await params;
 
     // 获取当前用户ID
     const userId = await currentUserId();
@@ -98,7 +99,7 @@ export async function PUT(
     // 验证评论是否存在
     const comment = await prisma.comment.findUnique({
       where: {
-        id: commentId,
+        id: parseInt(commentId),
       },
       select: { id: true, userId: true },
     });
@@ -117,7 +118,7 @@ export async function PUT(
 
     // 更新评论
     const updatedComment = await prisma.comment.update({
-      where: { id: commentId },
+      where: { id: parseInt(commentId) },
       data: { content },
       include: {
         user: {
@@ -140,21 +141,27 @@ export async function PUT(
 // 删除评论
 export async function DELETE(
   req: Request,
-  { params }: { params: { commentId: string } }
+  { params }: { params: Promise<{ commentId: string }> }
 ) {
   try {
-    const commentId = parseInt(params.commentId);
+    const { commentId } = await params;
 
     // 获取当前用户ID
-    const userId = await currentUserId();
-    if (!userId) {
+    const user = await getCurrentUser();
+    if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+
+    if (user.role !== UserRole.ADMIN) {
+      return NextResponse.json({ error: "Permission denied" }, { status: 403 });
+    }
+
+    const userId = user.id;
 
     // 验证评论是否存在
     const comment = await prisma.comment.findUnique({
       where: {
-        id: commentId,
+        id: parseInt(commentId),
       },
       select: { id: true, userId: true },
     });
@@ -174,17 +181,17 @@ export async function DELETE(
     await prisma.$transaction(async (tx) => {
       // 删除评论的所有回复
       await tx.comment.deleteMany({
-        where: { parentId: commentId },
+        where: { parentId: parseInt(commentId) },
       });
 
       // 删除评论的所有点赞
       await tx.commentLike.deleteMany({
-        where: { commentId: commentId },
+        where: { commentId: parseInt(commentId) },
       });
 
       // 删除评论
       await tx.comment.delete({
-        where: { id: commentId },
+        where: { id: parseInt(commentId) },
       });
     });
 

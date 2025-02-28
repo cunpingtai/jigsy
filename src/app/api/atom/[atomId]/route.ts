@@ -5,7 +5,7 @@ import { currentUserId } from "../../util";
 // 删除原子
 export async function DELETE(
   req: Request,
-  { params }: { params: { atomId: string } }
+  { params }: { params: Promise<{ atomId: string }> }
 ) {
   try {
     const { atomId } = await params;
@@ -63,7 +63,7 @@ export async function DELETE(
 // 更新原子
 export async function PUT(
   req: Request,
-  { params }: { params: { atomId: string } }
+  { params }: { params: Promise<{ atomId: string }> }
 ) {
   try {
     const { atomId } = await params;
@@ -166,7 +166,7 @@ export async function PUT(
 // 获取原子
 export async function GET(
   req: Request,
-  { params }: { params: { atomId: string } }
+  { params }: { params: Promise<{ atomId: string }> }
 ) {
   try {
     const { atomId } = await params;

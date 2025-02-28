@@ -1,13 +1,24 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { getCurrentUser } from "../../util";
+import { UserRole } from "@prisma/client";
 
 // 删除标签
 export async function DELETE(
   req: Request,
-  { params }: { params: { tagId: string } }
+  { params }: { params: Promise<{ tagId: string }> }
 ) {
   try {
-    const { tagId } = params;
+    const { tagId } = await params;
+
+    const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    if (user.role !== UserRole.ADMIN) {
+      return NextResponse.json({ error: "Permission denied" }, { status: 403 });
+    }
 
     // 检查标签是否存在
     const existingTag = await prisma.tag.findUnique({
@@ -50,12 +61,21 @@ export async function DELETE(
 // 更新标签
 export async function PUT(
   req: Request,
-  { params }: { params: { tagId: string } }
+  { params }: { params: Promise<{ tagId: string }> }
 ) {
   try {
-    const { tagId } = params;
+    const { tagId } = await params;
     const body = await req.json();
     const { name, description } = body;
+
+    const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    if (user.role !== UserRole.ADMIN) {
+      return NextResponse.json({ error: "Permission denied" }, { status: 403 });
+    }
 
     // 验证名称
     if (name !== undefined && (name === null || name.trim() === "")) {
@@ -117,10 +137,10 @@ export async function PUT(
 // 获取标签
 export async function GET(
   req: Request,
-  { params }: { params: { tagId: string } }
+  { params }: { params: Promise<{ tagId: string }> }
 ) {
   try {
-    const { tagId } = params;
+    const { tagId } = await params;
     const tag = await prisma.tag.findFirst({
       where: { id: parseInt(tagId) },
       include: {

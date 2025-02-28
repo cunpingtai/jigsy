@@ -5,8 +5,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Image, Smile, Hash, X } from "lucide-react";
+import { Smile, Hash, X, Image as ImageIcon } from "lucide-react";
 import { CreateTopicDialog } from "../CreateTopicDialog";
+import Image from "next/image";
 
 interface CreatePostProps {
   user: {
@@ -63,7 +64,13 @@ export const CreatePost: FC<CreatePostProps> = ({ user }) => {
                 key={index}
                 className="relative aspect-square rounded-lg overflow-hidden"
               >
-                <img src={img} alt="" className="w-full h-full object-cover" />
+                <Image
+                  src={img}
+                  alt=""
+                  width={1920}
+                  height={1080}
+                  className="w-full h-full object-cover"
+                />
                 <Button
                   variant="destructive"
                   size="icon"
@@ -103,7 +110,7 @@ export const CreatePost: FC<CreatePostProps> = ({ user }) => {
               className="text-muted-foreground"
             >
               <label className="cursor-pointer">
-                <Image className="h-5 w-5" />
+                <ImageIcon className="h-5 w-5" />
                 <input
                   type="file"
                   accept="image/*"

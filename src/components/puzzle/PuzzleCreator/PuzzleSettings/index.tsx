@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,12 +18,19 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { HexColorPicker } from "react-colorful";
+import * as client from "@/services/client";
+import { Category, Tag } from "@/services/types";
+import { Badge } from "@/components/ui/badge";
+import { X } from "lucide-react";
 
 export type PuzzleMeta = {
   title: string;
   description: string;
   difficulty: string;
   pieces: number;
+  categoryId?: number;
+  groupId?: number;
+  tags: number[];
 } & Omit<PuzzleConfigType, "image">;
 
 interface PuzzleSettingsProps {
@@ -46,6 +53,72 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
 }) => {
   const [customSize, setCustomSize] = useState(false);
   const [customPieces, setCustomPieces] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [groups, setGroups] = useState<any[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [tagInput, setTagInput] = useState("");
+  const [loading, setLoading] = useState({
+    categories: false,
+    groups: false,
+    tags: false,
+  });
+
+  // 加载分类列表
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setLoading((prev) => ({ ...prev, categories: true }));
+      try {
+        const response = await client.categoryService.getCategories();
+        setCategories(response.data || []);
+      } catch (err) {
+        console.error("获取分类列表错误:", err);
+      } finally {
+        setLoading((prev) => ({ ...prev, categories: false }));
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  // 根据选择的分类加载分组
+  useEffect(() => {
+    const fetchGroups = async () => {
+      if (!config.categoryId) return;
+
+      setLoading((prev) => ({ ...prev, groups: true }));
+      try {
+        const response = await client.groupService.getGroupsByCategory(
+          config.categoryId
+        );
+        setGroups(response.data || []);
+      } catch (err) {
+        console.error("获取分组列表错误:", err);
+      } finally {
+        setLoading((prev) => ({ ...prev, groups: false }));
+      }
+    };
+
+    fetchGroups();
+  }, [config.categoryId]);
+
+  // 加载标签列表
+  useEffect(() => {
+    const fetchTags = async () => {
+      setLoading((prev) => ({ ...prev, tags: true }));
+      try {
+        const response = await client.tagService.getTags();
+        setTags(response || []);
+      } catch (err) {
+        console.error("获取标签列表错误:", err);
+      } finally {
+        setLoading((prev) => ({ ...prev, tags: false }));
+      }
+    };
+
+    fetchTags();
+  }, []);
+
   const handleChange = (key: string, value: any) => {
     onChange({ ...config, [key]: value });
   };
@@ -65,6 +138,46 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
       tilesY,
     });
   };
+
+  const handleCategoryChange = (categoryId: string) => {
+    onChange({
+      ...config,
+      categoryId: parseInt(categoryId),
+      groupId: undefined,
+    });
+  };
+
+  const handleGroupChange = (groupId: string) => {
+    handleChange("groupId", parseInt(groupId));
+  };
+
+  const handleTagSelect = (tag: Tag) => {
+    if (selectedTags.length >= 5) return;
+    if (selectedTags.some((t) => t.id === tag.id)) return;
+
+    const newTags = [...selectedTags, tag];
+    setSelectedTags(newTags);
+    handleChange(
+      "tags",
+      newTags.map((t) => t.id)
+    );
+    setTagInput("");
+  };
+
+  const handleTagRemove = (tagId: number) => {
+    const newTags = selectedTags.filter((t) => t.id !== tagId);
+    setSelectedTags(newTags);
+    handleChange(
+      "tags",
+      newTags.map((t) => t.id)
+    );
+  };
+
+  const filteredTags = tags.filter(
+    (tag) =>
+      tag.name.toLowerCase().includes(tagInput.toLowerCase()) &&
+      !selectedTags.some((t) => t.id === tag.id)
+  );
 
   return (
     <div className="space-y-6">
@@ -91,6 +204,112 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
           placeholder="添加一些描述信息"
           className="min-h-[100px]"
         />
+      </div>
+
+      <div className="space-y-2">
+        <Label>拼图分类</Label>
+        <div className="flex items-center gap-2">
+          <Select
+            value={config.categoryId?.toString()}
+            onValueChange={handleCategoryChange}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="选择分类" />
+            </SelectTrigger>
+            <SelectContent>
+              {loading.categories ? (
+                <SelectItem value="loading" disabled>
+                  加载中...
+                </SelectItem>
+              ) : (
+                categories.map((category) => (
+                  <SelectItem key={category.id} value={category.id.toString()}>
+                    {category.name}
+                  </SelectItem>
+                ))
+              )}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label>拼图分组</Label>
+        <div className="flex items-center gap-2">
+          <Select
+            value={config.groupId?.toString()}
+            onValueChange={handleGroupChange}
+            disabled={!config.categoryId}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue
+                placeholder={config.categoryId ? "选择分组" : "请先选择分类"}
+              />
+            </SelectTrigger>
+            <SelectContent>
+              {loading.groups ? (
+                <SelectItem value="loading" disabled>
+                  加载中...
+                </SelectItem>
+              ) : (
+                groups.map((group) => (
+                  <SelectItem key={group.id} value={group.id.toString()}>
+                    {group.name}
+                  </SelectItem>
+                ))
+              )}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label>拼图标签</Label>
+        <div className="space-y-2">
+          <div className="flex flex-wrap gap-2 mb-2">
+            {selectedTags.map((tag) => (
+              <Badge
+                key={tag.id}
+                variant="secondary"
+                className="flex items-center gap-1"
+              >
+                {tag.name}
+                <X
+                  className="h-3 w-3 cursor-pointer"
+                  onClick={() => handleTagRemove(tag.id)}
+                />
+              </Badge>
+            ))}
+          </div>
+          <div className="relative">
+            <Input
+              placeholder="搜索标签"
+              value={tagInput}
+              onChange={(e) => setTagInput(e.target.value)}
+              disabled={selectedTags.length >= 5}
+            />
+            {tagInput && (
+              <div className="absolute z-10 w-full mt-1 bg-background border rounded-md shadow-md max-h-[200px] overflow-y-auto">
+                {filteredTags.length > 0 ? (
+                  filteredTags.map((tag) => (
+                    <div
+                      key={tag.id}
+                      className="px-3 py-2 hover:bg-accent cursor-pointer"
+                      onClick={() => handleTagSelect(tag)}
+                    >
+                      {tag.name}
+                    </div>
+                  ))
+                ) : (
+                  <div className="px-3 py-2 text-muted-foreground">
+                    无匹配标签
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+          <p className="text-xs text-muted-foreground">最多添加 5 个标签</p>
+        </div>
       </div>
 
       <div className="space-y-2">
@@ -290,14 +509,6 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
             onValueChange={(value) => handleChange("lineWidth", value[0])}
           />
         </div>
-      </div>
-
-      <div className="space-y-2">
-        <Label>拼图标签</Label>
-        <Input placeholder="添加标签，用逗号分隔" className="text-sm" />
-        <p className="text-xs text-muted-foreground">
-          最多添加 5 个标签，每个标签不超过 10 个字符
-        </p>
       </div>
     </div>
   );

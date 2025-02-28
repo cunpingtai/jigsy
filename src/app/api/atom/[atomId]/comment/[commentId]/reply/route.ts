@@ -5,11 +5,10 @@ import { NextResponse } from "next/server";
 // 获取评论的回复列表
 export async function GET(
   req: Request,
-  { params }: { params: { atomId: string; commentId: string } }
+  { params }: { params: Promise<{ atomId: string; commentId: string }> }
 ) {
   try {
-    const atomId = parseInt(params.atomId);
-    const commentId = parseInt(params.commentId);
+    const { atomId, commentId } = await params;
     const { searchParams } = new URL(req.url);
 
     // 分页参数
@@ -18,7 +17,7 @@ export async function GET(
 
     // 验证原子是否存在
     const atom = await prisma.standardAtom.findUnique({
-      where: { id: atomId },
+      where: { id: parseInt(atomId) },
       select: { id: true },
     });
 
@@ -29,8 +28,8 @@ export async function GET(
     // 验证评论是否存在
     const comment = await prisma.atomComment.findUnique({
       where: {
-        id: commentId,
-        standardAtomId: atomId,
+        id: parseInt(commentId),
+        standardAtomId: parseInt(atomId),
       },
       select: { id: true },
     });
@@ -41,12 +40,12 @@ export async function GET(
 
     // 获取回复总数
     const total = await prisma.atomComment.count({
-      where: { parentId: commentId },
+      where: { parentId: parseInt(commentId) },
     });
 
     // 获取回复列表
     const replies = await prisma.atomComment.findMany({
-      where: { parentId: commentId },
+      where: { parentId: parseInt(commentId) },
       include: {
         user: {
           select: {
@@ -96,13 +95,12 @@ export async function GET(
 // 创建回复
 export async function POST(
   req: Request,
-  { params }: { params: { atomId: string; commentId: string } }
+  { params }: { params: Promise<{ atomId: string; commentId: string }> }
 ) {
   try {
     const body = await req.json();
     const { content } = body;
-    const atomId = parseInt(params.atomId);
-    const commentId = parseInt(params.commentId);
+    const { atomId, commentId } = await params;
 
     // 获取当前用户ID
     const userId = await currentUserId();
@@ -117,7 +115,7 @@ export async function POST(
 
     // 验证原子是否存在
     const atom = await prisma.standardAtom.findUnique({
-      where: { id: atomId },
+      where: { id: parseInt(atomId) },
       select: { id: true },
     });
 
@@ -128,8 +126,8 @@ export async function POST(
     // 验证评论是否存在
     const comment = await prisma.atomComment.findUnique({
       where: {
-        id: commentId,
-        standardAtomId: atomId,
+        id: parseInt(commentId),
+        standardAtomId: parseInt(atomId),
       },
       select: { id: true },
     });
@@ -152,9 +150,9 @@ export async function POST(
     const reply = await prisma.atomComment.create({
       data: {
         content,
-        standardAtomId: atomId,
+        standardAtomId: parseInt(atomId),
         userId: userId,
-        parentId: commentId,
+        parentId: parseInt(commentId),
       },
       include: {
         user: {

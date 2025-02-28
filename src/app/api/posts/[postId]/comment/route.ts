@@ -127,12 +127,12 @@ export async function GET(
 // 创建评论
 export async function POST(
   req: Request,
-  { params }: { params: { postId: string } }
+  { params }: { params: Promise<{ postId: string }> }
 ) {
   try {
     const body = await req.json();
     const { content, parentId } = body;
-    const postId = params.postId;
+    const { postId } = await params;
 
     const userId = await currentUserId();
     if (!userId) {

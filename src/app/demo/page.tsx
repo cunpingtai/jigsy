@@ -1,6 +1,8 @@
-import { UserButton, UserProfile } from "@clerk/nextjs";
-import { auth, currentUser } from "@clerk/nextjs/server";
-import SyncUser from "./sync-user";
+"use client";
+
+// import { UserButton, UserProfile } from "@clerk/nextjs";
+// import { auth, currentUser } from "@clerk/nextjs/server";
+// import SyncUser from "./sync-user";
 import User from "./user";
 import Category from "./category";
 import Group from "./group";
@@ -12,35 +14,38 @@ import FeatureAtom from "./feature-atom";
 import AtomComment from "./atom-comment";
 import Tag from "./tag";
 import GroupDemo from "./group-atoms";
+import { Suspense } from "react";
 
-export default async function Demo() {
-  const { userId } = await auth();
+export default function Demo() {
+  // const { userId } = await auth();
 
-  if (!userId) {
-    return <div>Sign in to view this page</div>;
-  }
+  // if (!userId) {
+  //   return <div>Sign in to view this page</div>;
+  // }
 
-  const user = await currentUser();
+  // const user = await currentUser();
 
   return (
-    <div className="flex flex-col gap-4">
-      <GroupDemo />
-      <Tag />
-      <Toaster />
-      <p>Welcome, {user?.emailAddresses[0]?.emailAddress}!</p>
-      <AtomComment />
-      <Tags />
-      <SyncUser user={user!} />
-      <User />
-      <Category />
-      <Group />
-      <GroupsCategories />
-      <Atom />
-      <FeatureAtom />
-      {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
-      {/* <UserProfile />
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="flex flex-col gap-4">
+        <GroupDemo />
+        <Tag />
+        <Toaster />
+        {/* <p>Welcome, {user?.emailAddresses[0]?.emailAddress}!</p> */}
+        <AtomComment />
+        <Tags />
+        {/* <SyncUser user={user!} /> */}
+        <User />
+        <Category />
+        <Group />
+        <GroupsCategories />
+        <Atom />
+        <FeatureAtom />
+        {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
+        {/* <UserProfile />
       <UserButton /> */}
-    </div>
+      </div>
+    </Suspense>
   );
 }
 

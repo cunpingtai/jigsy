@@ -1,6 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -64,7 +65,7 @@ export default function PostDetailPage() {
   const [replyingTo, setReplyingTo] = useState<PostComment | null>(null);
   const isLiked = useMemo(() => post?.isLiked || false, [post?.isLiked]);
   // 加载文章详情
-  const loadPostDetail = async () => {
+  const loadPostDetail = useCallback(async () => {
     try {
       setLoading(true);
       const response = await client.postService.getPost(postId);
@@ -77,10 +78,10 @@ export default function PostDetailPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [postId, router]);
 
   // 加载文章评论
-  const loadComments = async () => {
+  const loadComments = useCallback(async () => {
     try {
       const response = await client.postService.getPostComments(postId, {
         page: commentsPage,
@@ -92,7 +93,7 @@ export default function PostDetailPage() {
       console.error("加载评论失败:", error);
       toast.error("加载评论失败");
     }
-  };
+  }, [commentsPage, postId]);
 
   // 创建评论
   const createComment = async () => {
@@ -301,13 +302,13 @@ export default function PostDetailPage() {
     }
 
     loadPostDetail();
-  }, [postId]);
+  }, [loadPostDetail, postId, router]);
 
   useEffect(() => {
     if (post) {
       loadComments();
     }
-  }, [post, commentsPage]);
+  }, [post, commentsPage, loadComments]);
 
   if (loading && !post) {
     return (

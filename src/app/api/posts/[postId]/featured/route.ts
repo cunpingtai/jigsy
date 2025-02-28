@@ -5,10 +5,10 @@ import { NextResponse } from "next/server";
 // 设置帖子为精选
 export async function POST(
   req: Request,
-  { params }: { params: { postId: string } }
+  { params }: { params: Promise<{ postId: string }> }
 ) {
   try {
-    const postId = parseInt(params.postId);
+    const { postId } = await params;
     const body = await req.json();
     const { reason, order = 0 } = body;
 
@@ -33,7 +33,7 @@ export async function POST(
 
     // 验证帖子是否存在
     const post = await prisma.post.findUnique({
-      where: { id: postId },
+      where: { id: parseInt(postId) },
       select: { id: true },
     });
 
@@ -43,13 +43,13 @@ export async function POST(
 
     // 检查帖子是否已经被精选
     const existingFeatured = await prisma.featured.findUnique({
-      where: { postId: postId },
+      where: { postId: parseInt(postId) },
     });
 
     if (existingFeatured) {
       // 更新现有精选信息
       const updatedFeatured = await prisma.featured.update({
-        where: { postId: postId },
+        where: { postId: parseInt(postId) },
         data: {
           reason: reason,
           order: order,
@@ -67,7 +67,7 @@ export async function POST(
     // 创建新的精选记录
     const featured = await prisma.featured.create({
       data: {
-        postId: postId,
+        postId: parseInt(postId),
         reason: reason,
         order: order,
         featuredBy: userId,
@@ -87,10 +87,10 @@ export async function POST(
 // 取消帖子精选
 export async function DELETE(
   req: Request,
-  { params }: { params: { postId: string } }
+  { params }: { params: Promise<{ postId: string }> }
 ) {
   try {
-    const postId = parseInt(params.postId);
+    const { postId } = await params;
 
     // 获取当前用户ID
     const userId = await currentUserId();
@@ -113,7 +113,7 @@ export async function DELETE(
 
     // 验证帖子是否存在
     const post = await prisma.post.findUnique({
-      where: { id: postId },
+      where: { id: parseInt(postId) },
       select: { id: true },
     });
 
@@ -123,7 +123,7 @@ export async function DELETE(
 
     // 检查帖子是否已经被精选
     const existingFeatured = await prisma.featured.findUnique({
-      where: { postId: postId },
+      where: { postId: parseInt(postId) },
     });
 
     if (!existingFeatured) {
@@ -135,7 +135,7 @@ export async function DELETE(
 
     // 删除精选记录
     await prisma.featured.delete({
-      where: { postId: postId },
+      where: { postId: parseInt(postId) },
     });
 
     return NextResponse.json({
@@ -150,14 +150,14 @@ export async function DELETE(
 // 获取帖子精选状态
 export async function GET(
   req: Request,
-  { params }: { params: { postId: string } }
+  { params }: { params: Promise<{ postId: string }> }
 ) {
   try {
-    const postId = parseInt(params.postId);
+    const { postId } = await params;
 
     // 验证帖子是否存在
     const post = await prisma.post.findUnique({
-      where: { id: postId },
+      where: { id: parseInt(postId) },
       select: { id: true },
     });
 
@@ -167,7 +167,7 @@ export async function GET(
 
     // 获取帖子的精选信息
     const featured = await prisma.featured.findUnique({
-      where: { postId: postId },
+      where: { postId: parseInt(postId) },
       include: {
         post: {
           select: {

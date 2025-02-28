@@ -5,11 +5,11 @@ import { NextResponse } from "next/server";
 // 获取原子评论列表
 export async function GET(
   req: Request,
-  { params }: { params: { atomId: string } }
+  { params }: { params: Promise<{ atomId: string }> }
 ) {
   try {
     const { searchParams } = new URL(req.url);
-    const atomId = params.atomId;
+    const { atomId } = await params;
 
     // 分页参数
     const page = parseInt(searchParams.get("page") || "1");
@@ -114,12 +114,12 @@ export async function GET(
 // 创建评论
 export async function POST(
   req: Request,
-  { params }: { params: { atomId: string } }
+  { params }: { params: Promise<{ atomId: string }> }
 ) {
   try {
     const body = await req.json();
     const { content, parentId } = body;
-    const atomId = params.atomId;
+    const { atomId } = await params;
 
     const userId = await currentUserId();
     if (!userId) {

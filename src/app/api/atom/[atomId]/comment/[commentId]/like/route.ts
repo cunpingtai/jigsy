@@ -5,11 +5,10 @@ import { NextResponse } from "next/server";
 // 点赞评论
 export async function POST(
   req: Request,
-  { params }: { params: { atomId: string; commentId: string } }
+  { params }: { params: Promise<{ atomId: string; commentId: string }> }
 ) {
   try {
-    const atomId = parseInt(params.atomId);
-    const commentId = parseInt(params.commentId);
+    const { atomId, commentId } = await params;
 
     // 获取当前用户ID
     const userId = await currentUserId();
@@ -19,7 +18,7 @@ export async function POST(
 
     // 验证原子是否存在
     const atom = await prisma.standardAtom.findUnique({
-      where: { id: atomId },
+      where: { id: parseInt(atomId) },
       select: { id: true },
     });
 
@@ -30,8 +29,8 @@ export async function POST(
     // 验证评论是否存在
     const comment = await prisma.atomComment.findUnique({
       where: {
-        id: commentId,
-        standardAtomId: atomId,
+        id: parseInt(commentId),
+        standardAtomId: parseInt(atomId),
       },
       select: { id: true },
     });
@@ -45,7 +44,7 @@ export async function POST(
       where: {
         userId_commentId: {
           userId: userId,
-          commentId: commentId,
+          commentId: parseInt(commentId),
         },
       },
     });
@@ -61,13 +60,13 @@ export async function POST(
     const like = await prisma.atomCommentLike.create({
       data: {
         userId: userId,
-        commentId: commentId,
+        commentId: parseInt(commentId),
       },
     });
 
     // 获取评论的点赞总数
     const likesCount = await prisma.atomCommentLike.count({
-      where: { commentId: commentId },
+      where: { commentId: parseInt(commentId) },
     });
 
     return NextResponse.json({
@@ -83,11 +82,10 @@ export async function POST(
 // 取消点赞评论
 export async function DELETE(
   req: Request,
-  { params }: { params: { atomId: string; commentId: string } }
+  { params }: { params: Promise<{ atomId: string; commentId: string }> }
 ) {
   try {
-    const atomId = parseInt(params.atomId);
-    const commentId = parseInt(params.commentId);
+    const { atomId, commentId } = await params;
 
     // 获取当前用户ID
     const userId = await currentUserId();
@@ -97,7 +95,7 @@ export async function DELETE(
 
     // 验证原子是否存在
     const atom = await prisma.standardAtom.findUnique({
-      where: { id: atomId },
+      where: { id: parseInt(atomId) },
       select: { id: true },
     });
 
@@ -108,8 +106,8 @@ export async function DELETE(
     // 验证评论是否存在
     const comment = await prisma.atomComment.findUnique({
       where: {
-        id: commentId,
-        standardAtomId: atomId,
+        id: parseInt(commentId),
+        standardAtomId: parseInt(atomId),
       },
       select: { id: true },
     });
@@ -123,7 +121,7 @@ export async function DELETE(
       where: {
         userId_commentId: {
           userId: userId,
-          commentId: commentId,
+          commentId: parseInt(commentId),
         },
       },
     });
@@ -137,14 +135,14 @@ export async function DELETE(
       where: {
         userId_commentId: {
           userId: userId,
-          commentId: commentId,
+          commentId: parseInt(commentId),
         },
       },
     });
 
     // 获取评论的点赞总数
     const likesCount = await prisma.atomCommentLike.count({
-      where: { commentId: commentId },
+      where: { commentId: parseInt(commentId) },
     });
 
     return NextResponse.json({
@@ -160,11 +158,10 @@ export async function DELETE(
 // 获取评论点赞状态
 export async function GET(
   req: Request,
-  { params }: { params: { atomId: string; commentId: string } }
+  { params }: { params: Promise<{ atomId: string; commentId: string }> }
 ) {
   try {
-    const atomId = parseInt(params.atomId);
-    const commentId = parseInt(params.commentId);
+    const { atomId, commentId } = await params;
 
     // 获取当前用户ID
     const userId = await currentUserId();
@@ -174,7 +171,7 @@ export async function GET(
 
     // 验证原子是否存在
     const atom = await prisma.standardAtom.findUnique({
-      where: { id: atomId },
+      where: { id: parseInt(atomId) },
       select: { id: true },
     });
 
@@ -185,8 +182,8 @@ export async function GET(
     // 验证评论是否存在
     const comment = await prisma.atomComment.findUnique({
       where: {
-        id: commentId,
-        standardAtomId: atomId,
+        id: parseInt(commentId),
+        standardAtomId: parseInt(atomId),
       },
       select: { id: true },
     });
@@ -200,14 +197,14 @@ export async function GET(
       where: {
         userId_commentId: {
           userId: userId,
-          commentId: commentId,
+          commentId: parseInt(commentId),
         },
       },
     });
 
     // 获取评论的点赞总数
     const likesCount = await prisma.atomCommentLike.count({
-      where: { commentId: commentId },
+      where: { commentId: parseInt(commentId) },
     });
 
     return NextResponse.json({

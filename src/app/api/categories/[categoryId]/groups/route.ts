@@ -1,4 +1,6 @@
+import { getCurrentUser } from "@/app/api/util";
 import { prisma } from "@/lib/prisma";
+import { UserRole } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 // 获取指定分类下的分组列表
@@ -101,12 +103,20 @@ export async function GET(
 // 在指定分类下创建分组
 export async function POST(
   req: Request,
-  { params }: { params: { categoryId: string } }
+  { params }: { params: Promise<{ categoryId: string }> }
 ) {
   try {
     const body = await req.json();
     const { name, description } = body;
-    const categoryId = params.categoryId;
+    const { categoryId } = await params;
+
+    const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    if (user.role !== UserRole.ADMIN) {
+      return NextResponse.json({ error: "Permission denied" }, { status: 403 });
+    }
 
     // 验证必要参数
     if (!name) {

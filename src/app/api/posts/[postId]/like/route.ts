@@ -5,10 +5,10 @@ import { NextResponse } from "next/server";
 // 点赞帖子
 export async function POST(
   req: Request,
-  { params }: { params: { postId: string } }
+  { params }: { params: Promise<{ postId: string }> }
 ) {
   try {
-    const postId = parseInt(params.postId);
+    const { postId } = await params;
 
     // 获取当前用户ID
     const userId = await currentUserId();
@@ -18,7 +18,7 @@ export async function POST(
 
     // 验证帖子是否存在
     const post = await prisma.post.findUnique({
-      where: { id: postId },
+      where: { id: parseInt(postId) },
       select: { id: true },
     });
 
@@ -31,7 +31,7 @@ export async function POST(
       where: {
         userId_postId: {
           userId: userId,
-          postId: postId,
+          postId: parseInt(postId),
         },
       },
     });
@@ -47,13 +47,13 @@ export async function POST(
     const like = await prisma.postLike.create({
       data: {
         userId: userId,
-        postId: postId,
+        postId: parseInt(postId),
       },
     });
 
     // 获取帖子的点赞总数
     const likesCount = await prisma.postLike.count({
-      where: { postId: postId },
+      where: { postId: parseInt(postId) },
     });
 
     return NextResponse.json({
@@ -69,10 +69,10 @@ export async function POST(
 // 取消点赞帖子
 export async function DELETE(
   req: Request,
-  { params }: { params: { postId: string } }
+  { params }: { params: Promise<{ postId: string }> }
 ) {
   try {
-    const postId = parseInt(params.postId);
+    const { postId } = await params;
 
     // 获取当前用户ID
     const userId = await currentUserId();
@@ -82,7 +82,7 @@ export async function DELETE(
 
     // 验证帖子是否存在
     const post = await prisma.post.findUnique({
-      where: { id: postId },
+      where: { id: parseInt(postId) },
       select: { id: true },
     });
 
@@ -95,7 +95,7 @@ export async function DELETE(
       where: {
         userId_postId: {
           userId: userId,
-          postId: postId,
+          postId: parseInt(postId),
         },
       },
     });
@@ -109,14 +109,14 @@ export async function DELETE(
       where: {
         userId_postId: {
           userId: userId,
-          postId: postId,
+          postId: parseInt(postId),
         },
       },
     });
 
     // 获取帖子的点赞总数
     const likesCount = await prisma.postLike.count({
-      where: { postId: postId },
+      where: { postId: parseInt(postId) },
     });
 
     return NextResponse.json({
@@ -132,10 +132,10 @@ export async function DELETE(
 // 获取帖子点赞状态
 export async function GET(
   req: Request,
-  { params }: { params: { postId: string } }
+  { params }: { params: Promise<{ postId: string }> }
 ) {
   try {
-    const postId = parseInt(params.postId);
+    const { postId } = await params;
 
     // 获取当前用户ID
     const userId = await currentUserId();
@@ -145,7 +145,7 @@ export async function GET(
 
     // 验证帖子是否存在
     const post = await prisma.post.findUnique({
-      where: { id: postId },
+      where: { id: parseInt(postId) },
       select: { id: true },
     });
 
@@ -158,14 +158,14 @@ export async function GET(
       where: {
         userId_postId: {
           userId: userId,
-          postId: postId,
+          postId: parseInt(postId),
         },
       },
     });
 
     // 获取帖子的点赞总数
     const likesCount = await prisma.postLike.count({
-      where: { postId: postId },
+      where: { postId: parseInt(postId) },
     });
 
     return NextResponse.json({

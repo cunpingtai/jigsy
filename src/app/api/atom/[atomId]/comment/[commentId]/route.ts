@@ -1,19 +1,19 @@
-import { currentUserId } from "@/app/api/util";
+import { currentUserId, getCurrentUser } from "@/app/api/util";
 import { prisma } from "@/lib/prisma";
+import { UserRole } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 // 获取单个评论
 export async function GET(
   req: Request,
-  { params }: { params: { atomId: string; commentId: string } }
+  { params }: { params: Promise<{ atomId: string; commentId: string }> }
 ) {
   try {
-    const atomId = parseInt(params.atomId);
-    const commentId = parseInt(params.commentId);
+    const { atomId, commentId } = await params;
 
     // 验证原子是否存在
     const atom = await prisma.standardAtom.findUnique({
-      where: { id: atomId },
+      where: { id: parseInt(atomId) },
       select: { id: true },
     });
 
@@ -24,8 +24,8 @@ export async function GET(
     // 获取评论
     const comment = await prisma.atomComment.findUnique({
       where: {
-        id: commentId,
-        standardAtomId: atomId,
+        id: parseInt(commentId),
+        standardAtomId: parseInt(atomId),
       },
       include: {
         user: {
@@ -89,20 +89,21 @@ export async function GET(
 // 更新评论
 export async function PUT(
   req: Request,
-  { params }: { params: { atomId: string; commentId: string } }
+  { params }: { params: Promise<{ atomId: string; commentId: string }> }
 ) {
   try {
+    const { atomId, commentId } = await params;
     const body = await req.json();
     const { content } = body;
-    const atomId = parseInt(params.atomId);
-    const commentId = parseInt(params.commentId);
 
-    // 获取当前用户ID
-    const userId = await currentUserId();
-    if (!userId) {
+    const user = await getCurrentUser();
+    if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-
+    if (user.role !== UserRole.ADMIN) {
+      return NextResponse.json({ error: "Permission denied" }, { status: 403 });
+    }
+    const userId = user.id;
     // 验证必要参数
     if (!content) {
       return NextResponse.json({ error: "评论内容是必需的" }, { status: 400 });
@@ -110,7 +111,7 @@ export async function PUT(
 
     // 验证原子是否存在
     const atom = await prisma.standardAtom.findUnique({
-      where: { id: atomId },
+      where: { id: parseInt(atomId) },
       select: { id: true },
     });
 
@@ -121,8 +122,8 @@ export async function PUT(
     // 验证评论是否存在
     const comment = await prisma.atomComment.findUnique({
       where: {
-        id: commentId,
-        standardAtomId: atomId,
+        id: parseInt(commentId),
+        standardAtomId: parseInt(atomId),
       },
       select: { id: true, userId: true },
     });
@@ -141,7 +142,7 @@ export async function PUT(
 
     // 更新评论
     const updatedComment = await prisma.atomComment.update({
-      where: { id: commentId },
+      where: { id: parseInt(commentId) },
       data: { content },
       include: {
         user: {
@@ -164,21 +165,23 @@ export async function PUT(
 // 删除评论
 export async function DELETE(
   req: Request,
-  { params }: { params: { atomId: string; commentId: string } }
+  { params }: { params: Promise<{ atomId: string; commentId: string }> }
 ) {
   try {
-    const atomId = parseInt(params.atomId);
-    const commentId = parseInt(params.commentId);
+    const { atomId, commentId } = await params;
 
-    // 获取当前用户ID
-    const userId = await currentUserId();
-    if (!userId) {
+    const user = await getCurrentUser();
+    if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+    if (user.role !== UserRole.ADMIN) {
+      return NextResponse.json({ error: "Permission denied" }, { status: 403 });
+    }
+    const userId = user.id;
 
     // 验证原子是否存在
     const atom = await prisma.standardAtom.findUnique({
-      where: { id: atomId },
+      where: { id: parseInt(atomId) },
       select: { id: true },
     });
 
@@ -189,8 +192,8 @@ export async function DELETE(
     // 验证评论是否存在
     const comment = await prisma.atomComment.findUnique({
       where: {
-        id: commentId,
-        standardAtomId: atomId,
+        id: parseInt(commentId),
+        standardAtomId: parseInt(atomId),
       },
       select: { id: true, userId: true },
     });
@@ -210,17 +213,17 @@ export async function DELETE(
     await prisma.$transaction(async (tx) => {
       // 删除评论的所有回复
       await tx.atomComment.deleteMany({
-        where: { parentId: commentId },
+        where: { parentId: parseInt(commentId) },
       });
 
       // 删除评论的所有点赞
       await tx.atomCommentLike.deleteMany({
-        where: { commentId: commentId },
+        where: { commentId: parseInt(commentId) },
       });
 
       // 删除评论
       await tx.atomComment.delete({
-        where: { id: commentId },
+        where: { id: parseInt(commentId) },
       });
     });
 

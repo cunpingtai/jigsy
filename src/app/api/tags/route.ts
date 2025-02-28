@@ -1,11 +1,22 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { getCurrentUser } from "../util";
+import { UserRole } from "@prisma/client";
 
 // 创建标签
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { name, description } = body;
+
+    const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    if (user.role !== UserRole.ADMIN) {
+      return NextResponse.json({ error: "Permission denied" }, { status: 403 });
+    }
 
     // 验证名称
     if (!name || name.trim() === "") {

@@ -14,11 +14,11 @@ type SortOrder = "asc" | "desc";
 // 获取分类下的原子列表
 export async function GET(
   req: Request,
-  { params }: { params: { categoryId: string } }
+  { params }: { params: Promise<{ categoryId: string }> }
 ) {
   try {
     const { searchParams } = new URL(req.url);
-    const categoryId = params.categoryId;
+    const { categoryId } = await params;
 
     // 分页参数
     const page = parseInt(searchParams.get("page") || "1");

@@ -5,12 +5,11 @@ import { NextResponse } from "next/server";
 // 创建游戏记录（开始游戏）
 export async function POST(
   req: Request,
-  { params }: { params: { atomId: string } }
+  { params }: { params: Promise<{ atomId: string }> }
 ) {
   try {
+    const { atomId } = await params;
     const body = await req.json();
-    const { meta } = body;
-    const atomId = params.atomId;
 
     const userId = await currentUserId();
     if (!userId) {

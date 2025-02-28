@@ -1,6 +1,4 @@
 import * as fabric from "fabric";
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface GradientProps {
   className?: string;
   width?: number;

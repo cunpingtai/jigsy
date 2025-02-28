@@ -1,21 +1,22 @@
-import { currentUserId } from "@/app/api/util";
+import { currentUserId, getCurrentUser } from "@/app/api/util";
 import { prisma } from "@/lib/prisma";
+import { UserRole } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 // 获取单个帖子
 export async function GET(
   req: Request,
-  { params }: { params: { postId: string } }
+  { params }: { params: Promise<{ postId: string }> }
 ) {
   try {
-    const postId = parseInt(params.postId);
+    const { postId } = await params;
 
     // 获取当前用户ID
     const userId = await currentUserId();
 
     // 验证帖子是否存在
     const post = await prisma.post.findUnique({
-      where: { id: postId },
+      where: { id: parseInt(postId) },
       include: {
         tags: {
           include: {
@@ -44,7 +45,7 @@ export async function GET(
 
     const likedPosts = userId
       ? await prisma.postLike.findMany({
-          where: { postId: postId, userId: userId },
+          where: { postId: parseInt(postId), userId: userId },
         })
       : [];
 
@@ -77,22 +78,24 @@ export async function GET(
 // 更新帖子
 export async function PUT(
   req: Request,
-  { params }: { params: { postId: string } }
+  { params }: { params: Promise<{ postId: string }> }
 ) {
   try {
-    const postId = parseInt(params.postId);
+    const { postId } = await params;
     const body = await req.json();
     const { title, content, tags } = body;
 
     // 获取当前用户ID
-    const userId = await currentUserId();
-    if (!userId) {
+    const user = await getCurrentUser();
+    if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const userId = user.id;
+
     // 验证帖子是否存在
     const post = await prisma.post.findUnique({
-      where: { id: postId },
+      where: { id: parseInt(postId) },
       select: { id: true, userId: true },
     });
 
@@ -101,11 +104,8 @@ export async function PUT(
     }
 
     // 验证用户是否有权限更新帖子
-    if (post.userId !== userId) {
-      return NextResponse.json(
-        { error: "您没有权限更新此帖子" },
-        { status: 403 }
-      );
+    if (post.userId !== userId && user.role !== UserRole.ADMIN) {
+      return NextResponse.json({ error: "Permission denied" }, { status: 403 });
     }
 
     // 构建更新数据
@@ -116,7 +116,7 @@ export async function PUT(
     if (tags) updateData.tags = tags;
     // 更新帖子
     const updatedPost = await prisma.post.update({
-      where: { id: postId },
+      where: { id: parseInt(postId) },
       data: updateData,
       include: {
         user: {
@@ -139,20 +139,21 @@ export async function PUT(
 // 删除帖子
 export async function DELETE(
   req: Request,
-  { params }: { params: { postId: string } }
+  { params }: { params: Promise<{ postId: string }> }
 ) {
   try {
-    const postId = parseInt(params.postId);
+    const { postId } = await params;
 
     // 获取当前用户ID
-    const userId = await currentUserId();
-    if (!userId) {
+    const user = await getCurrentUser();
+    if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+    const userId = user.id;
 
     // 验证帖子是否存在
     const post = await prisma.post.findUnique({
-      where: { id: postId },
+      where: { id: parseInt(postId) },
       select: { id: true, userId: true },
     });
 
@@ -161,11 +162,8 @@ export async function DELETE(
     }
 
     // 验证用户是否有权限删除帖子
-    if (post.userId !== userId) {
-      return NextResponse.json(
-        { error: "您没有权限删除此帖子" },
-        { status: 403 }
-      );
+    if (post.userId !== userId && user.role !== UserRole.ADMIN) {
+      return NextResponse.json({ error: "Permission denied" }, { status: 403 });
     }
 
     await prisma.$transaction(async (tx) => {
@@ -173,34 +171,34 @@ export async function DELETE(
       await tx.commentLike.deleteMany({
         where: {
           comment: {
-            postId: postId,
+            postId: parseInt(postId),
           },
         },
       });
 
       // 删除帖子的所有评论
       await tx.comment.deleteMany({
-        where: { postId: postId },
+        where: { postId: parseInt(postId) },
       });
 
       // 删除帖子精选
       await tx.featured.deleteMany({
-        where: { postId: postId },
+        where: { postId: parseInt(postId) },
       });
 
       // 删除帖子的所有点赞
       await tx.postLike.deleteMany({
-        where: { postId: postId },
+        where: { postId: parseInt(postId) },
       });
 
       // 删除帖子标签
       await tx.tagsOnPosts.deleteMany({
-        where: { postId: postId },
+        where: { postId: parseInt(postId) },
       });
 
       // 删除帖子
       await tx.post.delete({
-        where: { id: postId },
+        where: { id: parseInt(postId) },
       });
     });
 

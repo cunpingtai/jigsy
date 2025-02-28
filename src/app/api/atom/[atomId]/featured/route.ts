@@ -1,39 +1,32 @@
-import { currentUserId } from "@/app/api/util";
+import { currentUserId, getCurrentUser } from "@/app/api/util";
 import { prisma } from "@/lib/prisma";
+import { UserRole } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 // 设置原子 为精选
 export async function POST(
   req: Request,
-  { params }: { params: { atomId: string } }
+  { params }: { params: Promise<{ atomId: string }> }
 ) {
   try {
-    const atomId = parseInt(params.atomId);
+    const { atomId } = await params;
     const body = await req.json();
     const { reason, order = 0 } = body;
 
-    // 获取当前用户ID
-    const userId = await currentUserId();
-    if (!userId) {
+    const user = await getCurrentUser();
+    if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // 验证用户是否有管理员权限
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-      select: { id: true, role: true },
-    });
-
-    if (!user || user.role !== "ADMIN") {
-      return NextResponse.json(
-        { error: "您没有权限设置精选帖子" },
-        { status: 403 }
-      );
+    if (user.role !== UserRole.ADMIN) {
+      return NextResponse.json({ error: "Permission denied" }, { status: 403 });
     }
+
+    const userId = user.id;
 
     // 验证帖子是否存在
     const atom = await prisma.standardAtom.findUnique({
-      where: { id: atomId },
+      where: { id: parseInt(atomId) },
       select: { id: true },
     });
 
@@ -43,13 +36,13 @@ export async function POST(
 
     // 检查帖子是否已经被精选
     const existingFeatured = await prisma.atomFeatured.findUnique({
-      where: { atomId: atomId },
+      where: { atomId: parseInt(atomId) },
     });
 
     if (existingFeatured) {
       // 更新现有精选信息
       const updatedFeatured = await prisma.atomFeatured.update({
-        where: { atomId: atomId },
+        where: { atomId: parseInt(atomId) },
         data: {
           reason: reason,
           order: order,
@@ -67,7 +60,7 @@ export async function POST(
     // 创建新的精选记录
     const featured = await prisma.atomFeatured.create({
       data: {
-        atomId: atomId,
+        atomId: parseInt(atomId),
         reason: reason,
         order: order,
         featuredBy: userId,
@@ -87,33 +80,23 @@ export async function POST(
 // 取消帖子精选
 export async function DELETE(
   req: Request,
-  { params }: { params: { atomId: string } }
+  { params }: { params: Promise<{ atomId: string }> }
 ) {
   try {
-    const atomId = parseInt(params.atomId);
+    const { atomId } = await params;
 
-    // 获取当前用户ID
-    const userId = await currentUserId();
-    if (!userId) {
+    const user = await getCurrentUser();
+    if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // 验证用户是否有管理员权限
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-      select: { id: true, role: true },
-    });
-
-    if (!user || user.role !== "ADMIN") {
-      return NextResponse.json(
-        { error: "您没有权限取消精选原子" },
-        { status: 403 }
-      );
+    if (user.role !== UserRole.ADMIN) {
+      return NextResponse.json({ error: "Permission denied" }, { status: 403 });
     }
 
     // 验证帖子是否存在
     const atom = await prisma.standardAtom.findUnique({
-      where: { id: atomId },
+      where: { id: parseInt(atomId) },
       select: { id: true },
     });
 
@@ -123,7 +106,7 @@ export async function DELETE(
 
     // 检查帖子是否已经被精选
     const existingFeatured = await prisma.atomFeatured.findUnique({
-      where: { atomId: atomId },
+      where: { atomId: parseInt(atomId) },
     });
 
     if (!existingFeatured) {
@@ -135,7 +118,7 @@ export async function DELETE(
 
     // 删除精选记录
     await prisma.atomFeatured.delete({
-      where: { atomId: atomId },
+      where: { atomId: parseInt(atomId) },
     });
 
     return NextResponse.json({
@@ -150,14 +133,14 @@ export async function DELETE(
 // 获取帖子精选状态
 export async function GET(
   req: Request,
-  { params }: { params: { atomId: string } }
+  { params }: { params: Promise<{ atomId: string }> }
 ) {
   try {
-    const atomId = parseInt(params.atomId);
+    const { atomId } = await params;
 
     // 验证帖子是否存在
     const atom = await prisma.standardAtom.findUnique({
-      where: { id: atomId },
+      where: { id: parseInt(atomId) },
       select: { id: true },
     });
 
@@ -167,7 +150,7 @@ export async function GET(
 
     // 获取帖子的精选信息
     const featured = await prisma.atomFeatured.findUnique({
-      where: { atomId: atomId },
+      where: { atomId: parseInt(atomId) },
       include: {
         atom: {
           select: {

@@ -9,11 +9,11 @@ type SortOrder = "asc" | "desc";
 // 获取分组下的原子列表
 export async function GET(
   req: Request,
-  { params }: { params: { groupId: string } }
+  { params }: { params: Promise<{ groupId: string }> }
 ) {
   try {
     const { searchParams } = new URL(req.url);
-    const groupId = params.groupId;
+    const { groupId } = await params;
 
     // 分页参数
     const page = parseInt(searchParams.get("page") || "1");

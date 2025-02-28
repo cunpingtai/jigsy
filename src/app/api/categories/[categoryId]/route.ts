@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { getCurrentUser } from "../../util";
+import { UserRole } from "@prisma/client";
 
 // 删除分类
 export async function DELETE(
@@ -8,6 +10,14 @@ export async function DELETE(
 ) {
   try {
     const { categoryId } = await params;
+
+    const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    if (user.role !== UserRole.ADMIN) {
+      return NextResponse.json({ error: "Permission denied" }, { status: 403 });
+    }
 
     // 构建查询条件
 
@@ -52,6 +62,14 @@ export async function PUT(
   { params }: { params: Promise<{ categoryId: string }> }
 ) {
   try {
+    const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    if (user.role !== UserRole.ADMIN) {
+      return NextResponse.json({ error: "Permission denied" }, { status: 403 });
+    }
+
     const { categoryId } = await params;
     const body = await req.json();
     const { newName, description } = body;

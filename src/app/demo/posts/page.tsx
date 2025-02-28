@@ -1,6 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -57,7 +58,7 @@ export default function PostsDemo() {
   const [activeTab, setActiveTab] = useState("all");
 
   // 加载文章列表
-  const loadPosts = async () => {
+  const loadPosts = useCallback(async () => {
     try {
       setLoading(true);
       const response = await client.postService.getPosts({
@@ -76,7 +77,7 @@ export default function PostsDemo() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, searchTerm, sortBy, order]);
 
   // 加载精选文章
   const loadFeaturedPosts = async () => {
@@ -160,7 +161,7 @@ export default function PostsDemo() {
 
   useEffect(() => {
     loadPosts();
-  }, [currentPage]);
+  }, [currentPage, loadPosts]);
 
   // 添加文章到精选
   const addPostToFeatured = async (postId: number) => {
