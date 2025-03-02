@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useI18n } from "@/app/[locale]/providers";
 
 interface TextureSelectorProps {
   selectedTexture: string;
@@ -117,12 +118,14 @@ export const TextureSelector: FC<TextureSelectorProps> = ({
     ],
   };
 
+  const { data } = useI18n();
+
   return (
     <Tabs defaultValue="solid" className="w-full">
       <TabsList className="grid w-full grid-cols-3">
-        <TabsTrigger value="solid">纯色</TabsTrigger>
-        <TabsTrigger value="gradient">渐变</TabsTrigger>
-        <TabsTrigger value="pattern">纹理</TabsTrigger>
+        <TabsTrigger value="solid">{data.solid}</TabsTrigger>
+        <TabsTrigger value="gradient">{data.gradient}</TabsTrigger>
+        <TabsTrigger value="pattern">{data.pattern}</TabsTrigger>
       </TabsList>
       {Object.entries(textureGroups).map(([key, textures]) => (
         <TabsContent key={key} value={key}>

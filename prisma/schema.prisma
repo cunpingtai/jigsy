@@ -9,8 +9,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
@@ -24,62 +24,64 @@ datasource db {
 // UserAtomRecord meta 是用户对标准原子的使用记录的元数据
 
 model User {
-  id            Int              @id @default(autoincrement())
-  clerkId       String           @unique
-  email         String          @unique
-  name          String?
-  avatar        String?
-  points        Int             @default(0)
-  level         Int             @default(1)
-  posts         Post[]
-  comments      Comment[]
-  pointsHistory PointsHistory[]
-  atoms         StandardAtom[]   // 用户创建的拼图
-  atomRecords   UserAtomRecord[] // 用户的拼图记录
-  favorites     Favorite[]       // 用户收藏
-  goals         Goal[]           // 用户目标
-  fieldConfigs  FieldConfig[]    // 用户的字段配置
-  postLikes     PostLike[]       // 用户点赞的帖子
-  atomLikes     AtomLike[]       // 用户点赞的原子
-  atomComments  AtomComment[]    // 用户评论的原子
-  atomCommentLikes  AtomCommentLike[]    // 用户评论的原子点赞
-  commentLikes  CommentLike[]    // 用户评论的点赞
-  challenges    UserChallenge[]
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  role      UserRole? @default(USER)
+  id               Int               @id @default(autoincrement())
+  clerkId          String            @unique
+  email            String            @unique
+  name             String?
+  avatar           String?
+  points           Int               @default(0)
+  level            Int               @default(1)
+  posts            Post[]
+  comments         Comment[]
+  pointsHistory    PointsHistory[]
+  atoms            StandardAtom[] // 用户创建的拼图
+  atomRecords      UserAtomRecord[] // 用户的拼图记录
+  favorites        Favorite[] // 用户收藏
+  goals            Goal[] // 用户目标
+  fieldConfigs     FieldConfig[] // 用户的字段配置
+  postLikes        PostLike[] // 用户点赞的帖子
+  atomLikes        AtomLike[] // 用户点赞的原子
+  atomComments     AtomComment[] // 用户评论的原子
+  atomCommentLikes AtomCommentLike[] // 用户评论的原子点赞
+  commentLikes     CommentLike[] // 用户评论的点赞
+  challenges       UserChallenge[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  role             UserRole?         @default(USER)
 
   @@map("jigsaw_user")
 }
 
 model StandardAtom {
-  id          Int       @id @default(autoincrement())
-  title       String    // 原子标题
-  content     String    @db.Text  // 原子内容
-  coverImage  String?   // 封面图片
-  userId      Int      // 创建者
-  user        User     @relation(fields: [userId], references: [id])
-  category    Category @relation(fields: [categoryId], references: [id])
-  categoryId  Int
-  viewCount   Int      @default(0)  // 查看次数
-  likes       AtomLike[] // 点赞关联
-  comments    AtomComment[] // 评论关联
-  status      AtomStatus @default(DRAFT)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  tags        TagsOnAtoms[] // 添加这个反向关联字段
-  group       Group    @relation(fields: [groupId], references: [id])
-  groupId     Int
+  language     String? // 语言
+  id           Int              @id @default(autoincrement())
+  title        String // 原子标题
+  content      String           @db.Text // 原子内容
+  coverImage   String? // 封面图片
+  userId       Int // 创建者
+  user         User             @relation(fields: [userId], references: [id])
+  category     Category         @relation(fields: [categoryId], references: [id])
+  categoryId   Int
+  viewCount    Int              @default(0) // 查看次数
+  likes        AtomLike[] // 点赞关联
+  comments     AtomComment[] // 评论关联
+  status       AtomStatus       @default(DRAFT)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  tags         TagsOnAtoms[] // 添加这个反向关联字段
+  group        Group            @relation(fields: [groupId], references: [id])
+  groupId      Int
   fieldConfigs FieldConfig[]
-  records     UserAtomRecord[]
-  favorites   Favorite[]
-  challenges  Challenge[]
-  featured    AtomFeatured?
-  @@map("jigsaw_puzzle")
+  records      UserAtomRecord[]
+  favorites    Favorite[]
+  challenges   Challenge[]
+  featured     AtomFeatured?
+
   @@index([userId])
   @@index([categoryId])
   @@index([status])
   @@index([groupId])
+  @@map("jigsaw_puzzle")
 }
 
 enum StandardAtomStatus {
@@ -89,6 +91,8 @@ enum StandardAtomStatus {
 }
 
 model Tag {
+  language String? // 语言
+
   id          Int           @id @default(autoincrement())
   name        String        @unique
   description String?
@@ -96,6 +100,7 @@ model Tag {
   posts       TagsOnPosts[] // 多对多关系
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
+
   @@map("jigsaw_tag")
 }
 
@@ -103,51 +108,60 @@ model Tag {
 model TagsOnAtoms {
   atomId    Int
   tagId     Int
-  atom      StandardAtom  @relation(fields: [atomId], references: [id])
+  atom      StandardAtom @relation(fields: [atomId], references: [id])
   tag       Tag          @relation(fields: [tagId], references: [id])
   createdAt DateTime     @default(now())
+
   @@id([atomId, tagId])
-  @@map("jigsaw_tags_on_atoms")
   @@index([atomId])
   @@index([tagId])
+  @@map("jigsaw_tags_on_atoms")
 }
 
 model TagsOnPosts {
-  postId    Int            
-  tagId     Int 
-  post      Post          @relation(fields: [postId], references: [id])
-  tag       Tag           @relation(fields: [tagId], references: [id])
-  createdAt DateTime      @default(now())
+  postId    Int
+  tagId     Int
+  post      Post     @relation(fields: [postId], references: [id])
+  tag       Tag      @relation(fields: [tagId], references: [id])
+  createdAt DateTime @default(now())
+
   @@id([postId, tagId])
-  @@map("jigsaw_tags_on_posts")
   @@index([postId])
   @@index([tagId])
+  @@map("jigsaw_tags_on_posts")
 }
 
 model Category {
+  language String? // 语言
+
   id          Int            @id @default(autoincrement())
   name        String         @unique
   description String?
   atoms       StandardAtom[] // 添加这个反向关联字段
-  groups      Group[]  // 一对多关系
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  groups      Group[] // 一对多关系
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
   @@map("jigsaw_category")
 }
 
 model Group {
-  id          Int           @id @default(autoincrement())
+  language String? // 语言
+
+  id          Int            @id @default(autoincrement())
   name        String
   description String?
   categoryId  Int
-  category    Category      @relation(fields: [categoryId], references: [id])
+  category    Category       @relation(fields: [categoryId], references: [id])
   atoms       StandardAtom[] // 一对多关系
-  
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  @@map("jigsaw_group")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([categoryId])
+  @@map("jigsaw_group")
 }
+
 // UserAtomRecord 是用户对标准原子的使用记录，比如用户玩过拼图
 // UserAtomRecord meta 是用户对标准原子的使用记录的元数据
 model UserAtomRecord {
@@ -156,12 +170,13 @@ model UserAtomRecord {
   user      User         @relation(fields: [userId], references: [id])
   atomId    Int
   atom      StandardAtom @relation(fields: [atomId], references: [id])
-  meta      Json?        // 用户使用记录的元数据
+  meta      Json? // 用户使用记录的元数据
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
-  @@map("jigsaw_user_atom_record")
+
   @@index([userId])
   @@index([atomId])
+  @@map("jigsaw_user_atom_record")
 }
 
 model FieldConfig {
@@ -174,12 +189,13 @@ model FieldConfig {
   name        String
   description String?
   title       String
-  value       String
+  value       String       @db.Text
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
-  @@map("jigsaw_field_config")
+
   @@index([userId])
   @@index([atomId])
+  @@map("jigsaw_field_config")
 }
 
 model Favorite {
@@ -190,38 +206,41 @@ model Favorite {
   atom      StandardAtom @relation(fields: [atomId], references: [id])
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
-  @@map("jigsaw_favorite")
+
   @@index([userId])
   @@index([atomId])
+  @@map("jigsaw_favorite")
 }
 
 // 目标模型
 model Goal {
-  id          Int       @id @default(autoincrement())
-  title       String    // 目标标题
-  current     Int       // 当前进度 (如: 15)
-  target      Int       // 目标值 (如: 20)
-  userId      Int
-  user        User      @relation(fields: [userId], references: [id])
-  streaks     Streak[]  // 一对多关系
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id        Int      @id @default(autoincrement())
+  title     String // 目标标题
+  current   Int // 当前进度 (如: 15)
+  target    Int // 目标值 (如: 20)
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  streaks   Streak[] // 一对多关系
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([userId])
   @@map("jigsaw_goal")
 }
 
 // 连续打卡记录
 model Streak {
-  id        Int       @id @default(autoincrement())
-  date      DateTime  // 打卡日期
+  id        Int      @id @default(autoincrement())
+  date      DateTime // 打卡日期
   userId    Int
   goalId    Int
-  goal      Goal      @relation(fields: [goalId], references: [id])
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  @@map("jigsaw_streak")
+  goal      Goal     @relation(fields: [goalId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([userId, goalId])
   @@index([goalId])
+  @@map("jigsaw_streak")
 }
 
 // 积分历史记录
@@ -229,59 +248,67 @@ model PointsHistory {
   id          Int      @id @default(autoincrement())
   userId      Int
   user        User     @relation(fields: [userId], references: [id])
-  points      Int      // 变动积分值（可正可负）
-  type        String   // 积分类型：发帖/评论/签到等
-  description String   // 变动说明
+  points      Int // 变动积分值（可正可负）
+  type        String // 积分类型：发帖/评论/签到等
+  description String // 变动说明
   createdAt   DateTime @default(now())
+
   @@index([userId])
   @@map("jigsaw_points_history")
 }
 
 // 帖子模型
 model Post {
-  id          Int       @id @default(autoincrement())
-  title       String
-  content     String    @db.Text
-  userId      Int
-  user        User      @relation(fields: [userId], references: [id])
-  comments    Comment[]
-  likes       PostLike[] // 修改为关联点赞表
-  tags        TagsOnPosts[]
-  status      PostStatus @default(DRAFT)
-  featured    Featured? // 关联精选表
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  @@map("jigsaw_post")
+  language String? // 语言
+
+  id        Int           @id @default(autoincrement())
+  title     String
+  content   String        @db.Text
+  userId    Int
+  user      User          @relation(fields: [userId], references: [id])
+  comments  Comment[]
+  likes     PostLike[] // 修改为关联点赞表
+  tags      TagsOnPosts[]
+  status    PostStatus    @default(DRAFT)
+  featured  Featured? // 关联精选表
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
   @@index([userId])
   @@index([status])
+  @@map("jigsaw_post")
 }
 
 // 新增精选模型
 model Featured {
-  id          Int      @id @default(autoincrement())
-  postId      Int      @unique // 一篇文章只能被精选一次
-  post        Post     @relation(fields: [postId], references: [id])
-  reason      String?  // 精选原因
-  order       Int      @default(0) // 排序权重
-  featuredAt  DateTime @default(now()) // 精选时间
-  featuredBy  Int      // 由哪个管理员设置的精选
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  language String? // 语言
+
+  id         Int      @id @default(autoincrement())
+  postId     Int      @unique // 一篇文章只能被精选一次
+  post       Post     @relation(fields: [postId], references: [id])
+  reason     String? // 精选原因
+  order      Int      @default(0) // 排序权重
+  featuredAt DateTime @default(now()) // 精选时间
+  featuredBy Int // 由哪个管理员设置的精选
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
   @@index([postId])
   @@index([featuredBy])
   @@map("jigsaw_featured")
 }
 
 model AtomFeatured {
-  id          Int      @id @default(autoincrement())
-  atomId      Int      @unique
-  atom        StandardAtom @relation(fields: [atomId], references: [id])
-  reason      String?  // 精选原因
-  order       Int      @default(0) // 排序权重
-  featuredAt  DateTime @default(now()) // 精选时间
-  featuredBy  Int      // 由哪个管理员设置的精选
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id         Int          @id @default(autoincrement())
+  atomId     Int          @unique
+  atom       StandardAtom @relation(fields: [atomId], references: [id])
+  reason     String? // 精选原因
+  order      Int          @default(0) // 排序权重
+  featuredAt DateTime     @default(now()) // 精选时间
+  featuredBy Int // 由哪个管理员设置的精选
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
   @@index([atomId])
   @@index([featuredBy])
   @@map("jigsaw_atom_featured")
@@ -310,20 +337,20 @@ enum UserRole {
 
 // 帖子状态枚举
 enum PostStatus {
-  DRAFT      // 草稿
-  PUBLISHED  // 已发布
-  DELETED    // 已删除
+  DRAFT // 草稿
+  PUBLISHED // 已发布
+  DELETED // 已删除
 }
 
 // 原子点赞模型
 model AtomLike {
-  id            Int           @id @default(autoincrement())
+  id             Int          @id @default(autoincrement())
   standardAtomId Int
-  standardAtom  StandardAtom @relation(fields: [standardAtomId], references: [id])
-  userId        Int
-  user          User         @relation(fields: [userId], references: [id])
-  createdAt     DateTime     @default(now())
-  
+  standardAtom   StandardAtom @relation(fields: [standardAtomId], references: [id])
+  userId         Int
+  user           User         @relation(fields: [userId], references: [id])
+  createdAt      DateTime     @default(now())
+
   @@unique([standardAtomId, userId]) // 防止重复点赞
   @@unique([userId, standardAtomId]) // 防止重复点赞
   @@index([standardAtomId])
@@ -333,18 +360,18 @@ model AtomLike {
 
 // 原子评论模型
 model AtomComment {
-  id            Int           @id @default(autoincrement())
-  content       String        // 评论内容
+  id             Int               @id @default(autoincrement())
+  content        String // 评论内容
   standardAtomId Int
-  standardAtom  StandardAtom @relation(fields: [standardAtomId], references: [id])
-  userId        Int
-  user          User         @relation(fields: [userId], references: [id])
-  parentId      Int?         // 父评论ID
-  parent        AtomComment? @relation("AtomCommentReplies", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  replies       AtomComment[] @relation("AtomCommentReplies")
-  likes        AtomCommentLike[] // 评论点赞数
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  standardAtom   StandardAtom      @relation(fields: [standardAtomId], references: [id])
+  userId         Int
+  user           User              @relation(fields: [userId], references: [id])
+  parentId       Int? // 父评论ID
+  parent         AtomComment?      @relation("AtomCommentReplies", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies        AtomComment[]     @relation("AtomCommentReplies")
+  likes          AtomCommentLike[] // 评论点赞数
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
 
   @@index([standardAtomId])
   @@index([userId])
@@ -353,12 +380,13 @@ model AtomComment {
 }
 
 model AtomCommentLike {
-  id        Int      @id @default(autoincrement())
+  id        Int         @id @default(autoincrement())
   commentId Int
   comment   AtomComment @relation(fields: [commentId], references: [id])
   userId    Int
-  user      User      @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
+  user      User        @relation(fields: [userId], references: [id])
+  createdAt DateTime    @default(now())
+
   @@unique([commentId, userId])
   @@unique([userId, commentId])
   @@index([commentId])
@@ -369,10 +397,11 @@ model AtomCommentLike {
 model CommentLike {
   id        Int      @id @default(autoincrement())
   commentId Int
-  comment   Comment @relation(fields: [commentId], references: [id])
+  comment   Comment  @relation(fields: [commentId], references: [id])
   userId    Int
-  user      User      @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
+
   @@unique([commentId, userId])
   @@unique([userId, commentId])
   @@index([commentId])
@@ -380,50 +409,49 @@ model CommentLike {
   @@map("jigsaw_comment_like")
 }
 
-
 // 评论模型
 model Comment {
-  id        Int       @id @default(autoincrement())
+  id        Int           @id @default(autoincrement())
   content   String
   userId    Int
-  user      User      @relation(fields: [userId], references: [id])
+  user      User          @relation(fields: [userId], references: [id])
   postId    Int
-  post      Post      @relation(fields: [postId], references: [id])
-  parentId  Int?      // 父评论ID，用于回复功能
-  parent    Comment?  @relation("CommentToComment", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  replies   Comment[] @relation("CommentToComment")
+  post      Post          @relation(fields: [postId], references: [id])
+  parentId  Int? // 父评论ID，用于回复功能
+  parent    Comment?      @relation("CommentToComment", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies   Comment[]     @relation("CommentToComment")
   likes     CommentLike[] // 评论点赞数
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
   @@index([userId])
   @@index([postId])
   @@index([parentId])
   @@map("jigsaw_comment")
 }
 
-
 // 原子状态枚举
 enum AtomStatus {
-  DRAFT      // 草稿
-  PUBLISHED  // 已发布
-  DELETED    // 已删除
+  DRAFT // 草稿
+  PUBLISHED // 已发布
+  DELETED // 已删除
 }
 
 // 活动模型
 model Challenge {
-  id          Int       @id @default(autoincrement())
-  title       String    // 活动标题
-  description String    // 活动描述
-  type        ChallengeType // 活动类型：每日/每周
-  startTime   DateTime  // 开始时间
-  endTime     DateTime  // 结束时间
-  atomId      Int      // 关联的拼图
-  atom        StandardAtom @relation(fields: [atomId], references: [id])
-  rewards     Int      // 奖励积分
+  id           Int             @id @default(autoincrement())
+  title        String // 活动标题
+  description  String // 活动描述
+  type         ChallengeType // 活动类型：每日/每周
+  startTime    DateTime // 开始时间
+  endTime      DateTime // 结束时间
+  atomId       Int // 关联的拼图
+  atom         StandardAtom    @relation(fields: [atomId], references: [id])
+  rewards      Int // 奖励积分
   participants UserChallenge[] // 参与记录
-  status      ChallengeStatus @default(ACTIVE)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  status       ChallengeStatus @default(ACTIVE)
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
 
   @@index([type])
   @@index([status])
@@ -440,7 +468,7 @@ model UserChallenge {
   challenge   Challenge @relation(fields: [challengeId], references: [id])
   completed   Boolean   @default(false)
   completedAt DateTime?
-  score       Int?     // 得分
+  score       Int? // 得分
   createdAt   DateTime  @default(now())
 
   @@unique([userId, challengeId])
@@ -452,36 +480,37 @@ model UserChallenge {
 
 // 活动类型
 enum ChallengeType {
-  DAILY    // 每日挑战
-  WEEKLY   // 每周挑战
+  DAILY // 每日挑战
+  WEEKLY // 每周挑战
 }
 
 // 活动状态
 enum ChallengeStatus {
-  ACTIVE    // 进行中
-  ENDED     // 已结束
-  UPCOMING  // 即将开始
+  ACTIVE // 进行中
+  ENDED // 已结束
+  UPCOMING // 即将开始
 }
 
 // 基础教程模型（抽象）
 model Tutorial {
-  id          Int           @id @default(autoincrement())
-  title       String        // 标题
-  description String        @db.Text  // 描述
-  coverImage  String        // 封面
-  duration    Int           // 时长(分钟)
-  level       Level         // 难度级别
-  viewCount   Int          @default(0)
-  learnCount  Int          @default(0)
-  rating      Float        @default(0)
+  id          Int             @id @default(autoincrement())
+  title       String // 标题
+  description String          @db.Text // 描述
+  coverImage  String // 封面
+  duration    Int // 时长(分钟)
+  level       Level // 难度级别
+  viewCount   Int             @default(0)
+  learnCount  Int             @default(0)
+  rating      Float           @default(0)
   type        TutorialType // 教程类型
   format      ContentFormat // 内容格式
   // 根据格式关联不同内容
   article     ArticleContent?
   video       VideoContent?
   link        LinkContent?
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
   @@index([type])
   @@index([format])
   @@index([level])
@@ -493,51 +522,52 @@ model Tutorial {
 
 // 文章内容
 model ArticleContent {
-  id          Int       @id @default(autoincrement())
-  content     String    @db.Text  // 文章内容
-  tutorialId  Int       @unique   // 一对一关系
-  tutorial    Tutorial  @relation(fields: [tutorialId], references: [id])
+  id         Int      @id @default(autoincrement())
+  content    String   @db.Text // 文章内容
+  tutorialId Int      @unique // 一对一关系
+  tutorial   Tutorial @relation(fields: [tutorialId], references: [id])
+
   @@index([tutorialId])
   @@map("jigsaw_article_content")
 }
 
 // 视频内容
 model VideoContent {
-  id          Int       @id @default(autoincrement())
-  videoUrl    String    // 视频链接
-  platform    String    // 视频平台
-  tutorialId  Int       @unique
-  tutorial    Tutorial  @relation(fields: [tutorialId], references: [id])
+  id         Int      @id @default(autoincrement())
+  videoUrl   String // 视频链接
+  platform   String // 视频平台
+  tutorialId Int      @unique
+  tutorial   Tutorial @relation(fields: [tutorialId], references: [id])
+
   @@index([tutorialId])
   @@map("jigsaw_video_content")
 }
 
 // 外部链接
 model LinkContent {
-  id          Int       @id @default(autoincrement())
-  url         String    // 外部链接
-  website     String    // 网站名称
-  tutorialId  Int       @unique
-  tutorial    Tutorial  @relation(fields: [tutorialId], references: [id])
+  id         Int      @id @default(autoincrement())
+  url        String // 外部链接
+  website    String // 网站名称
+  tutorialId Int      @unique
+  tutorial   Tutorial @relation(fields: [tutorialId], references: [id])
+
   @@index([tutorialId])
   @@map("jigsaw_link_content")
 }
 
 enum ContentFormat {
-  ARTICLE     // 文章教程
-  VIDEO       // 视频教程
-  LINK        // 外部链接
+  ARTICLE // 文章教程
+  VIDEO // 视频教程
+  LINK // 外部链接
 }
 
 enum Level {
-  BEGINNER      // 初级
-  INTERMEDIATE  // 中级
-  ADVANCED      // 高级
+  BEGINNER // 初级
+  INTERMEDIATE // 中级
+  ADVANCED // 高级
 }
 
 enum TutorialType {
-  GUIDE         // 详细攻略
-  TIPS          // 实用技巧
+  GUIDE // 详细攻略
+  TIPS // 实用技巧
 }
-
-

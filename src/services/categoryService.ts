@@ -15,6 +15,9 @@ export const createCategoryService = (api: {
   patch: <T>(url: string, data?: any) => Promise<T>;
 }) => {
   return {
+    getAllCategories: (params?: QueryParams): Promise<Category[]> => {
+      return api.get("/categories/list", params);
+    },
     // 获取分类列表
     getCategories: (params?: QueryParams): Promise<PaginatedData<Category>> => {
       return api.get("/categories", params);

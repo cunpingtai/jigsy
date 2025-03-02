@@ -1,3 +1,5 @@
+import { AtomCommentResponse } from "./types";
+
 // 创建通用的原子评论服务工厂函数
 export const createAtomCommentService = (api: {
   get: <T>(url: string, params?: any) => Promise<T>;
@@ -9,7 +11,7 @@ export const createAtomCommentService = (api: {
   return {
     // 获取原子评论列表
     getComments: (atomId: number, params?: any) => {
-      return api.get<any>(`/atom/${atomId}/comment`, params);
+      return api.get<AtomCommentResponse>(`/atom/${atomId}/comment`, params);
     },
 
     // 创建评论
@@ -19,7 +21,9 @@ export const createAtomCommentService = (api: {
 
     // 获取单个评论
     getComment: (atomId: number, commentId: number) => {
-      return api.get<any>(`/atom/${atomId}/comment/${commentId}`);
+      return api.get<AtomCommentResponse>(
+        `/atom/${atomId}/comment/${commentId}`
+      );
     },
 
     // 更新评论

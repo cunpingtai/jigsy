@@ -1,18 +1,17 @@
 "use client";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import {
   Moon,
   Sun,
-  Home,
-  Trophy,
   Search,
   Puzzle,
   Menu,
-  Video,
-  MessageCircle,
+  Tag,
+  Group,
+  ChartBarStacked,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import {
@@ -25,51 +24,87 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { UserMenu } from "../UserMenu";
 import { SignedIn } from "@clerk/nextjs";
+import { LanguageSelector } from "../LanguageSelector";
+import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { useI18n } from "@/app/[locale]/providers";
+export const Header: FC<{ locale?: string; isAdmin?: boolean }> = ({
+  locale,
+  isAdmin,
+}) => {
+  const { data } = useI18n();
+  const navigationItems = [
+    // {
+    //   icon: Home,
+    //   label: data.home,
+    //   href: "/",
+    // },
+    // {
+    //   icon: Trophy,
+    //   label: data.leaderboard,
+    //   href: "/leaderboard",
+    // },
+    {
+      icon: Search,
+      label: data.explore,
+      href: "/explore",
+    },
+    {
+      icon: Puzzle,
+      label: data.puzzle,
+      href: "/puzzle/create",
+    },
+    {
+      icon: ChartBarStacked,
+      label: data.categories,
+      href: "/demo/categories-page",
+      private: true,
+    },
+    {
+      icon: Group,
+      label: data.groups,
+      href: "/demo/groups-page",
+      private: true,
+    },
+    {
+      icon: Tag,
+      label: data.tags,
+      href: "/demo/tags-page",
+      private: true,
+    },
+    // {
+    //   icon: Video,
+    //   label: "学习",
+    //   href: "/learn",
+    // },
+    // {
+    //   icon: MessageCircle,
+    //   label: "社区",
+    //   href: "/community",
+    // },
+  ];
 
-const navigationItems = [
-  {
-    icon: Home,
-    label: "首页",
-    href: "/",
-  },
-  {
-    icon: Trophy,
-    label: "排行榜",
-    href: "/leaderboard",
-  },
-  {
-    icon: Search,
-    label: "发现",
-    href: "/explore",
-  },
-  {
-    icon: Puzzle,
-    label: "拼图编辑器",
-    href: "/puzzle/create",
-    private: true,
-  },
-  {
-    icon: Video,
-    label: "学习",
-    href: "/learn",
-  },
-  {
-    icon: MessageCircle,
-    label: "社区",
-    href: "/community",
-  },
-];
-
-export const Header: FC = () => {
   const { theme, setTheme } = useTheme();
-
+  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between mx-auto">
         <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center space-x-2">
+          <Link
+            href={`/${locale}/explore`}
+            className={cn("flex items-center space-x-2")}
+          >
+            <Image
+              src="/logo.png"
+              alt="logo"
+              width={1024}
+              height={1024}
+              className="w-12 h-12"
+            />
             <span className="text-xl font-bold whitespace-nowrap">
-              拼图挑战
+              {data.siteTitle}
             </span>
           </Link>
 
@@ -78,7 +113,11 @@ export const Header: FC = () => {
               {navigationItems.map((item) => {
                 const c = (
                   <NavigationMenuItem key={item.href}>
-                    <Link href={item.href} legacyBehavior passHref>
+                    <Link
+                      href={`/${locale}${item.href}`}
+                      legacyBehavior
+                      passHref
+                    >
                       <NavigationMenuLink
                         className={navigationMenuTriggerStyle()}
                       >
@@ -89,8 +128,8 @@ export const Header: FC = () => {
                   </NavigationMenuItem>
                 );
 
-                if (item.private) {
-                  return <SignedIn key={item.href}>{c}</SignedIn>;
+                if (item.private && !isAdmin) {
+                  return null;
                 }
 
                 return c;
@@ -121,11 +160,22 @@ export const Header: FC = () => {
           </Sheet>
         </div>
 
-        <div className="hidden lg:flex items-center space-x-4 justify-center max-w-sm flex-1">
+        <div className="hidden lg:flex items-center space-x-4 justify-center max-w-lg flex-1">
           <Input
-            placeholder="搜索拼图..."
-            className="focus:w-full w-36 transition-all duration-300"
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder={data.search}
+            className="w-80 transition-all duration-300"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                router.push(`/${locale}/search?q=${searchQuery}`);
+              }
+            }}
           />
+          <Link href={`/${locale}/search?q=${searchQuery}`}>
+            <Button variant="outline">
+              <Search className="w-4 h-4" />
+            </Button>
+          </Link>
         </div>
 
         <div className="flex items-center space-x-4">
@@ -139,11 +189,19 @@ export const Header: FC = () => {
             <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           </Button>
           <SignedIn>
-            <Button className="transition-transform hover:scale-105">
-              创建拼图
-            </Button>
+            <Link href="/puzzle/create">
+              <Button className="transition-transform hover:scale-105">
+                {data.create}
+              </Button>
+            </Link>
           </SignedIn>
-          <UserMenu />
+          <LanguageSelector
+            defaultLanguage={locale}
+            onLanguageChange={(language) => {
+              console.log(language);
+            }}
+          />
+          <UserMenu locale={locale || "en"} />
         </div>
       </div>
     </header>

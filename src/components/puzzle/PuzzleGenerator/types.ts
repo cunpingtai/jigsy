@@ -1,5 +1,6 @@
 import * as fabric from "fabric";
 import { PieceEdges } from "./generator";
+import { ImageResizeMode } from "../PuzzleCreator";
 
 export interface PuzzleConfig {
   seed: number;
@@ -59,6 +60,8 @@ export interface PuzzleGameProps {
   fixCenter?: number;
   onZoomChange?: (zoom: number) => void;
   onPanChange?: (x: number, y: number) => void;
+  onChange?: (meta: Record<string, any>) => void;
+  localData?: Record<string, any>;
   enablePanning?: boolean;
 }
 

@@ -17,74 +17,87 @@ type PuzzleGeneratorProps = {
   height?: number;
   onLoaded?: () => void;
   preview?: boolean;
+  onChange?: (meta: Record<string, any>) => void;
+  localData?: Record<string, any>;
 } & PuzzleConfigType;
 
 export const PuzzleGenerator = forwardRef<PuzzleGameRef, PuzzleGeneratorProps>(
-  ({ onLoaded, ...config }, ref) => {
-    const { imageUrl, width, height, preview, ...restConfig } = config;
+  ({ onLoaded, onChange, localData, ...config }, ref) => {
+    const { imageUrl, preview, ...restConfig } = config;
     const [measureRef, { width: containerWidth, height: containerHeight }] =
       useMeasure<HTMLDivElement>();
     const [mounted, setMounted] = useState(false);
     const [image, setImage] = useState<fabric.Image | null>(null);
+    const width = Number(config.width);
+    const height = Number(config.height);
 
     const calculateFitSize = useCallback(
-      (imageWidth: number, imageHeight: number) => {
-        if (!containerWidth || !containerHeight)
-          return { width: imageWidth, height: imageHeight };
-
-        const maxWidth = containerWidth - 32; // 减去内边距
-        const maxHeight = containerHeight - 32;
-
-        const ratio = Math.min(maxWidth / imageWidth, maxHeight / imageHeight);
+      (
+        width: number,
+        height: number,
+        imageWidth: number,
+        imageHeight: number
+      ) => {
+        if (!containerWidth || !containerHeight) return { width, height };
 
         return {
-          width: Math.floor(imageWidth * ratio),
-          height: Math.floor(imageHeight * ratio),
+          width: Math.min(width || imageWidth, containerWidth - 32),
+          height: Math.min(height || imageHeight, containerHeight - 32),
         };
       },
       [containerWidth, containerHeight]
     );
 
     const loadImage = useCallback(async () => {
+      if (!imageUrl) return;
       const image = await fabric.Image.fromURL(imageUrl);
       setImage(image);
     }, [imageUrl]);
 
     useEffect(() => {
-      if (!image) {
-        loadImage().then(() => {
-          setTimeout(() => {
-            setMounted(true);
-            onLoaded?.();
-          }, 1000);
-        });
-      }
-    }, [image, preview, loadImage, onLoaded]);
+      loadImage().then(() => {
+        setTimeout(() => {
+          setMounted(true);
+          onLoaded?.();
+        }, 1000);
+      });
+    }, [preview, loadImage, onLoaded]);
 
     let fitSize = { width: 0, height: 0 };
 
-    if (width || height) {
-      if (width && height) {
-        fitSize = calculateFitSize(width, height);
+    if (image) {
+      if (width || height) {
+        if (width && height) {
+          fitSize = calculateFitSize(width, height, image.width, image.height);
+        } else {
+          fitSize = calculateFitSize(
+            Math.min(width || containerWidth, containerWidth),
+            Math.min(height || containerHeight, containerHeight),
+            image.width,
+            image.height
+          );
+        }
       } else {
         fitSize = calculateFitSize(
-          Math.min(width || containerWidth, containerWidth),
-          Math.min(height || containerHeight, containerHeight)
+          image.width,
+          image.height,
+          image.width,
+          image.height
         );
       }
     } else {
-      fitSize = image
-        ? calculateFitSize(image.width!, image.height!)
-        : { width: 0, height: 0 };
+      fitSize = { width: 0, height: 0 };
     }
 
     return (
       <div className="w-full h-full relative">
         <div className="w-full h-full" ref={measureRef}>
-          {preview && mounted && image ? (
+          {mounted && image && containerWidth && containerHeight ? (
             <PuzzleGame
               {...restConfig}
+              localData={localData}
               preview={preview}
+              onChange={onChange}
               ref={ref}
               image={image}
               width={Math.max(Math.min(fitSize.width, 4096), 200)}

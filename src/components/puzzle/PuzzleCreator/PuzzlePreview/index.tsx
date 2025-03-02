@@ -10,12 +10,13 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { PuzzleConfigType } from "../../PuzzleGenerator";
+import { useI18n } from "@/app/[locale]/providers";
 interface PuzzlePreviewProps {
-  type: "image" | "solid" | "gradient" | "emoji" | "text" | "symbol";
+  type: "image" | "solid" | "gradient" | "emoji" | "pattern" | "text" | "shape";
   image?: string | null;
   config: Omit<PuzzleConfigType, "image">;
   difficulty: string;
-  useTime: number;
+  useTime: string;
 }
 
 export const PuzzlePreview: FC<PuzzlePreviewProps> = ({
@@ -26,17 +27,19 @@ export const PuzzlePreview: FC<PuzzlePreviewProps> = ({
   useTime,
 }) => {
   const [open, setOpen] = useState(false);
+
+  const { data } = useI18n();
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <Label className="text-lg font-semibold">预览效果</Label>
+        <Label className="text-lg font-semibold">{data.previewEffect}</Label>
       </div>
 
       {/* 放大模态框 */}
       {image ? (
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogContent className="w-full max-w-screen-md">
-            <DialogTitle className="sr-only">拼图预览</DialogTitle>
+            <DialogTitle className="sr-only">{data.puzzlePreview}</DialogTitle>
             <div className="w-full aspect-square overflow-hidden">
               <PreviewPuzzle image={image} config={config} />
             </div>
@@ -67,7 +70,9 @@ export const PuzzlePreview: FC<PuzzlePreviewProps> = ({
 
             {/* 预览内容 */}
             <div className="inset-0 absolute flex items-center justify-center">
-              <div className="text-sm text-muted-foreground">拼图预览区域</div>
+              <div className="text-sm text-muted-foreground">
+                {data.puzzlePreviewArea}
+              </div>
             </div>
           </div>
         </div>
@@ -76,30 +81,35 @@ export const PuzzlePreview: FC<PuzzlePreviewProps> = ({
       {/* 拼图信息 */}
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">拼图类型</span>
+          <span className="text-muted-foreground">{data.puzzleType}</span>
           <span className="font-medium">
             {
               {
-                image: "图片拼图",
-                solid: "纯色拼图",
-                gradient: "渐变拼图",
-                emoji: "Emoji拼图",
-                text: "文字拼图",
-                symbol: "符号拼图",
+                image: data.imagePuzzle,
+                solid: data.solidPuzzle,
+                gradient: data.gradientPuzzle,
+                emoji: data.emojiPuzzle,
+                pattern: data.patternPuzzle,
+                text: data.textPuzzle,
+                shape: data.shapePuzzle,
               }[type]
             }
           </span>
         </div>
         {image ? (
           <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">预计难度</span>
+            <span className="text-muted-foreground">
+              {data.expectedDifficulty}
+            </span>
             <span className="font-medium">{difficulty}</span>
           </div>
         ) : null}
         {image ? (
           <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">预计用时</span>
-            <span className="font-medium">约 {useTime} 分钟</span>
+            <span className="text-muted-foreground">
+              {data.expectedUseTime}
+            </span>
+            <span className="font-medium">{useTime}</span>
           </div>
         ) : null}
       </div>

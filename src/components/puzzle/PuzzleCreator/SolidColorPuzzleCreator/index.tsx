@@ -1,40 +1,75 @@
-import { FC, useState } from "react";
+/* eslint-disable @next/next/no-img-element */
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { generateSolidColorImage } from "../../PuzzleGenerator/utils";
+import { debounce } from "lodash";
+import { useI18n } from "@/app/[locale]/providers";
 
-// 预设颜色方案
-const presetColors = [
-  { name: "薄荷绿", value: "#4ade80" },
-  { name: "天空蓝", value: "#60a5fa" },
-  { name: "淡紫色", value: "#a78bfa" },
-  { name: "珊瑚粉", value: "#fb7185" },
-  { name: "金盏花", value: "#fbbf24" },
-  { name: "薰衣草", value: "#a855f7" },
-  { name: "蒂芙尼蓝", value: "#2dd4bf" },
-  { name: "玫瑰红", value: "#f43f5e" },
-  { name: "柠檬黄", value: "#facc15" },
-  { name: "海洋蓝", value: "#0ea5e9" },
-  { name: "石墨黑", value: "#334155" },
-  { name: "珍珠白", value: "#f8fafc" },
-];
+type SolidColorPuzzleCreatorMeta = {
+  color?: string;
+};
 
-export const SolidColorPuzzleCreator: FC = () => {
-  const [selectedColor, setSelectedColor] = useState(presetColors[0].value);
-  const [customColor, setCustomColor] = useState("");
+type SolidColorPuzzleCreatorProps = {
+  onGenerate: (image: string, meta: SolidColorPuzzleCreatorMeta) => void;
+  width?: number;
+  height?: number;
+  meta?: SolidColorPuzzleCreatorMeta;
+};
+
+export const SolidColorPuzzleCreator: FC<SolidColorPuzzleCreatorProps> = ({
+  width,
+  height,
+  onGenerate,
+  meta,
+}) => {
+  const { data } = useI18n();
+  // 预设颜色方案
+  const presetColors = useMemo(
+    () => [
+      { name: data.mint, value: "#4ade80" },
+      { name: data.skyBlue, value: "#60a5fa" },
+      { name: data.lightPurple, value: "#a78bfa" },
+      { name: data.coralPink, value: "#fb7185" },
+      { name: data.goldenFlower, value: "#fbbf24" },
+      { name: data.lavender, value: "#a855f7" },
+      { name: data.tiffanyBlue, value: "#2dd4bf" },
+      { name: data.roseRed, value: "#f43f5e" },
+      { name: data.lemonYellow, value: "#facc15" },
+      { name: data.oceanBlue, value: "#0ea5e9" },
+      { name: data.graphiteBlack, value: "#334155" },
+      { name: data.pearlWhite, value: "#f8fafc" },
+    ],
+    [data]
+  );
+  const [selectedColor, setSelectedColor] = useState(
+    meta?.color || presetColors[0].value
+  );
+  const [customColor, setCustomColor] = useState(meta?.color || "");
+  const [image, setImage] = useState("");
+  useEffect(() => {
+    generateSolidColorImage(selectedColor, 1024, 1024).then((image) => {
+      setImage(image);
+      onGenerate(image, {
+        color: selectedColor,
+      });
+    });
+  }, [onGenerate, selectedColor, width, height]);
 
   return (
     <div className="space-y-6">
       {/* 颜色预览 */}
-      <div
-        className="h-40 rounded-lg shadow-inner"
-        style={{ backgroundColor: selectedColor }}
-      />
+      <div className="h-40 rounded-lg shadow-inner">
+        {image ? (
+          <img src={image} alt="color" className="w-full h-full object-cover" />
+        ) : null}
+      </div>
 
       {/* 预设颜色选择 */}
       <div className="space-y-2">
-        <Label>预设颜色</Label>
+        <Label>{data.presetColors}</Label>
         <div className="grid grid-cols-6 gap-2">
           {presetColors.map((color) => (
             <Button
@@ -44,7 +79,10 @@ export const SolidColorPuzzleCreator: FC = () => {
                 "w-full h-12 rounded-lg p-0 overflow-hidden",
                 selectedColor === color.value && "ring-2 ring-primary"
               )}
-              onClick={() => setSelectedColor(color.value)}
+              onClick={() => {
+                setSelectedColor(color.value);
+                setCustomColor(color.value);
+              }}
             >
               <div
                 className="w-full h-full"
@@ -58,7 +96,7 @@ export const SolidColorPuzzleCreator: FC = () => {
 
       {/* 自定义颜色 */}
       <div className="space-y-2">
-        <Label>自定义颜色</Label>
+        <Label>{data.customColor}</Label>
         <div className="flex gap-2">
           <Input
             type="color"
@@ -70,14 +108,14 @@ export const SolidColorPuzzleCreator: FC = () => {
             type="text"
             value={customColor}
             onChange={(e) => setCustomColor(e.target.value)}
-            placeholder="#HEX颜色码"
+            placeholder={data.hexColorCode}
             className="flex-1"
           />
           <Button
             variant="secondary"
             onClick={() => setSelectedColor(customColor)}
           >
-            应用
+            {data.apply}
           </Button>
         </div>
       </div>

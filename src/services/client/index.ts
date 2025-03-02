@@ -7,7 +7,7 @@ import createTagService from "../tagService";
 import createFeatureService from "../featureService";
 import createAtomCommentService from "../atomCommentService";
 import createPostService from "../postService";
-
+import createCloudflareService from "../cloudflareService";
 // 创建客户端用户服务
 const userService = createUserService({ get, post, put, del, patch });
 const categoryService = createCategoryService({ get, post, put, del, patch });
@@ -23,6 +23,7 @@ const atomCommentService = createAtomCommentService({
   patch,
 });
 const postService = createPostService({ get, post, put, del, patch });
+const cloudflareService = createCloudflareService({ get, post });
 export {
   axios,
   get,
@@ -38,4 +39,5 @@ export {
   tagService,
   featureService,
   atomCommentService,
+  cloudflareService,
 };

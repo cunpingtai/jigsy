@@ -43,10 +43,19 @@ export const PuzzleLoading: FC<PuzzleLoadingProps> = ({ className }) => {
         {/* 加载文字 */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-lg font-medium text-foreground/80 bg-background/50 px-4 py-2 rounded-full backdrop-blur-sm animate-bounce">
-            加载中...
+            <Spin />
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+function Spin() {
+  return (
+    <div
+      className="w-4 h-4 border-2 border-t-2 border-b-2 border-gray-300 rounded-full animate-spin"
+      style={{ transform: "rotate(45deg)" }}
+    />
+  );
+}

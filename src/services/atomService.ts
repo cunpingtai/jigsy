@@ -28,9 +28,9 @@ export const createAtomService = (api: {
       return api.get(`/atom/${id}`);
     },
 
-    // 获取单个原子
-    getAtomByTitle: (title: string): Promise<Atom> => {
-      return api.get(`/atom`, { title });
+    // 获取原子是否精选
+    getAtomFeatured: (atomId: number): Promise<Featured> => {
+      return api.get(`/atom/${atomId}/featured`);
     },
 
     // 创建原子
@@ -95,6 +95,14 @@ export const createAtomService = (api: {
       return api.del(`/atom/${atomId}/featured`);
     },
 
+    // 获取游戏记录
+    getAtomGameRecord: (
+      atomId: number,
+      recordId: number
+    ): Promise<AtomGameRecord> => {
+      return api.get(`/atom/${atomId}/play/${recordId}`);
+    },
+
     // 开始游戏
     startAtomGame: (
       atomId: number,
@@ -106,7 +114,7 @@ export const createAtomService = (api: {
     // 完成游戏
     completeAtomGame: (
       atomId: number,
-      recordId: string,
+      recordId: number,
       meta: Record<string, any>
     ): Promise<AtomGameRecord> => {
       return api.put(`/atom/${atomId}/play/${recordId}`, {
@@ -130,7 +138,17 @@ export const createAtomService = (api: {
     // 获取用户的原子游戏记录
     getUserGameRecords: (
       params?: QueryParams
-    ): Promise<PaginatedData<AtomGameRecord>> => {
+    ): Promise<
+      PaginatedData<{
+        id: number;
+        atom: Atom;
+        meta: {
+          endTime?: string;
+          status: string;
+          startTime: string;
+        };
+      }>
+    > => {
       return api.get(`/user/records`, params);
     },
 
@@ -147,7 +165,7 @@ export const createAtomService = (api: {
       groupId: number,
       params?: QueryParams
     ): Promise<PaginatedData<Atom>> => {
-      return api.get(`/group/${groupId}/atoms`, params);
+      return api.get(`/groups/${groupId}/atoms`, params);
     },
 
     // 获取用户创建的原子

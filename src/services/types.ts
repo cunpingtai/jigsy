@@ -65,7 +65,7 @@ export interface Category {
   description?: string;
   groupsCount?: number;
   atomsCount?: number;
-  groups?: any[];
+  groups: any[];
   createdAt: string;
   updatedAt: string;
 }
@@ -118,13 +118,16 @@ export interface Atom {
   status: string;
   userId: number;
   user?: User;
+  tags?: Tag[];
   categoryId?: number;
   category?: Category;
   groupId?: number;
   group?: Group;
   viewCount: number;
-  likeCount: number;
-  favoriteCount: number;
+  likesCount: number;
+  favoritesCount: number;
+  isLiked: boolean;
+  isFavorited: boolean;
   config?: AtomConfig;
   createdAt: string;
   isFeatured: boolean;
@@ -203,6 +206,7 @@ export interface AtomGameRecord {
 // 标签接口
 export interface Tag {
   id: number;
+  tagId: number;
   name: string;
   description?: string;
   atomsCount?: number;
@@ -217,6 +221,7 @@ export interface Tag {
 export interface CreateTagParams {
   name: string;
   description?: string;
+  language: string;
 }
 
 // 更新标签参数
@@ -231,8 +236,10 @@ export interface AtomFeatured {
   reason: string;
   featuredAt: string;
   atom: {
+    coverImage: string;
     id: number;
     title: string;
+    tags: Tag[];
     content: string;
     user: User;
     commentsCount: number;
@@ -363,3 +370,13 @@ export interface PostLikeStatus {
   liked: boolean;
   likesCount: number;
 }
+
+export type AtomCommentResponse = {
+  data: AtomComment[];
+  pagination: {
+    total: number;
+    page: number;
+    pageSize: number;
+    totalPages: number;
+  };
+};

@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import { currentUserId } from "../../util";
+import { currentUserId, getCurrentUser } from "../../util";
+import { currentUser } from "@clerk/nextjs/server";
 
 // 删除原子
 export async function DELETE(
@@ -82,6 +83,8 @@ export async function PUT(
       lineColor,
       lineWidth,
       background,
+      type,
+      meta,
       ...restData
     } = body;
 
@@ -107,6 +110,8 @@ export async function PUT(
 
       // 2. 更新配置字段
       const configUpdates = [
+        { name: "meta", value: meta },
+        { name: "type", value: type },
         { name: "tilesX", value: String(tilesX) },
         { name: "tilesY", value: String(tilesY) },
         { name: "width", value: String(width) },
@@ -173,23 +178,28 @@ export async function GET(
 
     // 需要获取当前用户的点赞和收藏状态
     const userId = await currentUserId();
-    if (!userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    let isLiked: boolean | null = null;
+    let isFavorited: boolean | null = null;
+
+    if (userId) {
+      isLiked = (await prisma.atomLike.findFirst({
+        where: {
+          userId: userId,
+          standardAtomId: parseInt(atomId),
+        },
+      }))
+        ? true
+        : false;
+
+      isFavorited = (await prisma.favorite.findFirst({
+        where: {
+          userId: userId,
+          atomId: parseInt(atomId),
+        },
+      }))
+        ? true
+        : false;
     }
-
-    const isLiked = await prisma.atomLike.findFirst({
-      where: {
-        userId: userId,
-        standardAtomId: parseInt(atomId),
-      },
-    });
-
-    const isFavorited = await prisma.favorite.findFirst({
-      where: {
-        userId: userId,
-        atomId: parseInt(atomId),
-      },
-    });
 
     const atom = await prisma.standardAtom.findFirst({
       where: { id: parseInt(atomId) },
@@ -229,6 +239,7 @@ export async function GET(
       isFavorited: !!isFavorited,
       likesCount: atom._count.likes,
       favoritesCount: atom._count.favorites,
+      tags: atom.tags?.map((tag) => tag.tag),
       config: atom.fieldConfigs.reduce(
         (acc, field) => ({
           ...acc,

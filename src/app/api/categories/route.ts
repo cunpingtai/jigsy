@@ -7,7 +7,7 @@ import { UserRole } from "@prisma/client";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, description } = body;
+    const { name, description, language } = body;
 
     const user = await getCurrentUser();
     if (!user) {
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 
     // 检查分类名称是否已存在
     const existingCategory = await prisma.category.findUnique({
-      where: { name },
+      where: { name, language },
     });
 
     if (existingCategory) {
@@ -34,6 +34,7 @@ export async function POST(req: Request) {
       data: {
         name,
         description,
+        language,
       },
     });
 
@@ -66,9 +67,10 @@ export async function GET(req: Request) {
 
     // 搜索参数
     const search = searchParams.get("search") || "";
+    const language = searchParams.get("language") || "";
 
     // 构建查询条件
-    const where = search
+    const where: Record<string, any> = search
       ? {
           OR: [
             { name: { contains: search } },
@@ -76,6 +78,10 @@ export async function GET(req: Request) {
           ],
         }
       : {};
+
+    if (language) {
+      where.language = language;
+    }
 
     // 获取总数
     const total = await prisma.category.count({ where });

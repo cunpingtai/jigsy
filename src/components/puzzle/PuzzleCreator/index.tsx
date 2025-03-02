@@ -1,15 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { FC, useMemo, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ImagePuzzleCreator } from "./ImagePuzzleCreator";
 import { SolidColorPuzzleCreator } from "./SolidColorPuzzleCreator";
 import { GradientPuzzleCreator } from "./GradientPuzzleCreator";
 import { EmojiPuzzleCreator } from "./EmojiPuzzleCreator";
-import { TextPuzzleCreator } from "./TextPuzzleCreator";
-import { SymbolPuzzleCreator } from "./SymbolPuzzleCreator";
 import { PuzzlePreview } from "./PuzzlePreview";
 import { PuzzleMeta, PuzzleSettings } from "./PuzzleSettings";
+import debounce from "lodash/debounce";
+import Image from "next/image";
 import {
   Image as ImageIcon,
   Palette,
@@ -17,138 +18,225 @@ import {
   Smile,
   Type,
   Hash,
+  Grid,
+  Sliders,
+  Circle,
 } from "lucide-react";
 import { DistributionStrategy } from "../PuzzleGenerator/types";
 import { Button } from "@/components/ui/button";
 import * as client from "@/services/client";
 import { toast } from "sonner";
-type PuzzleType = "image" | "solid" | "gradient" | "emoji" | "text" | "symbol";
+import { PatternPuzzleCreator } from "./PatternPuzzleCreator";
+import { TextPuzzleCreator } from "./TextPuzzleCreator";
+import { ShapePuzzleCreator } from "./ShapePuzzleCreator";
+import { cloudflareService } from "@/services/client";
+import zod, { ZodFormattedError } from "zod";
+import { Atom } from "@/services";
+import { useRouter } from "next/navigation";
+import {
+  calculateEstimatedTime,
+  calculatePuzzleDifficulty,
+  getImageUrl,
+} from "@/lib/utils";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useI18n } from "@/app/[locale]/providers";
 
-const tabs = [
-  {
-    id: "image" as PuzzleType,
-    label: "图片拼图",
-    icon: ImageIcon,
-  },
-  {
-    id: "solid" as PuzzleType,
-    label: "纯色拼图",
-    icon: Palette,
-  },
-  {
-    id: "gradient" as PuzzleType,
-    label: "渐变拼图",
-    icon: PaintRoller,
-  },
-  {
-    id: "emoji" as PuzzleType,
-    label: "Emoji拼图",
-    icon: Smile,
-  },
-  {
-    id: "text" as PuzzleType,
-    label: "文字拼图",
-    icon: Type,
-  },
-  {
-    id: "symbol" as PuzzleType,
-    label: "符号拼图",
-    icon: Hash,
-  },
-];
+export type PuzzleType =
+  | "image"
+  | "solid"
+  | "gradient"
+  | "emoji"
+  | "pattern"
+  | "text"
+  | "shape";
 
-export const PuzzleCreator: FC = () => {
-  const [activeTab, setActiveTab] = useState<PuzzleType>("image");
-  const [image, setImage] = useState<string | null>();
-  const [config, setConfig] = useState<PuzzleMeta>({
-    tilesX: 2,
-    tilesY: 2,
-    width: 0,
-    height: 0,
-    distributionStrategy: DistributionStrategy.SURROUNDING,
-    seed: 2048,
-    tabSize: 20,
-    jitter: 4,
-    showGrid: true,
-    showPreview: false,
-    zoomStep: 0.1,
-    minZoom: 0.5,
-    maxZoom: 2,
-    lineColor: "#000000",
-    lineWidth: 2,
-    title: "",
-    description: "",
-    difficulty: "",
-    pieces: 4,
-    tags: [],
+export const atomSchema = zod.object({
+  title: zod.string().min(1),
+  content: zod.string().min(1),
+  coverImage: zod.string().min(1),
+  categoryId: zod.number().min(1),
+  groupId: zod.number().min(1),
+  tilesX: zod.number().min(1),
+  tilesY: zod.number().min(1),
+  tags: zod.array(zod.number()).min(1),
+});
+
+export enum ImageResizeMode {
+  FIT_WIDTH = "fit_width", // 宽度全显，高度自适应
+  FIT_HEIGHT = "fit_height", // 高度全显，宽度自适应
+  FIT_BOTH = "fit_both", // 合适比例缩放
+  FILL = "fill", // 全占满
+}
+
+type PuzzleCreatorProps = {
+  atom?: Atom;
+  id?: string;
+  locale: string;
+};
+
+export const PuzzleCreator: FC<PuzzleCreatorProps> = ({ atom, id, locale }) => {
+  const { data } = useI18n();
+
+  const tabs = useMemo(
+    () => [
+      {
+        id: "image" as PuzzleType,
+        label: data.imagePuzzle,
+        icon: ImageIcon,
+      },
+      {
+        id: "solid" as PuzzleType,
+        label: data.solidPuzzle,
+        icon: Palette,
+      },
+      {
+        id: "gradient" as PuzzleType,
+        label: data.gradientPuzzle,
+        icon: PaintRoller,
+      },
+      {
+        id: "emoji" as PuzzleType,
+        label: data.emojiPuzzle,
+        icon: Smile,
+      },
+      {
+        id: "pattern" as PuzzleType,
+        label: data.patternPuzzle,
+        icon: Grid,
+      },
+      {
+        id: "text" as PuzzleType,
+        label: data.textPuzzle,
+        icon: Type,
+      },
+      {
+        id: "shape" as PuzzleType,
+        label: data.shapePuzzle,
+        icon: Circle,
+      },
+    ],
+    [data]
+  );
+
+  const imageUrl = atom?.coverImage ? getImageUrl(atom?.coverImage) : null;
+
+  const router = useRouter();
+
+  const [activeTab, setActiveTab] = useState<PuzzleType>(
+    (atom?.config?.type as PuzzleType) || "image"
+  );
+  const [image, setImage] = useState<string | undefined | null>(imageUrl);
+  const [config, setConfig] = useState<PuzzleMeta>(() => {
+    const pieces =
+      atom && atom.config ? atom.config.tilesX * atom.config.tilesY : 4;
+    return atom
+      ? Object.assign(
+          {
+            tilesX: 2,
+            tilesY: 2,
+            width: 0,
+            height: 0,
+            distributionStrategy: DistributionStrategy.SURROUNDING,
+            seed: 2048,
+            tabSize: 20,
+            jitter: 4,
+            showGrid: true,
+            showPreview: false,
+            zoomStep: 0.1,
+            minZoom: 0.5,
+            maxZoom: 2,
+            lineColor: "#000000",
+            lineWidth: 2,
+            title: "",
+            description: "",
+            difficulty: "",
+            pieces: pieces,
+            tags: [],
+          },
+          {
+            title: atom.title,
+            description: atom.content,
+            coverImage: "",
+            categoryId: atom.categoryId,
+            groupId: atom.groupId,
+            tilesX: Number(atom.config?.tilesX) || 2,
+            tilesY: Number(atom.config?.tilesY) || 2,
+            width: Number(atom.config?.width) || 0,
+            height: Number(atom.config?.height) || 0,
+            distributionStrategy: atom.config?.distributionStrategy,
+            seed: Number(atom.config?.seed) || 2048,
+            tabSize: Number(atom.config?.tabSize) || 20,
+            jitter: Number(atom.config?.jitter) || 4,
+            lineWidth: Number(atom.config?.lineWidth) || 2,
+            lineColor: atom.config?.lineColor,
+            type: atom.config?.type,
+            tags: atom.tags || [],
+            pieces: pieces,
+          }
+        )
+      : {
+          tilesX: 2,
+          tilesY: 2,
+          width: 0,
+          height: 0,
+          distributionStrategy: DistributionStrategy.SURROUNDING,
+          seed: 2048,
+          tabSize: 20,
+          jitter: 4,
+          showGrid: true,
+          showPreview: false,
+          zoomStep: 0.1,
+          minZoom: 0.5,
+          maxZoom: 2,
+          lineColor: "#000000",
+          lineWidth: 2,
+          title: "",
+          description: "",
+          difficulty: "",
+          pieces: 4,
+          tags: [],
+        };
   });
-
-  const difficulty = useMemo(() => {
-    // 根据拼图数量和类型计算难度
-    const puzzleTypeComplexity = {
-      image: 1, // 普通图片
-      solid: 1.5, // 纯色背景更难
-      gradient: 1.3, // 渐变背景
-      emoji: 0.9, // Emoji相对简单
-      text: 1.1, // 文字
-      symbol: 1.2, // 符号
-    };
-
-    const complexityFactor = puzzleTypeComplexity[activeTab];
-    const effectivePieces = config.pieces * complexityFactor;
-
-    if (effectivePieces <= 50) return "easy";
-    if (effectivePieces <= 200) return "medium";
-    if (effectivePieces <= 1000) return "hard";
-    return "expert";
-  }, [config.pieces, activeTab]);
-
-  const difficultyLabel = useMemo(() => {
-    return difficulty === "easy"
-      ? "简单"
-      : difficulty === "medium"
-      ? "中等"
-      : difficulty === "hard"
-      ? "困难"
-      : "专家";
-  }, [difficulty]);
-
-  const useTime = useMemo(() => {
-    // 根据拼图数量使用不同的计算公式
-    let timeInMinutes;
-
-    if (config.pieces < 10) {
-      // 少于10片：基础时间 + 每片增加时间
-      timeInMinutes = Math.max(1, 0.5 + 0.1 * config.pieces);
-    } else if (config.pieces <= 100) {
-      // 10-100片：线性增长
-      timeInMinutes = 0.1 * config.pieces + 1;
-    } else if (config.pieces <= 300) {
-      // 100-300片
-      timeInMinutes = 0.2 * config.pieces + 1;
-    } else if (config.pieces <= 500) {
-      // 300-500片
-      timeInMinutes = 0.4 * config.pieces + 1;
-    } else if (config.pieces <= 1000) {
-      // 500-1000片
-      timeInMinutes = 0.7 * config.pieces + 1;
-    } else {
-      // 1000片以上
-      timeInMinutes = 0.9 * config.pieces + 1;
+  const [meta, setMeta] = useState<any>(() => {
+    if (atom?.config?.meta) {
+      return JSON.parse(atom.config.meta);
     }
-
-    // 四舍五入到整数分钟
-    return Math.round(timeInMinutes);
-  }, [config.pieces]);
+    return {};
+  });
 
   const [loading, setLoading] = useState(false);
 
-  const handleCreatePuzzle = async () => {
-    setLoading(true);
+  const [fileInfo, setFileInfo] = useState<string | undefined | null>(imageUrl);
 
+  const [error, setError] = useState<ZodFormattedError<PuzzleMeta>>();
+
+  const handleConfigChange = (config: PuzzleMeta) => {
+    setConfig({
+      ...config,
+      width: config.width || 1024,
+      height: config.height || 1024,
+    });
+  };
+
+  const difficulty = useMemo(() => {
+    return calculatePuzzleDifficulty(config.pieces, activeTab, data);
+  }, [config.pieces, activeTab, data]);
+
+  const useTime = useMemo(() => {
+    return data.useTime.replace(
+      "{value}",
+      calculateEstimatedTime(config.tilesX * config.tilesY).toString()
+    );
+  }, [config.tilesX, config.tilesY]);
+
+  const handleCreatePuzzle = async () => {
     if (!image) {
+      toast.error(data.pleaseUploadImage);
       return;
     }
+    setLoading(true);
+
     try {
       const atomData = {
         title: config.title,
@@ -166,28 +254,94 @@ export const PuzzleCreator: FC = () => {
         jitter: config.jitter,
         lineColor: config.lineColor,
         lineWidth: config.lineWidth,
-        background: "",
-        tags: config.tags,
+        tags: config.tags.map((tag) => tag.id),
+        type: activeTab,
       };
 
-      await client.atomService.createAtom(atomData);
+      const parsedAtomData = atomSchema.safeParse(atomData);
 
-      toast.success("原子创建成功");
+      if (!parsedAtomData || !parsedAtomData.success) {
+        toast.error(data.atomDataValidationFailed);
+        setError(parsedAtomData.error.format());
+        console.log(parsedAtomData.error.format());
+        return;
+      } else {
+        setError(undefined);
+      }
+
+      let path = fileInfo;
+      if (!path) {
+        const fileInfo = await cloudflareService.uploadImageFromBase64(image);
+        path = fileInfo.filePath;
+      }
+
+      if (id) {
+        client.atomService
+          .updateAtomById(Number(id), {
+            ...parsedAtomData.data,
+            jitter: config.jitter,
+            seed: config.seed,
+            tabSize: config.tabSize,
+            lineWidth: config.lineWidth,
+            lineColor: config.lineColor,
+            type: activeTab,
+            coverImage: path,
+            meta: JSON.stringify(meta),
+          })
+          .then((res) => {
+            toast.success(data.atomUpdatedSuccess);
+            router.push(`/${locale}/puzzle/${res.id}`);
+          })
+          .catch(() => {
+            toast.error(data.atomUpdatedFailed);
+          });
+      } else {
+        client.atomService
+          .createAtom({
+            ...parsedAtomData.data,
+            language: locale,
+            jitter: config.jitter,
+            seed: config.seed,
+            tabSize: config.tabSize,
+            lineWidth: config.lineWidth,
+            lineColor: config.lineColor,
+            type: activeTab,
+            coverImage: path,
+            meta: JSON.stringify(meta),
+          })
+          .then((res) => {
+            toast.success(data.atomCreatedSuccess);
+            router.push(`/${locale}/puzzle/${res.id}`);
+          })
+          .catch((err) => {
+            toast.error(data.atomCreatedFailed);
+          });
+      }
     } catch (err: any) {
-      toast.error("创建原子失败");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleImageUpload = (image?: string | null) => {
-    setImage(image);
-  };
-
-  console.log(config.categoryId);
+  const handleImageUpload = useCallback(
+    debounce((image?: string | null, meta?: any) => {
+      setImage(image);
+      setFileInfo(null);
+      setMeta({
+        [activeTab]: meta,
+      });
+    }, 80),
+    [activeTab]
+  );
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto space-y-6">
+      <SignedOut>
+        <Alert variant="destructive">
+          <AlertTitle>{data.pleaseLogin}</AlertTitle>
+          <AlertDescription>{data.pleaseLoginDescription}</AlertDescription>
+        </Alert>
+      </SignedOut>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* 左侧：创建器 */}
         <div className="lg:col-span-2 space-y-6">
@@ -195,9 +349,12 @@ export const PuzzleCreator: FC = () => {
             <CardContent className="p-6">
               <Tabs
                 value={activeTab}
-                onValueChange={(v) => setActiveTab(v as PuzzleType)}
+                onValueChange={(v) => {
+                  setActiveTab(v as PuzzleType);
+                  setImage(null);
+                }}
               >
-                <TabsList className="grid grid-cols-3 lg:grid-cols-6 gap-2">
+                <TabsList className="grid grid-cols-3 lg:grid-cols-7 gap-2">
                   {tabs.map((tab) => (
                     <TabsTrigger
                       key={tab.id}
@@ -212,22 +369,59 @@ export const PuzzleCreator: FC = () => {
 
                 <div className="mt-6">
                   <TabsContent value="image">
-                    <ImagePuzzleCreator onImageUpload={handleImageUpload} />
+                    <ImagePuzzleCreator
+                      imageUrl={image}
+                      onImageUpload={handleImageUpload}
+                    />
                   </TabsContent>
                   <TabsContent value="solid">
-                    <SolidColorPuzzleCreator />
+                    <SolidColorPuzzleCreator
+                      meta={meta?.solid}
+                      width={config.width}
+                      height={config.height}
+                      onGenerate={handleImageUpload}
+                    />
                   </TabsContent>
                   <TabsContent value="gradient">
-                    <GradientPuzzleCreator />
+                    <GradientPuzzleCreator
+                      meta={meta?.gradient}
+                      width={config.width}
+                      height={config.height}
+                      onGenerate={handleImageUpload}
+                    />
                   </TabsContent>
                   <TabsContent value="emoji">
-                    <EmojiPuzzleCreator />
+                    <EmojiPuzzleCreator
+                      meta={meta?.emoji}
+                      width={config.width}
+                      height={config.height}
+                      onGenerate={handleImageUpload}
+                    />
                   </TabsContent>
+                  <TabsContent value="pattern">
+                    <PatternPuzzleCreator
+                      meta={meta?.pattern}
+                      width={config.width}
+                      height={config.height}
+                      onGenerate={handleImageUpload}
+                    />
+                  </TabsContent>
+
                   <TabsContent value="text">
-                    <TextPuzzleCreator />
+                    <TextPuzzleCreator
+                      meta={meta?.text}
+                      width={config.width}
+                      height={config.height}
+                      onGenerate={handleImageUpload}
+                    />
                   </TabsContent>
-                  <TabsContent value="symbol">
-                    <SymbolPuzzleCreator />
+                  <TabsContent value="shape">
+                    <ShapePuzzleCreator
+                      meta={meta?.shape}
+                      width={config.width}
+                      height={config.height}
+                      onGenerate={handleImageUpload}
+                    />
                   </TabsContent>
                 </div>
               </Tabs>
@@ -236,7 +430,12 @@ export const PuzzleCreator: FC = () => {
 
           <Card>
             <CardContent className="p-6">
-              <PuzzleSettings config={config} onChange={setConfig} />
+              <PuzzleSettings
+                locale={locale}
+                error={error}
+                config={config}
+                onChange={handleConfigChange}
+              />
             </CardContent>
           </Card>
         </div>
@@ -250,22 +449,24 @@ export const PuzzleCreator: FC = () => {
                 type={activeTab}
                 image={image}
                 useTime={useTime}
-                difficulty={difficultyLabel}
+                difficulty={difficulty}
               />
             </CardContent>
           </Card>
           {image ? (
-            <Card>
-              <CardContent className="p-6">
-                <Button
-                  disabled={loading || !image}
-                  onClick={handleCreatePuzzle}
-                  className="w-full"
-                >
-                  创建拼图
-                </Button>
-              </CardContent>
-            </Card>
+            <SignedIn>
+              <Card>
+                <CardContent className="p-6">
+                  <Button
+                    disabled={loading || !image}
+                    onClick={handleCreatePuzzle}
+                    className="w-full"
+                  >
+                    {id ? data.updatePuzzle : data.createPuzzle}
+                  </Button>
+                </CardContent>
+              </Card>
+            </SignedIn>
           ) : null}
         </div>
       </div>

@@ -7,7 +7,7 @@ import { UserRole } from "@prisma/client";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, description } = body;
+    const { name, description, language } = body;
 
     const user = await getCurrentUser();
     if (!user) {
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
 
     // 检查名称是否已存在
     const existingTag = await prisma.tag.findFirst({
-      where: { name: { equals: name } },
+      where: { name: { equals: name }, language },
     });
 
     if (existingTag) {
@@ -37,6 +37,7 @@ export async function POST(req: Request) {
       data: {
         name: name.trim(),
         description,
+        language,
       },
     });
 
@@ -50,7 +51,12 @@ export async function POST(req: Request) {
 // 获取标签
 export async function GET(req: Request) {
   try {
+    const searchParams = new URL(req.url).searchParams;
+    const language = searchParams.get("language");
     const tags = await prisma.tag.findMany({
+      where: {
+        language,
+      },
       include: {
         _count: {
           select: {

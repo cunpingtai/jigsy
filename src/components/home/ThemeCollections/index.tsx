@@ -1,44 +1,37 @@
+"use client";
 import { FC } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-
-const collections = [
-  {
-    id: 1,
-    title: "日本浮世绘",
-    image: "https://placehold.co/600x400",
-    count: 24,
-    tags: ["艺术", "文化", "历史"],
-  },
-  {
-    id: 2,
-    title: "世界建筑",
-    image: "https://placehold.co/600x400",
-    count: 36,
-    tags: ["建筑", "旅行", "文化"],
-  },
-  {
-    id: 3,
-    title: "梵高画作",
-    image: "https://placehold.co/600x400",
-    count: 18,
-    tags: ["艺术", "油画", "经典"],
-  },
-];
+import { AtomFeatured } from "@/services/types";
+import { getImageUrl } from "@/lib/utils";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { useI18n } from "@/app/[locale]/providers";
 
 interface ThemeCollectionsProps {
   showAll?: boolean;
   cols?: number;
+  featuredAtoms: AtomFeatured[];
+  locale: string;
 }
 
 export const ThemeCollections: FC<ThemeCollectionsProps> = ({
+  locale,
   showAll = false,
   cols = 3,
+  featuredAtoms,
 }) => {
+  const collections = featuredAtoms.map((atom) => ({
+    id: atom.atom.id,
+    title: atom.atom.title,
+    image: getImageUrl(atom.atom.coverImage),
+    tags: atom.atom.tags.map((tag) => tag.name),
+  }));
+  const { data } = useI18n();
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-bold">精选主题</h2>
+      <h2 className="text-xl font-bold">{data.featuredCollections}</h2>
       <div
         className="grid grid-cols-1 md:grid-cols-3 gap-4"
         style={
@@ -59,14 +52,11 @@ export const ThemeCollections: FC<ThemeCollectionsProps> = ({
                 src={collection.image}
                 alt={collection.title}
                 fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                className="object-cover transition-transform duration-300"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               <div className="absolute bottom-0 p-4 text-white">
                 <h3 className="font-bold text-lg">{collection.title}</h3>
-                <p className="text-sm text-white/80">
-                  {collection.count} 个拼图
-                </p>
               </div>
             </div>
             <CardContent className="p-4">
@@ -78,6 +68,14 @@ export const ThemeCollections: FC<ThemeCollectionsProps> = ({
                 ))}
               </div>
             </CardContent>
+            <CardFooter className="p-4 pt-0 gap-2">
+              <Link
+                className="w-full flex"
+                href={`/${locale}/puzzle/${collection.id}`}
+              >
+                <Button className="w-full">{data.view}</Button>
+              </Link>
+            </CardFooter>
           </Card>
         ))}
       </div>

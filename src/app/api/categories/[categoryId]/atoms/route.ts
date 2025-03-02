@@ -109,7 +109,7 @@ export async function GET(
       viewCount: atom.viewCount,
       likesCount: atom._count.likes,
       tags: atom.tags.map((t) => t.tag),
-      creator: atom.user,
+      user: atom.user,
       group: atom.group,
       createdAt: atom.createdAt,
       updatedAt: atom.updatedAt,

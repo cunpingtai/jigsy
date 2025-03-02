@@ -5,6 +5,7 @@ import React, {
   useCallback,
   forwardRef,
   useImperativeHandle,
+  useMemo,
 } from "react";
 import type { PuzzleGameProps } from "./types";
 import * as fabric from "fabric";
@@ -138,9 +139,33 @@ export type PuzzleGameRef = {
 export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
   (
     {
+      onChange,
+      localData,
+      onZoomChange,
+      containerWidth,
+      containerHeight,
+      ...config
+    },
+    ref
+  ) => {
+    const useLocalData = useMemo(() => {
+      if (!localData) {
+        return false;
+      }
+
+      if (
+        localData.containerWidth === containerWidth &&
+        localData.containerHeight === containerHeight
+      ) {
+        return true;
+      }
+
+      return false;
+    }, [containerHeight, containerWidth, localData]);
+    const {
       showGrid,
       showPreview,
-      preview,
+      preview = false,
       width,
       height,
       tilesX,
@@ -152,18 +177,25 @@ export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
       jitter,
       distributionStrategy,
       image,
-      containerWidth,
-      containerHeight,
       zoom = 1,
       minZoom = 0.5,
       maxZoom = 2,
       zoomStep = 0.1,
-      onZoomChange,
       enablePanning = false,
       fixCenter = false,
-    },
-    ref
-  ) => {
+    } = useMemo(() => {
+      if (!useLocalData) {
+        return config;
+      }
+
+      return {
+        ...config,
+        ...localData,
+      };
+
+      return config;
+    }, [config, localData, useLocalData]);
+
     const containerRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const { fabricCanvas } = useFabricCanvas(canvasRef.current, {
@@ -201,18 +233,37 @@ export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
 
     const { x, y } = getDiffCenterCoords();
 
-    const { pieces, positions } = usePuzzleSplitter(
-      puzzleGenerator,
-      {
+    const splitConfig = useMemo(() => {
+      const config = {
         x,
         y,
         width: containerWidth,
         height: containerHeight,
         distributionStrategy,
-      },
+      };
+      if (!useLocalData) {
+        return config;
+      }
+
+      return {
+        ...config,
+        group: localData?.group,
+      };
+    }, [
+      useLocalData,
+      x,
+      y,
+      containerWidth,
+      containerHeight,
+      distributionStrategy,
+      localData?.group,
+    ]);
+
+    const { pieces, positions } = usePuzzleSplitter(
+      puzzleGenerator,
+      splitConfig,
       preview
     );
-
     const { pieceBackground } = usePieceBackground(image, {
       fabricCanvas,
       lineColor,
@@ -229,12 +280,21 @@ export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
       pieces,
       positions,
       fabricCanvas,
+      lineColor,
+      lineWidth,
     });
+
+    useEffect(() => {
+      if (!fabricCanvas) return;
+      if (!pieceBackground) return;
+      if (preview) {
+        fabricCanvas.bringObjectToFront(pieceBackground.group);
+      }
+    }, [preview, pieceBackground, fabricCanvas]);
 
     useEffect(() => {
       if (!pieceBackground) return;
       if (!fabricCanvas) return;
-
       pieceBackground.path.set({
         visible: showGrid,
       });
@@ -304,6 +364,56 @@ export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
       });
     }, [fabricCanvas, getDiffCenterCoords, groups]);
 
+    const stringifyKey = useMemo(() => {
+      const config = {
+        showGrid,
+        showPreview,
+        tilesX,
+        tilesY,
+        lineColor,
+        lineWidth,
+        distributionStrategy,
+        containerWidth,
+        containerHeight,
+        zoom,
+        minZoom,
+        maxZoom,
+        zoomStep,
+        enablePanning,
+        fixCenter,
+        groups: groups.map(({ id, target }) => ({
+          id,
+          left: target.left,
+          top: target.top,
+        })),
+      };
+      return JSON.stringify(config);
+    }, [
+      groups,
+      showGrid,
+      showPreview,
+      tilesX,
+      tilesY,
+      lineColor,
+      lineWidth,
+      distributionStrategy,
+      containerWidth,
+      containerHeight,
+      zoom,
+      minZoom,
+      maxZoom,
+      zoomStep,
+      enablePanning,
+      fixCenter,
+    ]);
+
+    useEffect(() => {
+      if (!onChange) return;
+      onChange({
+        content: stringifyKey,
+      });
+    }, [onChange, stringifyKey]);
+
     const playCompletionAnimation = useCallback(
       async (image: fabric.Image, canvas: fabric.Canvas) => {
         const animationLoop = createAnimationLoop(canvas);
@@ -311,45 +421,45 @@ export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
 
         await handleGroupsAnimation();
 
-        // 创建爆炸效果
-        const particles = createExplosionParticles(
-          canvas,
-          x + width / 2,
-          y + height / 2
-        );
+        // // 创建爆炸效果
+        // const particles = createExplosionParticles(
+        //   canvas,
+        //   x + width / 2,
+        //   y + height / 2
+        // );
 
-        // 粒子动画
-        let frame = 0;
-        const animate = () => {
-          frame++;
-          particles.forEach((particle) => {
-            if (particle.obj.opacity! <= 0) return;
+        // // 粒子动画
+        // let frame = 0;
+        // const animate = () => {
+        //   frame++;
+        //   particles.forEach((particle) => {
+        //     if (particle.obj.opacity! <= 0) return;
 
-            particle.velocity.y += 0.5; // 重力
-            particle.obj.left! += particle.velocity.x;
-            particle.obj.top! += particle.velocity.y;
-            particle.obj.opacity! = Math.max(
-              0,
-              particle.initialOpacity - frame / 50
-            );
-            particle.obj.radius! = Math.max(0, particle.radius - frame / 30);
+        //     particle.velocity.y += 0.5; // 重力
+        //     particle.obj.left! += particle.velocity.x;
+        //     particle.obj.top! += particle.velocity.y;
+        //     particle.obj.opacity! = Math.max(
+        //       0,
+        //       particle.initialOpacity - frame / 50
+        //     );
+        //     particle.obj.radius! = Math.max(0, particle.radius - frame / 30);
 
-            if (particle.obj.opacity! > 0) {
-              particle.obj.setCoords();
-            }
-          });
+        //     if (particle.obj.opacity! > 0) {
+        //       particle.obj.setCoords();
+        //     }
+        //   });
 
-          canvas.renderAll();
+        //   canvas.renderAll();
 
-          if (frame < 60) {
-            requestAnimationFrame(animate);
-          } else {
-            // 清理粒子
-            particles.forEach((particle) => canvas.remove(particle.obj));
-          }
-        };
+        //   if (frame < 60) {
+        //     requestAnimationFrame(animate);
+        //   } else {
+        //     // 清理粒子
+        //     particles.forEach((particle) => canvas.remove(particle.obj));
+        //   }
+        // };
 
-        animate();
+        // animate();
 
         // 最终图片淡入
         const tempCanvas = createTempCanvas(image, width, height);

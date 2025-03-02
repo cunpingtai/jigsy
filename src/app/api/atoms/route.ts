@@ -20,8 +20,9 @@ export async function GET(req: Request) {
     const categoryId = searchParams.get("categoryId");
     const groupId = searchParams.get("groupId");
     const tagId = searchParams.get("tagId");
-    const status = searchParams.get("status") as AtomStatus | null;
+    const status = searchParams.get("status") || "PUBLISHED";
     const featured = searchParams.get("featured");
+    const language = searchParams.get("language") || "";
 
     // 构建查询条件
     const where: any = {};
@@ -30,6 +31,10 @@ export async function GET(req: Request) {
       where.title = {
         contains: title,
       };
+    }
+
+    if (language) {
+      where.language = language;
     }
 
     if (categoryId) {
@@ -48,7 +53,7 @@ export async function GET(req: Request) {
       };
     }
 
-    if (status) {
+    if (status && status !== "ALL") {
       where.status = status;
     }
 
@@ -68,7 +73,6 @@ export async function GET(req: Request) {
 
     // 计算总数
     const total = await prisma.standardAtom.count({ where });
-
     // 查询数据
     const atoms = await prisma.standardAtom.findMany({
       where,

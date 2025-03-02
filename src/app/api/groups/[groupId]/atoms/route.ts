@@ -92,7 +92,7 @@ export async function GET(
       commentsCount: atom._count.comments,
       favoritesCount: atom._count.favorites,
       tags: atom.tags.map((t) => t.tag),
-      creator: atom.user,
+      user: atom.user,
       createdAt: atom.createdAt,
       updatedAt: atom.updatedAt,
       config: atom.fieldConfigs.reduce(

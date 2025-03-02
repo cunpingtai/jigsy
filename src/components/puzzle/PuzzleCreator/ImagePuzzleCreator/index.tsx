@@ -3,14 +3,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ImagePlus, Upload, X } from "lucide-react";
 import Image from "next/image";
+import { useI18n } from "@/app/[locale]/providers";
 
 type ImagePuzzleCreatorProps = {
   onImageUpload: (image?: string | null) => void;
+  imageUrl?: string | null;
 };
 
 export const ImagePuzzleCreator: FC<ImagePuzzleCreatorProps> = ({
   onImageUpload,
+  imageUrl,
 }) => {
+  const { data } = useI18n();
   const [image, setImage] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -55,11 +59,11 @@ export const ImagePuzzleCreator: FC<ImagePuzzleCreatorProps> = ({
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
       >
-        {image ? (
+        {imageUrl || image ? (
           <div className="relative aspect-video">
             <Image
-              src={image}
-              alt="上传的图片"
+              src={image || imageUrl || ""}
+              alt={data.uploadImage}
               fill
               className="object-contain rounded-lg"
             />
@@ -79,7 +83,7 @@ export const ImagePuzzleCreator: FC<ImagePuzzleCreatorProps> = ({
           <div className="flex flex-col items-center justify-center py-12">
             <ImagePlus className="h-12 w-12 text-muted-foreground mb-4" />
             <p className="text-muted-foreground text-sm mb-2">
-              拖放图片到这里，或者
+              {data.dragDropImage}
             </p>
             <div className="flex flex-col items-center">
               <Input
@@ -98,11 +102,11 @@ export const ImagePuzzleCreator: FC<ImagePuzzleCreatorProps> = ({
                 onClick={() => document.getElementById("image-upload")?.click()}
               >
                 <Upload className="h-4 w-4 mr-2" />
-                选择图片
+                {data.selectImage}
               </Button>
             </div>
             <p className="text-xs text-muted-foreground mt-4">
-              支持 JPG、PNG、WebP 格式，建议尺寸 1920x1080 像素
+              {data.supportImageFormat}
             </p>
           </div>
         )}

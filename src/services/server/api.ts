@@ -1,8 +1,7 @@
 import { cookies, headers } from "next/headers";
 import { directFetch } from "./fetch";
 // 服务端 API 基础 URL
-const API_BASE_URL =
-  process.env.SERVER_API_BASE_URL || "http://localhost:3001/api";
+const API_BASE_URL = process.env.SERVER_API_BASE_URL || "/api";
 
 // 创建请求头
 const createHeaders = async () => {
@@ -14,6 +13,7 @@ const createHeaders = async () => {
 
   const requestHeaders: HeadersInit = {
     "Content-Type": "application/json",
+    Cookie: cookieStore.toString(),
   };
 
   if (token) {

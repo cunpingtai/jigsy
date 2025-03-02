@@ -16,6 +16,7 @@ import {
   Move,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useI18n } from "@/app/[locale]/providers";
 
 interface GameToolbarProps {
   isPaused: boolean;
@@ -42,41 +43,42 @@ export const GameToolbar: FC<GameToolbarProps> = ({
   onGridToggle,
   onSettingsOpen,
 }) => {
+  const { data } = useI18n();
   const tools = [
     {
       icon: isPaused ? Play : Pause,
-      label: isPaused ? "继续" : "暂停",
+      label: isPaused ? data.continue : data.pause,
       onClick: onPauseToggle,
       className: isPaused ? "!bg-accent text-accent-foreground" : "",
     },
     {
       icon: TimerReset,
-      label: "重置",
+      label: data.reset2,
       onClick: onReset,
     },
     null, // 分隔线
     {
       icon: ImageIcon,
-      label: "预览",
+      label: data.preview,
       onClick: onPreviewToggle,
       className: showPreview ? "!bg-accent text-accent-foreground" : "",
     },
     {
       icon: Grid3X3,
-      label: "网格",
+      label: data.grid,
       onClick: onGridToggle,
       className: showGrid ? "!bg-accent text-accent-foreground" : "",
     },
     {
       icon: Move,
-      label: enablePanning ? "自由拖动" : "拖动模式",
+      label: enablePanning ? data.freePanning : data.panning,
       onClick: onEnablePanningToggle,
       className: enablePanning ? "!bg-accent text-accent-foreground" : "",
     },
     null, // 分隔线
     {
       icon: Settings2,
-      label: "设置",
+      label: data.settings,
       onClick: onSettingsOpen,
     },
   ];

@@ -6,7 +6,7 @@ export async function GET(req: Request) {
   try {
     const searchParams = new URL(req.url).searchParams;
     const query = searchParams.get("q");
-
+    const language = searchParams.get("language");
     if (!query) {
       return NextResponse.json({ error: "查询参数不能为空" }, { status: 400 });
     }
@@ -16,6 +16,7 @@ export async function GET(req: Request) {
         name: {
           contains: query,
         },
+        language,
       },
       include: {
         _count: {

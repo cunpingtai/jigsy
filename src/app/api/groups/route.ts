@@ -7,7 +7,7 @@ import { UserRole } from "@prisma/client";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, description, categoryId } = body;
+    const { name, description, categoryId, language } = body;
 
     const user = await getCurrentUser();
     if (!user) {
@@ -18,9 +18,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Permission denied" }, { status: 403 });
     }
 
-    if (!name || !categoryId) {
+    if (!name || !categoryId || !language) {
       return NextResponse.json(
-        { error: "名称和分类 ID 是必需的" },
+        { error: "名称、分类 ID 和语言是必需的" },
         { status: 400 }
       );
     }
@@ -30,6 +30,7 @@ export async function POST(req: Request) {
         name,
         description,
         categoryId: parseInt(categoryId),
+        language,
       },
       include: {
         category: true,
@@ -39,6 +40,9 @@ export async function POST(req: Request) {
             title: true,
             coverImage: true,
             status: true,
+          },
+          where: {
+            status: "PUBLISHED",
           },
         },
       },
@@ -57,9 +61,14 @@ export async function GET(req: Request) {
     const categoryId = searchParams.get("categoryId");
     const page = parseInt(searchParams.get("page") || "1");
     const pageSize = parseInt(searchParams.get("pageSize") || "10");
-
+    const language = searchParams.get("language") || "";
     // 构建查询条件
-    const where = categoryId ? { categoryId: parseInt(categoryId) } : {};
+    const where: Record<string, any> = categoryId
+      ? { categoryId: parseInt(categoryId) }
+      : {};
+    if (language) {
+      where.language = language;
+    }
 
     // 获取总数
     const total = await prisma.group.count({ where });

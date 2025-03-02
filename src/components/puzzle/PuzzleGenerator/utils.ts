@@ -270,3 +270,29 @@ export function createTempCanvas(
   );
   return tempCanvas;
 }
+
+export const generateSolidColorImage = (
+  color: string,
+  width = 1024,
+  height = 1024
+): Promise<string> => {
+  return new Promise((resolve) => {
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+
+    const ctx = canvas.getContext("2d");
+    if (ctx) {
+      // 填充纯色背景
+      ctx.fillStyle = color;
+      ctx.fillRect(0, 0, width, height);
+
+      // 转换为图片数据URL
+      const dataUrl = canvas.toDataURL("image/png");
+      resolve(dataUrl);
+    } else {
+      // 如果无法获取上下文，返回空字符串
+      resolve("");
+    }
+  });
+};

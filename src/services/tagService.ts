@@ -15,8 +15,8 @@ export const createTagService = (api: {
 }) => {
   return {
     // 获取所有标签
-    getTags: (): Promise<Tag[]> => {
-      return api.get("/tags");
+    getTags: (params?: { language?: string }): Promise<Tag[]> => {
+      return api.get("/tags", params);
     },
 
     // 获取单个标签
@@ -45,8 +45,11 @@ export const createTagService = (api: {
     },
 
     // 搜索标签
-    searchTags: (query: string): Promise<Tag[]> => {
-      return api.get(`/tags/search?q=${encodeURIComponent(query)}`);
+    searchTags: (
+      query: string,
+      params?: { language?: string }
+    ): Promise<Tag[]> => {
+      return api.get(`/tags/search?q=${encodeURIComponent(query)}`, params);
     },
   };
 };

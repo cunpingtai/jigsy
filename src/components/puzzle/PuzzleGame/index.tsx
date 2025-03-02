@@ -1,4 +1,6 @@
-import { FC, useCallback, useEffect, useRef, useState } from "react";
+"use client";
+
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import {
@@ -10,6 +12,8 @@ import {
   Check,
   PictureInPicture2,
   Palette,
+  RefreshCcw,
+  Loader2,
 } from "lucide-react";
 import { GameToolbar } from "./GameToolbar";
 import { GameStats } from "./GameStats";
@@ -17,7 +21,8 @@ import { PuzzlePreview } from "./PuzzlePreview";
 import { PuzzleConfigType, PuzzleGenerator } from "../PuzzleGenerator";
 import { DistributionStrategy } from "../PuzzleGenerator/types";
 import { PuzzleGameRef } from "../PuzzleGenerator/PuzzleGame";
-import { cn } from "@/lib/utils";
+import * as client from "@/services/client";
+import { calculatePuzzleDifficulty, cn, getImageUrl } from "@/lib/utils";
 import { TextureSelector } from "../TextureSelector";
 import {
   Dialog,
@@ -33,119 +38,192 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Atom } from "@/services/types";
+import { PuzzleType } from "../PuzzleCreator";
+import { toast } from "sonner";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useI18n } from "@/app/[locale]/providers";
 
 interface PuzzleGameProps {
-  puzzle: {
-    id: number;
-    title: string;
-    image: string;
-    pieces: number;
-    difficulty: string;
-  };
+  puzzle: Atom;
+  id: number;
+  hasUser?: boolean;
+  locale: string;
 }
 
-export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
+export const PuzzleGame: FC<PuzzleGameProps> = ({
+  puzzle,
+  id,
+  hasUser,
+  locale,
+}) => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [isPaused, setIsPaused] = useState(false);
-  const [showPreview, setShowPreview] = useState(false);
-  const [showThumbnail, setShowThumbnail] = useState(false);
-  const [showGrid, setShowGrid] = useState(false);
-  const [zoomLevel, setZoomLevel] = useState(100);
-  const [timeElapsed, setTimeElapsed] = useState(0);
-  const [piecesPlaced, setPiecesPlaced] = useState(0);
-  const [enablePanning, setEnablePanning] = useState(false);
-  const [fixCenter, setFixCenter] = useState(0);
+
   const puzzleGameRef = useRef<PuzzleGameRef>(null);
   const [showTextureDialog, setShowTextureDialog] = useState(false);
   const [selectedTexture, setSelectedTexture] = useState("bg-primary/50");
-  const [isGameStarted, setIsGameStarted] = useState(false);
   const [showStartDialog, setShowStartDialog] = useState(false);
   const timerRef = useRef<NodeJS.Timeout>(null);
   const [showSettingsDialog, setShowSettingsDialog] = useState(false);
   const [refresh, setRefresh] = useState(0);
+  const [recordId, setRecordId] = useState<number | null>(
+    searchParams.get("rid") ? parseInt(searchParams.get("rid")!) : null
+  );
+  const localData = useMemo(() => {
+    let data = null;
+    if (typeof window === "undefined") {
+      return null;
+    }
+    if (recordId) {
+      data = localStorage.getItem(`puzzle-${id}-${recordId}`);
+    } else {
+      data = localStorage.getItem(`puzzle-${id}`);
+    }
+
+    if (!data) {
+      return null;
+    }
+
+    try {
+      return JSON.parse(data);
+    } catch {}
+
+    return null;
+  }, [id, recordId]);
+
+  const [timeElapsed, setTimeElapsed] = useState<number>(0);
+  const [isGameStarted, setIsGameStarted] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
+  const [showThumbnail, setShowThumbnail] = useState(false);
+  const [showGrid, setShowGrid] = useState<boolean>(false);
+  const [zoomLevel, setZoomLevel] = useState<number>(100);
+  const [enablePanning, setEnablePanning] = useState<boolean>(false);
+  const [fixCenter, setFixCenter] = useState<number>(0);
+
+  const addQueryParam = (key: string, value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set(key, value);
+    router.replace(`?${params.toString()}`);
+  };
+
+  const rid = searchParams.get("rid");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { data } = useI18n();
+
+  const config = useMemo<
+    Omit<PuzzleConfigType, "image"> & {
+      type: PuzzleType;
+    }
+  >(() => {
+    const config = puzzle.config || {};
+    return {
+      tilesX: 2,
+      tilesY: 2,
+      width: 1024,
+      height: 1024,
+      lineColor: "#000000",
+      lineWidth: 2,
+      distributionStrategy: DistributionStrategy.SURROUNDING,
+      showGrid: false,
+      showPreview: false,
+      zoomStep: 0.1,
+      minZoom: 0.5,
+      maxZoom: 2,
+      seed: 2048,
+      tabSize: 20,
+      jitter: 4,
+      type: "image",
+      ...config,
+    };
+  }, [puzzle.config]);
+  const pieces = config.tilesX * config.tilesY;
   const [tempSettings, setTempSettings] = useState({
-    pieces: puzzle.pieces,
-    distribution: DistributionStrategy.SURROUNDING,
-    lineColor: "#000000",
-    lineWidth: 2,
+    pieces: pieces,
+    distribution: config.distributionStrategy,
+    lineColor: config.lineColor || "#000000",
+    lineWidth: config.lineWidth || 2,
   });
 
   const piecesOptions = [
-    { value: 4, label: "新手 (4片)" },
-    { value: 9, label: "入门 (9片)" },
-    { value: 16, label: "新手 (16片)" }, // 4x4
-    { value: 25, label: "入门 (25片)" }, // 5x5
-    { value: 36, label: "入门 (36片)" }, // 6x6
-    { value: 49, label: "简单 (49片)" }, // 7x7
-    { value: 64, label: "简单 (64片)" }, // 8x8
-    { value: 81, label: "普通 (81片)" }, // 9x9
-    { value: 100, label: "普通 (100片)" }, // 10x10
-    { value: 121, label: "进阶 (121片)" }, // 11x11
-    { value: 144, label: "进阶 (144片)" }, // 12x12
-    { value: 169, label: "困难 (169片)" }, // 13x13
-    { value: 196, label: "困难 (196片)" }, // 14x14
-    { value: 225, label: "困难 (225片)" }, // 15x15
-    { value: 256, label: "挑战 (256片)" }, // 16x16
-    { value: 289, label: "挑战 (289片)" }, // 17x17
-    { value: 324, label: "专家 (324片)" }, // 18x18
-    { value: 361, label: "专家 (361片)" }, // 19x19
-    { value: 400, label: "大师 (400片)" }, // 20x20
-    { value: 441, label: "大师 (441片)" }, // 21x21
-    { value: 484, label: "精英 (484片)" }, // 22x22
-    { value: 529, label: "精英 (529片)" }, // 23x23
-    { value: 576, label: "王者 (576片)" }, // 24x24
-    { value: 625, label: "王者 (625片)" }, // 25x25
-    { value: 676, label: "传说 (676片)" }, // 26x26
-    { value: 729, label: "传说 (729片)" }, // 27x27
-    { value: 784, label: "史诗 (784片)" }, // 28x28
-    { value: 841, label: "史诗 (841片)" }, // 29x29
-    { value: 900, label: "神话 (900片)" }, // 30x30
-    { value: 961, label: "神话 (961片)" }, // 31x31
-    { value: 1024, label: "神话 (1024片)" }, // 32x32
-    { value: 1089, label: "神话 (1089片)" }, // 33x33
-    { value: 1156, label: "神话 (1156片)" }, // 34x34
-    { value: 1225, label: "神话 (1225片)" }, // 35x35
-    { value: 1296, label: "神话 (1296片)" }, // 36x36
-    { value: 1369, label: "神话 (1369片)" }, // 37x37
-    { value: 1444, label: "神话 (1444片)" }, // 38x38
-    { value: 1521, label: "神话 (1521片)" }, // 39x39
-    { value: 1600, label: "神话 (1600片)" }, // 40x40
-    { value: 1681, label: "神话 (1681片)" }, // 41x41
-    { value: 1764, label: "神话 (1764片)" }, // 42x42
-    { value: 1849, label: "神话 (1849片)" }, // 43x43
-    { value: 1936, label: "神话 (1936片)" }, // 44x44
-    { value: 2025, label: "神话 (2025片)" }, // 45x45
-    { value: 2116, label: "神话 (2116片)" }, // 46x46
-    { value: 2209, label: "神话 (2209片)" }, // 47x47
-    { value: 2304, label: "神话 (2304片)" }, // 48x48
-    { value: 2401, label: "神话 (2401片)" }, // 49x49
-    { value: 2500, label: "神话 (2500片)" }, // 50x50
+    { value: 4, label: data.pieces.replace("{value}", "4") },
+    { value: 9, label: data.pieces.replace("{value}", "9") },
+    { value: 16, label: data.pieces.replace("{value}", "16") }, // 4x4
+    { value: 25, label: data.pieces.replace("{value}", "25") }, // 5x5
+    { value: 36, label: data.pieces.replace("{value}", "36") }, // 6x6
+    { value: 49, label: data.pieces.replace("{value}", "49") }, // 7x7
+    { value: 64, label: data.pieces.replace("{value}", "64") }, // 8x8
+    { value: 81, label: data.pieces.replace("{value}", "81") }, // 9x9
+    { value: 100, label: data.pieces.replace("{value}", "100") }, // 10x10
+    { value: 121, label: data.pieces.replace("{value}", "121") }, // 11x11
+    { value: 144, label: data.pieces.replace("{value}", "144") }, // 12x12
+    { value: 169, label: data.pieces.replace("{value}", "169") }, // 13x13
+    { value: 196, label: data.pieces.replace("{value}", "196") }, // 14x14
+    { value: 225, label: data.pieces.replace("{value}", "225") }, // 15x15
+    { value: 256, label: data.pieces.replace("{value}", "256") }, // 16x16
+    { value: 289, label: data.pieces.replace("{value}", "289") }, // 17x17
+    { value: 324, label: data.pieces.replace("{value}", "324") }, // 18x18
+    { value: 361, label: data.pieces.replace("{value}", "361") }, // 19x19
+    { value: 400, label: data.pieces.replace("{value}", "400") }, // 20x20
+    { value: 441, label: data.pieces.replace("{value}", "441") }, // 21x21
+    { value: 484, label: data.pieces.replace("{value}", "484") }, // 22x22
+    { value: 529, label: data.pieces.replace("{value}", "529") }, // 23x23
+    { value: 576, label: data.pieces.replace("{value}", "576") }, // 24x24
+    { value: 625, label: data.pieces.replace("{value}", "625") }, // 25x25
+    { value: 676, label: data.pieces.replace("{value}", "676") }, // 26x26
+    { value: 729, label: data.pieces.replace("{value}", "729") }, // 27x27
+    { value: 784, label: data.pieces.replace("{value}", "784") }, // 28x28
+    { value: 841, label: data.pieces.replace("{value}", "841") }, // 29x29
+    { value: 900, label: data.pieces.replace("{value}", "900") }, // 30x30
+    // { value: 961, label: "神话 (961片)" }, // 31x31
+    // { value: 1024, label: "神话 (1024片)" }, // 32x32
+    // { value: 1089, label: "神话 (1089片)" }, // 33x33
+    // { value: 1156, label: "神话 (1156片)" }, // 34x34
+    // { value: 1225, label: "神话 (1225片)" }, // 35x35
+    // { value: 1296, label: "神话 (1296片)" }, // 36x36
+    // { value: 1369, label: "神话 (1369片)" }, // 37x37
+    // { value: 1444, label: "神话 (1444片)" }, // 38x38
+    // { value: 1521, label: "神话 (1521片)" }, // 39x39
+    // { value: 1600, label: "神话 (1600片)" }, // 40x40
+    // { value: 1681, label: "神话 (1681片)" }, // 41x41
+    // { value: 1764, label: "神话 (1764片)" }, // 42x42
+    // { value: 1849, label: "神话 (1849片)" }, // 43x43
+    // { value: 1936, label: "神话 (1936片)" }, // 44x44
+    // { value: 2025, label: "神话 (2025片)" }, // 45x45
+    // { value: 2116, label: "神话 (2116片)" }, // 46x46
+    // { value: 2209, label: "神话 (2209片)" }, // 47x47
+    // { value: 2304, label: "神话 (2304片)" }, // 48x48
+    // { value: 2401, label: "神话 (2401片)" }, // 49x49
+    // { value: 2500, label: "神话 (2500片)" }, // 50x50
   ];
 
   const distributionOptions = [
     {
       value: DistributionStrategy.SURROUNDING,
-      label: "环绕模式",
-      description: "拼图块围绕在画布四周",
+      label: data.surrounding,
+      description: data.surroundingDescription,
     },
     {
       value: DistributionStrategy.CENTER_SCATTER,
-      label: "中心扩散",
-      description: "拼图块从中心向外散开分布",
+      label: data.centerScatter,
+      description: data.centerScatterDescription,
     },
     {
       value: DistributionStrategy.SPREAD_OUT,
-      label: "均匀分散",
-      description: "拼图块均匀分布在整个画布上",
+      label: data.uniformDistribution,
+      description: data.uniformDistributionDescription,
     },
   ];
 
   const lineColorOptions = [
-    { value: "#000000", label: "黑色" },
-    { value: "#FFFFFF", label: "白色" },
-    { value: "#6b7280", label: "灰色" },
-    { value: "#3b82f6", label: "蓝色" },
-    { value: "#10b981", label: "绿色" },
-    { value: "#ef4444", label: "红色" },
+    { value: "#000000", label: data.black },
+    { value: "#FFFFFF", label: data.white },
+    { value: "#6b7280", label: data.gray },
+    { value: "#3b82f6", label: data.blue },
+    { value: "#10b981", label: data.green },
+    { value: "#ef4444", label: data.red },
   ];
 
   const handleZoomChange = useCallback((newZoom: number) => {
@@ -156,26 +234,11 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
     console.log(x, y);
   }, []);
 
-  const [config, setConfig] = useState<Omit<PuzzleConfigType, "image">>({
-    tilesX: 2,
-    tilesY: 2,
-    width: 2000,
-    height: 200,
-    distributionStrategy: DistributionStrategy.SURROUNDING,
-    seed: 2048,
-    tabSize: 20,
-    jitter: 4,
-    showGrid: false,
-    showPreview: false,
-    zoomStep: 0.1,
-    minZoom: 0.5,
-    maxZoom: 2,
-    lineColor: "#000000",
-    lineWidth: 2,
-  });
+  const [tempConfig, setTempConfig] =
+    useState<Omit<PuzzleConfigType, "image">>(config);
 
   useEffect(() => {
-    setConfig((prev) => ({
+    setTempConfig((prev) => ({
       ...prev,
       showGrid: showGrid,
       showPreview: showPreview,
@@ -195,21 +258,37 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
     };
   }, [isGameStarted, isPaused]);
 
-  const handleStartGame = () => {
-    setShowStartDialog(false);
-    setIsGameStarted(true);
+  const handleStartGame = async () => {
+    if (!hasUser || recordId) {
+      setShowStartDialog(false);
+      setIsGameStarted(true);
+      return;
+    }
+    setIsLoading(true);
+    client.atomService
+      .startAtomGame(id, {
+        ...tempSettings,
+      })
+      .then(({ record }) => {
+        addQueryParam("rid", record.id.toString());
+        setRecordId(record.id);
+        setShowStartDialog(false);
+        setIsGameStarted(true);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const handleSettingsConfirm = () => {
     setIsGameStarted(false);
     setShowStartDialog(false);
     setTimeElapsed(0);
-    setPiecesPlaced(0);
     setZoomLevel(100);
     setFixCenter(0);
     setShowSettingsDialog(false);
     setEnablePanning(false);
-    setConfig((prev) => ({
+    setTempConfig((prev) => ({
       ...prev,
       tilesX: Math.floor(Math.sqrt(tempSettings.pieces)),
       tilesY: Math.floor(Math.sqrt(tempSettings.pieces)),
@@ -220,26 +299,61 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
     setRefresh((prev) => prev + 1);
   };
 
+  const imageUrl = useMemo(() => {
+    return getImageUrl(puzzle.coverImage);
+  }, [puzzle.coverImage]);
+
+  const difficulty = useMemo(() => {
+    return calculatePuzzleDifficulty(pieces, config.type, data);
+  }, [config.type, pieces, data]);
+
   const handleSettingsOpen = () => {
     setShowSettingsDialog(true);
   };
 
-  useEffect(() => {
-    if (isGameStarted) {
-      const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.altKey || e.metaKey || e.key === "Alt" || e.key === "Meta") {
-          setEnablePanning((prev) => !prev);
-        }
-      };
-      window.document.addEventListener("keydown", handleKeyDown);
-      return () => {
-        window.document.removeEventListener("keydown", handleKeyDown);
-      };
+  const handleImageLoaded = useCallback(() => {
+    setShowStartDialog(true);
+  }, []);
+
+  const handleComplete = () => {
+    if (!recordId) {
+      return Promise.resolve().then(() => {
+        setIsGameStarted(false);
+      });
     }
-  }, [isGameStarted]);
+    setIsLoading(true);
+    return client.atomService
+      .completeAtomGame(id, recordId, {
+        ...tempSettings,
+        timeElapsed,
+        status: "COMPLETED",
+      })
+      .then(() => {
+        setIsGameStarted(false);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  const handleReset = () => {
+    handleComplete().then(() => {
+      setIsGameStarted(false);
+      setShowStartDialog(true);
+      setTimeElapsed(0);
+      setZoomLevel(100);
+      setFixCenter(0);
+      setRefresh((prev) => prev + 1);
+    });
+  };
 
   return (
-    <div className="flex h-screen overflow-hidden" key={refresh}>
+    <div className="flex h-screen overflow-hidden relative" key={refresh}>
+      {isLoading && (
+        <div className="absolute z-50 inset-0 flex items-center justify-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <Loader2 className="h-4 w-4 animate-spin" />
+        </div>
+      )}
       <GameToolbar
         showPreview={showPreview}
         showGrid={showGrid}
@@ -250,14 +364,7 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
           setIsPaused(!isPaused);
           setIsGameStarted(true);
         }}
-        onReset={() => {
-          setIsGameStarted(false);
-          setShowStartDialog(true);
-          setTimeElapsed(0);
-          setPiecesPlaced(0);
-          setZoomLevel(100);
-          setFixCenter(0);
-        }}
+        onReset={handleReset}
         onPreviewToggle={() => setShowPreview(!showPreview)}
         onGridToggle={() => setShowGrid(!showGrid)}
         onSettingsOpen={handleSettingsOpen}
@@ -267,19 +374,34 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
         <div className="h-12 bg-card border-b border-border flex items-center px-4 justify-between">
           <div className="flex items-center gap-4">
             <Button
+              onClick={() => {
+                handleComplete().then(() => {
+                  router.push(`/${locale}/puzzle/${id}`);
+                });
+              }}
               variant="ghost"
               size="sm"
               className="gap-2 text-muted-foreground hover:text-primary"
             >
               <ArrowLeftToLine className="h-4 w-4" />
-              退出游戏
+              {data.exitGame}
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="gap-2 text-muted-foreground hover:text-primary"
+              onClick={handleReset}
+            >
+              <RefreshCcw className="h-4 w-4" />
+              {data.restartGame}
             </Button>
             <span className="text-muted-foreground">|</span>
             <GameStats
+              locale={locale}
               timeElapsed={timeElapsed}
-              piecesPlaced={piecesPlaced}
-              totalPieces={puzzle.pieces}
-              bestTime={3600} // 示例最佳时间
+              piecesPlaced={0}
+              totalPieces={pieces}
+              bestTime={undefined} // 示例最佳时间
             />
           </div>
           <div className="flex items-center gap-4">
@@ -352,14 +474,12 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
           <div className="absolute inset-0 flex items-center justify-center">
             <div className={cn("w-full h-full relative", selectedTexture)}>
               <PuzzleGenerator
-                {...config}
+                {...tempConfig}
                 ref={puzzleGameRef}
-                onLoaded={() => {
-                  setShowStartDialog(true);
-                }}
+                onLoaded={handleImageLoaded}
                 zoom={zoomLevel / 100}
                 onZoomChange={handleZoomChange}
-                imageUrl={puzzle.image}
+                imageUrl={imageUrl}
                 fixCenter={fixCenter}
                 onPanChange={handlePanChange}
                 enablePanning={enablePanning}
@@ -369,7 +489,7 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
 
           {showThumbnail && (
             <PuzzlePreview
-              image={puzzle.image}
+              image={imageUrl}
               title={puzzle.title}
               onClose={() => setShowThumbnail(false)}
             />
@@ -384,30 +504,35 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
               onClick={() => {
                 puzzleGameRef.current?.handleValidate().then((completed) => {
                   if (completed) {
-                    setTimeout(() => {
+                    handleComplete().then(() => {
                       setFixCenter(Date.now());
                       setZoomLevel(100);
-                    }, 300);
+                      toast.success(data.puzzleVerifiedSuccess);
+                    });
+                  } else {
+                    toast.error(data.puzzleVerifiedFailed);
                   }
                 });
               }}
               className="gap-2"
             >
               <Check className="h-4 w-4" />
-              验证拼图
+              {data.verifyPuzzle}
             </Button>
             <Button
               variant="outline"
               size="sm"
               onClick={() => {
-                setFixCenter(Date.now());
-                setZoomLevel(100);
-                puzzleGameRef.current?.handleAutoComplete();
+                handleComplete().then(() => {
+                  setFixCenter(Date.now());
+                  setZoomLevel(100);
+                  puzzleGameRef.current?.handleAutoComplete();
+                });
               }}
               className="gap-2"
             >
               <Grid2X2Check className="h-4 w-4" />
-              自动排列
+              {data.autoArrange}
             </Button>
           </div>
         </div>
@@ -416,7 +541,7 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
       <Dialog open={showTextureDialog} onOpenChange={setShowTextureDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>选择背景纹理</DialogTitle>
+            <DialogTitle>{data.selectBackgroundTexture}</DialogTitle>
           </DialogHeader>
           <TextureSelector
             selectedTexture={selectedTexture}
@@ -431,11 +556,11 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
       <Dialog open={showStartDialog} onOpenChange={setShowStartDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>准备开始</DialogTitle>
+            <DialogTitle>{data.readyToStart}</DialogTitle>
           </DialogHeader>
           <div className="flex flex-col items-center gap-4 py-4">
             <Image
-              src={puzzle.image}
+              src={imageUrl}
               alt={puzzle.title}
               className="w-full h-48 object-contain rounded-lg"
               width={600}
@@ -444,12 +569,13 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
             <div className="text-center">
               <h3 className="font-semibold">{puzzle.title}</h3>
               <p className="text-sm text-muted-foreground mt-1">
-                难度: {puzzle.difficulty} | 拼图数量: {puzzle.pieces}片
+                {data.difficultyLabel}: {difficulty} | {data.puzzlePieces}:{" "}
+                {pieces} {data.piecesUnit}
               </p>
             </div>
           </div>
           <div className="flex justify-center">
-            <Button onClick={handleStartGame}>开始游戏</Button>
+            <Button onClick={handleStartGame}>{data.startGame}</Button>
           </div>
         </DialogContent>
       </Dialog>
@@ -457,11 +583,11 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
       <Dialog open={showSettingsDialog} onOpenChange={setShowSettingsDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>游戏设置</DialogTitle>
+            <DialogTitle>{data.gameSettings}</DialogTitle>
           </DialogHeader>
           <div className="flex flex-col gap-4 py-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium">拼图数量</label>
+              <label className="text-sm font-medium">{data.puzzlePieces}</label>
               <Select
                 value={tempSettings.pieces.toString()}
                 onValueChange={(value) =>
@@ -472,7 +598,7 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
                 }
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="选择拼图数量" />
+                  <SelectValue placeholder={data.selectPuzzlePieces} />
                 </SelectTrigger>
                 <SelectContent>
                   {piecesOptions.map((option) => (
@@ -488,7 +614,9 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium">分布策略</label>
+              <label className="text-sm font-medium">
+                {data.distributionStrategy}
+              </label>
               <Select
                 value={tempSettings.distribution}
                 onValueChange={(value: DistributionStrategy) =>
@@ -496,7 +624,7 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
                 }
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="选择分布策略" />
+                  <SelectValue placeholder={data.selectDistributionStrategy} />
                 </SelectTrigger>
                 <SelectContent>
                   {distributionOptions.map((option) => (
@@ -516,7 +644,7 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium">线条颜色</label>
+              <label className="text-sm font-medium">{data.lineColor}</label>
               <Select
                 value={tempSettings.lineColor}
                 onValueChange={(value) =>
@@ -524,7 +652,7 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
                 }
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="选择线条颜色" />
+                  <SelectValue placeholder={data.selectLineColor} />
                 </SelectTrigger>
                 <SelectContent>
                   {lineColorOptions.map((option) => (
@@ -547,7 +675,9 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
 
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <label className="text-sm font-medium">线条宽度</label>
+                <label className="text-sm font-medium">
+                  {data.lineWidthUnit}
+                </label>
                 <span className="text-sm text-muted-foreground">
                   {tempSettings.lineWidth}px
                 </span>
@@ -569,12 +699,20 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({ puzzle }) => {
               variant="outline"
               onClick={() => setShowSettingsDialog(false)}
             >
-              取消
+              {data.cancel}
             </Button>
-            <Button onClick={handleSettingsConfirm}>确定并重新开始</Button>
+            <Button onClick={handleSettingsConfirm}>{data.confirm}</Button>
           </div>
         </DialogContent>
       </Dialog>
     </div>
   );
 };
+
+export default function PuzzleGameWrapper(props: PuzzleGameProps) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  return mounted ? <PuzzleGame {...props} /> : null;
+}

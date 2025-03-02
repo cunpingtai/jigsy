@@ -9,15 +9,33 @@ export async function GET(req: Request) {
     // 分页参数
     const page = parseInt(searchParams.get("page") || "1");
     const pageSize = parseInt(searchParams.get("pageSize") || "10");
+    const language = searchParams.get("language") || "";
+
+    const where: Record<string, any> = {};
+    if (language) {
+      where.language = language;
+    }
 
     // 获取精选帖子总数
-    const total = await prisma.atomFeatured.count();
+    const total = await prisma.atomFeatured.count({
+      where: {
+        atom: language ? { language } : undefined,
+      },
+    });
 
     // 获取精选帖子列表
     const atomFeatureds = await prisma.atomFeatured.findMany({
+      where: {
+        atom: language ? { language } : undefined,
+      },
       include: {
         atom: {
           include: {
+            tags: {
+              include: {
+                tag: true,
+              },
+            },
             user: {
               select: {
                 id: true,
@@ -49,6 +67,8 @@ export async function GET(req: Request) {
         title: featured.atom.title,
         content: featured.atom.content,
         user: featured.atom.user,
+        coverImage: featured.atom.coverImage,
+        tags: featured.atom.tags.map((tag) => tag.tag),
         commentsCount: featured.atom._count.comments,
         likesCount: featured.atom._count.likes,
         createdAt: featured.atom.createdAt,

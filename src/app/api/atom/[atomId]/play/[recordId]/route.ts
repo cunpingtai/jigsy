@@ -26,49 +26,70 @@ export async function PUT(
     // 验证记录是否存在
     const existingRecord = await prisma.userAtomRecord.findUnique({
       where: { id: parseInt(recordId) },
-      select: { id: true, userId: true },
+      select: { id: true, userId: true, meta: true },
     });
 
     if (!existingRecord) {
       return NextResponse.json({ error: "记录不存在" }, { status: 404 });
     }
 
-    // 验证用户权限
+    try {
+      if (existingRecord.meta) {
+        const status =
+          typeof existingRecord.meta === "string"
+            ? JSON.parse(existingRecord.meta).status
+            : typeof existingRecord.meta === "object"
+            ? !Array.isArray(existingRecord.meta)
+              ? existingRecord.meta.status
+              : undefined
+            : undefined;
+
+        if (status === "COMPLETED") {
+          return NextResponse.json({ error: "游戏已完成" }, { status: 400 });
+        }
+      }
+    } catch {}
+
     if (userId && existingRecord.userId !== userId) {
+      // 验证用户权限
       return NextResponse.json({ error: "无权更新此记录" }, { status: 403 });
     }
 
-    // 更新记录
-    const record = await prisma.userAtomRecord.update({
-      where: { id: parseInt(recordId) },
-      data: {
-        meta: {
-          ...meta,
-          status: "COMPLETED",
-          endTime: new Date().toISOString(),
+    const record = await prisma.$transaction(async (tx) => {
+      // 更新记录
+      const record = await tx.userAtomRecord.update({
+        where: { id: parseInt(recordId) },
+        data: {
+          meta: {
+            ...meta,
+            endTime: new Date().toISOString(),
+          },
         },
-      },
-    });
+      });
 
-    // 可以在这里添加积分奖励、成就解锁等逻辑
-    // 例如：更新用户积分
-    await prisma.user.update({
-      where: { id: userId },
-      data: { points: { increment: 10 } }, // 假设完成游戏奖励10积分
-    });
+      if (meta.status === "COMPLETED") {
+        // 可以在这里添加积分奖励、成就解锁等逻辑
+        // 例如：更新用户积分
+        await tx.user.update({
+          where: { id: userId },
+          data: { points: { increment: 10 } }, // 假设完成游戏奖励10积分
+        });
 
-    // 记录积分历史
-    await prisma.pointsHistory.create({
-      data: {
-        userId,
-        points: 10,
-        type: "GAME_COMPLETED",
-        description: "完成游戏奖励",
-      },
+        // 记录积分历史
+        await tx.pointsHistory.create({
+          data: {
+            userId,
+            points: 10,
+            type: "GAME_COMPLETED",
+            description: "完成游戏奖励",
+          },
+        });
+      }
+
+      return record;
     });
 
     return NextResponse.json({
-      message: "游戏记录更新成功",
       record,
     });
   } catch (error) {
@@ -115,5 +136,37 @@ export async function DELETE(
   } catch (error) {
     console.error("删除游戏记录失败:", error);
     return NextResponse.json({ error: "删除游戏记录失败" }, { status: 500 });
+  }
+}
+
+// 更新游戏记录（游戏进行中或结束）
+export async function GET(
+  req: Request,
+  { params }: { params: Promise<{ recordId: string }> }
+) {
+  try {
+    const { recordId } = await params;
+
+    const userId = await currentUserId();
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // 验证记录是否存在
+    const existingRecord = await prisma.userAtomRecord.findUnique({
+      where: { id: parseInt(recordId) },
+      select: { id: true, userId: true, meta: true },
+    });
+
+    if (!existingRecord) {
+      return NextResponse.json({ error: "记录不存在" }, { status: 404 });
+    }
+
+    return NextResponse.json({
+      record: existingRecord,
+    });
+  } catch (error) {
+    console.error("获取游戏记录失败:", error);
+    return NextResponse.json({ error: "获取游戏记录失败" }, { status: 500 });
   }
 }

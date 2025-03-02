@@ -184,6 +184,11 @@ export function usePuzzleSplitter(
     y: number;
     width: number;
     height: number;
+    group?: {
+      id: string;
+      left: number;
+      top: number;
+    }[];
     distributionStrategy: DistributionStrategy;
   },
   preview?: boolean
@@ -200,18 +205,38 @@ export function usePuzzleSplitter(
     // 选择分布策略
     const strategy = distributionStrategy; // 可以根据需要更改策略
 
+    const groupMap = new Map<string, { left: number; top: number }>();
+    if (config.group) {
+      config.group.forEach((group) => {
+        groupMap.set(group.id, group);
+      });
+    }
+
     initialPieces.forEach((piece) => {
       const position = generatePiecePosition(piece, width, height, strategy);
       initialPositions[piece.id] = {
         ...position,
-        x: preview ? piece.x + x : Math.max(0, position.x),
-        y: preview ? piece.y + y : Math.max(0, position.y),
+        x: preview
+          ? piece.x + x
+          : groupMap.get(piece.id)?.left || Math.max(0, position.x),
+        y: preview
+          ? piece.y + y
+          : groupMap.get(piece.id)?.top || Math.max(0, position.y),
       };
     });
 
     setPieces(initialPieces);
     setPositions(initialPositions);
-  }, [preview, width, height, puzzleGenerator, distributionStrategy, x, y]);
+  }, [
+    preview,
+    width,
+    height,
+    puzzleGenerator,
+    distributionStrategy,
+    x,
+    y,
+    config.group,
+  ]);
 
   return {
     pieces,
@@ -227,9 +252,19 @@ export function useGeneratePieces(
     height: number;
     pieces: PuzzlePiece[];
     positions: Record<string, PiecePosition>;
+    lineColor?: string;
+    lineWidth?: number;
   }
 ) {
-  const { fabricCanvas, width, height, pieces, positions } = config;
+  const {
+    fabricCanvas,
+    width,
+    height,
+    pieces,
+    positions,
+    lineColor,
+    lineWidth,
+  } = config;
   const [groups, setGroups] = useState<
     {
       id: string;
@@ -248,6 +283,7 @@ export function useGeneratePieces(
         const top = positions[piece.id].y;
         const rotation = positions[piece.id].rotation;
 
+        // 创建拼图路径
         const path = new fabric.Path(piece.path, {
           left: 0,
           top: 0,
@@ -263,13 +299,12 @@ export function useGeneratePieces(
           absolutePositioned: true,
           hasBorders: false,
           hasControls: false,
-          // stroke: "white",
-          // strokeWidth: 2,
           fill: "rgba(0,0,0,0.3)",
           strokeLineCap: "round",
           strokeLineJoin: "round",
         });
 
+        // 创建图案填充
         const pattern = new fabric.Pattern({
           source: tempCanvas,
           repeat: "no-repeat",
@@ -277,8 +312,25 @@ export function useGeneratePieces(
           offsetY: Math.min(piece.y, -piece.y),
         });
 
+        // 创建阴影效果 - 使用相同路径但偏移位置
+        const shadowPath = new fabric.Path(piece.path, {
+          left: 2, // 向右偏移
+          top: 2, // 向下偏移
+          fill: "rgba(255,255,255,0.1)", // 半透明黑色
+          stroke: "transparent",
+          strokeWidth: 0,
+        });
+
+        // 设置图案填充
+        path.set({
+          fill: pattern,
+          stroke: "#888", // 边缘轮廓
+          strokeWidth: 1,
+        });
+
+        // 创建组合所有效果，先添加阴影，再添加主路径
         const group = new fabric.Group(
-          [...createPiece3DEffect(piece.path), path],
+          [...createPiece3DEffect(piece.path), path, shadowPath],
           {
             left,
             top,
@@ -298,10 +350,6 @@ export function useGeneratePieces(
             subTargetCheck: false, // 允许组内元素接收事件
           }
         );
-
-        path.set({
-          fill: pattern,
-        });
 
         fabricCanvas.add(group);
 
@@ -327,7 +375,6 @@ export function useGeneratePieces(
   useEffect(() => {
     if (!image) return;
     if (!fabricCanvas) return;
-    console.log("generatePieces");
     const groups = generatePieces(image, fabricCanvas);
     setGroups(groups);
 
@@ -338,7 +385,7 @@ export function useGeneratePieces(
         path.dispose();
       });
     };
-  }, [image, generatePieces, fabricCanvas]);
+  }, [image, generatePieces, fabricCanvas, lineColor, lineWidth]);
 
   return {
     groups,
@@ -374,7 +421,7 @@ export function usePieceBackground(
         top: 0,
         fill: "transparent",
         stroke: lineColor || "white",
-        strokeWidth: lineWidth || 2,
+        strokeWidth: Number(lineWidth) || 2,
         visible: false,
       });
 
@@ -416,7 +463,6 @@ export function usePieceBackground(
   useEffect(() => {
     if (!image) return;
     if (!fabricCanvas) return;
-
     const pieceBackground = createPieceBackground(image, fabricCanvas);
     setPieceBackground(pieceBackground);
 

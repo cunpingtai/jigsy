@@ -7,5 +7,13 @@ interface PreviewPuzzleProps {
 }
 
 export const PreviewPuzzle: FC<PreviewPuzzleProps> = ({ image, config }) => {
-  return <PuzzleGenerator {...config} zoom={1} imageUrl={image} preview />;
+  return (
+    <PuzzleGenerator
+      {...config}
+      zoom={1}
+      key={image}
+      imageUrl={image}
+      preview
+    />
+  );
 };
