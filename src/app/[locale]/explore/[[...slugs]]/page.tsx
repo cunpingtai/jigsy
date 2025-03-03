@@ -4,19 +4,48 @@ import * as server from "@/services/server";
 import { Hero } from "@/components/shared/Hero";
 import { FAQ } from "@/components/shared/FAQ";
 import { Features } from "@/components/shared/Features";
-import { getData } from "@/lib/data";
+import { JsonLd } from "@/components/json-ld";
+import { staticDataFetcher, websiteFetcher } from "@/fetch";
+import { Metadata } from "next";
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
-}) {
+}): Promise<Metadata> {
   const { locale } = await params;
-  const newData = getData(locale);
+  const staticData = await staticDataFetcher(locale);
+  const website = await websiteFetcher(locale);
+
   return {
-    title: newData.exploreH1,
-    description: newData.exploreH21,
-    keywords: newData.websiteKeywords,
+    title: staticData?.exploreH1,
+    description: staticData?.exploreH21,
+    keywords: staticData?.websiteKeywords,
+    alternates: {
+      canonical: `${website.domain}/${locale}`,
+    },
+    openGraph: {
+      title: staticData?.exploreH1,
+      description: staticData?.exploreH21,
+      url: `${website.domain}/${locale}`,
+      siteName: staticData?.exploreH1,
+      locale: locale,
+      type: "website",
+      images: [
+        {
+          url: `${website.domain}/og-image.webp`,
+          width: 1200,
+          height: 630,
+          alt: staticData?.exploreH1,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: staticData?.exploreH1,
+      description: staticData?.exploreH21,
+      images: [`${website.domain}/og-image.webp`],
+    },
   };
 }
 
@@ -51,17 +80,41 @@ export default async function Explore({
     language: locale,
   });
 
-  const data = getData(locale);
+  const [staticData, website] = await Promise.all([
+    staticDataFetcher(locale),
+    websiteFetcher(locale),
+  ]);
 
-  const faqItems = data.faqItems;
+  // 创建结构化数据
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: staticData?.websiteTitle,
+    description: staticData?.websiteDescription,
+    url: `${website.domain}/${locale}`,
+    inLanguage: locale,
+    publisher: {
+      "@type": "Organization",
+      name: staticData?.websiteTitle,
+      url: website.domain,
+      logo: {
+        "@type": "ImageObject",
+        url: `${website.domain}/logo.webp`, // 确保这个路径存在
+      },
+    },
+  };
 
-  const featureItems = data.featureItems;
+  const faqItems = staticData.faqItems;
+
+  const featureItems = staticData.featureItems;
 
   return (
     <MainLayout locale={locale}>
+      <JsonLd data={jsonLd} />
+
       <Hero
-        title={data.exploreH1}
-        subtitle={data.exploreH21}
+        title={staticData.exploreH1}
+        subtitle={staticData.exploreH21}
         className="mb-8"
       />
       <MainContent
@@ -74,10 +127,10 @@ export default async function Explore({
       />
       <Features
         items={featureItems}
-        title={data.featuresTitle}
+        title={staticData.featuresTitle}
         className="mt-16 mb-12"
       />
-      <FAQ items={faqItems} title={data.faqTitle} className="mb-16" />
+      <FAQ items={faqItems} title={staticData.faqTitle} className="mb-16" />
     </MainLayout>
   );
 }

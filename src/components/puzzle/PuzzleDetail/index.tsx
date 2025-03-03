@@ -155,13 +155,13 @@ export const PuzzleDetail: FC<PuzzleDetailProps> = ({
               <div className="flex items-start justify-between mb-6">
                 <div>
                   <h1 className="text-2xl font-bold mb-2">{puzzle.title}</h1>
-                  <div className="flex items-center gap-3 text-muted-foreground">
+                  {/* <div className="flex items-center gap-3 text-muted-foreground">
                     <Avatar className="h-6 w-6">
                       <AvatarImage src={puzzle.user?.avatar} />
                       <AvatarFallback>{puzzle.user?.name[0]}</AvatarFallback>
                     </Avatar>
                     <span>{puzzle.user?.name}</span>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="flex gap-2">
                   <SignedIn>

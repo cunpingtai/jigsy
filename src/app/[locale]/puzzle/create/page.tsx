@@ -1,8 +1,7 @@
 import MainLayout from "@/components/layout/main-layout";
 import { PuzzleCreator } from "@/components/puzzle/PuzzleCreator";
 import { Hero } from "@/components/shared/Hero";
-
-import { getData } from "@/lib/data";
+import { staticDataFetcher } from "@/fetch";
 
 export async function generateMetadata({
   params,
@@ -10,11 +9,12 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const newData = getData(locale);
+  const staticData = await staticDataFetcher(locale);
+
   return {
-    title: newData.createH1,
-    description: newData.createH2,
-    keywords: newData.websiteKeywords,
+    title: staticData.createH1,
+    description: staticData.createH2,
+    keywords: staticData.websiteKeywords,
   };
 }
 
@@ -24,10 +24,10 @@ export default async function CreatePuzzlePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const data = getData(locale);
+  const staticData = await staticDataFetcher(locale);
   return (
     <MainLayout locale={locale}>
-      <Hero title={data.createH1} subtitle={data.createH2} />
+      <Hero title={staticData.createH1} subtitle={staticData.createH2} />
       <PuzzleCreator locale={locale} />
     </MainLayout>
   );

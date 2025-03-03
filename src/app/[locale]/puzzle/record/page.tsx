@@ -1,12 +1,7 @@
 import * as server from "@/services/server";
-import { Atom } from "@/services/types";
-import { calculatePuzzleDifficulty, getImageUrl } from "@/lib/utils";
 import MainLayout from "@/components/layout/main-layout";
-import { PuzzleGrid } from "@/components/home/PuzzleGrid";
 import { getCurrentUser } from "@/app/api/util";
 import { redirect } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import RecordPage from "./hook";
 
 export default async function Page({

@@ -7,10 +7,12 @@ export function Providers({
   children,
   locale,
   data,
+  langs,
 }: {
   children: React.ReactNode;
   locale: string;
   data: Record<string, any>;
+  langs: { value: string; name: string }[];
 }) {
   return (
     <ThemeProvider
@@ -19,7 +21,7 @@ export function Providers({
       enableSystem
       disableTransitionOnChange
     >
-      <I18nProvider locale={locale} data={data}>
+      <I18nProvider locale={locale} data={data} langs={langs}>
         {children}
       </I18nProvider>
     </ThemeProvider>
@@ -30,19 +32,27 @@ type I18nProviderProps = {
   children: React.ReactNode;
   locale: string;
   data: Record<string, string>;
+  langs: { value: string; name: string }[];
 };
 
 const i18nContext = createContext<{
   locale: string;
   data: Record<string, string>;
+  langs: { value: string; name: string }[];
 }>({
   locale: "en",
   data: {},
+  langs: [],
 });
 
-export function I18nProvider({ children, locale, data }: I18nProviderProps) {
+export function I18nProvider({
+  children,
+  locale,
+  data,
+  langs,
+}: I18nProviderProps) {
   return (
-    <i18nContext.Provider value={{ locale, data }}>
+    <i18nContext.Provider value={{ locale, data, langs }}>
       {children}
     </i18nContext.Provider>
   );

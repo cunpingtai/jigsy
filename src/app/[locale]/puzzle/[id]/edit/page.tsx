@@ -1,8 +1,7 @@
 import MainLayout from "@/components/layout/main-layout";
 import { PuzzleCreator } from "@/components/puzzle/PuzzleCreator";
+import { staticDataFetcher } from "@/fetch";
 import * as server from "@/services/server";
-
-import { getData } from "@/lib/data";
 
 export async function generateMetadata({
   params,
@@ -10,11 +9,11 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const newData = getData(locale);
+  const staticData = await staticDataFetcher(locale);
   return {
-    title: newData.createH1,
-    description: newData.createH2,
-    keywords: newData.websiteKeywords,
+    title: staticData.createH1,
+    description: staticData.createH2,
+    keywords: staticData.websiteKeywords,
   };
 }
 

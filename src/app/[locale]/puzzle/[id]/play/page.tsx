@@ -1,8 +1,7 @@
 import PuzzleGameWrapper from "@/components/puzzle/PuzzleGame";
 import * as server from "@/services/server";
 import { currentUser } from "@clerk/nextjs/server";
-
-import { getData } from "@/lib/data";
+import { staticDataFetcher } from "@/fetch";
 
 export async function generateMetadata({
   params,
@@ -10,11 +9,12 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const newData = getData(locale);
+  const staticData = await staticDataFetcher(locale);
+
   return {
-    title: newData.gameH1,
-    description: newData.websiteDescription,
-    keywords: newData.websiteKeywords,
+    title: staticData.gameH1,
+    description: staticData.websiteDescription,
+    keywords: staticData.websiteKeywords,
   };
 }
 export default async function PuzzlePlayPage({
