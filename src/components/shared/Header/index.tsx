@@ -191,7 +191,7 @@ export const Header: FC<{ locale?: string; isAdmin?: boolean }> = ({
           <SignedIn>
             <Link href="/puzzle/create">
               <Button className="transition-transform hover:scale-105">
-                {data.create}
+                {data.createPuzzle}
               </Button>
             </Link>
           </SignedIn>

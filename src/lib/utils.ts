@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { StaticData } from "./data";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -18,7 +19,7 @@ type PuzzleType =
 export const calculatePuzzleDifficulty = (
   pieces: number,
   puzzleType: PuzzleType,
-  data: Record<string, string>
+  data: StaticData
 ) => {
   const puzzleTypeComplexity = {
     image: 1, // 普通图片
@@ -40,11 +41,9 @@ export const calculatePuzzleDifficulty = (
 };
 
 // 将难度标签转换逻辑提取为通用函数
-export const getDifficultyLabel = (
-  data: Record<string, string>,
-  difficulty: string
-) => {
-  return data[difficulty];
+export const getDifficultyLabel = (data: StaticData, difficulty: string) => {
+  const label = data[difficulty as keyof typeof data] as string;
+  return label;
 };
 
 // 将预计用时计算逻辑提取为通用函数

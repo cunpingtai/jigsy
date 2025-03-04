@@ -74,6 +74,7 @@ export interface Category {
 export interface CreateCategoryParams {
   name: string;
   description?: string;
+  language: string;
 }
 
 // 更新分类参数
@@ -100,6 +101,7 @@ export interface CreateGroupParams {
   name: string;
   description?: string;
   categoryId: number;
+  language: string;
 }
 
 // 更新分组参数

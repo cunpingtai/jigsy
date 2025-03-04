@@ -71,27 +71,6 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({
   const [recordId, setRecordId] = useState<number | null>(
     searchParams.get("rid") ? parseInt(searchParams.get("rid")!) : null
   );
-  const localData = useMemo(() => {
-    let data = null;
-    if (typeof window === "undefined") {
-      return null;
-    }
-    if (recordId) {
-      data = localStorage.getItem(`puzzle-${id}-${recordId}`);
-    } else {
-      data = localStorage.getItem(`puzzle-${id}`);
-    }
-
-    if (!data) {
-      return null;
-    }
-
-    try {
-      return JSON.parse(data);
-    } catch {}
-
-    return null;
-  }, [id, recordId]);
 
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
   const [isGameStarted, setIsGameStarted] = useState(false);
@@ -676,7 +655,7 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label className="text-sm font-medium">
-                  {data.lineWidthUnit}
+                  {data.lineWidthLabel}
                 </label>
                 <span className="text-sm text-muted-foreground">
                   {tempSettings.lineWidth}px

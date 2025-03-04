@@ -2,6 +2,7 @@
 
 import { ThemeProvider } from "next-themes";
 import { createContext, useContext } from "react";
+import { StaticData } from "@/lib/data";
 
 export function Providers({
   children,
@@ -11,7 +12,7 @@ export function Providers({
 }: {
   children: React.ReactNode;
   locale: string;
-  data: Record<string, any>;
+  data: StaticData;
   langs: { value: string; name: string }[];
 }) {
   return (
@@ -31,17 +32,17 @@ export function Providers({
 type I18nProviderProps = {
   children: React.ReactNode;
   locale: string;
-  data: Record<string, string>;
+  data: StaticData;
   langs: { value: string; name: string }[];
 };
 
 const i18nContext = createContext<{
   locale: string;
-  data: Record<string, string>;
+  data: StaticData;
   langs: { value: string; name: string }[];
 }>({
   locale: "en",
-  data: {},
+  data: {} as StaticData,
   langs: [],
 });
 

@@ -23,8 +23,12 @@ import { Category, Tag } from "@/services/types";
 import { Badge } from "@/components/ui/badge";
 import { X } from "lucide-react";
 import { ZodFormattedError } from "zod";
-import { atomSchema } from "..";
 import { useI18n } from "@/app/[locale]/providers";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
+import { CategoryModal } from "./CategoryModal";
+import { GroupModal } from "./GroupModal";
+import { TagModal } from "./TagModal";
 
 export type PuzzleMeta = {
   title: string;
@@ -270,6 +274,11 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
     groups: false,
     tags: false,
   });
+  const [modals, setModals] = useState({
+    category: false,
+    group: false,
+    tag: false,
+  });
 
   // 加载分类列表
   useEffect(() => {
@@ -432,6 +441,27 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
     return () => clearTimeout(debounceTimer);
   }, [searchTags, tagInput]);
 
+  // 处理新创建的分类
+  const handleCategoryCreated = (newCategory: Category) => {
+    setCategories([...categories, newCategory]);
+    handleCategoryChange(newCategory.id.toString());
+    setModals((prev) => ({ ...prev, category: false }));
+  };
+
+  // 处理新创建的分组
+  const handleGroupCreated = (newGroup: any) => {
+    setGroups([...groups, newGroup]);
+    handleGroupChange(newGroup.id.toString());
+    setModals((prev) => ({ ...prev, group: false }));
+  };
+
+  // 处理新创建的标签
+  const handleTagCreated = (newTag: Tag) => {
+    setTags([...tags, newTag]);
+    handleTagSelect(newTag);
+    setModals((prev) => ({ ...prev, tag: false }));
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -489,6 +519,13 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
               )}
             </SelectContent>
           </Select>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setModals((prev) => ({ ...prev, category: true }))}
+          >
+            <Plus className="h-4 w-4" />
+          </Button>
         </div>
         {error?.categoryId && (
           <p className="text-red-500 text-sm">{error.categoryId._errors[0]}</p>
@@ -526,6 +563,14 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
               )}
             </SelectContent>
           </Select>
+          <Button
+            variant="outline"
+            size="icon"
+            disabled={!config.categoryId}
+            onClick={() => setModals((prev) => ({ ...prev, group: true }))}
+          >
+            <Plus className="h-4 w-4" />
+          </Button>
         </div>
         {error?.groupId && (
           <p className="text-red-500 text-sm">{error.groupId._errors[0]}</p>
@@ -550,36 +595,45 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
               </Badge>
             ))}
           </div>
-          <div className="relative">
-            <Input
-              placeholder={data.searchTags}
-              value={tagInput}
-              onChange={(e) => setTagInput(e.target.value)}
-              disabled={selectedTags.length >= 5}
-            />
-            {tagInput && (
-              <div className="absolute z-10 w-full mt-1 bg-background border rounded-md shadow-md max-h-[200px] overflow-y-auto">
-                {loading.tags ? (
-                  <div className="px-3 py-2 text-muted-foreground">
-                    {data.loading}
-                  </div>
-                ) : filteredTags.length > 0 ? (
-                  filteredTags.map((tag) => (
-                    <div
-                      key={tag.id}
-                      className="px-3 py-2 hover:bg-accent cursor-pointer text-sm"
-                      onClick={() => handleTagSelect(tag)}
-                    >
-                      {tag.name}
+          <div className="relative flex gap-2">
+            <div className="flex-1 relative">
+              <Input
+                placeholder={data.searchTags}
+                value={tagInput}
+                onChange={(e) => setTagInput(e.target.value)}
+                disabled={selectedTags.length >= 5}
+              />
+              {tagInput && (
+                <div className="absolute z-10 w-full mt-1 bg-background border rounded-md shadow-md max-h-[200px] overflow-y-auto">
+                  {loading.tags ? (
+                    <div className="px-3 py-2 text-muted-foreground">
+                      {data.loading}
                     </div>
-                  ))
-                ) : (
-                  <div className="px-3 py-2 text-muted-foreground">
-                    {data.noMatchingTags}
-                  </div>
-                )}
-              </div>
-            )}
+                  ) : filteredTags.length > 0 ? (
+                    filteredTags.map((tag) => (
+                      <div
+                        key={tag.id}
+                        className="px-3 py-2 hover:bg-accent cursor-pointer text-sm"
+                        onClick={() => handleTagSelect(tag)}
+                      >
+                        {tag.name}
+                      </div>
+                    ))
+                  ) : (
+                    <div className="px-3 py-2 text-muted-foreground">
+                      {data.noMatchingTags}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setModals((prev) => ({ ...prev, tag: true }))}
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
           </div>
           <p className="text-xs text-muted-foreground">{data.maxAddTags}</p>
         </div>
@@ -780,6 +834,30 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
           />
         </div>
       </div>
+
+      {/* 模态框组件 */}
+      <CategoryModal
+        open={modals.category}
+        onClose={() => setModals((prev) => ({ ...prev, category: false }))}
+        onCreated={handleCategoryCreated}
+        locale={locale}
+      />
+
+      <GroupModal
+        open={modals.group}
+        onClose={() => setModals((prev) => ({ ...prev, group: false }))}
+        onCreated={handleGroupCreated}
+        categoryId={config.categoryId}
+        categories={categories}
+        locale={locale}
+      />
+
+      <TagModal
+        open={modals.tag}
+        onClose={() => setModals((prev) => ({ ...prev, tag: false }))}
+        onCreated={handleTagCreated}
+        locale={locale}
+      />
     </div>
   );
 };

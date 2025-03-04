@@ -46,7 +46,7 @@ export const PuzzleExplorer: FC<{
         <Link href={`/${locale}/puzzle/create`}>
           <Button className="gap-2">
             <Plus className="w-4 h-4" />
-            {data.create}
+            {data.createPuzzle}
           </Button>
         </Link>
         <SignedIn>

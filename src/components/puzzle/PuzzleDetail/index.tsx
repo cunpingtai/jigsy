@@ -2,7 +2,6 @@
 import { FC, useMemo, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import {
   Heart,
@@ -24,15 +23,14 @@ import {
   calculateEstimatedTime,
   calculatePuzzleDifficulty,
   cn,
-  getDifficultyLabel,
   getImageUrl,
 } from "@/lib/utils";
 import { atomService } from "@/services/client";
 import { toast } from "sonner";
 import { PuzzleCard } from "@/components/home/PuzzleCard";
-import { User } from "@prisma/client";
 import * as client from "@/services/client";
 import { useI18n } from "@/app/[locale]/providers";
+import { ShareModal } from "./ShareModal";
 
 interface PuzzleDetailProps {
   puzzle: Atom;
@@ -70,6 +68,7 @@ export const PuzzleDetail: FC<PuzzleDetailProps> = ({
   const [likeCount, setLikeCount] = useState(puzzle.likesCount || 0);
   const [isFavorited, setIsFavorited] = useState(puzzle.isFavorited || false);
   const [isLoading, setIsLoading] = useState(false);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
 
   // 处理点赞
   const handleLike = async () => {
@@ -180,7 +179,12 @@ export const PuzzleDetail: FC<PuzzleDetailProps> = ({
                       {isFavorited ? data.unfavorite : data.favorite}
                     </Button>
                   </SignedIn>
-                  <Button variant="outline" size="sm" className="gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="gap-2"
+                    onClick={() => setShareModalOpen(true)}
+                  >
                     <Share2 className="w-4 h-4" />
                     {data.share}
                   </Button>
@@ -298,6 +302,14 @@ export const PuzzleDetail: FC<PuzzleDetailProps> = ({
           </div>
         </div>
       </div>
+
+      {/* 分享模态框 */}
+      <ShareModal
+        open={shareModalOpen}
+        onClose={() => setShareModalOpen(false)}
+        puzzleId={puzzle.id.toString()}
+        locale={locale}
+      />
     </div>
   );
 };
