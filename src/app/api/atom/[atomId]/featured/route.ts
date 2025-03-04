@@ -10,6 +10,7 @@ export async function POST(
 ) {
   try {
     const { atomId } = await params;
+    const atomIdInt = parseInt(atomId);
     const body = await req.json();
     const { reason, order = 0 } = body;
 
@@ -24,66 +25,75 @@ export async function POST(
 
     const userId = user.id;
 
-    // 验证帖子是否存在
-    const atom = await prisma.standardAtom.findUnique({
-      where: { id: parseInt(atomId) },
-      select: { id: true },
-    });
-
-    if (!atom) {
-      return NextResponse.json({ error: "原子不存在" }, { status: 404 });
-    }
-
-    // 检查帖子是否已经被精选
-    const existingFeatured = await prisma.atomFeatured.findUnique({
-      where: { atomId: parseInt(atomId) },
-    });
-
-    if (existingFeatured) {
-      // 更新现有精选信息
-      const updatedFeatured = await prisma.atomFeatured.update({
-        where: { atomId: parseInt(atomId) },
-        data: {
-          reason: reason,
-          order: order,
-          featuredAt: new Date(),
-          featuredBy: userId,
-        },
+    // 使用事务处理所有数据库操作
+    const result = await prisma.$transaction(async (tx) => {
+      // 验证原子是否存在
+      const atom = await tx.standardAtom.findUnique({
+        where: { id: atomIdInt },
+        select: { id: true },
       });
 
-      return NextResponse.json({
-        message: "精选原子更新成功",
-        featured: updatedFeatured,
-      });
-    }
+      if (!atom) {
+        throw new Error("原子不存在");
+      }
 
-    // 创建新的精选记录
-    const featured = await prisma.atomFeatured.create({
-      data: {
-        atomId: parseInt(atomId),
-        reason: reason,
-        order: order,
-        featuredBy: userId,
-      },
+      // 检查原子是否已经被精选
+      const existingFeatured = await tx.atomFeatured.findUnique({
+        where: { atomId: atomIdInt },
+      });
+
+      let featured;
+      if (existingFeatured) {
+        // 更新现有精选信息
+        featured = await tx.atomFeatured.update({
+          where: { atomId: atomIdInt },
+          data: {
+            reason: reason,
+            order: order,
+            featuredAt: new Date(),
+            featuredBy: userId,
+          },
+        });
+
+        return { featured, isUpdate: true };
+      } else {
+        // 创建新的精选记录
+        featured = await tx.atomFeatured.create({
+          data: {
+            atomId: atomIdInt,
+            reason: reason,
+            order: order,
+            featuredBy: userId,
+          },
+        });
+
+        return { featured, isUpdate: false };
+      }
     });
 
     return NextResponse.json({
-      message: "设置精选原子成功",
-      featured: featured,
+      message: result.isUpdate ? "精选原子更新成功" : "设置精选原子成功",
+      featured: result.featured,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("设置精选原子失败:", error);
+
+    if (error.message === "原子不存在") {
+      return NextResponse.json({ error: error.message }, { status: 404 });
+    }
+
     return NextResponse.json({ error: "设置精选原子失败" }, { status: 500 });
   }
 }
 
-// 取消帖子精选
+// 取消原子精选
 export async function DELETE(
   req: Request,
   { params }: { params: Promise<{ atomId: string }> }
 ) {
   try {
     const { atomId } = await params;
+    const atomIdInt = parseInt(atomId);
 
     const user = await getCurrentUser();
     if (!user) {
@@ -94,81 +104,80 @@ export async function DELETE(
       return NextResponse.json({ error: "Permission denied" }, { status: 403 });
     }
 
-    // 验证帖子是否存在
-    const atom = await prisma.standardAtom.findUnique({
-      where: { id: parseInt(atomId) },
-      select: { id: true },
-    });
+    // 使用事务处理
+    await prisma.$transaction(async (tx) => {
+      // 验证原子是否存在
+      const atom = await tx.standardAtom.findUnique({
+        where: { id: atomIdInt },
+        select: { id: true },
+      });
 
-    if (!atom) {
-      return NextResponse.json({ error: "原子不存在" }, { status: 404 });
-    }
+      if (!atom) {
+        throw new Error("原子不存在");
+      }
 
-    // 检查帖子是否已经被精选
-    const existingFeatured = await prisma.atomFeatured.findUnique({
-      where: { atomId: parseInt(atomId) },
-    });
+      // 检查原子是否已经被精选
+      const existingFeatured = await tx.atomFeatured.findUnique({
+        where: { atomId: atomIdInt },
+      });
 
-    if (!existingFeatured) {
-      return NextResponse.json(
-        { error: "该原子尚未被设为精选" },
-        { status: 400 }
-      );
-    }
+      if (!existingFeatured) {
+        throw new Error("该原子尚未被设为精选");
+      }
 
-    // 删除精选记录
-    await prisma.atomFeatured.delete({
-      where: { atomId: parseInt(atomId) },
+      // 删除精选记录
+      await tx.atomFeatured.delete({
+        where: { atomId: atomIdInt },
+      });
     });
 
     return NextResponse.json({
       message: "取消精选原子成功",
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("取消精选原子失败:", error);
+
+    if (error.message === "原子不存在") {
+      return NextResponse.json({ error: error.message }, { status: 404 });
+    } else if (error.message === "该原子尚未被设为精选") {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+
     return NextResponse.json({ error: "取消精选原子失败" }, { status: 500 });
   }
 }
 
-// 获取帖子精选状态
+// 获取原子精选状态
 export async function GET(
   req: Request,
   { params }: { params: Promise<{ atomId: string }> }
 ) {
   try {
     const { atomId } = await params;
+    const atomIdInt = parseInt(atomId);
 
-    // 验证帖子是否存在
+    // 验证原子是否存在并同时获取精选信息
     const atom = await prisma.standardAtom.findUnique({
-      where: { id: parseInt(atomId) },
-      select: { id: true },
+      where: { id: atomIdInt },
+      select: {
+        id: true,
+        title: true,
+        featured: true,
+      },
     });
 
     if (!atom) {
       return NextResponse.json({ error: "原子不存在" }, { status: 404 });
     }
 
-    // 获取帖子的精选信息
-    const featured = await prisma.atomFeatured.findUnique({
-      where: { atomId: parseInt(atomId) },
-      include: {
-        atom: {
-          select: {
-            id: true,
-            title: true,
-          },
-        },
-      },
-    });
-
     return NextResponse.json({
-      isFeatured: !!featured,
-      featured: featured || null,
+      isFeatured: !!atom.featured,
+      featured: atom.featured || null,
     });
   } catch (error) {
-    console.error("获取帖子精选状态失败:", error);
+    console.error("获取原子精选状态失败:", error);
     return NextResponse.json(
-      { error: "获取帖子精选状态失败" },
+      { error: "获取原子精选状态失败" },
       { status: 500 }
     );
   }

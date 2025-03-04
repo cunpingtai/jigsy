@@ -92,6 +92,7 @@ export async function GET(req: Request) {
           },
         },
         featured: true,
+        fieldConfigs: true,
       },
       orderBy: {
         [sortBy]: sortOrder,
@@ -100,28 +101,25 @@ export async function GET(req: Request) {
       take: pageSize,
     });
 
-    // 为每个原子添加配置信息
-    const atomsWithConfig = await Promise.all(
-      atoms.map(async (atom) => {
-        const fieldConfigs = await prisma.fieldConfig.findMany({
-          where: { atomId: atom.id },
-        });
+    // 处理数据格式
+    const atomsWithConfig = atoms.map((atom) => {
+      const config = atom.fieldConfigs.reduce(
+        (acc, field) => ({
+          ...acc,
+          [field.name]: field.value,
+        }),
+        {}
+      );
 
-        const config = fieldConfigs.reduce(
-          (acc, field) => ({
-            ...acc,
-            [field.name]: field.value,
-          }),
-          {}
-        );
+      // 移除原始的fieldConfigs数据
+      const { fieldConfigs, ...atomData } = atom;
 
-        return {
-          ...atom,
-          config,
-          isFeatured: atom.featured,
-        };
-      })
-    );
+      return {
+        ...atomData,
+        config,
+        isFeatured: atom.featured,
+      };
+    });
 
     // 返回结果
     return NextResponse.json({
