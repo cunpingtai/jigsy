@@ -74,7 +74,8 @@ export default async function start() {
     },
     images: {
       dangerouslyAllowSVG: true,
-
+      loader: "custom",
+      loaderFile: "./imageLoader.js",
       remotePatterns: hostnames,
     },
     compress: true,
