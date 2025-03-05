@@ -12,6 +12,7 @@ import {
   Tag,
   Group,
   ChartBarStacked,
+  Home,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import {
@@ -46,7 +47,7 @@ export const Header: FC<{ locale?: string; isAdmin?: boolean }> = ({
     //   href: "/leaderboard",
     // },
     {
-      icon: Search,
+      icon: Home,
       label: data.explore,
       href: "/explore",
     },

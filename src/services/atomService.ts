@@ -29,7 +29,12 @@ export const createAtomService = (api: {
     },
 
     // 获取原子是否精选
-    getAtomFeatured: (atomId: number): Promise<Featured> => {
+    getAtomFeatured: (
+      atomId: number
+    ): Promise<{
+      isFeatured: boolean;
+      featured: Featured;
+    }> => {
       return api.get(`/atom/${atomId}/featured`);
     },
 
@@ -174,14 +179,20 @@ export const createAtomService = (api: {
     },
 
     // 获取用户点赞的原子
-    getUserLikedAtoms: (params?: QueryParams): Promise<PaginatedData<Atom>> => {
+    getUserLikedAtoms: (
+      params?: QueryParams
+    ): Promise<
+      PaginatedData<{
+        atom: Atom;
+      }>
+    > => {
       return api.get(`/user/atoms/liked`, params);
     },
 
     // 获取用户收藏的原子
     getUserFavoriteAtoms: (
       params?: QueryParams
-    ): Promise<PaginatedData<Atom>> => {
+    ): Promise<PaginatedData<{ atom: Atom }>> => {
       return api.get(`/user/atoms/favorite`, params);
     },
 

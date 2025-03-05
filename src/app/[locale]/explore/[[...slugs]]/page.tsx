@@ -7,6 +7,7 @@ import { Features } from "@/components/shared/Features";
 import { JsonLd } from "@/components/json-ld";
 import { staticDataFetcher, websiteFetcher } from "@/fetch";
 import { Metadata } from "next";
+import { getCurrentUser } from "@/app/api/util";
 
 export async function generateMetadata({
   params,
@@ -59,6 +60,7 @@ export default async function Explore({
   const { locale, slugs } = await params;
   const { page } = await searchParams;
   const [categoryName, groupName] = slugs || [];
+  const user = await getCurrentUser();
   const categories = await server.categoryService.getAllCategories({
     language: locale,
   });
@@ -71,6 +73,7 @@ export default async function Explore({
 
   const atoms = await server.atomService.getAtoms({
     language: locale,
+    categoryId: category ? category?.id : "",
     groupId: group ? group?.id : "",
     page: Number(page) || 1,
     pageSize: 24,
@@ -118,9 +121,10 @@ export default async function Explore({
         className="mb-8"
       />
       <MainContent
+        isAdmin={user?.role === "ADMIN"}
         locale={locale}
-        categoryName={category?.name || ""}
-        groupName={group?.name || ""}
+        category={category}
+        group={group}
         categories={categories}
         atoms={atoms}
         featuredAtoms={featuredAtoms.data}

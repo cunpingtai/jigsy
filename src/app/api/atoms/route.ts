@@ -6,7 +6,6 @@ import { AtomStatus } from "@prisma/client";
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-
     // 分页参数
     const page = parseInt(searchParams.get("page") || "1");
     const pageSize = parseInt(searchParams.get("pageSize") || "10");
@@ -73,6 +72,7 @@ export async function GET(req: Request) {
 
     // 计算总数
     const total = await prisma.standardAtom.count({ where });
+
     // 查询数据
     const atoms = await prisma.standardAtom.findMany({
       where,

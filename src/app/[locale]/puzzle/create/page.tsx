@@ -1,3 +1,4 @@
+import { getCurrentUser } from "@/app/api/util";
 import MainLayout from "@/components/layout/main-layout";
 import { PuzzleCreator } from "@/components/puzzle/PuzzleCreator";
 import { Hero } from "@/components/shared/Hero";
@@ -25,10 +26,11 @@ export default async function CreatePuzzlePage({
 }) {
   const { locale } = await params;
   const staticData = await staticDataFetcher(locale);
+  const user = await getCurrentUser();
   return (
     <MainLayout locale={locale}>
       <Hero title={staticData.createH1} subtitle={staticData.createH2} />
-      <PuzzleCreator locale={locale} />
+      <PuzzleCreator isAdmin={user?.role === "ADMIN"} locale={locale} />
     </MainLayout>
   );
 }

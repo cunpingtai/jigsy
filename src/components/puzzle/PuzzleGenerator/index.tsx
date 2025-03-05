@@ -89,8 +89,13 @@ export const PuzzleGenerator = forwardRef<PuzzleGameRef, PuzzleGeneratorProps>(
       fitSize = { width: 0, height: 0 };
     }
 
+    const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
     return (
-      <div className="w-full h-full relative">
+      <div className="w-full h-full relative" onContextMenu={handleContextMenu}>
         <div className="w-full h-full" ref={measureRef}>
           {mounted && image && containerWidth && containerHeight ? (
             <PuzzleGame

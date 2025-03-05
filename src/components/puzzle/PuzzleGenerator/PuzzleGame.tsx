@@ -484,7 +484,7 @@ export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
             obj: finalImage,
             startProps: { opacity: 0 },
             endProps: { opacity: 1 },
-            duration: 1000,
+            duration: 300,
           });
 
           setTimeout(() => {
@@ -495,7 +495,7 @@ export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
             });
             canvas.renderAll();
             resolve();
-          }, 1000);
+          }, 300);
         });
 
         animationLoop.clear();
@@ -505,56 +505,6 @@ export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
 
     const playFailAnimation = useCallback((canvas: fabric.Canvas) => {
       const objects = canvas.getObjects();
-
-      // 震动动画
-      const shakeAnimation = async () => {
-        for (let i = 0; i < 1; i++) {
-          // 震动3次
-          for (const obj of objects) {
-            const originalLeft = obj.left || 0;
-            const originalTop = obj.top || 0;
-
-            // 左右和上下震动
-            await new Promise((resolve) => {
-              obj.animate(
-                {
-                  left: originalLeft - 10,
-                  top: originalTop - 5,
-                },
-                {
-                  duration: 50,
-                  onChange: canvas.renderAll.bind(canvas),
-                  onComplete: () => {
-                    obj.animate(
-                      {
-                        left: originalLeft + 10,
-                        top: originalTop + 5,
-                      },
-                      {
-                        duration: 100,
-                        onChange: canvas.renderAll.bind(canvas),
-                        onComplete: () => {
-                          obj.animate(
-                            {
-                              left: originalLeft,
-                              top: originalTop,
-                            },
-                            {
-                              duration: 50,
-                              onChange: canvas.renderAll.bind(canvas),
-                              onComplete: resolve,
-                            }
-                          );
-                        },
-                      }
-                    );
-                  },
-                }
-              );
-            });
-          }
-        }
-      };
 
       // 红色闪烁效果
       objects.forEach((obj) => {
@@ -570,7 +520,7 @@ export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
       });
       canvas.renderAll();
 
-      shakeAnimation().then(() => {
+      setTimeout(() => {
         // 动画结束后恢复原始阴影
         requestAnimationFrame(() => {
           objects.forEach((obj) => {
@@ -586,7 +536,7 @@ export const PuzzleGame = forwardRef<PuzzleGameRef, PuzzleGameProps>(
           });
           canvas.renderAll();
         });
-      });
+      }, 1000);
     }, []);
     const handleValidate = useCallback(async () => {
       if (!fabricCanvas) return false;

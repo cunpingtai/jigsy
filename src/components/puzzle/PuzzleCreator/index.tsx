@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { FC, useCallback, useEffect, useMemo, useState } from "react";
+import { FC, useCallback, useMemo, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ImagePuzzleCreator } from "./ImagePuzzleCreator";
@@ -10,16 +10,13 @@ import { EmojiPuzzleCreator } from "./EmojiPuzzleCreator";
 import { PuzzlePreview } from "./PuzzlePreview";
 import { PuzzleMeta, PuzzleSettings } from "./PuzzleSettings";
 import debounce from "lodash/debounce";
-import Image from "next/image";
 import {
   Image as ImageIcon,
   Palette,
   PaintRoller,
   Smile,
   Type,
-  Hash,
   Grid,
-  Sliders,
   Circle,
 } from "lucide-react";
 import { DistributionStrategy } from "../PuzzleGenerator/types";
@@ -38,7 +35,7 @@ import {
   calculatePuzzleDifficulty,
   getImageUrl,
 } from "@/lib/utils";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignedOut } from "@clerk/nextjs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useI18n } from "@/app/[locale]/providers";
 
@@ -73,9 +70,15 @@ type PuzzleCreatorProps = {
   atom?: Atom;
   id?: string;
   locale: string;
+  isAdmin: boolean;
 };
 
-export const PuzzleCreator: FC<PuzzleCreatorProps> = ({ atom, id, locale }) => {
+export const PuzzleCreator: FC<PuzzleCreatorProps> = ({
+  atom,
+  id,
+  locale,
+  isAdmin,
+}) => {
   const { data } = useI18n();
 
   const tabs = useMemo(
@@ -431,6 +434,7 @@ export const PuzzleCreator: FC<PuzzleCreatorProps> = ({ atom, id, locale }) => {
           <Card>
             <CardContent className="p-6">
               <PuzzleSettings
+                isAdmin={isAdmin}
                 locale={locale}
                 error={error}
                 config={config}
@@ -454,7 +458,7 @@ export const PuzzleCreator: FC<PuzzleCreatorProps> = ({ atom, id, locale }) => {
             </CardContent>
           </Card>
           {image ? (
-            <SignedIn>
+            <>
               <Card>
                 <CardContent className="p-6">
                   <Button
@@ -466,7 +470,7 @@ export const PuzzleCreator: FC<PuzzleCreatorProps> = ({ atom, id, locale }) => {
                   </Button>
                 </CardContent>
               </Card>
-            </SignedIn>
+            </>
           ) : null}
         </div>
       </div>

@@ -119,11 +119,11 @@ export default function TagDemo() {
         </TabsList>
 
         <TabsContent value="atoms" className="space-y-6">
-          {tagData.atoms.length === 0 ? (
+          {tagData.data.length === 0 ? (
             <EmptyState type="atom" />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {tagData.atoms.map((atom) => (
+              {tagData.data.map((atom) => (
                 <Link href={`/atom/${atom.id}`} key={atom.id}>
                   <Card className="h-full hover:shadow-md transition-shadow">
                     {atom.coverImage && (

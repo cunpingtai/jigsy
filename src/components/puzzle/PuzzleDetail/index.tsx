@@ -69,7 +69,7 @@ export const PuzzleDetail: FC<PuzzleDetailProps> = ({
   const [isFavorited, setIsFavorited] = useState(puzzle.isFavorited || false);
   const [isLoading, setIsLoading] = useState(false);
   const [shareModalOpen, setShareModalOpen] = useState(false);
-
+  console.log(isFavorited);
   // 处理点赞
   const handleLike = async () => {
     try {
@@ -118,7 +118,7 @@ export const PuzzleDetail: FC<PuzzleDetailProps> = ({
   const [isPublished, setIsPublished] = useState(puzzle.status === "PUBLISHED");
 
   const handleFeatured = async () => {
-    if (puzzle.isFeatured) {
+    if (isFeatured) {
       await client.atomService.removeAtomFromFeatured(puzzle.id);
     } else {
       await client.atomService.addAtomToFeatured(puzzle.id, "精选", 0);
@@ -146,8 +146,9 @@ export const PuzzleDetail: FC<PuzzleDetailProps> = ({
                 <Image
                   src={imageUrl}
                   alt={puzzle.title}
-                  fill
-                  className="object-cover"
+                  width={800}
+                  height={600}
+                  className="object-contain h-[450px] w-full"
                 />
               </div>
 
@@ -163,6 +164,15 @@ export const PuzzleDetail: FC<PuzzleDetailProps> = ({
                   </div> */}
                 </div>
                 <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="gap-2"
+                    onClick={() => setShareModalOpen(true)}
+                  >
+                    <Share2 className="w-4 h-4" />
+                    {data.share}
+                  </Button>
                   <SignedIn>
                     <Button
                       variant="outline"
@@ -176,18 +186,9 @@ export const PuzzleDetail: FC<PuzzleDetailProps> = ({
                           isFavorited ? "fill-primary" : ""
                         }`}
                       />
-                      {isFavorited ? data.unfavorite : data.favorite}
+                      {isFavorited ? data.favorite : data.unfavorite}
                     </Button>
                   </SignedIn>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="gap-2"
-                    onClick={() => setShareModalOpen(true)}
-                  >
-                    <Share2 className="w-4 h-4" />
-                    {data.share}
-                  </Button>
                   {role === "ADMIN" ? (
                     <Button
                       onClick={handleFeatured}
@@ -276,7 +277,7 @@ export const PuzzleDetail: FC<PuzzleDetailProps> = ({
           <div
             className={cn(
               "grid gap-4",
-              groupAtoms.length > 2 ? "grid-cols-2" : "grid-cols-1"
+              groupAtoms.length > 1 ? "grid-cols-2" : "grid-cols-1"
             )}
           >
             {groupAtoms.map((atom) => (

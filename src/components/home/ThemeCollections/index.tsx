@@ -62,9 +62,11 @@ export const ThemeCollections: FC<ThemeCollectionsProps> = ({
             <CardContent className="p-4">
               <div className="flex flex-wrap gap-2">
                 {collection.tags.map((tag) => (
-                  <Badge key={tag} variant="secondary">
-                    {tag}
-                  </Badge>
+                  <Link key={tag} href={`/${locale}/tag/${tag}`}>
+                    <Badge key={tag} variant="secondary">
+                      {tag}
+                    </Badge>
+                  </Link>
                 ))}
               </div>
             </CardContent>

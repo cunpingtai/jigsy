@@ -67,7 +67,7 @@ export const ShareModal: FC<ShareModalProps> = ({
         </DialogHeader>
 
         <Tabs defaultValue="link" className="w-full mt-4">
-          <TabsList className="grid grid-cols-2 mb-4">
+          <TabsList className="grid grid-cols-1 mb-4">
             <TabsTrigger value="link">{data.shareLink}</TabsTrigger>
             {/* <TabsTrigger value="embed">{data.embedCode}</TabsTrigger> */}
           </TabsList>

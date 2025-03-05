@@ -1,20 +1,28 @@
 import { FC } from "react";
 import { ThemeCollections } from "@/components/home/ThemeCollections";
 import { PuzzleExplorer } from "@/components/home/PuzzleExplorer";
-import { Atom, AtomFeatured, Category, PaginatedData } from "@/services/types";
+import {
+  Atom,
+  AtomFeatured,
+  Category,
+  Group,
+  PaginatedData,
+} from "@/services/types";
 
 export const MainContent: FC<{
   locale: string;
   categories: Category[];
-  categoryName?: string;
-  groupName?: string;
+  category?: Category;
+  group?: Group;
+  isAdmin: boolean;
   atoms: PaginatedData<Atom>;
   featuredAtoms: AtomFeatured[];
 }> = ({
   locale,
   categories,
-  categoryName,
-  groupName,
+  category,
+  group,
+  isAdmin,
   atoms,
   featuredAtoms,
 }) => {
@@ -23,10 +31,11 @@ export const MainContent: FC<{
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <div className="lg:col-span-3 space-y-6">
           <PuzzleExplorer
+            isAdmin={isAdmin}
             locale={locale}
             categories={categories}
-            categoryName={categoryName}
-            groupName={groupName}
+            category={category}
+            group={group}
             atoms={atoms}
             currentPage={atoms.pagination.page}
             totalPages={atoms.pagination.totalPages}

@@ -38,11 +38,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Atom } from "@/services/types";
+import { Atom, AtomGameRecord } from "@/services/types";
 import { PuzzleType } from "../PuzzleCreator";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useI18n } from "@/app/[locale]/providers";
+import { Input } from "@/components/ui/input";
 
 interface PuzzleGameProps {
   puzzle: Atom;
@@ -87,7 +88,6 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({
     router.replace(`?${params.toString()}`);
   };
 
-  const rid = searchParams.get("rid");
   const [isLoading, setIsLoading] = useState(false);
 
   const { data } = useI18n();
@@ -124,6 +124,8 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({
     distribution: config.distributionStrategy,
     lineColor: config.lineColor || "#000000",
     lineWidth: config.lineWidth || 2,
+    width: parseInt(config.width.toString()),
+    height: parseInt(config.height.toString()),
   });
 
   const piecesOptions = [
@@ -274,6 +276,8 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({
       distributionStrategy: tempSettings.distribution,
       lineColor: tempSettings.lineColor,
       lineWidth: tempSettings.lineWidth,
+      width: tempSettings.width,
+      height: tempSettings.height,
     }));
     setRefresh((prev) => prev + 1);
   };
@@ -294,8 +298,18 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({
     setShowStartDialog(true);
   }, []);
 
+  const [record, setRecord] = useState<AtomGameRecord | null>(null);
+
+  useEffect(() => {
+    if (recordId) {
+      client.atomService.getAtomGameRecord(id, recordId).then((record) => {
+        setRecord(record);
+      });
+    }
+  }, [id, recordId]);
+
   const handleComplete = () => {
-    if (!recordId) {
+    if (!recordId || record?.record.meta?.status === "COMPLETED") {
       return Promise.resolve().then(() => {
         setIsGameStarted(false);
       });
@@ -475,46 +489,48 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({
           )}
         </div>
 
-        <div className="h-12 bg-card border-t border-border flex items-center px-4 justify-between">
-          <div className="flex items-center gap-2 justify-center w-full">
-            <Button
-              variant="default"
-              size="sm"
-              onClick={() => {
-                puzzleGameRef.current?.handleValidate().then((completed) => {
-                  if (completed) {
-                    handleComplete().then(() => {
-                      setFixCenter(Date.now());
-                      setZoomLevel(100);
-                      toast.success(data.puzzleVerifiedSuccess);
-                    });
-                  } else {
-                    toast.error(data.puzzleVerifiedFailed);
-                  }
-                });
-              }}
-              className="gap-2"
-            >
-              <Check className="h-4 w-4" />
-              {data.verifyPuzzle}
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                handleComplete().then(() => {
-                  setFixCenter(Date.now());
-                  setZoomLevel(100);
-                  puzzleGameRef.current?.handleAutoComplete();
-                });
-              }}
-              className="gap-2"
-            >
-              <Grid2X2Check className="h-4 w-4" />
-              {data.autoArrange}
-            </Button>
+        {
+          <div className="h-12 bg-card border-t border-border flex items-center px-4 justify-between">
+            <div className="flex items-center gap-2 justify-center w-full">
+              <Button
+                variant="default"
+                size="sm"
+                onClick={() => {
+                  puzzleGameRef.current?.handleValidate().then((completed) => {
+                    if (completed) {
+                      handleComplete().then(() => {
+                        setFixCenter(Date.now());
+                        setZoomLevel(100);
+                        toast.success(data.puzzleVerifiedSuccess);
+                      });
+                    } else {
+                      toast.error(data.puzzleVerifiedFailed);
+                    }
+                  });
+                }}
+                className="gap-2"
+              >
+                <Check className="h-4 w-4" />
+                {data.verifyPuzzle}
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  handleComplete().then(() => {
+                    setFixCenter(Date.now());
+                    setZoomLevel(100);
+                    puzzleGameRef.current?.handleAutoComplete();
+                  });
+                }}
+                className="gap-2"
+              >
+                <Grid2X2Check className="h-4 w-4" />
+                {data.autoArrange}
+              </Button>
+            </div>
           </div>
-        </div>
+        }
       </div>
 
       <Dialog open={showTextureDialog} onOpenChange={setShowTextureDialog}>
@@ -549,7 +565,7 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({
               <h3 className="font-semibold">{puzzle.title}</h3>
               <p className="text-sm text-muted-foreground mt-1">
                 {data.difficultyLabel}: {difficulty} | {data.puzzlePieces}:{" "}
-                {pieces} {data.piecesUnit}
+                {tempSettings.pieces} {data.piecesUnit}
               </p>
             </div>
           </div>
@@ -671,6 +687,58 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({
                 step={0.5}
                 className="w-full"
               />
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <label className="text-sm font-medium">
+                  {data.puzzleWidthWithHeight}
+                </label>
+                <span className="text-sm text-muted-foreground">
+                  {tempSettings.width}px / {tempSettings.height}px
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Input
+                  type="number"
+                  min={200}
+                  max={4096}
+                  value={tempSettings.width || undefined}
+                  placeholder={
+                    !tempSettings.width ? "auto" : tempSettings.width.toString()
+                  }
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value);
+                    if (!isNaN(value) && value >= 200 && value <= 4096) {
+                      setTempSettings((prev) => ({
+                        ...prev,
+                        width: value,
+                      }));
+                    }
+                  }}
+                />
+                <span className="text-sm text-muted-foreground">x</span>
+                <Input
+                  type="number"
+                  min={200}
+                  max={4096}
+                  value={tempSettings.height || undefined}
+                  placeholder={
+                    !tempSettings.height
+                      ? "auto"
+                      : tempSettings.height.toString()
+                  }
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value);
+                    if (!isNaN(value) && value >= 200 && value <= 4096) {
+                      setTempSettings((prev) => ({
+                        ...prev,
+                        height: value,
+                      }));
+                    }
+                  }}
+                />
+              </div>
             </div>
           </div>
           <div className="flex justify-end gap-3">

@@ -1,7 +1,9 @@
+import { getCurrentUser } from "@/app/api/util";
 import MainLayout from "@/components/layout/main-layout";
 import { PuzzleCreator } from "@/components/puzzle/PuzzleCreator";
 import { staticDataFetcher } from "@/fetch";
 import * as server from "@/services/server";
+import { redirect } from "next/navigation";
 
 export async function generateMetadata({
   params,
@@ -23,10 +25,16 @@ export default async function CreatePuzzlePage({
   params: Promise<{ id: string; locale: string }>;
 }) {
   const { id, locale } = await params;
+
+  const user = await getCurrentUser();
+  if (!user || user?.role !== "ADMIN") {
+    return redirect(`/${locale}/explore`);
+  }
+
   const atom = await server.atomService.getAtomById(Number(id));
   return (
     <MainLayout locale={locale}>
-      <PuzzleCreator atom={atom} id={id} locale={locale} />
+      <PuzzleCreator isAdmin={true} atom={atom} id={id} locale={locale} />
     </MainLayout>
   );
 }

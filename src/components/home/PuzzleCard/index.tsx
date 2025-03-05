@@ -18,6 +18,12 @@ interface PuzzleCardProps {
     description: string;
     difficulty: string;
     status: string;
+    tags?: Array<{
+      tag: {
+        id: string;
+        name: string;
+      };
+    }>;
   };
   showStatus?: boolean;
   locale: string;
@@ -48,18 +54,18 @@ export const PuzzleCard: FC<PuzzleCardProps> = ({
       </div>
       <CardContent className="p-4">
         <h3 className="font-semibold transition-colors hover:text-primary">
-          {puzzle.title} - <Badge variant="outline">{puzzle.author}</Badge>
+          {puzzle.title}
         </h3>
         <p className="text-sm text-muted-foreground line-clamp-2">
           {puzzle.description}
         </p>
         <div className="flex justify-between items-center">
-          <div className="flex items-center gap-2 mt-2">
+          <div className="flex w-full items-center gap-2 mt-2 justify-between">
             <span className="text-sm bg-secondary px-2 py-1 rounded">
               {puzzle.difficulty}
             </span>
             {puzzle.likes ? (
-              <span className="text-sm text-muted-foreground">
+              <span className="text-sm text-muted-foreground flex items-center">
                 <Heart className="w-4 h-4 mr-1" />
                 {puzzle.likes}
               </span>
@@ -72,6 +78,17 @@ export const PuzzleCard: FC<PuzzleCardProps> = ({
               >
                 {statusMap[puzzle.status as keyof typeof statusMap]}
               </Badge>
+            </div>
+          )}
+        </div>
+        <div>
+          {puzzle.tags && puzzle.tags.length > 0 && (
+            <div className="flex items-center gap-2 mt-2">
+              {puzzle.tags.map((tag) => (
+                <Link key={tag.tag.id} href={`/${locale}/tag/${tag.tag.name}`}>
+                  <Badge variant="outline">{tag.tag.name}</Badge>
+                </Link>
+              ))}
             </div>
           )}
         </div>

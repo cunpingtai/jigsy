@@ -89,7 +89,7 @@ export async function GET(req: Request) {
     }));
 
     return NextResponse.json({
-      favorites: formattedFavorites,
+      data: formattedFavorites,
       pagination: {
         total,
         page,

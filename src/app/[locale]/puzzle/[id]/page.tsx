@@ -15,16 +15,15 @@ export default async function PuzzlePage({
     ? await server.atomService.getGroupAtoms(atom.groupId)
     : { data: [] };
 
-  const isFeatured = await server.atomService.getAtomFeatured(atom.id);
-
+  const atomFeatured = await server.atomService.getAtomFeatured(atom.id);
   return (
     <MainLayout locale={locale}>
       <PuzzleDetail
         locale={locale}
         role={user?.role as string}
         puzzle={atom}
-        groupAtoms={groupAtoms.data.filter((atom) => atom.id !== atom.id)}
-        isFeatured={!!isFeatured}
+        groupAtoms={groupAtoms.data.filter((a) => a.id !== atom.id)}
+        isFeatured={!!atomFeatured?.isFeatured}
       />
     </MainLayout>
   );

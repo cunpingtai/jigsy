@@ -24,7 +24,7 @@ export async function GET(
     const order = (searchParams.get("order") || "desc") as SortOrder;
 
     // 状态筛选
-    const status = searchParams.get("status");
+    const status = searchParams.get("status") || "PUBLISHED";
 
     // 验证分组是否存在
     const group = await prisma.group.findUnique({

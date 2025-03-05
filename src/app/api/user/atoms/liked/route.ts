@@ -88,7 +88,7 @@ export async function GET(req: Request) {
     }));
 
     return NextResponse.json({
-      likedAtoms: formattedLikedAtoms,
+      data: formattedLikedAtoms,
       pagination: {
         total,
         page,

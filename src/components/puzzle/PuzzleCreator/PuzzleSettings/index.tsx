@@ -45,9 +45,11 @@ interface PuzzleSettingsProps {
   onChange: (meta: PuzzleMeta) => void;
   error?: ZodFormattedError<PuzzleMeta> | null;
   locale: string;
+  isAdmin: boolean;
 }
 
 export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
+  isAdmin,
   locale,
   error,
   config,
@@ -519,13 +521,15 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
               )}
             </SelectContent>
           </Select>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => setModals((prev) => ({ ...prev, category: true }))}
-          >
-            <Plus className="h-4 w-4" />
-          </Button>
+          {isAdmin ? (
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setModals((prev) => ({ ...prev, category: true }))}
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
+          ) : null}
         </div>
         {error?.categoryId && (
           <p className="text-red-500 text-sm">{error.categoryId._errors[0]}</p>
@@ -563,14 +567,16 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
               )}
             </SelectContent>
           </Select>
-          <Button
-            variant="outline"
-            size="icon"
-            disabled={!config.categoryId}
-            onClick={() => setModals((prev) => ({ ...prev, group: true }))}
-          >
-            <Plus className="h-4 w-4" />
-          </Button>
+          {config.categoryId && isAdmin ? (
+            <Button
+              variant="outline"
+              size="icon"
+              disabled={!config.categoryId}
+              onClick={() => setModals((prev) => ({ ...prev, group: true }))}
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
+          ) : null}
         </div>
         {error?.groupId && (
           <p className="text-red-500 text-sm">{error.groupId._errors[0]}</p>
@@ -627,13 +633,15 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
                 </div>
               )}
             </div>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setModals((prev) => ({ ...prev, tag: true }))}
-            >
-              <Plus className="h-4 w-4" />
-            </Button>
+            {isAdmin ? (
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setModals((prev) => ({ ...prev, tag: true }))}
+              >
+                <Plus className="h-4 w-4" />
+              </Button>
+            ) : null}
           </div>
           <p className="text-xs text-muted-foreground">{data.maxAddTags}</p>
         </div>
@@ -843,14 +851,16 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
         locale={locale}
       />
 
-      <GroupModal
-        open={modals.group}
-        onClose={() => setModals((prev) => ({ ...prev, group: false }))}
-        onCreated={handleGroupCreated}
-        categoryId={config.categoryId}
-        categories={categories}
-        locale={locale}
-      />
+      {config.categoryId ? (
+        <GroupModal
+          open={modals.group}
+          onClose={() => setModals((prev) => ({ ...prev, group: false }))}
+          onCreated={handleGroupCreated}
+          categoryId={config.categoryId}
+          categories={categories}
+          locale={locale}
+        />
+      ) : null}
 
       <TagModal
         open={modals.tag}

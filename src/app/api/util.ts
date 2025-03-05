@@ -31,7 +31,7 @@ export const uploadImage = async (
   formData.append("file", file);
   formData.append("directory", directory);
 
-  const response = await fetch("/api/cloudflare", {
+  const response = await fetch("/api/resource/upload", {
     method: "POST",
     body: formData,
   });
@@ -47,7 +47,7 @@ export const uploadImage = async (
 };
 
 export const getImageInfo = async (filePath: string) => {
-  const response = await fetch(`/api/cloudflare?filePath=${filePath}`);
+  const response = await fetch(`/api/resource/upload?filePath=${filePath}`);
   const data = await response.json();
 
   if (data.success) {

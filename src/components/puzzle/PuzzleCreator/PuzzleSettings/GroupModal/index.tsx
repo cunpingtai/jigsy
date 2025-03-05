@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -25,7 +25,7 @@ interface GroupModalProps {
   open: boolean;
   onClose: () => void;
   onCreated: (group: any) => void;
-  categoryId?: number;
+  categoryId: number;
   categories: Category[];
   locale: string;
 }
@@ -42,10 +42,18 @@ export const GroupModal: FC<GroupModalProps> = ({
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    categoryId: categoryId?.toString() || "",
+    categoryId: categoryId.toString(),
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    setFormData({
+      name: "",
+      description: "",
+      categoryId: categoryId.toString(),
+    });
+  }, [categoryId]);
 
   const handleChange = (key: string, value: string) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
@@ -100,6 +108,7 @@ export const GroupModal: FC<GroupModalProps> = ({
           <div className="space-y-2">
             <Label htmlFor="group-category">{data.category}</Label>
             <Select
+              disabled={true}
               value={formData.categoryId}
               onValueChange={(value) => handleChange("categoryId", value)}
             >

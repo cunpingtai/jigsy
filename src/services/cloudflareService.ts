@@ -20,7 +20,7 @@ export const createCloudflareService = (api: {
         formData.append("directory", directory);
       }
 
-      return api.post("/cloudflare", formData, {
+      return api.post("/resource/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -84,7 +84,7 @@ export const createCloudflareService = (api: {
       const queryParam = isPath ? "filePath" : "fileName";
 
       return api.get(
-        `/cloudflare?${queryParam}=${encodeURIComponent(filePathOrName)}`
+        `/resource/upload?${queryParam}=${encodeURIComponent(filePathOrName)}`
       );
     },
   };

@@ -3,8 +3,8 @@ import { FC } from "react";
 import { Button } from "@/components/ui/button";
 import { PuzzleGrid } from "../PuzzleGrid";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Plus, History } from "lucide-react";
-import { Atom, Category, PaginatedData } from "@/services/types";
+import { Plus, History, Bookmark, Heart, Settings } from "lucide-react";
+import { Atom, Category, Group, PaginatedData } from "@/services/types";
 import { calculatePuzzleDifficulty, getImageUrl } from "@/lib/utils";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -22,23 +22,29 @@ import { useI18n } from "@/app/[locale]/providers";
 export const PuzzleExplorer: FC<{
   locale: string;
   categories: Category[];
-  categoryName?: string;
-  groupName?: string;
+  category?: Category;
+  group?: Group;
   atoms: PaginatedData<Atom>;
   currentPage: number;
   totalPages: number;
+  isAdmin: boolean;
 }> = ({
   locale,
   categories,
-  categoryName = "all",
-  groupName = "",
+  category,
+  group,
   atoms,
   currentPage,
   totalPages,
+  isAdmin,
 }) => {
+  const categoryName = category?.name || "all";
+  const groupName = group?.name || "";
+
   const groups =
     categories.find((category) => category.name === categoryName)?.groups || [];
   const { data } = useI18n();
+
   return (
     <div className="space-y-4">
       {/* 功能按钮行 */}
@@ -62,6 +68,26 @@ export const PuzzleExplorer: FC<{
               {data.myGameRecord}
             </Button>
           </Link>
+          <Link href={`/${locale}/puzzle/favorite`}>
+            <Button variant="outline" className="gap-2">
+              <Bookmark className="w-4 h-4" />
+              {data.favorites}
+            </Button>
+          </Link>
+          <Link href={`/${locale}/puzzle/liked`}>
+            <Button variant="outline" className="gap-2">
+              <Heart className="w-4 h-4" />
+              {data.liked}
+            </Button>
+          </Link>
+          {isAdmin && (
+            <Link href={`/${locale}/puzzle/admin`}>
+              <Button variant="outline" className="gap-2">
+                <Settings className="w-4 h-4" />
+                {data.adminPuzzleList}
+              </Button>
+            </Link>
+          )}
         </SignedIn>
       </div>
 
@@ -128,7 +154,8 @@ export const PuzzleExplorer: FC<{
           </div>
         </ScrollArea>
       )}
-
+      <h3 className="text-2xl font-bold">{category?.description}</h3>
+      <p className="text-sm">{group?.description}</p>
       {/* 拼图网格区域 */}
       <PuzzleGrid
         locale={locale}
@@ -137,6 +164,12 @@ export const PuzzleExplorer: FC<{
             ? atom.config?.tilesX * atom.config?.tilesY
             : 0;
           return {
+            tags: atom.tags?.map(({ tag }) => ({
+              tag: {
+                id: tag.id.toString(),
+                name: tag.name,
+              },
+            })),
             description: atom.content || "",
             status: atom.status,
             id: atom.id.toString(),

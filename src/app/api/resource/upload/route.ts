@@ -36,7 +36,9 @@ export async function POST(request: NextRequest) {
     // 验证文件类型
     if (!ALLOWED_TYPES.includes(file.type)) {
       return NextResponse.json(
-        { error: "不支持的文件类型，仅支持 JPEG, PNG, GIF 和 WebP" },
+        {
+          error: `不支持的文件类型: ${file.type}，仅支持 JPEG, PNG, GIF 和 WebP`,
+        },
         { status: 400 }
       );
     }
@@ -44,7 +46,12 @@ export async function POST(request: NextRequest) {
     // 验证文件大小
     if (file.size > MAX_FILE_SIZE) {
       return NextResponse.json(
-        { error: "文件大小超过限制 (10MB)" },
+        {
+          error: `文件大小超过限制 (10MB)，当前大小: ${(
+            file.size /
+            (1024 * 1024)
+          ).toFixed(2)}MB`,
+        },
         { status: 400 }
       );
     }
@@ -61,13 +68,19 @@ export async function POST(request: NextRequest) {
     // 读取文件内容
     const fileBuffer = await file.arrayBuffer();
 
+    // 添加额外的文件内容验证
+    const fileContent = Buffer.from(fileBuffer);
+
+    // 简单的图片文件头验证（可选）
+    // 这里可以添加更复杂的文件头验证逻辑
+
     // 上传到 R2
     const bucketName = process.env.CLOUDFLARE_R2_BUCKET_NAME || "";
     await s3Client.send(
       new PutObjectCommand({
         Bucket: bucketName,
         Key: filePath,
-        Body: Buffer.from(fileBuffer),
+        Body: fileContent,
         ContentType: file.type,
       })
     );
@@ -81,9 +94,17 @@ export async function POST(request: NextRequest) {
       fileName: fileName,
       filePath: filePath,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("上传文件时出错:", error);
-    return NextResponse.json({ error: "上传文件时出错" }, { status: 500 });
+    // 提供更详细的错误信息
+    return NextResponse.json(
+      {
+        error: "上传文件时出错",
+        message: error.message || "未知错误",
+        stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
+      },
+      { status: 500 }
+    );
   }
 }
 

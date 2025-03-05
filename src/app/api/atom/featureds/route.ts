@@ -19,14 +19,20 @@ export async function GET(req: Request) {
     // 获取精选帖子总数
     const total = await prisma.atomFeatured.count({
       where: {
-        atom: language ? { language } : undefined,
+        atom: {
+          status: "PUBLISHED",
+          ...(language ? { language } : {}),
+        },
       },
     });
 
     // 获取精选帖子列表
     const atomFeatureds = await prisma.atomFeatured.findMany({
       where: {
-        atom: language ? { language } : undefined,
+        atom: {
+          status: "PUBLISHED",
+          ...(language ? { language } : {}),
+        },
       },
       include: {
         atom: {

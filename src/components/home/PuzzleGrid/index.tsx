@@ -13,6 +13,12 @@ interface PuzzleGridProps {
     category?: string;
     subCategory?: string;
     status: string;
+    tags?: Array<{
+      tag: {
+        id: string;
+        name: string;
+      };
+    }>;
   }>;
   showStatus?: boolean;
   locale: string;

@@ -10,6 +10,7 @@ export const MainContent: FC<{ locale: string }> = async ({ locale }) => {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <div className="lg:col-span-3">
           <PuzzleExplorer
+            isAdmin={false}
             locale={locale}
             currentPage={1}
             totalPages={1}

@@ -4,6 +4,7 @@ import {
   Tag,
   CreateTagParams,
   UpdateTagParams,
+  Atom,
 } from "./types";
 
 // 创建标签服务工厂函数
@@ -24,9 +25,27 @@ export const createTagService = (api: {
       return api.get(`/tags/${id}`);
     },
 
-    // 根据名称获取标签
-    getTagByName: (name: string): Promise<Tag> => {
-      return api.get(`/tag/${encodeURIComponent(name)}`);
+    getTagByName: (
+      name: string,
+      params?: { page?: number; pageSize?: number }
+    ): Promise<{
+      id: number;
+      name: string;
+      description: string;
+      atomsCount: number;
+      data: Atom[];
+      createdAt: string;
+      updatedAt: string;
+      posts: any[];
+      postsCount: number;
+      pagination: {
+        page: number;
+        pageSize: number;
+        total: number;
+        totalPages: number;
+      };
+    }> => {
+      return api.get(`/tag/${encodeURIComponent(name)}`, params);
     },
 
     // 创建标签

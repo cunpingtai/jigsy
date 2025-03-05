@@ -120,7 +120,7 @@ export interface Atom {
   status: string;
   userId: number;
   user?: User;
-  tags?: Tag[];
+  tags?: { tag: Tag }[];
   categoryId?: number;
   category?: Category;
   groupId?: number;
@@ -208,12 +208,12 @@ export interface AtomGameRecord {
 // 标签接口
 export interface Tag {
   id: number;
-  tagId: number;
+  // tagId: number;
   name: string;
   description?: string;
   atomsCount?: number;
   postsCount?: number;
-  atoms: any[];
+  data: any[];
   posts: any[];
   createdAt: string;
   updatedAt: string;

@@ -2,7 +2,7 @@ import * as server from "@/services/server";
 import MainLayout from "@/components/layout/main-layout";
 import { getCurrentUser } from "@/app/api/util";
 import { redirect } from "next/navigation";
-import RecordPage from "./hook";
+import FavoritePage from "./hook";
 
 export default async function Page({
   params,
@@ -22,16 +22,14 @@ export default async function Page({
     return redirect(`/${locale}/explore`);
   }
 
-  const response = await server.atomService.getAtoms({
+  const response = await server.atomService.getUserFavoriteAtoms({
     userId: user.id,
-    status: "ALL",
     page: parseInt(page) || 1,
     pageSize: pageSize,
   });
-
   return (
     <MainLayout locale={locale}>
-      <RecordPage locale={locale} result={response} />
+      <FavoritePage locale={locale} result={response} />
     </MainLayout>
   );
 }

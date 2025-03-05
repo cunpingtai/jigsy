@@ -11,7 +11,7 @@ export const Hero: FC<HeroProps> = ({ className, title, subtitle }) => {
   return (
     <div
       className={cn(
-        "w-full py-12 px-4 text-center bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg",
+        "w-full py-12 px-4 text-center bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg mb-8",
         className
       )}
     >
