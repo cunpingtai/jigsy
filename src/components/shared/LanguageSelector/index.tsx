@@ -111,7 +111,7 @@ export const LanguageSelector: FC<LanguageSelectorProps> = ({
           <ChevronDown className="h-4 w-4 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[120px]">
+      <DropdownMenuContent align="end" className="w-[160px]">
         {langs.map((language) => {
           const Flag = getLangIcon(language.value);
           return (

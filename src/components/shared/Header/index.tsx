@@ -161,7 +161,7 @@ export const Header: FC<{ locale?: string; isAdmin?: boolean }> = ({
           </Sheet>
         </div>
 
-        <div className="hidden lg:flex items-center space-x-4 justify-center max-w-md flex-1">
+        <div className="hidden lg:flex items-center space-x-4 justify-center max-w-xs flex-1">
           <Input
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={data.search}
