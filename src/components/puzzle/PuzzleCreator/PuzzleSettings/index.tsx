@@ -521,15 +521,13 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
               )}
             </SelectContent>
           </Select>
-          {isAdmin ? (
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setModals((prev) => ({ ...prev, category: true }))}
-            >
-              <Plus className="h-4 w-4" />
-            </Button>
-          ) : null}
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setModals((prev) => ({ ...prev, category: true }))}
+          >
+            <Plus className="h-4 w-4" />
+          </Button>
         </div>
         {error?.categoryId && (
           <p className="text-red-500 text-sm">{error.categoryId._errors[0]}</p>
@@ -567,7 +565,7 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
               )}
             </SelectContent>
           </Select>
-          {config.categoryId && isAdmin ? (
+          {config.categoryId ? (
             <Button
               variant="outline"
               size="icon"
@@ -633,15 +631,13 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
                 </div>
               )}
             </div>
-            {isAdmin ? (
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => setModals((prev) => ({ ...prev, tag: true }))}
-              >
-                <Plus className="h-4 w-4" />
-              </Button>
-            ) : null}
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setModals((prev) => ({ ...prev, tag: true }))}
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
           </div>
           <p className="text-xs text-muted-foreground">{data.maxAddTags}</p>
         </div>
