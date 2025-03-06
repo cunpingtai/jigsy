@@ -155,6 +155,12 @@ export const PuzzleDetail: FC<PuzzleDetailProps> = ({
               <div className="flex items-start justify-between mb-6">
                 <div>
                   <h1 className="text-2xl font-bold mb-2">{puzzle.title}</h1>
+                  <Badge
+                    variant={isPublished ? "default" : "outline"}
+                    className="gap-1"
+                  >
+                    {isPublished ? data.published : data.draft}
+                  </Badge>
                   {/* <div className="flex items-center gap-3 text-muted-foreground">
                     <Avatar className="h-6 w-6">
                       <AvatarImage src={puzzle.user?.avatar} />
