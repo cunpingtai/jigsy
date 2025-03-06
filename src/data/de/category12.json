@@ -1,0 +1,102 @@
+{
+  "name": "Naturwunder",
+  "description": "Umfasst die Großartigkeit und Feinheiten der Natur, von hohen Bergen und Gletschern bis hin zu Ozeanen und Seen, und präsentiert die vielfältige Ökologie und Geologie der Erde.",
+  "groups": [
+    {
+      "name": "Schneeberge und Gletscher",
+      "description": "Erheben sich in hochgelegenen Regionen, bedeckt von Schnee und Eis, majestätische Berggipfel."
+    },
+    {
+      "name": "Seen und Wasserfälle",
+      "description": "Stillgewässer und tosende Wasserfälle, die sich wechselseitig widerspiegeln."
+    },
+    {
+      "name": "Wüsten und Steppen",
+      "description": "Weite Sandflächen und karge Landschaften in extrem trockenen Gebieten."
+    },
+    {
+      "name": "Wälder und Holzlandschaften",
+      "description": "Hochgewachsene Bäume und dichtes Grün, die natürliche Lunge der Erde bilden."
+    },
+    {
+      "name": "Meereswelt",
+      "description": "Weite Meere und die Unterwasserwelt mit ihren Bewohnern."
+    },
+    {
+      "name": "Sonnenuntergang und Sonnenaufgang",
+      "description": "Die majestätischen Veränderungen des Himmels bei Sonnenauf- und -untergang."
+    },
+    {
+      "name": "Tropische Regenwälder",
+      "description": "Feucht und warm, mit einer Vielzahl von Pflanzen- und Tierarten."
+    },
+    {
+      "name": "Graslandschaften",
+      "description": "Endlose Grasflächen und frei weidende Herden."
+    },
+    {
+      "name": "Blumenfelder und Felder",
+      "description": "Bunte Blumen und Feldfrüchte, die sich abwechseln."
+    },
+    {
+      "name": "Hügellandschaften",
+      "description": "Sanfte Hügel und grüne Landschaften in niedrigen Gebirgen."
+    },
+    {
+      "name": "Inseln und Küsten",
+      "description": "Inseln und Küstenlinien, die eine malerische Landschaft zeichnen."
+    },
+    {
+      "name": "Nordlichter",
+      "description": "Bunte Lichterscheinungen am Himmel in hohen Breiten."
+    },
+    {
+      "name": "Vulkane",
+      "description": "Aktive oder ruhende Vulkane und ihre geologischen Phänomene."
+    },
+    {
+      "name": "Steinwälder und Felsformationen",
+      "description": "Eigenartig geformte Felsen, die wie von Menschenhand geschaffen wirken."
+    },
+    {
+      "name": "Sümpfe und Feuchtgebiete",
+      "description": "Übergangsgebiete zwischen Wasser und Land, mit einer Vielzahl von Lebensformen."
+    },
+    {
+      "name": "Polargebiete",
+      "description": "Große Eisdecken und Eisberge in den extrem kalten Regionen."
+    },
+    {
+      "name": "Schluchten und Täler",
+      "description": "Tief eingeschnittene Täler und steile Felswände, die durch Flüsse oder Wind geformt wurden."
+    },
+    {
+      "name": "Hochplateaus",
+      "description": "Weite Landschaften in hohen Lagen mit besonderem Klima."
+    },
+    {
+      "name": "Karstlandschaften",
+      "description": "Einzigartige Felsformationen wie Höhlen und Dolinen."
+    },
+    {
+      "name": "Wildnis und Wildnisgebiete",
+      "description": "Ursprüngliche Wildnisgebiete, die von Menschen unberührt sind."
+    },
+    {
+      "name": "Jahreszeiten",
+      "description": "Die Veränderungen der Natur in den verschiedenen Jahreszeiten."
+    },
+    {
+      "name": "Regenbogen",
+      "description": "Das farbenfrohe Schauspiel des Regenbogens am Himmel nach Regen."
+    },
+    {
+      "name": "Höhlen",
+      "description": "Dunkle, von Stalaktiten und Stalagmiten geprägte Räume."
+    },
+    {
+      "name": "Riesenbäume",
+      "description": "Mächtige, jahrhundertealte Bäume, die den Himmel berühren."
+    }
+  ]
+}

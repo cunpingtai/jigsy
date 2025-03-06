@@ -382,3 +382,10 @@ export type AtomCommentResponse = {
     totalPages: number;
   };
 };
+
+// AI 解析响应类型
+export interface ParsedResponse {
+  question: string;
+  title: string;
+  answer: string;
+}

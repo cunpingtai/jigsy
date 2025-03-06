@@ -1,0 +1,102 @@
+{
+  "name": "Viaggi e Attrazioni",
+  "description": "Mostra le destinazioni popolari e le viste meno conosciute in tutto il mondo, mostrando la cultura e le bellezze di diverse regioni, stimolando il desiderio delle persone di esplorare il mondo.",
+  "groups": [
+    {
+      "name": "Città famose nel mondo",
+      "description": "Gli edifici famosi e le viste urbane delle città internazionali."
+    },
+    {
+      "name": "Località balneari",
+      "description": "Spiagge, sole e onde che si intrecciano in un luogo di relax."
+    },
+    {
+      "name": "Turismo montano",
+      "description": "Escursioni, panorami e avventure in montagna o collina."
+    },
+    {
+      "name": "Parchi a tema",
+      "description": "Attrazioni e atmosfera fiabesca del mondo divertente."
+    },
+    {
+      "name": "Spiagge e isole",
+      "description": "Un luogo romantico con acqua cristallina e palme."
+    },
+    {
+      "name": "Giro del mondo",
+      "description": "Una collezione di attrazioni di vari paesi, viaggiando senza uscire di casa."
+    },
+    {
+      "name": "Strade panoramiche di montagna",
+      "description": "Giri in auto o in bicicletta con viste infinite."
+    },
+    {
+      "name": "Chalet di montagna",
+      "description": "Una casa tranquilla lontano dalla città, vicino alla natura."
+    },
+    {
+      "name": "Siti storici",
+      "description": "Edifici o luoghi di grande valore storico."
+    },
+    {
+      "name": "Siti del patrimonio mondiale",
+      "description": "Luoghi di grande valore e cultura condivisa dall'umanità."
+    },
+    {
+      "name": "Borghi europei",
+      "description": "Strade lastricate e atmosfera artistica delle città."
+    },
+    {
+      "name": "Città antiche asiatiche",
+      "description": "Città con una storia millenaria e una cultura ricca."
+    },
+    {
+      "name": "Esplorazione della savana africana",
+      "description": "Un'esperienza emozionante con animali selvatici e praterie infinite."
+    },
+    {
+      "name": "Viaggio selvaggio in America",
+      "description": "Un viaggio avventuroso attraverso paesaggi diversi."
+    },
+    {
+      "name": "Viaggio invernale in montagna",
+      "description": "Un'esperienza fredda e panoramica con neve e ghiaccio."
+    },
+    {
+      "name": "Vista panoramica in mongolfiera",
+      "description": "Un'esperienza aerea con una vista unica sulla terra."
+    },
+    {
+      "name": "Viaggio estremo",
+      "description": "Un viaggio con attività ad alto livello di adrenalina come il bungee jumping e il parapendio."
+    },
+    {
+      "name": "Festival della cultura popolare",
+      "description": "Un'esperienza culturale con feste e tradizioni locali."
+    },
+    {
+      "name": "Esplorazione del deserto",
+      "description": "Un'esperienza unica con dune di sabbia e cieli stellati."
+    },
+    {
+      "name": "Crociere",
+      "description": "Un viaggio in mare con lusso e divertimento."
+    },
+    {
+      "name": "Luoghi fotografici",
+      "description": "Un'esperienza con luce e ombra perfette per i fotografi."
+    },
+    {
+      "name": "Viaggio in auto",
+      "description": "Un viaggio con libertà e flessibilità, esplorando la cultura lungo la strada."
+    },
+    {
+      "name": "Escursione a piedi",
+      "description": "Un viaggio a piedi con vicinanza alla natura e alla cultura."
+    },
+    {
+      "name": "Giro in bicicletta intorno al lago",
+      "description": "Un viaggio in bicicletta con vista sul lago e aria fresca."
+    }
+  ]
+}

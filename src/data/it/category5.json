@@ -1,0 +1,102 @@
+{
+  "name": "Storia e Cultura",
+  "description": "L'evoluzione della civiltà umana e la diversità culturale, dai miti e leggende all'antichità, mostrando il peso e il fascino della storia.",
+  "groups": [
+    {
+      "name": "Antico Egitto",
+      "description": "La misteriosa cultura delle piramidi, dei faraoni e dei geroglifici."
+    },
+    {
+      "name": "Antica Babilonia",
+      "description": "La splendida civiltà dei due fiumi e la leggenda dei giardini pensili."
+    },
+    {
+      "name": "Civiltà Maya e Inca",
+      "description": "Il culto del sole e il fascino dei siti incisi nella pietra."
+    },
+    {
+      "name": "Storia cinese",
+      "description": "Dalla dinastia Xia alla dinastia Qing, il susseguirsi delle dinastie e la cultura splendente."
+    },
+    {
+      "name": "Impero Romano",
+      "description": "I gladiatori, l'arco di trionfo e la magnifica costruzione della città."
+    },
+    {
+      "name": "Rinascimento",
+      "description": "L'arte e la scienza europea rinascimentale, con l'emergere di grandi maestri."
+    },
+    {
+      "name": "Miti dell'antica Grecia",
+      "description": "La fonte culturale degli dei dell'Olimpo e delle leggende degli eroi."
+    },
+    {
+      "name": "Vita della nobiltà",
+      "description": "La vita quotidiana della nobiltà europea o orientale."
+    },
+    {
+      "name": "Leggende popolari",
+      "description": "Le avventure degli eroi e le leggende delle creature mitologiche."
+    },
+    {
+      "name": "Feste tradizionali cinesi",
+      "description": "Il folklore e il significato culturale del Capodanno e della Festa di mezz'autunno."
+    },
+    {
+      "name": "Era Vittoriana",
+      "description": "La rivoluzione industriale e i cambiamenti sociali e culturali."
+    },
+    {
+      "name": "Cultura dei samurai giapponesi",
+      "description": "La spada dei samurai, il codice d'onore e il contesto politico dello shogunato."
+    },
+    {
+      "name": "Miti nordici",
+      "description": "Gli dei come Odino e Thor e la leggenda dell'albero del mondo."
+    },
+    {
+      "name": "Cavalieri e castelli",
+      "description": "Il sistema feudale europeo e lo spirito cavalleresco."
+    },
+    {
+      "name": "Antica India",
+      "description": "Il luogo di origine del buddismo, dell'induismo e della cultura multilivello."
+    },
+    {
+      "name": "Arte religiosa",
+      "description": "Le espressioni artistiche del cristianesimo, dell'islam e del buddismo."
+    },
+    {
+      "name": "Via della seta",
+      "description": "Il commercio e lo scambio culturale transoceanico."
+    },
+    {
+      "name": "Era delle esplorazioni e dei pirati",
+      "description": "Le esplorazioni e il commercio marittimo durante l'era delle grandi scoperte."
+    },
+    {
+      "name": "Rievocazione di battaglie antiche",
+      "description": "Le famose battaglie storiche e le strategie militari."
+    },
+    {
+      "name": "Opera di Pechino e teatro tradizionale",
+      "description": "Le immagini teatrali cinesi ricche di caratteristiche nazionali e di esagerazione artistica."
+    },
+    {
+      "name": "Folklore di tutto il mondo",
+      "description": "Le tradizioni e le usanze delle diverse etnie del mondo."
+    },
+    {
+      "name": "Cultura degli indigeni",
+      "description": "Le tribù e le popolazioni autoctone che mantengono uno stile di vita primitivo."
+    },
+    {
+      "name": "Artigianato popolare",
+      "description": "Le abilità artigianali tramandate di generazione in generazione come il ricamo, la ceramica, l'ombra cinese, ecc."
+    },
+    {
+      "name": "Evoluzione dell'abbigliamento tradizionale",
+      "description": "Dall'antico abbigliamento cerimoniale all'abbigliamento moderno."
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "name": "Abstração e Textura",
+  "description": "Destacando a beleza artística, cor, textura ou forma geométrica, frequentemente rica em impacto visual e atmosfera.",
+  "groups": [
+    {
+      "name": "Textura de Mármore",
+      "description": "Textura naturalmente fluída, cores elegantes e mutáveis."
+    },
+    {
+      "name": "Estrutura de Textura de Madeira",
+      "description": "Exibindo anéis de crescimento, transmitindo calor e sensação de rusticidade."
+    },
+    {
+      "name": "Efeito de Pintura a Óleo",
+      "description": "Formação de padrões aleatórios e artísticos pela mistura de tinta."
+    },
+    {
+      "name": "Formas Geométricas",
+      "description": "Efeitos visuais abstratos compostos por pontos, linhas e superfícies."
+    },
+    {
+      "name": "Efeito de Kaleidoscópio",
+      "description": "Mundo luxuriante de formas simétricas e rotativas."
+    },
+    {
+      "name": "Fluxo Líquido",
+      "description": "Linhas de cor que se fundem e se estendem como líquido."
+    },
+    {
+      "name": "Mosaico",
+      "description": "Efeito de imagem completa composta por fragmentos de cor ou fotos."
+    },
+    {
+      "name": "Gradiente Vetorial",
+      "description": "Transição suave de cor gerada por computador."
+    },
+    {
+      "name": "Tonalidade Pastel",
+      "description": "Tons pastéis suaves e leves, criando uma atmosfera leve."
+    },
+    {
+      "name": "Sensação Metálica",
+      "description": "Superfície com brilho metálico ou marcas de oxidação."
+    },
+    {
+      "name": "Fragmentos de Cristal",
+      "description": "Efeito de reflexão e sombra cristalina."
+    },
+    {
+      "name": "Estilo Pixel",
+      "description": "Efeito de pixelização, imitando telas de baixa resolução."
+    },
+    {
+      "name": "Padrão de Fundo",
+      "description": "Diversos padrões, usados para decoração ou fundo."
+    },
+    {
+      "name": "Estrutura de Redemoinho",
+      "description": "Imagem dinâmica de rotação e agregação em camadas."
+    },
+    {
+      "name": "Enrolamento de Faixas Coloridas",
+      "description": "Sensação tridimensional criada pelo entrelaçamento de faixas coloridas."
+    },
+    {
+      "name": "Textura de Areia",
+      "description": "Padrão detalhado formado pela pilha ou fluxo de grãos de areia."
+    },
+    {
+      "name": "Linha de Luz",
+      "description": "Raio de luz, mancha de luz e sensação de movimento criando uma atmosfera futurista."
+    },
+    {
+      "name": "Curva Ondulante",
+      "description": "Curva ondulante, rica em ritmo e cadência."
+    },
+    {
+      "name": "Textura de Relieve",
+      "description": "Superfície com sensação de relevo ou mudanças de sombra."
+    },
+    {
+      "name": "Gotas de Água e Ondas",
+      "description": "Elementos visuais principais com ondulações na superfície da água."
+    },
+    {
+      "name": "Papel Antigo",
+      "description": "Textura de papel amarelado ou com marcas de idade, cheio de nostalgia."
+    },
+    {
+      "name": "Nevoeiro",
+      "description": "Efeito de nevoeiro leve e etéreo, criando uma atmosfera nebulosa."
+    },
+    {
+      "name": "Mistura de Tinta",
+      "description": "Mudanças aleatórias criadas pela mistura de tinta de diferentes cores."
+    },
+    {
+      "name": "Efeito de Vidro Quebrado",
+      "description": "Sensação de explosão instantânea criada por rachaduras e fragmentos."
+    }
+  ]
+}

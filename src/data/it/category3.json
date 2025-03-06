@@ -1,0 +1,102 @@
+{
+  "name": "Cucina e Cucina",
+  "description": "Dalle pietanze casalinghe ai piatti famosi in tutto il mondo, esplora il fascino del cibo e le tecniche di cottura, senti il banchetto multiculturale del gusto.",
+  "groups": [
+    {
+      "name": "Cucina tradizionale cinese",
+      "description": "L'essenza dei piatti famosi di varie regioni come la cucina di Sichuan, la cucina cantonese, la cucina di Huaiyang, ecc."
+    },
+    {
+      "name": "Cucina occidentale",
+      "description": "L'arte dolce della panificazione come il pane, la torta, i dolci."
+    },
+    {
+      "name": "Cucina giapponese",
+      "description": "Il gusto minimalista del sushi, del sashimi e della presentazione raffinata."
+    },
+    {
+      "name": "Barbecue coreano",
+      "description": "La combinazione di marinatura e grigliatura al carbone con contorni abbondanti."
+    },
+    {
+      "name": "Cucina del Sud-est asiatico",
+      "description": "Il gusto del latte di cocco e delle spezie come la cucina tailandese, la cucina vietnamita, ecc."
+    },
+    {
+      "name": "Cucina mediterranea",
+      "description": "L'uso dell'olio d'oliva, delle erbe aromatiche e dei frutti di mare nella cucina."
+    },
+    {
+      "name": "Cucina francese",
+      "description": "L'attenzione alla qualità degli ingredienti e alla presentazione raffinata."
+    },
+    {
+      "name": "Pasta e Pizza italiana",
+      "description": "La combinazione classica di salsa di pomodoro, formaggio e pasta o pizza."
+    },
+    {
+      "name": "Banchetto di frutti di mare",
+      "description": "Il sapore fresco e dolce dei frutti di mare come gamberi, granchi, molluschi, ecc."
+    },
+    {
+      "name": "Barbecue BBQ",
+      "description": "L'atmosfera vivace del barbecue all'aperto e del fumo."
+    },
+    {
+      "name": "Dolci e Torte",
+      "description": "La dolcezza e la varietà dei dolci e delle torte."
+    },
+    {
+      "name": "Arte del cioccolato",
+      "description": "Il gusto del cioccolato e la creatività nella forma e nella decorazione."
+    },
+    {
+      "name": "Tè e Caffè",
+      "description": "Il gusto ricco e la cultura del tè e del caffè."
+    },
+    {
+      "name": "Cucina piccante",
+      "description": "Il gusto piccante di piatti come la hot pot, il saltato piccante, ecc."
+    },
+    {
+      "name": "Cucina vegetariana",
+      "description": "Il gusto salutare dei piatti a base di verdure, frutta, prodotti a base di soia, ecc."
+    },
+    {
+      "name": "Hot Pot e Mala Tang",
+      "description": "Il gusto piccante e profumato di piatti come il hot pot e il mala tang."
+    },
+    {
+      "name": "Bento e Fast Food",
+      "description": "Il gusto vario e conveniente dei pasti veloci nella vita frenetica."
+    },
+    {
+      "name": "Snack e Cibo da strada",
+      "description": "Il gusto delizioso e pratico degli snack e del cibo da strada."
+    },
+    {
+      "name": "Collezione di pane del mondo",
+      "description": "La varietà di gusti del pane come la baguette francese, il pane nero tedesco, il pane morbido asiatico, ecc."
+    },
+    {
+      "name": "Cucina creativa",
+      "description": "La combinazione innovativa di ingredienti e tecniche di cottura."
+    },
+    {
+      "name": "Cucina casalinga",
+      "description": "Il gusto familiare e personale dei piatti casalinghi."
+    },
+    {
+      "name": "Scena di insegnamento culinario",
+      "description": "La dimostrazione o la lezione di cucina e l'atmosfera."
+    },
+    {
+      "name": "Tavola imbandita",
+      "description": "La presentazione attenta e l'ambiente della tavola."
+    },
+    {
+      "name": "Cucina di strada",
+      "description": "Il fascino unico del cibo di strada e dei venditori ambulanti."
+    }
+  ]
+}

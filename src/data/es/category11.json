@@ -1,0 +1,102 @@
+{
+  "name": "Mundo Animal",
+  "description": "Desde la tierra hasta el mar, desde el frío hasta el calor, la diversidad de animales y su entorno de vida, mostrando la vitalidad y el encanto del mundo natural.",
+  "groups": [
+    {
+      "name": "Animales Salvajes",
+      "description": "Especies que viven en la naturaleza, con una fuerte capacidad de supervivencia."
+    },
+    {
+      "name": "Animales de la Selva Tropical",
+      "description": "Criaturas coloridas de la selva y la rica cadena ecológica."
+    },
+    {
+      "name": "Animales Acuáticos",
+      "description": "Peces, corales y mamíferos acuáticos en el mar, ríos y lagos."
+    },
+    {
+      "name": "Animales de Granja",
+      "description": "Animales criados por humanos en granjas o en casa, como pollos, patos, vacas y ovejas."
+    },
+    {
+      "name": "Mundo de los Insectos",
+      "description": "El mundo microscópico de los insectos, con diversas formas y gran cantidad."
+    },
+    {
+      "name": "Animales Felinos",
+      "description": "Depredadores elegantes y feroces como leones, tigres y leopardos."
+    },
+    {
+      "name": "Animales Caninos",
+      "description": "Animales inteligentes y sociales como lobos, zorros y perros."
+    },
+    {
+      "name": "Aves Ornamentales",
+      "description": "Criaturas aladas con plumajes coloridos y hermosos cantos."
+    },
+    {
+      "name": "Animales Anfibios y Reptiles",
+      "description": "Animales de sangre fría como lagartos, serpientes y ranas."
+    },
+    {
+      "name": "Animales de la Pradera",
+      "description": "Especies que corren o viven en manadas en las vastas praderas, como antílopes y cebras."
+    },
+    {
+      "name": "Animales del Ártico",
+      "description": "Representantes de la vida en el frío extremo, como pingüinos y osos polares."
+    },
+    {
+      "name": "Animales en Peligro de Extinción",
+      "description": "Especies en peligro de extinción que necesitan protección urgente."
+    },
+    {
+      "name": "Crías de Animales",
+      "description": "La ternura y la diversión de las crías de animales."
+    },
+    {
+      "name": "Animales Rapaces y Carnívoros",
+      "description": "Depredadores feroces por naturaleza, como leopardos, águilas y buitres."
+    },
+    {
+      "name": "Animales Prehistóricos (Dinosaurios, etc.)",
+      "description": "Criaturas gigantes que dominaban la tierra o el mar en la antigüedad."
+    },
+    {
+      "name": "Primates",
+      "description": "Animales inteligentes y cercanos a los humanos, como chimpancés y monos."
+    },
+    {
+      "name": "Monstruos Marinos",
+      "description": "Criaturas gigantes que viven en las profundidades del mar, como ballenas y calamares gigantes."
+    },
+    {
+      "name": "Escenas de Caza",
+      "description": "Momentos tensos de caza en la naturaleza, ya sea por depredadores o humanos."
+    },
+    {
+      "name": "Vida en Grupo de los Animales",
+      "description": "Animales que viven en sociedad, como hormigas y lobos."
+    },
+    {
+      "name": "Insectos, Peces, Cangrejos y Cangrejos",
+      "description": "Pequeños animales acuáticos o de la orilla, como insectos, peces, cangrejos y cangrejos."
+    },
+    {
+      "name": "Conservación de la Vida Silvestre",
+      "description": "La armoniosa convivencia entre humanos y animales en las reservas naturales."
+    },
+    {
+      "name": "Interacción entre Humanos y Animales",
+      "description": "Escenas cálidas de la vida cotidiana, como la compañía de mascotas y la observación de la naturaleza."
+    },
+    {
+      "name": "Animales de Granja",
+      "description": "Animales comunes que viven una vida tranquila en la granja, como vacas, caballos, cerdos y ovejas."
+    },
+    {
+      "name": "Mascotas y Cosas Lindas",
+      "description": "Animales domésticos que traen alegría a la vida, como gatos, perros y hámsters."
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "name": "Astratto e Texture",
+  "description": "Evidenzia il fascino artistico del colore, della texture o della forma geometrica, spesso con un forte impatto visivo e un'atmosfera intensa.",
+  "groups": [
+    {
+      "name": "Marmo",
+      "description": "Texture naturali fluide, colori eleganti e mutevoli."
+    },
+    {
+      "name": "Legno",
+      "description": "Mostra la texture degli anelli annuali, trasmette calore e semplicità."
+    },
+    {
+      "name": "Inchiostro",
+      "description": "Il flusso e la collisione della vernice formano un modello casuale e artistico."
+    },
+    {
+      "name": "Geometria",
+      "description": "Effetto visivo astratto composto da punti, linee e superfici."
+    },
+    {
+      "name": "Caleidoscopio",
+      "description": "Un mondo di grafica lussuosa e simmetrica."
+    },
+    {
+      "name": "Flusso liquido",
+      "description": "Colori e linee fluide e interconnesse come liquidi."
+    },
+    {
+      "name": "Mosaico",
+      "description": "Effetto di completamento dell'immagine con blocchi di colore o frammenti di foto."
+    },
+    {
+      "name": "Gradiente vettoriale",
+      "description": "Transizione fluida del colore generata da grafica computerizzata."
+    },
+    {
+      "name": "Pastello",
+      "description": "Tonalità di colore pastello morbide e delicate, creano un'atmosfera leggera."
+    },
+    {
+      "name": "Metallo",
+      "description": "Superficie con lucentezza metallica o tracce di ossidazione."
+    },
+    {
+      "name": "Cristallo",
+      "description": "Effetto di rifrazione e ombra trasparente e chiara."
+    },
+    {
+      "name": "Pixel",
+      "description": "Effetto granulare che simula lo schermo elettronico a bassa risoluzione."
+    },
+    {
+      "name": "Motivo",
+      "description": "Motivi vari, utilizzati per la decorazione o lo sfondo."
+    },
+    {
+      "name": "Vortice",
+      "description": "Effetto dinamico di rotazione a strati e spirale."
+    },
+    {
+      "name": "Nastro",
+      "description": "Effetto tridimensionale creato dall'alternanza e dall'avvolgimento dei colori."
+    },
+    {
+      "name": "Pittura a sabbia",
+      "description": "Motivo sottile creato dall'accumulo o dal flusso di granelli di sabbia."
+    },
+    {
+      "name": "Raggio di luce",
+      "description": "Effetto di fasci di luce, macchie di luce e linee dinamiche."
+    },
+    {
+      "name": "Onda",
+      "description": "Effetto di curve ondulate, ricco di ritmo e di ritmo."
+    },
+    {
+      "name": "Rilievo",
+      "description": "Superficie con sensazione tridimensionale o variazione di ombra."
+    },
+    {
+      "name": "Gocce d'acqua",
+      "description": "Elementi visivi principali basati sulle onde d'acqua."
+    },
+    {
+      "name": "Carta antica",
+      "description": "Texture della carta ingiallita o con segni di usura, piena di senso del tempo."
+    },
+    {
+      "name": "Fumo",
+      "description": "Effetto di fumo leggero e fluttuante, etereo e nebbioso."
+    },
+    {
+      "name": "Miscela di inchiostro",
+      "description": "Variazioni casuali create dall'interazione di inchiostri di diversi colori."
+    },
+    {
+      "name": "Effetto di vetro rotto",
+      "description": "Effetto di rottura istantanea creato da crepe e frammenti."
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "name": "Abstracción y Textura",
+  "description": "Destaca el encanto artístico del color, la textura o la forma geométrica, a menudo con un fuerte impacto visual y una sensación de atmósfera.",
+  "groups": [
+    {
+      "name": "Mármol",
+      "description": "Textura natural y fluida, con colores elegantes y cambiantes."
+    },
+    {
+      "name": "Textura de Madera",
+      "description": "Muestra la textura de los anillos de crecimiento, transmitiendo una sensación cálida y sencilla."
+    },
+    {
+      "name": "Manchas de Tinta",
+      "description": "Patrones aleatorios y artísticos formados por el flujo y la colisión de la pintura."
+    },
+    {
+      "name": "Formas Geométricas",
+      "description": "Efectos visuales abstractos formados por puntos, líneas y superficies."
+    },
+    {
+      "name": "Efecto Caleidoscopio",
+      "description": "Un mundo gráfico magnífico formado por múltiples simetrías y rotaciones."
+    },
+    {
+      "name": "Flujo Líquido",
+      "description": "Líneas de colores que se entrelazan y se extienden como líquido."
+    },
+    {
+      "name": "Mosaico",
+      "description": "Efecto de patrón formado por bloques de color o fragmentos de fotos."
+    },
+    {
+      "name": "Degradado Vectorial",
+      "description": "Transición suave de color generada por gráficos por computadora."
+    },
+    {
+      "name": "Acuarela",
+      "description": "Tonos suaves y delicados que crean una atmósfera ligera."
+    },
+    {
+      "name": "Textura Metálica",
+      "description": "Superficie con brillo metálico o marcas de oxidación."
+    },
+    {
+      "name": "Fragmentos de Cristal",
+      "description": "Reflejos cristalinos y efectos de luz y sombra."
+    },
+    {
+      "name": "Estilo Pixel",
+      "description": "Efecto granulado que simula la pantalla de baja resolución."
+    },
+    {
+      "name": "Patrón de Flores",
+      "description": "Patrones variados que se pueden utilizar para decoración o fondo."
+    },
+    {
+      "name": "Estructura de Remolino",
+      "description": "Imágenes dinámicas formadas por capas de giros y espirales."
+    },
+    {
+      "name": "Cintas de Colores",
+      "description": "Efecto tridimensional formado por cintas de colores entrelazadas."
+    },
+    {
+      "name": "Textura de Arena",
+      "description": "Patrones finos formados por la acumulación o el flujo de arena."
+    },
+    {
+      "name": "Líneas de Luz",
+      "description": "Efectos de haz de luz, manchas de luz y líneas dinámicas."
+    },
+    {
+      "name": "Curvas Onduladas",
+      "description": "Líneas onduladas y continuas que transmiten ritmo y fluidez."
+    },
+    {
+      "name": "Textura Tridimensional",
+      "description": "Superficie con sensación tridimensional o cambios de sombra."
+    },
+    {
+      "name": "Gotas de Agua y Ondas",
+      "description": "Elementos visuales centrados en las ondas que se expanden en la superficie del agua."
+    },
+    {
+      "name": "Papel Antiguo",
+      "description": "Textura de papel amarillento o con marcas antiguas, llena de sabor histórico."
+    },
+    {
+      "name": "Niebla",
+      "description": "Efecto de humo ligero y etéreo, con una sensación de neblina."
+    },
+    {
+      "name": "Mezcla de Tinta",
+      "description": "Cambios casuales formados por la interacción de tintas de diferentes colores."
+    },
+    {
+      "name": "Efecto de Cristal Roto",
+      "description": "Efecto de ruptura instantánea formado por grietas y fragmentos."
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "name": "Fantasy and Science Fiction",
+  "description": "Breaking the rules of reality, creating magical or futuristic technological scenarios, satisfying the desire for unknown worlds and extraordinary imagination.",
+  "groups": [
+    {
+      "name": "Magic World",
+      "description": "A fantasy realm woven with spells and magic."
+    },
+    {
+      "name": "Dragons and Knights",
+      "description": "Epic scenes of dragons and heroes clashing in medieval legends."
+    },
+    {
+      "name": "Medieval Fantasy",
+      "description": "A world of swords and magic built by elves, dwarves, and dragons."
+    },
+    {
+      "name": "Intergalactic War",
+      "description": "Interstellar battles between star fleets and advanced technologies."
+    },
+    {
+      "name": "Future City",
+      "description": "The urban landscape of towering skyscrapers and advanced technology."
+    },
+    {
+      "name": "Space Exploration",
+      "description": "Spacecraft venturing into the universe, seeking unknown planets and life."
+    },
+    {
+      "name": "Alien Civilization",
+      "description": "Imagined extraterrestrial species and societal structures."
+    },
+    {
+      "name": "Spacecraft",
+      "description": "Diverse spaceship designs and interstellar travel scenarios."
+    },
+    {
+      "name": "Steampunk",
+      "description": "A retro-futuristic blend of Victorian era and steam power."
+    },
+    {
+      "name": "Cyberpunk",
+      "description": "Neon lights, hackers, and a highly advanced network world."
+    },
+    {
+      "name": "Superhero",
+      "description": "Heroes with special abilities or extraordinary skills."
+    },
+    {
+      "name": "Time Travel",
+      "description": "Traveling through the past or future, changing history or exploring the unknown."
+    },
+    {
+      "name": "Virtual Reality",
+      "description": "Digital simulations and immersive experiences in a virtual world."
+    },
+    {
+      "name": "Mechanical Robots",
+      "description": "Humanoid mechs or intelligent robots in combat and cooperation."
+    },
+    {
+      "name": "Parallel Universe",
+      "description": "Multiple independent yet interconnected dimensions."
+    },
+    {
+      "name": "Post-Apocalyptic Wasteland",
+      "description": "A barren survival environment after global collapse."
+    },
+    {
+      "name": "AI Technology",
+      "description": "Highly advanced artificial intelligence, human-machine interaction, and conflict."
+    },
+    {
+      "name": "Cosmic Monsters",
+      "description": "Giant monsters wreaking havoc on Earth or in the universe."
+    },
+    {
+      "name": "Space Colony",
+      "description": "Human settlements established on other planets."
+    },
+    {
+      "name": "Fictional Creatures",
+      "description": "Exotic flora and fauna not found in reality."
+    },
+    {
+      "name": "Future Warriors",
+      "description": "Elite forces equipped with advanced mechs or weapons."
+    },
+    {
+      "name": "Elven Kingdom",
+      "description": "A mystical and elegant community of fantastical beings and magical ecosystems."
+    },
+    {
+      "name": "Alien Landscapes",
+      "description": "Unique planetary surfaces and surreal vistas."
+    },
+    {
+      "name": "Mechanical Fantasy",
+      "description": "A world heavily mechanized, with metallic undertones."
+    }
+  ]
+}

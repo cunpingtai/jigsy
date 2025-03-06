@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Efecto 3D",
+    "description": "Tiene una fuerte sensación tridimensional o representación de modelado 3D, con un impacto visual más fuerte."
+  },
+  {
+    "name": "Dificultad alta",
+    "description": "La pantalla está fragmentada y rica en detalles, lo que requiere una mayor paciencia y capacidad de observación por parte del jugador."
+  },
+  {
+    "name": "Amigable para niños",
+    "description": "Colores brillantes, elementos simples y seguros, adecuados para la iniciación de rompecabezas de niños pequeños."
+  },
+  {
+    "name": "Elementos populares",
+    "description": "Combina temas populares actuales, tendencias o memes de Internet para atraer la atención."
+  },
+  {
+    "name": "Estilo retro",
+    "description": "Efecto de imagen antigua o de fotografía antigua, creando una sensación de nostalgia e historia."
+  },
+  {
+    "name": "Estilo de dibujo a mano",
+    "description": "Destaca el trazo a mano o la sensación de ilustración, con un fuerte sentido artístico."
+  },
+  {
+    "name": "Composición digital",
+    "description": "Combina múltiples imágenes o materiales para crear un efecto de composición fantástico."
+  },
+  {
+    "name": "Gran escena",
+    "description": "Amplio campo de visión, muchos elementos, puede proporcionar una experiencia impactante de panorámica."
+  },
+  {
+    "name": "Estilo fresco",
+    "description": "Tonos frescos y suaves, imagen fresca, que da una sensación tranquila y cómoda."
+  },
+  {
+    "name": "Rico en detalles",
+    "description": "Contiene una gran cantidad de elementos pequeños, que requieren una cuidadosa distinción y ensamblaje."
+  },
+  {
+    "name": "Alta saturación",
+    "description": "Colores brillantes y llamativos, fuerte contraste, impacto visual muy fuerte."
+  },
+  {
+    "name": "Estilo oscuro",
+    "description": "En general, tiene un ambiente oscuro o un estilo gótico, con una sensación de misterio y profundidad."
+  },
+  {
+    "name": "Onírico",
+    "description": "Elementos como halo, colores suaves, etc., crean una sensación de ensueño."
+  },
+  {
+    "name": "Fotografía real",
+    "description": "Utiliza fotos de escenas reales, conservando la autenticidad de la luz y los detalles."
+  },
+  {
+    "name": "Arte de composición",
+    "description": "Superposición de múltiples escenas o materiales, llena de creatividad e imaginación."
+  },
+  {
+    "name": "Estilo minimalista",
+    "description": "Los elementos y colores de la imagen están extremadamente simplificados, destacando la sencillez y la sensación de alta gama."
+  },
+  {
+    "name": "Colorido",
+    "description": "Uso de múltiples colores, animado y alegre, inolvidable a primera vista."
+  },
+  {
+    "name": "Sabor clásico",
+    "description": "Incorpora elementos de la cultura tradicional o histórica, emana belleza clásica y connotaciones culturales."
+  },
+  {
+    "name": "Muy creativo",
+    "description": "El tema o la forma de expresión es novedoso, lo que trae sorpresas inesperadas."
+  },
+  {
+    "name": "Visión alternativa",
+    "description": "Utiliza ángulos de visión no convencionales o procesamiento especial de luz y sombra, creando una sensación única."
+  },
+  {
+    "name": "Diseño de líneas",
+    "description": "La imagen tiene líneas suaves, llena de dinamismo y modernidad."
+  },
+  {
+    "name": "Montaje",
+    "description": "La superposición de múltiples escenas o elementos crea un efecto artístico saltarín."
+  },
+  {
+    "name": "Surrealista",
+    "description": "Rompe las limitaciones físicas o lógicas, creando una experiencia visual extraordinaria."
+  },
+  {
+    "name": "Lindo y animado",
+    "description": "Representado con un estilo de dibujos animados o de caricaturas, con un ambiente general relajado y animado."
+  }
+]

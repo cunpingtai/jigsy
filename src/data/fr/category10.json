@@ -1,0 +1,102 @@
+{
+  "name": "Architecture et Monuments",
+  "description": "Les réalisations architecturales de l'humanité à différentes époques et dans différentes régions, des anciens vestiges aux monuments modernes, reflétant l'évolution de la culture et de la technologie.",
+  "groups": [
+    {
+      "name": "Architecture gréco-romaine",
+      "description": "Utilisation fréquente de colonnes et d'arcades, grandiose et empreint de beauté classique."
+    },
+    {
+      "name": "Architecture traditionnelle chinoise",
+      "description": "Toits en pente et structures en bois, l'essence de l'architecture traditionnelle orientale."
+    },
+    {
+      "name": "Cathédrales gothiques",
+      "description": "Œuvres d'art religieuses où se mêlent flèches et vitraux colorés."
+    },
+    {
+      "name": "Style islamique",
+      "description": "Architecture orientale représentée par des dômes et des arcs."
+    },
+    {
+      "name": "Gratte-ciel contemporains",
+      "description": "Lignes d'horizon modernes façonnées par le béton et l'acier."
+    },
+    {
+      "name": "Silhouette urbaine",
+      "description": "Contour urbain majestueux formé par plusieurs bâtiments emblématiques."
+    },
+    {
+      "name": "Temples et Palais",
+      "description": "Bâtiments religieux ou royaux, souvent ornés de décorations somptueuses et chargés d'histoire."
+    },
+    {
+      "name": "Châteaux médiévaux européens",
+      "description": "Murailles épaisses et tours pointues, à la fois défensives et artistiques."
+    },
+    {
+      "name": "Monuments célèbres dans le monde",
+      "description": "Des bâtiments emblématiques mondialement connus comme la Tour Eiffel et la Statue de la Liberté."
+    },
+    {
+      "name": "Ponts transocéaniques",
+      "description": "Projets de construction de ponts spectaculaires reliant les deux rives ou les baies."
+    },
+    {
+      "name": "Habitations traditionnelles",
+      "description": "Formes d'habitation locales préservées dans la culture populaire."
+    },
+    {
+      "name": "Ruines et vestiges anciens",
+      "description": "Restes de bâtiments après des siècles de vent et de pluie."
+    },
+    {
+      "name": "Architecture sur l'eau",
+      "description": "Constructions sur l'eau ou sous l'eau, à la fois pratiques et esthétiques."
+    },
+    {
+      "name": "Ambiance des petites villes",
+      "description": "Architecture et rues pittoresques riches en caractère régional en Europe ou ailleurs."
+    },
+    {
+      "name": "Architecture industrielle",
+      "description": "Bâtiments industriels comme les usines et les cheminées, témoins de l'ère industrielle."
+    },
+    {
+      "name": "Sculptures et monuments commémoratifs",
+      "description": "Symboles de la ville utilisés pour commémorer des personnalités ou des événements importants."
+    },
+    {
+      "name": "Jardins et paysages",
+      "description": "Fusion de la nature et de l'architecture, reflétant l'harmonie entre l'homme et la nature."
+    },
+    {
+      "name": "Architecture moderne et minimaliste",
+      "description": "Conception contemporaine mettant l'accent sur la simplicité et la fonctionnalité."
+    },
+    {
+      "name": "Villas rurales en Europe et en Amérique",
+      "description": "Résidences chaleureuses situées dans des paysages champêtres."
+    },
+    {
+      "name": "Temples et pagodes asiatiques",
+      "description": "Styles architecturaux religieux courants en Asie de l'Est et du Sud-Est."
+    },
+    {
+      "name": "Architecture souterraine (mines, etc.)",
+      "description": "Espaces artificiels ou grottes naturelles cachés sous la surface de la terre."
+    },
+    {
+      "name": "Architecture en bois",
+      "description": "Constructions principalement en bois, simples et chaleureuses."
+    },
+    {
+      "name": "Architecture en briques et en pierres",
+      "description": "Solide et durable, souvent utilisée dans les châteaux, les palais et les maisons traditionnelles chinoises."
+    },
+    {
+      "name": "Villes côtières",
+      "description": "Disposition architecturale des zones côtières et ambiance portuaire."
+    }
+  ]
+}

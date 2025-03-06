@@ -1,0 +1,102 @@
+{
+  "name": "Arte e pittura",
+  "description": "Raccoglie le molteplici forme di espressione artistica umana, dall'arte tradizionale della pittura all'installazione multimediale, riflettendo le diverse estetiche culturali e temporali.",
+  "groups": [
+    {
+      "name": "Impressionismo",
+      "description": "Ricerca di luce e variazione di colore, come le opere di Monet e Renoir."
+    },
+    {
+      "name": "Opere astratte",
+      "description": "Utilizzo di forme, linee e colori per trasmettere emozioni soggettive."
+    },
+    {
+      "name": "Pittura classica",
+      "description": "Tecnica realistica e pennellate fini, enfasi sull'ottica e l'anatomia umana."
+    },
+    {
+      "name": "Arte contemporanea",
+      "description": "Rompere i mezzi tradizionali, enfasi sul concetto e l'innovazione."
+    },
+    {
+      "name": "Pittura a inchiostro",
+      "description": "L'atmosfera di inchiostro orientale, piena di poesia."
+    },
+    {
+      "name": "Murales e graffiti",
+      "description": "Pittura su larga scala nello spazio pubblico, dando vitalità all'aspetto della città."
+    },
+    {
+      "name": "Arte pop",
+      "description": "Arte popolare della cultura di massa e della società dei consumi."
+    },
+    {
+      "name": "Illustrazione moderna",
+      "description": "Comunemente usata in commercio e pubblicazioni, forma creativa di pittura."
+    },
+    {
+      "name": "Acquerello",
+      "description": "Tecnica di pittura con colori trasparenti e sfumature morbide."
+    },
+    {
+      "name": "Stile manga",
+      "description": "Creazione di manga giapponesi o occidentali, con chiari pannelli e personaggi."
+    },
+    {
+      "name": "Natura morta",
+      "description": "Rappresentazione di oggetti da tavolo, enfasi su luce, texture e struttura."
+    },
+    {
+      "name": "Arte del corpo",
+      "description": "Mostra la bellezza e la curva del corpo umano, fonde l'anatomia e l'estetica."
+    },
+    {
+      "name": "Pittura paesaggistica",
+      "description": "Rappresentazione dal vivo della natura, registrazione dei cambiamenti reali di luce e ombra."
+    },
+    {
+      "name": "Arte digitale",
+      "description": "Arte multipla creata con computer o tavoletta grafica."
+    },
+    {
+      "name": "Surrealismo",
+      "description": "Fusione di elementi onirici e reali, creando un senso di assurdità e fantasia."
+    },
+    {
+      "name": "Rinascimento",
+      "description": "Opere classiche di maestri come Leonardo da Vinci e Michelangelo."
+    },
+    {
+      "name": "Arte concettuale",
+      "description": "Principalmente utilizzata per il design preliminare di film, giochi, ecc."
+    },
+    {
+      "name": "Graffiti di cultura di strada",
+      "description": "Fusione dell'espressione giovanile e dei temi sociali."
+    },
+    {
+      "name": "Arte della stampa",
+      "description": "Utilizzo di incisione, incisione o stampa serigrafica per la riproduzione multipla."
+    },
+    {
+      "name": "Stile ukiyo-e",
+      "description": "Arte popolare giapponese del periodo Edo."
+    },
+    {
+      "name": "Arte scultorea (3D)",
+      "description": "Opere tridimensionali realizzate in legno, pietra, metallo o argilla."
+    },
+    {
+      "name": "Arte dell'installazione",
+      "description": "Creazione di esperienze immersive o interattive, combinando ambiente e materiale."
+    },
+    {
+      "name": "Espressionismo",
+      "description": "Esagerazione e deformazione per enfatizzare le forti emozioni interne dell'artista."
+    },
+    {
+      "name": "Arte interattiva multimediale",
+      "description": "Creazione all'avanguardia con tecnologia digitale e interazione con il pubblico."
+    }
+  ]
+}

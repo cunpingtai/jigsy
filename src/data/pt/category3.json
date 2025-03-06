@@ -1,0 +1,102 @@
+{
+  "name": "Culinária",
+  "description": "Da comida caseira aos pratos famosos do mundo, explore o charme da comida e as habilidades culinárias, sinta o banquete multicultura do paladar.",
+  "groups": [
+    {
+      "name": "Pratos Tradicionais Chineses",
+      "description": "A essência dos pratos famosos de várias regiões, como Sichuan, Guangdong, Huaiyang, etc."
+    },
+    {
+      "name": "Panificação Ocidental",
+      "description": "A arte doce e assada de pão, bolo e sobremesa."
+    },
+    {
+      "name": "Cozinha Japonesa",
+      "description": "O sabor minimalista de sushi, sashimi e apresentação delicada."
+    },
+    {
+      "name": "Churrasco Coreano",
+      "description": "A combinação de marinada e grelhado a carvão, com acompanhamentos ricos."
+    },
+    {
+      "name": "Culinária do Sudeste Asiático",
+      "description": "O sabor tailandês, vietnamita, etc., da mistura de leite de coco e especiarias."
+    },
+    {
+      "name": "Sabor Mediterrâneo",
+      "description": "A culinária saudável de azeite, ervas e frutos do mar."
+    },
+    {
+      "name": "Refeição Francesa",
+      "description": "A comida romântica que valoriza ingredientes de alta qualidade e apresentação delicada."
+    },
+    {
+      "name": "Massas e Pizzas Italianas",
+      "description": "A combinação clássica de molho de tomate, queijo e massa ou pizza."
+    },
+    {
+      "name": "Banquete de Frutos do Mar",
+      "description": "A refeição de frutos do mar com sabor fresco de camarão, caranguejo e moluscos."
+    },
+    {
+      "name": "Churrasco e Churrasco",
+      "description": "A festa animada de churrasco ao ar livre e sabor defumado."
+    },
+    {
+      "name": "Sobremesas e Bolos",
+      "description": "A doçura requintada e a diversidade de texturas para desfrutar."
+    },
+    {
+      "name": "Arte do Chocolate",
+      "description": "O mundo doce e perfumado de vários sabores de cacau e formas artesanais."
+    },
+    {
+      "name": "Chá e Café",
+      "description": "A bebida quente que combina sabor rico e cultura profunda."
+    },
+    {
+      "name": "Comida Picante",
+      "description": "Pratos estimulantes como hot pot, stir-fry picante, etc."
+    },
+    {
+      "name": "Cozinha Vegetariana",
+      "description": "A dieta saudável baseada em vegetais, frutas e produtos de soja."
+    },
+    {
+      "name": "Hot Pot e Mao Cai",
+      "description": "A combinação de vários ingredientes em uma panela quente e sabor picante."
+    },
+    {
+      "name": "Marmita e Fast Food",
+      "description": "A refeição conveniente para a vida agitada, com variedade e sabor."
+    },
+    {
+      "name": "Lanches",
+      "description": "Pequenos lanches como batatas fritas, doces, etc."
+    },
+    {
+      "name": "Coleção Mundial de Pães",
+      "description": "Vários sabores de pão, como baguete, pão de centeio alemão, pão macio asiático, etc."
+    },
+    {
+      "name": "Cozinha Criativa",
+      "description": "A inovação e renovação de ingredientes e técnicas culinárias."
+    },
+    {
+      "name": "Cozinha Caseira",
+      "description": "A culinária caseira com sabor tradicional e estilo pessoal."
+    },
+    {
+      "name": "Cenário de Ensino de Culinária",
+      "description": "A atmosfera de demonstração ou aula de culinária."
+    },
+    {
+      "name": "Arranjo de Mesa de Comida",
+      "description": "A apresentação cuidadosa e o design do ambiente que valoriza a visão e o paladar."
+    },
+    {
+      "name": "Lanches de Rua",
+      "description": "O charme único dos vendedores ambulantes e dos lanches locais."
+    }
+  ]
+}

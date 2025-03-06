@@ -1,0 +1,102 @@
+{
+  "name": "Architektur und Landmarken",
+  "description": "Die Errungenschaften der menschlichen Zivilisation in verschiedenen Epochen und Regionen, von antiken Ruinen bis hin zu modernen Landmarken, reflektieren die Entwicklung von Kultur und Technologie.",
+  "groups": [
+    {
+      "name": "Antike griechisch-römische Architektur",
+      "description": "Viele verwenden Säulen und Bögen, großartig und reich an klassischem Schönheitssinn."
+    },
+    {
+      "name": "Traditionelle chinesische Architektur",
+      "description": "Fliegende Dachziegel und Holzkonstruktionen sind die Essenz der traditionellen östlichen Architektur."
+    },
+    {
+      "name": "Gotische Kathedralen",
+      "description": "Spitze Türme und bunte Glasfenster sind Meisterwerke der religiösen Kunst."
+    },
+    {
+      "name": "Islamischer Stil",
+      "description": "Kuppeln und Bögen repräsentieren die mittelöstliche Atmosphäre."
+    },
+    {
+      "name": "Moderne Wolkenkratzer",
+      "description": "Stahlbeton errichtet die moderne Skyline der Stadt."
+    },
+    {
+      "name": "Städtische Skyline",
+      "description": "Eine Sammlung von Landmarken, die die Silhouette einer Großstadt bilden."
+    },
+    {
+      "name": "Tempel, Paläste und Schlösser",
+      "description": "Religiöse oder königliche Gebäude, die oft prächtige Dekorationen und Geschichte besitzen."
+    },
+    {
+      "name": "Europäische Mittelalterburgen",
+      "description": "Dicke Mauern und spitze Türme, die Verteidigung und Kunst kombiniert."
+    },
+    {
+      "name": "Weltbekannte Landmarken",
+      "description": "Wie der Eiffelturm, die Freiheitsstatue und andere weltbekannte Bauwerke."
+    },
+    {
+      "name": "Brücken über Meere",
+      "description": "Großartige Brückenprojekte, die Ufer oder Meeresarme verbinden."
+    },
+    {
+      "name": "Traditionelle Wohnhäuser",
+      "description": "Lokale Wohnformen, die in verschiedenen Regionen der Volkskultur erhalten geblieben sind."
+    },
+    {
+      "name": "Antike Ruinen",
+      "description": "Die Überreste von Gebäuden, die von der Zeit und dem Wetter gezeichnet wurden."
+    },
+    {
+      "name": "Wasserbauten",
+      "description": "Errichtet auf oder unter Wasser, kombiniert mit praktischem und ästhetischem Wert."
+    },
+    {
+      "name": "Dorfcharakter",
+      "description": "Europäische oder andere Regionen mit regionaler Charakteristik, Dorfarchitektur und Straßen."
+    },
+    {
+      "name": "Industrielle Architektur",
+      "description": "Fabriken, Schornsteine usw., die den Geist der industriellen Ära widerspiegeln."
+    },
+    {
+      "name": "Skulpturen und Denkmäler",
+      "description": "Städtische Markenzeichen, die wichtige Personen oder Ereignisse gedenken."
+    },
+    {
+      "name": "Gärten und Parks",
+      "description": "Mit Grünflächen und Landschaftsdesign als Kern, die Harmonie zwischen Mensch und Natur darstellen."
+    },
+    {
+      "name": "Moderne Minimal-Architektur",
+      "description": "Einfache Linien, Funktion über Form, die moderne Designphilosophie betonen."
+    },
+    {
+      "name": "Europäische Landhäuser",
+      "description": "Gemütliche Wohnhäuser in ländlicher Umgebung."
+    },
+    {
+      "name": "Asiatische Tempel und Pagoden",
+      "description": "Ostasiatische oder südostasiatische Regionen, die religiöse Architekturformen aufweisen."
+    },
+    {
+      "name": "Unterirdische Architektur (Minen etc.)",
+      "description": "Von Menschen geschaffene Räume oder natürliche Höhlen unter der Erdoberfläche."
+    },
+    {
+      "name": "Holzbau",
+      "description": "Mit Holz als Hauptmaterial, urtümlich und warm."
+    },
+    {
+      "name": "Stein- und Backsteinarchitektur",
+      "description": "Robust und dauerhaft, oft in Burgen, Palästen und traditionellen chinesischen Häusern zu finden."
+    },
+    {
+      "name": "Küstenstädte",
+      "description": "Die Anordnung von Gebäuden in Küstengebieten und die Atmosphäre der Hafenstädte."
+    }
+  ]
+}

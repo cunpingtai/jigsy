@@ -1,0 +1,102 @@
+{
+  "name": "Arquitectura y Monumentos",
+  "description": "Los logros arquitectónicos de la civilización humana en diferentes épocas y regiones, desde antiguos vestigios hasta monumentos modernos, reflejando la evolución de la cultura y la tecnología.",
+  "groups": [
+    {
+      "name": "Arquitectura Clásica Griega y Romana",
+      "description": "Suelen utilizar columnas y arcos, magníficos y llenos de belleza clásica."
+    },
+    {
+      "name": "Arquitectura China Tradicional",
+      "description": "Aleros voladizos, estructuras de madera y otras esencias de la arquitectura tradicional oriental."
+    },
+    {
+      "name": "Catedrales Góticas",
+      "description": "Obras maestras de arte religioso entrelazadas con torres puntiagudas y vidrieras de colores."
+    },
+    {
+      "name": "Estilo Arquitectónico Islámico",
+      "description": "Arquitectura oriental con cúpulas y arcos como representantes."
+    },
+    {
+      "name": "Rascacielos Contemporáneos",
+      "description": "El horizonte de la ciudad moderna construido con hormigón y acero."
+    },
+    {
+      "name": "Horizonte Urbano",
+      "description": "El contorno urbano formado por varios edificios emblemáticos."
+    },
+    {
+      "name": "Templos y Palacios",
+      "description": "Edificios religiosos o reales con decoraciones magníficas y una larga historia."
+    },
+    {
+      "name": "Castillos Medievales Europeos",
+      "description": "Murallas gruesas y torres puntiagudas, combinando defensa y arte."
+    },
+    {
+      "name": "Monumentos Mundiales Famosos",
+      "description": "Edificios famosos en todo el mundo, como la Torre Eiffel y la Estatua de la Libertad."
+    },
+    {
+      "name": "Puentes Transoceánicos",
+      "description": "Grandes proyectos de puentes que conectan dos orillas o bahías."
+    },
+    {
+      "name": "Viviendas Tradicionales",
+      "description": "Formas de vida locales preservadas en la cultura popular."
+    },
+    {
+      "name": "Ruinas y Reliquias Antiguas",
+      "description": "Restos de edificios después de la erosión histórica y climática."
+    },
+    {
+      "name": "Arquitectura Acuática",
+      "description": "Construcciones en la superficie del agua o bajo el agua, con valor práctico y ornamental."
+    },
+    {
+      "name": "Pintorescos Pueblos",
+      "description": "Edificios y calles de pueblos con características regionales en Europa u otras regiones."
+    },
+    {
+      "name": "Arquitectura Industrial",
+      "description": "Fábricas, chimeneas y otras formas de arquitectura que reflejan la era industrial."
+    },
+    {
+      "name": "Esculturas y Monumentos Conmemorativos",
+      "description": "Símbolos de la ciudad para conmemorar a personas o eventos importantes."
+    },
+    {
+      "name": "Jardines y Paisajes",
+      "description": "La integración de la vida humana y la naturaleza, con plantas y diseño de paisajes como núcleo."
+    },
+    {
+      "name": "Arquitectura Moderna y Minimalista",
+      "description": "Líneas simples, funcionalismo, destacando el concepto de diseño contemporáneo."
+    },
+    {
+      "name": "Villas Rurales Europeas y Americanas",
+      "description": "Cálidas casas rurales en paisajes de campo."
+    },
+    {
+      "name": "Templos y Pagodas Asiáticos",
+      "description": "Estilos de arquitectura religiosa comunes en Asia Oriental y Sudeste Asiático."
+    },
+    {
+      "name": "Arquitectura Subterránea (Minas, etc.)",
+      "description": "Espacios artificiales o cuevas naturales ocultas bajo la superficie."
+    },
+    {
+      "name": "Arquitectura de Madera",
+      "description": "Con madera como material principal, simple y cálida."
+    },
+    {
+      "name": "Arquitectura de Ladrillo y Piedra",
+      "description": "Fuerte y duradera, común en castillos, palacios y casas tradicionales chinas."
+    },
+    {
+      "name": "Ciudades Costeras",
+      "description": "Distribución de edificios en la costa y el encanto del puerto."
+    }
+  ]
+}

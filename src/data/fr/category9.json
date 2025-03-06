@@ -1,0 +1,102 @@
+{
+  "name": "Art et Peinture",
+  "description": "Rassemblant les diverses formes d'expression artistique de l'humanité, de la peinture à l'huile traditionnelle aux installations multimédias, reflétant les caractéristiques esthétiques de différentes cultures et époques.",
+  "groups": [
+    {
+      "name": "Peintures impressionnistes célèbres",
+      "description": "Recherche de la lumière et des changements de couleur, comme les œuvres de Monet et de Renoir."
+    },
+    {
+      "name": "Œuvres abstraites",
+      "description": "Utilisation de formes, de lignes et de couleurs pour transmettre des émotions subjectives."
+    },
+    {
+      "name": "Peinture classique",
+      "description": "Technique réaliste, coups de pinceau fins, mettant l'accent sur la perspective et l'anatomie humaine."
+    },
+    {
+      "name": "Art contemporain",
+      "description": "Dépassement des médias traditionnels, mettant l'accent sur la conception et l'innovation."
+    },
+    {
+      "name": "Peinture à l'encre et à l'eau",
+      "description": "L'ambiance de l'encre orientale et de l'espace blanc, pleine de poésie."
+    },
+    {
+      "name": "Peinture murale et graffiti",
+      "description": "Peinture à grande échelle dans l'espace public, donnant de la vitalité à l'aspect de la ville."
+    },
+    {
+      "name": "Art pop",
+      "description": "Art populaire issu de la culture de masse et de la société de consommation."
+    },
+    {
+      "name": "Illustration moderne",
+      "description": "Souvent utilisée dans les domaines commerciaux et éditoriaux, une forme de peinture créative."
+    },
+    {
+      "name": "Aquarelle",
+      "description": "Technique de peinture avec des couleurs transparentes et des transitions douces."
+    },
+    {
+      "name": "Style de bande dessinée",
+      "description": "Création de bandes dessinées japonaises ou occidentales, avec des plans distincts et des personnages."
+    },
+    {
+      "name": "Nature morte",
+      "description": "Représentation d'objets sur une table, mettant l'accent sur la lumière, la texture et la structure."
+    },
+    {
+      "name": "Art du corps humain",
+      "description": "Présentation des courbes et de la beauté du corps humain, fusion de l'anatomie et de l'esthétique."
+    },
+    {
+      "name": "Peinture de paysage",
+      "description": "Peinture sur le vif de la nature, enregistrant les changements réels de la lumière et de l'ombre."
+    },
+    {
+      "name": "Art numérique",
+      "description": "Art multimédia créé à l'aide d'un ordinateur ou d'une tablette graphique."
+    },
+    {
+      "name": "Surréalisme",
+      "description": "Fusion de l'irréel et du réel, créant une atmosphère absurde et fantastique."
+    },
+    {
+      "name": "Période de la Renaissance",
+      "description": "Les œuvres classiques des maîtres comme Léonard de Vinci et Michel-Ange."
+    },
+    {
+      "name": "Art conceptuel",
+      "description": "Principalement utilisé pour la conception préliminaire de films, de jeux, etc."
+    },
+    {
+      "name": "Graffiti de la culture de rue",
+      "description": "Fusion de l'expression de la sous-culture des jeunes et des sujets sociaux."
+    },
+    {
+      "name": "Art de la gravure",
+      "description": "Utilisation de la gravure, de la gravure ou de l'impression sérigraphique pour la reproduction multiple."
+    },
+    {
+      "name": "Style de l'estampe",
+      "description": "Art populaire japonais de l'époque d'Edo, avec des estampes folkloriques."
+    },
+    {
+      "name": "Art de la sculpture (3D)",
+      "description": "Œuvres tridimensionnelles créées en bois, en pierre, en métal ou en argile."
+    },
+    {
+      "name": "Art de l'installation",
+      "description": "Création immersive ou interactive, combinant l'environnement et les matériaux."
+    },
+    {
+      "name": "Expressionnisme",
+      "description": "Utilisation de l'exagération et de la déformation pour mettre en évidence l'intense émotion intérieure de l'artiste."
+    },
+    {
+      "name": "Art interactif des nouveaux médias",
+      "description": "Création avant-gardiste utilisant la technologie numérique pour interagir avec le public."
+    }
+  ]
+}

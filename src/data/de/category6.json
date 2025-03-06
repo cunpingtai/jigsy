@@ -1,0 +1,102 @@
+{
+  "name": "Fantasie und Science-Fiction",
+  "description": "Brich die Regeln der Realität, erzeuge magische oder futuristische Szenarien, um die Sehnsucht nach unbekannten Welten und übermenschlichen Vorstellungen zu befriedigen.",
+  "groups": [
+    {
+      "name": "Magische Welt",
+      "description": "Ein Land, in dem Zaubersprüche und Magie miteinander verwoben sind."
+    },
+    {
+      "name": "Drachen und Ritter",
+      "description": "Die epischen Szenen der mittelalterlichen Legenden, in denen Drachen und Helden miteinander kämpfen."
+    },
+    {
+      "name": "Mittelalterliche Fantasie",
+      "description": "Eine Welt, die von Elfen, Zwergen und Drachen gemeinsam aufgebaut wurde, eine Welt von Schwert und Magie."
+    },
+    {
+      "name": "Sternenkriege",
+      "description": "Die Kämpfe zwischen Sternenflotten und fortschrittlichen Waffen im weiten Universum."
+    },
+    {
+      "name": "Zukunftsstadt",
+      "description": "Die Skyline einer Stadt der Zukunft, die von hohen Gebäuden und fortschrittlicher Technologie geprägt ist."
+    },
+    {
+      "name": "Raumforschung",
+      "description": "Raumschiffe, die tief in das Universum vordringen, um unbekannte Planeten und Leben zu entdecken."
+    },
+    {
+      "name": "Außerirdische Zivilisation",
+      "description": "Vorstellungen von außerirdischen Rassen und mysteriösen Planetengesellschaften."
+    },
+    {
+      "name": "Raumschiffe",
+      "description": "Die vielfältigen Designs von Raumschiffen und die Szenarien des interstellaren Reisens."
+    },
+    {
+      "name": "Dampf-Punk",
+      "description": "Eine Mischung aus viktorianischer Ära und Dampfmaschinen, die eine retro-futuristische Atmosphäre schafft."
+    },
+    {
+      "name": "Cyber-Punk",
+      "description": "Neonlichter, Netzwerk-Hacker und eine hoch entwickelte Netzwerk-Welt."
+    },
+    {
+      "name": "Übermenschliche Helden",
+      "description": "Personen mit besonderen Fähigkeiten oder übermenschlichen Kräften."
+    },
+    {
+      "name": "Zeitreisen",
+      "description": "Reisen durch die Zeit, um die Vergangenheit oder Zukunft zu ändern oder zu erkunden."
+    },
+    {
+      "name": "Virtuelle Realität",
+      "description": "Eine digitale Simulation und eine immersive Erfahrung der virtuellen Welt."
+    },
+    {
+      "name": "Mechas und Roboter",
+      "description": "Menschliche Riesenroboter oder intelligente Maschinen, die miteinander kämpfen oder kooperieren."
+    },
+    {
+      "name": "Parallelwelten",
+      "description": "Mehrere, voneinander unabhängige, aber miteinander verbundene Zeitdimensionen."
+    },
+    {
+      "name": "Postapokalyptische Wüste",
+      "description": "Eine leere, zerstörte Umwelt nach einem globalen Zusammenbruch."
+    },
+    {
+      "name": "AI-Technologie",
+      "description": "Eine Welt, in der künstliche Intelligenz hoch entwickelt ist, und Mensch-Maschine-Interaktionen und Konflikte entstehen."
+    },
+    {
+      "name": "Weltraummonster",
+      "description": "Gigantische Monster, die auf der Erde oder im Universum Chaos anrichten."
+    },
+    {
+      "name": "Weltraumkolonien",
+      "description": "Menschliche Siedlungen auf anderen Planeten."
+    },
+    {
+      "name": "Fiktive Kreaturen",
+      "description": "Nicht in der Realität existierende, fantastische Tiere und Pflanzen."
+    },
+    {
+      "name": "Zukunftskrieger",
+      "description": "Elite-Einheiten der Zukunft, die mit fortschrittlichen Anzügen oder Waffen ausgerüstet sind."
+    },
+    {
+      "name": "Elfenkönigreich",
+      "description": "Eine mysteriöse und elegante Gesellschaft von Fantasiewesen und magischen Ökosystemen."
+    },
+    {
+      "name": "Außerirdische Landschaften",
+      "description": "Die exotischen Landschaften fremder Planeten und die surreale Schönheit."
+    },
+    {
+      "name": "Mechanische Fantasie",
+      "description": "Eine Welt, die von mechanischen Elementen dominiert wird, mit einer starken metallischen Atmosphäre."
+    }
+  ]
+}

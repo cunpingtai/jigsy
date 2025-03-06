@@ -1,0 +1,102 @@
+{
+  "name": "Viajes y Lugares de Interés",
+  "description": "Destinos populares y paisajes menos conocidos de todo el mundo, mostrando la cultura y la belleza de diferentes regiones, estimulando el deseo de explorar el mundo.",
+  "groups": [
+    {
+      "name": "Ciudades Famosas del Mundo",
+      "description": "La arquitectura y el paisaje urbano de las ciudades internacionales."
+    },
+    {
+      "name": "Destinos de Playa",
+      "description": "Relajantes santuarios de arena, sol y olas."
+    },
+    {
+      "name": "Turismo de Montaña",
+      "description": "Senderismo, observación y aventura en las montañas o colinas."
+    },
+    {
+      "name": "Parques de Atracciones",
+      "description": "Instalaciones de entretenimiento y el mundo de los cuentos de hadas."
+    },
+    {
+      "name": "Playas e Islas",
+      "description": "Románticos destinos de playa con aguas claras y palmeras."
+    },
+    {
+      "name": "Viaje alrededor del Mundo",
+      "description": "Una colección de lugares de interés de varios países, viendo el mundo sin salir de casa."
+    },
+    {
+      "name": "Carreteras de Montaña",
+      "description": "Curvas en las montañas, sin fin en coche o en bicicleta."
+    },
+    {
+      "name": "Cabañas en el Bosque",
+      "description": "Tranquilas cabañas lejos de la ciudad, cerca de la naturaleza."
+    },
+    {
+      "name": "Lugares de Interés Histórico",
+      "description": "Edificios o lugares de importancia histórica en el río de la historia."
+    },
+    {
+      "name": "Sitios de Patrimonio Mundial",
+      "description": "Lugares de conservación con un valor excepcional y una cultura común de la humanidad."
+    },
+    {
+      "name": "Pueblos Europeos",
+      "description": "Calles empedradas y el ambiente artístico de las pequeñas ciudades."
+    },
+    {
+      "name": "Ciudades Antiguas de Asia",
+      "description": "Ciudades antiguas con una rica cultura nacional y una larga historia."
+    },
+    {
+      "name": "Safari en la Sabana Africana",
+      "description": "La emoción de los animales salvajes y las vastas llanuras."
+    },
+    {
+      "name": "Viaje por la Naturaleza de América",
+      "description": "Un viaje de aventura a través de la diversidad de paisajes."
+    },
+    {
+      "name": "Viaje a la Tierra de Hielo y Nieve",
+      "description": "La belleza y el frío extremo del hielo y la nieve."
+    },
+    {
+      "name": "Vistas desde el Globo Aerostático",
+      "description": "Disfrutando de la vista aérea de la tierra y los paisajes especiales."
+    },
+    {
+      "name": "Viaje de Deportes Extremos",
+      "description": "Rutas turísticas con actividades de alto riesgo como el puenting y el parapente."
+    },
+    {
+      "name": "Festival de Cultura Popular",
+      "description": "Experimentando las festividades locales y la diversidad cultural."
+    },
+    {
+      "name": "Aventura en el Desierto",
+      "description": "La maravilla del desierto con sus vastas dunas, camellos y cielos estrellados."
+    },
+    {
+      "name": "Crucero Marítimo",
+      "description": "Un viaje de placer y turismo en el mar desde un lujoso crucero."
+    },
+    {
+      "name": "Lugares de Fotografía",
+      "description": "Lugares con una luz y sombra excepcional, una fuente de inspiración para los fotógrafos."
+    },
+    {
+      "name": "Viaje en Coche",
+      "description": "La libertad y la flexibilidad de viajar por carretera, experimentando la cultura a lo largo del camino."
+    },
+    {
+      "name": "Viaje a Pie",
+      "description": "Un viaje de mochilero o de senderismo, cerca de la naturaleza y la cultura."
+    },
+    {
+      "name": "Viaje en Bicicleta alrededor del Lago",
+      "description": "Un paseo en bicicleta a lo largo de la orilla del lago, disfrutando de la belleza del lago y el aire fresco."
+    }
+  ]
+}

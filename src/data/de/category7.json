@@ -1,0 +1,102 @@
+{
+  "name": "Reisen und Sehenswürdigkeiten",
+  "description": "Die beliebtesten Reiseziele und versteckten Schätze der Welt, die die Kultur und die Schönheit unterschiedlicher Regionen präsentieren und den Wunsch wecken, die Welt zu erkunden.",
+  "groups": [
+    {
+      "name": "Weltstädte",
+      "description": "Die berühmten Bauwerke und die städtische Atmosphäre internationaler Metropolen."
+    },
+    {
+      "name": "Strandurlaubsorte",
+      "description": "Strände, Sonne, Wellen und die entspannte Atmosphäre von Strandresorts."
+    },
+    {
+      "name": "Bergtourismus",
+      "description": "Wandern, Aussichtspunkte und Abenteuer in bergigen oder hügeligen Regionen."
+    },
+    {
+      "name": "Themenparks",
+      "description": "Vergnügungsparks mit Spielgeräten und märchenhafter Atmosphäre."
+    },
+    {
+      "name": "Strände und Inseln",
+      "description": "Klarwasser, feiner Sand und die romantische Atmosphäre von Strandurlaubsorten."
+    },
+    {
+      "name": "Weltreise",
+      "description": "Eine Sammlung von Sehenswürdigkeiten aus verschiedenen Ländern, um die Welt zu sehen, ohne wegzufahren."
+    },
+    {
+      "name": "Ringstraßen",
+      "description": "Winding roads, die durch die Berge führen, ideal für Selbstfahrten oder Radtouren."
+    },
+    {
+      "name": "Waldhütten",
+      "description": "Abgeschiedene Hütten, fern von der Stadt, um die Natur hautnah zu erleben."
+    },
+    {
+      "name": "Historische Stätten",
+      "description": "Bauten und Orte, die von der Geschichte geprägt sind und ein Erbe darstellen."
+    },
+    {
+      "name": "Welterbestätten",
+      "description": "Orte von außergewöhnlichem Wert und gemeinsamem kulturellem Erbe der Menschheit."
+    },
+    {
+      "name": "Europäische Kleinstädte",
+      "description": "Die urigen Steinstraßen, die künstlerische Atmosphäre und die Charme der kleinen Städte."
+    },
+    {
+      "name": "Asiatische Altstädte",
+      "description": "Städte, die über Jahrtausende hinweg von verschiedenen Kulturen geprägt wurden und reiche nationale Traditionen besitzen."
+    },
+    {
+      "name": "Afrikanische Savannen-Abenteuer",
+      "description": "Die direkte Begegnung mit wilden Tieren und der Eindruck der weiten Savannen."
+    },
+    {
+      "name": "Amerikanische Wildnis-Straßen",
+      "description": "Die langen Straßen, die durch vielfältige Landschaften führen, eine abenteuerliche Reise."
+    },
+    {
+      "name": "Schnee- und Polarexpeditionen",
+      "description": "Die extreme Kälte und die atemberaubende Schönheit in Schnee und Eis."
+    },
+    {
+      "name": "Heißluftballonfahrten",
+      "description": "Die Aussicht auf die Erde von oben und die spektakulären Landschaften."
+    },
+    {
+      "name": "Extrem-Sportreisen",
+      "description": "Reisen mit extremen Sportarten wie Bungee-Jumping, Gleitschirmfliegen usw."
+    },
+    {
+      "name": "Volksfestivals",
+      "description": "Die Teilnahme an lokalen Festen und die Erfahrung der vielfältigen Kulturen."
+    },
+    {
+      "name": "Wüstenabenteuer",
+      "description": "Die weite Wüste, die Karawanen und die Sternennacht."
+    },
+    {
+      "name": "Kreuzfahrten",
+      "description": "Die Reise auf Luxus-Schiffen, die Kombination aus Urlaub und Sightseeing."
+    },
+    {
+      "name": "Fotografieziele",
+      "description": "Orte mit idealen Lichtverhältnissen, die Inspiration für Fotografen bieten."
+    },
+    {
+      "name": "Selbstfahrten",
+      "description": "Die Freiheit und Flexibilität von Straßenreisen, um die Regionen tiefgreifend zu erleben."
+    },
+    {
+      "name": "Wanderreisen",
+      "description": "Die tiefgreifende Erfahrung der Natur und der Kultur durch Wandern."
+    },
+    {
+      "name": "Seen-Radwege",
+      "description": "Die Radtouren entlang von Seen, die die Schönheit der Natur und die frische Luft bieten."
+    }
+  ]
+}

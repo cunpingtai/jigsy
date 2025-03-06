@@ -1,0 +1,102 @@
+{
+  "name": "History and Culture",
+  "description": "The evolution of human civilization and cultural diversity, showcasing the richness and charm of history from myths to ancient ruins.",
+  "groups": [
+    {
+      "name": "Ancient Egyptian Civilization",
+      "description": "The mysterious culture of pyramids, pharaohs, and hieroglyphics."
+    },
+    {
+      "name": "Ancient Babylon",
+      "description": "The dazzling civilization of the Two Rivers and the Hanging Gardens legend."
+    },
+    {
+      "name": "Maya-Inca Civilization",
+      "description": "The captivating atmosphere of sun worship and stone carvings in Central and South America."
+    },
+    {
+      "name": "Chinese Historical Dynasties",
+      "description": "From Xia to Qing, the rise and fall of dynasties and their brilliant cultures."
+    },
+    {
+      "name": "Ancient Roman Empire",
+      "description": "Gladiators, triumphal arches, and the magnificent city construction."
+    },
+    {
+      "name": "Renaissance Period",
+      "description": "The resurgence of European art and science, with the emergence of masters."
+    },
+    {
+      "name": "Ancient Greek Mythology",
+      "description": "The cultural source of Olympian gods and heroic legends."
+    },
+    {
+      "name": "Courtly Noble Life",
+      "description": "The daily life of European or Eastern royal courts and nobility."
+    },
+    {
+      "name": "Folklore Stories",
+      "description": "Heroic adventures and mythical tales passed down in various regions."
+    },
+    {
+      "name": "Chinese Traditional Festivals",
+      "description": "The folk customs and cultural connotations of festivals like Spring Festival and Mid-Autumn Festival."
+    },
+    {
+      "name": "Victorian Era",
+      "description": "Social changes during the Industrial Revolution and the gentlemanly and ladylike demeanor."
+    },
+    {
+      "name": "Japanese Samurai Culture",
+      "description": "Samurai swords, bushido, and the political background of the shogunate."
+    },
+    {
+      "name": "Norse Mythology",
+      "description": "The gods and goddesses of Odin, Thor, and the World Tree legend."
+    },
+    {
+      "name": "Knights and Castles",
+      "description": "The European medieval feudal system and chivalry."
+    },
+    {
+      "name": "Ancient Indian Civilization",
+      "description": "The birthplace of Buddhism, Hinduism, and multi-layered culture."
+    },
+    {
+      "name": "Religious Art",
+      "description": "The artistic expressions of Christianity, Islam, Buddhism, and other religions."
+    },
+    {
+      "name": "Maritime Silk Road",
+      "description": "The transoceanic trade and cultural exchange route."
+    },
+    {
+      "name": "Pirate and Maritime Era",
+      "description": "The exploration, trade, and pirate legends of the Age of Exploration."
+    },
+    {
+      "name": "Ancient Battle Reenactments",
+      "description": "The display of famous historical battles and strategies."
+    },
+    {
+      "name": "Peking Opera Masks and Theater",
+      "description": "The national characteristic and artistic exaggeration of stage images."
+    },
+    {
+      "name": "Folk Customs Around the World",
+      "description": "The traditional celebrations and customs of different ethnic groups globally."
+    },
+    {
+      "name": "Indigenous Cultures",
+      "description": "The tribes and indigenous peoples who maintain their original way of life."
+    },
+    {
+      "name": "Folk Handicrafts",
+      "description": "The traditional crafts passed down through generations, such as embroidery, pottery, and shadow puppetry."
+    },
+    {
+      "name": "Evolution of Traditional Costumes",
+      "description": "The transformation from ancient attire to modern fashion."
+    }
+  ]
+}

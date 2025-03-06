@@ -1,0 +1,102 @@
+{
+  "name": "Véhicules",
+  "description": "Présentant les multiples moyens de transport et de transport de marchandises de l'humanité, de l'ancien au moderne, du sol à l'air, témoignant de l'évolution de la technologie et de la vie.",
+  "groups": [
+    {
+      "name": "Voitures classiques",
+      "description": "L'élégance rétro et la valeur de collection des voitures anciennes."
+    },
+    {
+      "name": "Voitures modernes",
+      "description": "Conception variée pour la conduite quotidienne et la famille."
+    },
+    {
+      "name": "Trains et voies ferrées",
+      "description": "Transport longue distance, culture ferroviaire et architecture des gares."
+    },
+    {
+      "name": "Avions et aéroports",
+      "description": "Symbole du voyage aérien et de la technologie de vol moderne."
+    },
+    {
+      "name": "Bateaux et navigation",
+      "description": "Expérience vaste du transport maritime ou des croisières."
+    },
+    {
+      "name": "Métro et tramway",
+      "description": "Véhicules pratiques dans le système de transport public de la ville."
+    },
+    {
+      "name": "Motos et culture motocycliste",
+      "description": "Symbole de vitesse et de liberté, charme unique de la conduite en ville."
+    },
+    {
+      "name": "Montgolfières",
+      "description": "Moyen romantique de s'élever lentement et de contempler le paysage."
+    },
+    {
+      "name": "Dirigeables et transport aérien",
+      "description": "Véhicules aériens alliant classicisme et romantisme."
+    },
+    {
+      "name": "Vaisseaux spatiaux et engins spatiaux",
+      "description": "Technologie de pointe et rêve humain pour explorer l'espace."
+    },
+    {
+      "name": "Chariots classiques",
+      "description": "Gloire et rétro des principaux moyens de transport de l'histoire."
+    },
+    {
+      "name": "Trains à sustentation magnétique",
+      "description": "Technologie ferroviaire du futur, rapide et silencieuse."
+    },
+    {
+      "name": "Ascenseurs spatiaux (science-fiction)",
+      "description": "Véhicules conceptuels futuristes, reliant la Terre à l'orbite."
+    },
+    {
+      "name": "Voitures conceptuelles du futur",
+      "description": "Véhicules expérimentaux au design avant-gardiste et à la haute technologie."
+    },
+    {
+      "name": "Sous-marins et navigation sous-marine",
+      "description": "Véhicules spéciaux pour explorer les mystères des profondeurs marines."
+    },
+    {
+      "name": "Camions de transport",
+      "description": "Pilier solide de la logistique moderne et du transport routier."
+    },
+    {
+      "name": "Paquebots de luxe",
+      "description": "Palais flottants combinant vacances en mer et tourisme."
+    },
+    {
+      "name": "Voies ferrées à grande vitesse",
+      "description": "Système de transport rapide interurbain."
+    },
+    {
+      "name": "Courses automobiles et supercars",
+      "description": "Apogée de la vitesse et de l'ingénierie automobile."
+    },
+    {
+      "name": "Véhicules militaires",
+      "description": "Matériel militaire tel que les chars, les avions militaires, les véhicules blindés, etc."
+    },
+    {
+      "name": "Téléphériques",
+      "description": "Moyen de transport par câble traversant les vallées ou les villes."
+    },
+    {
+      "name": "Véhicules de secours",
+      "description": "Véhicules de service d'urgence tels que les camions de pompiers, les ambulances, les voitures de police, etc."
+    },
+    {
+      "name": "Vélos et cyclisme",
+      "description": "Moyen de transport écologique et sain."
+    },
+    {
+      "name": "Véhicules autonomes",
+      "description": "Tendance future de la conduite autonome et de la circulation intelligente."
+    }
+  ]
+}

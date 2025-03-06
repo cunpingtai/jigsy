@@ -1,0 +1,102 @@
+{
+  "name": "Paisagens Naturais",
+  "description": "Abrangendo a grandeza e sutileza da natureza, desde as altas montanhas e glaciares até os oceanos e lagos, mostrando a rica diversidade ecológica e geográfica da Terra.",
+  "groups": [
+    {
+      "name": "Montanhas Nevadas",
+      "description": "Picos de montanhas cobertos de neve e gelo, localizados em regiões de grande altitude."
+    },
+    {
+      "name": "Lagos e Cachoeiras",
+      "description": "As serenas superfícies dos lagos e as cachoeiras que correm se complementam entre si."
+    },
+    {
+      "name": "Desertos e Gobi",
+      "description": "As vastas extensões de areia e paisagens desoladas em regiões extremamente áridas."
+    },
+    {
+      "name": "Paisagens Florestais",
+      "description": "As altas árvores e a densa vegetação formam os pulmões naturais da Terra."
+    },
+    {
+      "name": "Mundo Oceânico",
+      "description": "Os vastos domínios oceânicos e a vida marinha em seus vibrantes habitats azuis."
+    },
+    {
+      "name": "Amanhecer e Entardecer",
+      "description": "As majestosas transformações do céu durante o amanhecer e o entardecer."
+    },
+    {
+      "name": "Selvas Tropicais",
+      "description": "Os ambientes úmidos e chuvosos com vegetação exuberante e espécies diversas."
+    },
+    {
+      "name": "Paisagens de Pradaria",
+      "description": "As intermináveis pradarias e o gado e as ovelhas que pastam livremente."
+    },
+    {
+      "name": "Campos de Flores e Campo",
+      "description": "As coloridas flores e os cultivos entrelaçados em uma paisagem romântica."
+    },
+    {
+      "name": "Colinas e Montanhas",
+      "description": "As suaves encostas e a exuberante vegetação das montanhas baixas e das colinas."
+    },
+    {
+      "name": "Costas de Ilhas",
+      "description": "As pitorescas costas e ilhas delineadas pelo mar."
+    },
+    {
+      "name": "Paisagens de Aurora",
+      "description": "Os espetaculares espetáculos de luzes coloridas nos céus de latitudes altas."
+    },
+    {
+      "name": "Formações Vulcânicas",
+      "description": "Vulcões e paisagens geotérmicas em estados ativos ou adormecidos."
+    },
+    {
+      "name": "Bosques de Piedra y Rocas Extrañas",
+      "description": "As formações rochosas únicas e com formas estranhas, aparentemente esculpidas."
+    },
+    {
+      "name": "Humedales y Marismas",
+      "description": "As zonas de transição água-terra com ecossistemas diversos."
+    },
+    {
+      "name": "Casquetes de Hielo Polares",
+      "description": "As massivas camadas de gelo que cobrem as regiões extremamente frias."
+    },
+    {
+      "name": "Cañones y Desfiladeros",
+      "description": "Os profundos vales formados pela erosão dos rios ou do vento, com penhascos íngremes."
+    },
+    {
+      "name": "Paisajes de Meseta",
+      "description": "As paisagens expansivas e de grande altitude com climas únicos."
+    },
+    {
+      "name": "Formaciones Karst",
+      "description": "As formações geológicas únicas de rochas solúveis, como cavernas e sumidouros."
+    },
+    {
+      "name": "Paisajes de Naturaleza Salvaje",
+      "description": "Os ambientes naturais prístinos e intocados."
+    },
+    {
+      "name": "Paisajes Estacionales",
+      "description": "As cambiantes aparências naturais da primavera, do verão, do outono e do inverno."
+    },
+    {
+      "name": "Paisajes de Arco Iris",
+      "description": "As vibrantes e impressionantes cenas de arco íris no céu."
+    },
+    {
+      "name": "Cuevas Subterráneas",
+      "description": "Os misteriosos espaços com estalactites e rios subterrâneos."
+    },
+    {
+      "name": "Árboles Antiguos",
+      "description": "As altas e antigas árvores que resistiram aos anos."
+    }
+  ]
+}

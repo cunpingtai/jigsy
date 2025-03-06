@@ -1,0 +1,102 @@
+{
+  "name": "Monde animal",
+  "description": "De la terre à la mer, du froid au chaud, les animaux colorés et leur environnement de vie, montrent la vitalité et le charme du monde naturel.",
+  "groups": [
+    {
+      "name": "Animaux sauvages",
+      "description": "Espèces vivant dans la nature, dotées d'un instinct de survie tenace."
+    },
+    {
+      "name": "Animaux de la forêt tropicale",
+      "description": "La faune colorée de la forêt tropicale et la chaîne écologique riche."
+    },
+    {
+      "name": "Animaux aquatiques",
+      "description": "Poissons, coraux et mammifères aquatiques dans les océans, les rivières et les lacs."
+    },
+    {
+      "name": "Animaux domestiques",
+      "description": "Animaux d'élevage dans les fermes ou les maisons, tels que les poules, les canards, les vaches et les moutons."
+    },
+    {
+      "name": "Monde des insectes",
+      "description": "Le monde microscopique aux formes variées et au nombre important."
+    },
+    {
+      "name": "Félins",
+      "description": "Prédateurs élégants et féroces tels que les lions, les tigres et les léopards."
+    },
+    {
+      "name": "Canidés",
+      "description": "Animaux intelligents et sociaux tels que les loups, les renards et les chiens."
+    },
+    {
+      "name": "Oiseaux",
+      "description": "Esprits du ciel aux ailes colorées et aux chants mélodieux."
+    },
+    {
+      "name": "Amphibiens et reptiles",
+      "description": "Formes et habitudes des animaux à sang froid."
+    },
+    {
+      "name": "Animaux des prairies",
+      "description": "Espèces telles que les antilopes et les zèbres qui courent ou vivent en groupe dans les vastes prairies."
+    },
+    {
+      "name": "Animaux polaires",
+      "description": "Espèces représentatives adaptées à l'environnement glacial, telles que les pingouins et les ours polaires."
+    },
+    {
+      "name": "Espèces rares en voie de disparition",
+      "description": "Espèces au bord de l'extinction, nécessitant une protection urgente."
+    },
+    {
+      "name": "Bébés animaux",
+      "description": "Mignonnerie et innocence des bébés animaux."
+    },
+    {
+      "name": "Rapaces et fauves",
+      "description": "Prédateurs féroces tels que les guépards, les aigles et les vautours."
+    },
+    {
+      "name": "Animaux préhistoriques (dinosaures, etc.)",
+      "description": "Gros animaux qui dominaient la terre ou la mer à l'ère préhistorique."
+    },
+    {
+      "name": "Primates",
+      "description": "Espèces intelligentes telles que les chimpanzés et les singes, proches de l'homme sur le plan génétique."
+    },
+    {
+      "name": "Géants des profondeurs marines",
+      "description": "Gros animaux tels que les requins baleines et les calamars géants qui vivent dans les profondeurs de la mer."
+    },
+    {
+      "name": "Scènes de chasse",
+      "description": "Moments tendus de la chasse des fauves ou des humains dans la nature."
+    },
+    {
+      "name": "Vie en groupe des animaux",
+      "description": "Animaux vivant en société tels que les fourmis et les loups."
+    },
+    {
+      "name": "Insectes, poissons, crevettes et crabes",
+      "description": "Organismes aquatiques sans vertèbres de petite taille."
+    },
+    {
+      "name": "Protection de la faune sauvage",
+      "description": "Scènes harmonieuses de coexistence entre l'homme et les animaux dans les réserves naturelles."
+    },
+    {
+      "name": "Interaction homme-animal",
+      "description": "Scènes chaleureuses de proximité avec la nature, telles que la compagnie des animaux de compagnie et l'observation de la nature."
+    },
+    {
+      "name": "Animaux de la ferme",
+      "description": "Animaux communs tels que les vaches, les chevaux, les cochons et les moutons qui vivent paisiblement dans les fermes."
+    },
+    {
+      "name": "Animaux de compagnie et mignons",
+      "description": "Petits animaux mignons et guérisseurs tels que les chats, les chiens et les hamsters."
+    }
+  ]
+}

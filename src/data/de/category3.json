@@ -1,0 +1,102 @@
+{
+  "name": "Kulinarische Kunst",
+  "description": "Von Hausmannskost bis zu weltberühmten Gerichten, erkunden Sie den Charme des Essens und die Kochkunst, und genießen Sie ein Fest der Geschmackskultur.",
+  "groups": [
+    {
+      "name": "Chinesische traditionelle Gerichte",
+      "description": "Die Essenz der berühmten Gerichte aus verschiedenen Regionen wie Sichuan, Guangdong und Huaiyang."
+    },
+    {
+      "name": "Westliches Backen",
+      "description": "Die süße Kunst des Backens von Brot, Kuchen und Desserts."
+    },
+    {
+      "name": "Japanische Küche",
+      "description": "Die minimalistische Geschmacksrichtung von Sushi, Sashimi und kunstvoller Präsentation."
+    },
+    {
+      "name": "Koreanisches Grillen",
+      "description": "Die Kombination aus Marinieren und Grillen, begleitet von einer Vielzahl von Beilagen."
+    },
+    {
+      "name": "Südostasiatische Küche",
+      "description": "Die Mischung aus Kokosnussmilch und Gewürzen in thailändischer, vietnamesischer und anderer Küche."
+    },
+    {
+      "name": "Mittelmeer-Küche",
+      "description": "Die gesunde Zubereitung von Olivenöl, Kräutern und Meeresfrüchten."
+    },
+    {
+      "name": "Französisches Gourmetessen",
+      "description": "Die romantische Küche, die auf hochwertige Zutaten und kunstvolle Präsentation Wert legt."
+    },
+    {
+      "name": "Italienische Nudeln und Pizza",
+      "description": "Die klassische Kombination von Tomatensauce, Käse und Nudeln oder Pizza."
+    },
+    {
+      "name": "Meeresfrüchte-Festmahl",
+      "description": "Das Festmahl aus Garnelen, Krabben und Muscheln mit frischem und süßem Geschmack."
+    },
+    {
+      "name": "Grillen BBQ",
+      "description": "Die lebhafte Versammlung im Freien mit Rauchgeschmack und gegrilltem Essen."
+    },
+    {
+      "name": "Desserts und Kuchen",
+      "description": "Der süße Genuss von kunstvoll gestalteten und vielseitigen Texturen."
+    },
+    {
+      "name": "Schokoladenkunst",
+      "description": "Die süße Welt der verschiedenen Kakaoaromen und handgefertigten Formen."
+    },
+    {
+      "name": "Tee und Kaffee",
+      "description": "Die heißen Getränke, die den reichen Geschmack und die kulturelle Bedeutung vereinen."
+    },
+    {
+      "name": "Scharfe Gerichte",
+      "description": "Die Gerichte, die den Gaumen mit scharfen Aromen wie Sichuan-Hotpot und gebratenem Chili reizen."
+    },
+    {
+      "name": "Vegetarische Küche",
+      "description": "Die gesunde Ernährung mit Gemüse, Obst und Sojaprodukten."
+    },
+    {
+      "name": "Heißer Topf und Maocai",
+      "description": "Die Kombination aus verschiedenen Zutaten in einer heißen Suppe mit scharfem und aromatischem Geschmack."
+    },
+    {
+      "name": "Bento und Fast Food",
+      "description": "Die bequeme Mahlzeit im hektischen Leben, die Vielfalt und Geschmack vereint."
+    },
+    {
+      "name": "Snacks",
+      "description": "Die kleinen Snacks wie Chips und Bonbons, die jederzeit und überall genossen werden können."
+    },
+    {
+      "name": "Weltweite Brotkollektion",
+      "description": "Die verschiedenen Geschmacksrichtungen wie Baguette, deutsches Schwarzbrot und asiatische weiche Brötchen."
+    },
+    {
+      "name": "Kreative Küche",
+      "description": "Die Innovation durch die Kombination von neuen Zutaten und Kochtechniken."
+    },
+    {
+      "name": "Hausmannskost",
+      "description": "Die Kochkunst, die den traditionellen Geschmack und den persönlichen Stil vereint."
+    },
+    {
+      "name": "Kochunterricht",
+      "description": "Die Demonstration oder der Klassenstil des Unterrichts und der Atmosphäre."
+    },
+    {
+      "name": "Tischdekoration",
+      "description": "Die sorgfältige Präsentation und das Umgebungsdesign, die den visuellen und geschmacklichen Genuss vereinen."
+    },
+    {
+      "name": "Straßensnacks",
+      "description": "Der einzigartige Charme der Straßenhändler und der lokalen Spezialitäten."
+    }
+  ]
+}

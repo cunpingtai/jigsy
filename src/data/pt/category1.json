@@ -1,0 +1,102 @@
+{
+  "name": "Ciência e Futuro",
+  "description": "Foco na pesquisa científica de ponta e nas visões futuras, desde o macrocosmo até o nanocosmo, estimulando a curiosidade das pessoas pelo desconhecido.",
+  "groups": [
+    {
+      "name": "Tecnologia de Robôs",
+      "description": "Colaboração de robôs de múltiplas pernas ou humanoides com inteligência artificial."
+    },
+    {
+      "name": "Astronomia Espacial",
+      "description": "Observação e pesquisa teórica de corpos celestes como estrelas, nebulosas e planetas."
+    },
+    {
+      "name": "Engenharia Genética",
+      "description": "Inovação e avanço na edição genética e na ciência biológica."
+    },
+    {
+      "name": "Avanços Médicos",
+      "description": "Desenvolvimento de novos medicamentos, cirurgias avançadas e avanço de dispositivos médicos."
+    },
+    {
+      "name": "Proteção Ambiental e Energia Renovável",
+      "description": "Energias renováveis como energia eólica, solar e proteção ecológica."
+    },
+    {
+      "name": "Biodiversidade",
+      "description": "Importância da diversidade de espécies e do equilíbrio ecológico."
+    },
+    {
+      "name": "Realidade Virtual (VR)",
+      "description": "Entretenimento futuro com simulação digital e interação imersiva."
+    },
+    {
+      "name": "Realidade Aumentada (AR)",
+      "description": "Tecnologia que combina informações virtuais com o ambiente real."
+    },
+    {
+      "name": "Tecnologia de Impressão 3D",
+      "description": "Processo revolucionário de fabricação rápida e personalizada."
+    },
+    {
+      "name": "Nanotecnologia",
+      "description": "Design de materiais ou estruturas em nível molecular ou atômico."
+    },
+    {
+      "name": "Inteligência Artificial (AI)",
+      "description": "Aprendizado profundo, tomada de decisão automatizada e interação homem-máquina."
+    },
+    {
+      "name": "Planejamento Urbano Futuro",
+      "description": "Conceito de cidade inteligente, tráfego inteligente, construção sustentável."
+    },
+    {
+      "name": "Colonização Espacial",
+      "description": "Perspectiva de estabelecer bases de sobrevivência humana em planetas extraterrestres."
+    },
+    {
+      "name": "Teoria de Viagem no Tempo e Espaço",
+      "description": "Ficção científica e hipótese científica que ultrapassa as restrições de tempo ou espaço."
+    },
+    {
+      "name": "Física Quântica",
+      "description": "Pesquisa de ponta em áreas como emaranhamento quântico e computação quântica."
+    },
+    {
+      "name": "Segurança da Informação e Hackers",
+      "description": "Defesa e ataque de redes e proteção da privacidade na era digital."
+    },
+    {
+      "name": "Exploração de Marte",
+      "description": "Exploração de veículos espaciais, pousos tripulados e colonização interplanetária."
+    },
+    {
+      "name": "Telescópio Espacial",
+      "description": "Equipamento crucial para observar galáxias distantes e explorar a origem do universo."
+    },
+    {
+      "name": "Pesquisa Subaquática",
+      "description": "Pesquisa científica de estações de observação submarina e biologia marinha profunda."
+    },
+    {
+      "name": "Supercomputador",
+      "description": "Equipamento central para suportar a pesquisa e engenharia de computação de alto desempenho."
+    },
+    {
+      "name": "Pesquisa Meteorológica",
+      "description": "Monitoramento de condições climáticas extremas, mudanças climáticas e ambiente atmosférico."
+    },
+    {
+      "name": "Interface Cérebro-Computador",
+      "description": "Tecnologia de ponta que permite a comunicação direta entre o cérebro humano e o computador."
+    },
+    {
+      "name": "Carro Voador",
+      "description": "Nova forma de transporte pessoal ou público no futuro."
+    },
+    {
+      "name": "Materiais Futuros",
+      "description": "Invenções potencialmente revolucionárias como grafeno e supercondutores."
+    }
+  ]
+}

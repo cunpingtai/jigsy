@@ -1,0 +1,102 @@
+{
+  "name": "Animal World",
+  "description": "From land to sea, from the Arctic to the tropics, the diverse animals and their habitats showcase the vitality and charm of nature.",
+  "groups": [
+    {
+      "name": "Wild Animals",
+      "description": "Species that inhabit the wilderness, possessing strong survival instincts."
+    },
+    {
+      "name": "Tropical Rainforest Animals",
+      "description": "The colorful rainforest dwellers and their rich ecological chains."
+    },
+    {
+      "name": "Aquatic Life",
+      "description": "Fish, coral, and aquatic mammals in oceans, rivers, and lakes."
+    },
+    {
+      "name": "Domesticated Animals",
+      "description": "Animals raised by humans, such as farm or household animals like chickens, ducks, cows, and sheep."
+    },
+    {
+      "name": "Insect World",
+      "description": "The microscopic world of insects, with their diverse forms and large numbers."
+    },
+    {
+      "name": "Felines",
+      "description": "Elegant and fierce predators like lions, tigers, and leopards."
+    },
+    {
+      "name": "Canines",
+      "description": "Intelligent and social animals like wolves, foxes, and dogs."
+    },
+    {
+      "name": "Bird Watching",
+      "description": "The colorful plumage and melodious songs of sky spirits."
+    },
+    {
+      "name": "Amphibians and Reptiles",
+      "description": "The cold-blooded lives of lizards, snakes, frogs, and turtles."
+    },
+    {
+      "name": "Grassland Animals",
+      "description": "Species that roam or herd on vast grasslands, such as antelopes and zebras."
+    },
+    {
+      "name": "Polar Animals",
+      "description": "Representatives of extreme cold environments, such as penguins and polar bears."
+    },
+    {
+      "name": "Rare and Endangered",
+      "description": "Species on the brink of extinction, urgently needing protection."
+    },
+    {
+      "name": "Animal Babies",
+      "description": "The adorable and playful young of various animals."
+    },
+    {
+      "name": "Predators",
+      "description": "Naturally fierce hunters like cheetahs, eagles, and vultures."
+    },
+    {
+      "name": "Prehistoric Creatures (Dinosaurs etc.)",
+      "description": "Massive beings that dominated land or sea in ancient times."
+    },
+    {
+      "name": "Primates",
+      "description": "Intelligent species closely related to humans, such as apes and monkeys."
+    },
+    {
+      "name": "Deep Sea Giants",
+      "description": "Enormous creatures inhabiting the deep sea, like whales and giant squid."
+    },
+    {
+      "name": "Hunting Scenes",
+      "description": "Tense moments of predators or humans hunting in the wild."
+    },
+    {
+      "name": "Animal Societies",
+      "description": "Social forms of animals, such as ant colonies or wolf packs."
+    },
+    {
+      "name": "Insects, Fish, and Crustaceans",
+      "description": "Small aquatic or water-edge ecosystems with diverse invertebrates."
+    },
+    {
+      "name": "Wildlife Conservation",
+      "description": "Scenes of humans and animals coexisting harmoniously in nature reserves."
+    },
+    {
+      "name": "Human-Animal Interaction",
+      "description": "Warm scenes of people interacting with animals, such as pet companionship or wildlife observation."
+    },
+    {
+      "name": "Farm Animals",
+      "description": "Common farm animals living leisurely lives, such as cows, horses, and sheep."
+    },
+    {
+      "name": "Pets and Cute Animals",
+      "description": "Healing small animals, such as domesticated cats, dogs, and rodents."
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "name": "Arquitetura e marcos",
+  "description": "As realizações arquitetônicas da civilização humana em diferentes épocas e regiões, desde antigas ruínas até marcos modernos, refletem a evolução da cultura e da tecnologia.",
+  "groups": [
+    {
+      "name": "Arquitetura greco-romana",
+      "description": "Frequentemente utiliza colunas e arcos, magnífico e cheio de beleza clássica."
+    },
+    {
+      "name": "Arquitetura chinesa antiga",
+      "description": "Beirais curvos, estrutura de madeira e outras essências da arquitetura tradicional oriental."
+    },
+    {
+      "name": "Catedrais góticas",
+      "description": "Obras-primas da arte religiosa entrelaçadas com torres pontiagudas e vitrais coloridos."
+    },
+    {
+      "name": "Estilo islâmico",
+      "description": "Arquitetura oriental com cúpulas e arcos representativos."
+    },
+    {
+      "name": "Arranha-céus contemporâneos",
+      "description": "A linha do horizonte da cidade moderna construída com concreto e aço."
+    },
+    {
+      "name": "Linha do horizonte da cidade",
+      "description": "A grande silhueta da cidade formada por vários edifícios icônicos."
+    },
+    {
+      "name": "Templos e palácios",
+      "description": "Edifícios religiosos ou reais frequentemente decorados com luxo e história."
+    },
+    {
+      "name": "Castelos medievais europeus",
+      "description": "Fortalezas com muralhas espessas e torres pontiagudas, combinando defesa e arte."
+    },
+    {
+      "name": "Marcos famosos do mundo",
+      "description": "Edifícios famosos em todo o mundo, como a Torre Eiffel e a Estátua da Liberdade."
+    },
+    {
+      "name": "Ponte sobre o mar",
+      "description": "Grandes projetos de pontes que conectam duas margens ou baías."
+    },
+    {
+      "name": "Residências tradicionais",
+      "description": "Formas de habitação locais preservadas na cultura popular de várias regiões."
+    },
+    {
+      "name": "Ruínas de antigas relíquias",
+      "description": "Fragmentos de edifícios após a erosão da história e da tempestade."
+    },
+    {
+      "name": "Edifícios sobre a água",
+      "description": "Construções sobre a água ou subaquáticas, combinando utilidade e valor estético."
+    },
+    {
+      "name": "Cidade pequena e pitoresca",
+      "description": "Edifícios e ruas pitorescas de cidades pequenas com características regionais na Europa ou em outras regiões."
+    },
+    {
+      "name": "Arquitetura industrial",
+      "description": "Formas de edifícios que refletem a era industrial, como fábricas e chaminés."
+    },
+    {
+      "name": "Esculturas e monumentos",
+      "description": "Marcos urbanos usados para comemorar figuras importantes ou eventos."
+    },
+    {
+      "name": "Jardins e paisagens",
+      "description": "A fusão de habitação e natureza, com plantas e design paisagístico como núcleo."
+    },
+    {
+      "name": "Arquitetura moderna e minimalista",
+      "description": "Linhas simples, funcionalidade em primeiro lugar, destacando os conceitos de design contemporâneo."
+    },
+    {
+      "name": "Casas de campo na Europa e nos Estados Unidos",
+      "description": "Casas aconchegantes situadas em paisagens rurais."
+    },
+    {
+      "name": "Templos e pagodes asiáticos",
+      "description": "Estilos arquitetônicos religiosos comuns na Ásia Oriental e no Sudeste Asiático."
+    },
+    {
+      "name": "Edifícios subterrâneos (minas, etc.)",
+      "description": "Espaços artificiais ou cavernas naturais escondidos sob a superfície da terra."
+    },
+    {
+      "name": "Arquitetura de estrutura de madeira",
+      "description": "Principalmente feita de madeira, simples e cheia de calor."
+    },
+    {
+      "name": "Arquitetura de estrutura de tijolo e pedra",
+      "description": "Sólida e durável, comum em castelos, palácios e casas antigas chinesas."
+    },
+    {
+      "name": "Cidade costeira",
+      "description": "O layout arquitetônico da zona costeira e o charme do porto."
+    }
+  ]
+}

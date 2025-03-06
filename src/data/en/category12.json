@@ -1,0 +1,102 @@
+{
+  "name": "Natural Landscapes",
+  "description": "Encompassing the grandeur and subtlety of nature, from high mountains and glaciers to oceans and lakes, showcasing the rich ecological and geographical diversity of the Earth.",
+  "groups": [
+    {
+      "name": "Snow-capped Mountains",
+      "description": "Towering mountain peaks covered in snow and ice, located in high-altitude regions."
+    },
+    {
+      "name": "Lakes and Waterfalls",
+      "description": "The serene lake surfaces and rushing waterfalls complement each other."
+    },
+    {
+      "name": "Deserts and Gobi",
+      "description": "The vast expanses of sand and desolate landscapes in extremely arid regions."
+    },
+    {
+      "name": "Forest Landscapes",
+      "description": "Tall trees and dense greenery form the natural lungs of the Earth."
+    },
+    {
+      "name": "Ocean World",
+      "description": "The vast ocean domains and marine life in their vibrant blue habitats."
+    },
+    {
+      "name": "Sunrise and Sunset",
+      "description": "The majestic transformations of the sky during sunrise and sunset."
+    },
+    {
+      "name": "Tropical Rainforests",
+      "description": "The humid and rainy environments with lush vegetation and diverse species."
+    },
+    {
+      "name": "Grassland Scenery",
+      "description": "The endless grasslands and freely roaming cattle and sheep."
+    },
+    {
+      "name": "Flower Fields and Countryside",
+      "description": "The colorful flowers and crops intertwined in a romantic landscape."
+    },
+    {
+      "name": "Hills and Mountains",
+      "description": "The gentle slopes and lush greenery of low mountains and hills."
+    },
+    {
+      "name": "Island Coastlines",
+      "description": "The picturesque coastlines and islands outlined by the sea."
+    },
+    {
+      "name": "Aurora Landscapes",
+      "description": "The spectacular displays of colorful lights in the high-latitude skies."
+    },
+    {
+      "name": "Volcanic Landforms",
+      "description": "Volcanoes and geothermal landscapes in active or dormant states."
+    },
+    {
+      "name": "Stone Forests and Strange Rocks",
+      "description": "The uniquely shaped, seemingly carved rock formations."
+    },
+    {
+      "name": "Wetlands and Marshes",
+      "description": "The water-land transition zones with diverse ecosystems."
+    },
+    {
+      "name": "Polar Ice Caps",
+      "description": "The massive ice sheets covering the extremely cold regions."
+    },
+    {
+      "name": "Canyons and Gorges",
+      "description": "The deep valleys formed by rivers or wind erosion, with steep cliffs."
+    },
+    {
+      "name": "Plateau Landscapes",
+      "description": "The expansive, high-altitude landscapes with unique climates."
+    },
+    {
+      "name": "Karst Landforms",
+      "description": "The unique geological formations of soluble rocks, such as caves and sinkholes."
+    },
+    {
+      "name": "Wilderness and Wildfields",
+      "description": "The pristine, untouched natural environments."
+    },
+    {
+      "name": "Seasonal Landscapes",
+      "description": "The changing natural appearances of spring, summer, autumn, and winter."
+    },
+    {
+      "name": "Rainbow Landscapes",
+      "description": "The vibrant, breathtaking scenes of rainbows in the sky."
+    },
+    {
+      "name": "Underground Caves",
+      "description": "The mysterious spaces with stalactites and underground rivers."
+    },
+    {
+      "name": "Ancient Trees",
+      "description": "The towering, ancient trees that have weathered the years."
+    }
+  ]
+}

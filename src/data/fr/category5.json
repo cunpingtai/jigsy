@@ -1,0 +1,102 @@
+{
+  "name": "Histoire et Culture",
+  "description": "L'évolution de la civilisation humaine et la diversité culturelle, des mythes et légendes aux vestiges anciens, mettant en valeur la richesse et le charme de l'histoire.",
+  "groups": [
+    {
+      "name": "Civilisation de l'ancienne Égypte",
+      "description": "La mystérieuse culture des pyramides, des pharaons et des hiéroglyphes."
+    },
+    {
+      "name": "Ancienne civilisation babylonienne",
+      "description": "La brillante civilisation de la vallée de l'Euphrate et la légende du jardin suspendu."
+    },
+    {
+      "name": "Civilisation maya et inca",
+      "description": "Le culte du soleil et les fascinants vestiges sculptés en Amérique centrale et du Sud."
+    },
+    {
+      "name": "Histoire des dynasties chinoises",
+      "description": "De la dynastie Xia à la dynastie Qing, l'alternance des dynasties et la brillante culture."
+    },
+    {
+      "name": "Empire romain",
+      "description": "Les gladiateurs, l'arc de triomphe et la splendide construction de la ville."
+    },
+    {
+      "name": "Période de la Renaissance",
+      "description": "La renaissance de l'art et de la science en Europe, avec de nombreux grands maîtres."
+    },
+    {
+      "name": "Mythologie grecque",
+      "description": "La source de la culture des dieux de l'Olympe et des héros."
+    },
+    {
+      "name": "Vie de la noblesse et de la cour",
+      "description": "La vie quotidienne de la noblesse et de la cour en Europe ou en Orient."
+    },
+    {
+      "name": "Légendes et contes populaires",
+      "description": "Les aventures des héros et les légendes des monstres et des dieux transmises dans le monde entier."
+    },
+    {
+      "name": "Fêtes traditionnelles chinoises",
+      "description": "La signification culturelle et folklorique du Nouvel An chinois, de la Fête de la Mi-Automne, etc."
+    },
+    {
+      "name": "Ère victorienne en Angleterre",
+      "description": "La révolution industrielle et les changements sociaux sous le règne de la reine Victoria."
+    },
+    {
+      "name": "Culture des samouraïs au Japon",
+      "description": "Le katana, la voie du guerrier et le contexte politique du shogunat."
+    },
+    {
+      "name": "Mythologie nordique",
+      "description": "Les dieux comme Odin et Thor et la légende de l'arbre du monde."
+    },
+    {
+      "name": "Chevaliers et châteaux",
+      "description": "Le système féodal et l'esprit chevaleresque au Moyen Âge en Europe."
+    },
+    {
+      "name": "Civilisation de l'Inde ancienne",
+      "description": "Le berceau du bouddhisme, de l'hindouisme et de la culture multi-niveaux."
+    },
+    {
+      "name": "Art religieux",
+      "description": "Les formes d'art des religions comme le christianisme, l'islam, le bouddhisme, etc."
+    },
+    {
+      "name": "Route de la soie maritime",
+      "description": "La route commerciale et culturelle qui traverse les océans."
+    },
+    {
+      "name": "Pirates et l'ère de la navigation",
+      "description": "Les légendes de l'âge d'or de la navigation et de la piraterie."
+    },
+    {
+      "name": "Reconstitution de batailles anciennes",
+      "description": "Les scènes de batailles célèbres et les stratégies militaires."
+    },
+    {
+      "name": "Visages et opéras de Pékin",
+      "description": "Les images de scène pleines de caractère national et d'exagération artistique."
+    },
+    {
+      "name": "Folklore du monde entier",
+      "description": "Les coutumes et les festivals traditionnels des différentes ethnies du monde."
+    },
+    {
+      "name": "Culture des peuples autochtones",
+      "description": "Les tribus et les peuples autochtones qui préservent leur mode de vie primitif."
+    },
+    {
+      "name": "Artisanat populaire",
+      "description": "Les compétences artisanales transmises de génération en génération, comme la broderie, la poterie, le théâtre d'ombres, etc."
+    },
+    {
+      "name": "Évolution des vêtements traditionnels",
+      "description": "L'évolution des vêtements traditionnels de l'antiquité à la mode moderne."
+    }
+  ]
+}

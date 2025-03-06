@@ -1,0 +1,102 @@
+{
+  "name": "Fantasía y Ciencia Ficción",
+  "description": "Rompe las reglas de la realidad, crea escenarios mágicos o de tecnología futurista, y satisface el anhelo de lo desconocido y la imaginación extraordinaria.",
+  "groups": [
+    {
+      "name": "Mundo Mágico",
+      "description": "Un reino de fantasía entrelazado con hechizos y magia."
+    },
+    {
+      "name": "Dragones y Caballeros",
+      "description": "La épica batalla entre los gigantes dragones y los valientes guerreros de la Edad Media."
+    },
+    {
+      "name": "Fantasía Medieval",
+      "description": "Un mundo de espadas y magia construido en conjunto por elfos, enanos y dragones."
+    },
+    {
+      "name": "Guerra Interestelar",
+      "description": "La batalla entre las flotas estelares y las armas de alta tecnología en el vasto universo."
+    },
+    {
+      "name": "Ciudad Futurista",
+      "description": "El paisaje urbano del mañana, con rascacielos y tecnología avanzada."
+    },
+    {
+      "name": "Exploración Espacial",
+      "description": "Las naves espaciales se adentran en el cosmos, explorando planetas y vida desconocidos."
+    },
+    {
+      "name": "Civilización Extraterrestre",
+      "description": "La sociedad misteriosa de razas alienígenas y planetas exóticos en la imaginación."
+    },
+    {
+      "name": "Naves Espaciales",
+      "description": "Diseños de naves espaciales de formas diversas y escenas de viaje interestelar."
+    },
+    {
+      "name": "Steampunk",
+      "description": "Una fusión de la era victoriana y la energía a vapor, creando un futuro retro."
+    },
+    {
+      "name": "Cyberpunk",
+      "description": "El mundo de la alta tecnología, las luces de neón, los hackers y la realidad virtual."
+    },
+    {
+      "name": "Superhéroes",
+      "description": "Personajes con habilidades especiales o superpoderes."
+    },
+    {
+      "name": "Viaje en el Tiempo",
+      "description": "Viajes al pasado o al futuro, cambiando la historia o explorando lo desconocido."
+    },
+    {
+      "name": "Realidad Virtual",
+      "description": "El mundo digital y la experiencia inmersiva en un mundo virtual."
+    },
+    {
+      "name": "Mecha y Robots",
+      "description": "Batallas y cooperación entre gigantescos mechas humanoides o robots inteligentes."
+    },
+    {
+      "name": "Mundos Paralelos",
+      "description": "Múltiples dimensiones independientes que se influencian mutuamente."
+    },
+    {
+      "name": "Desierto Postapocalíptico",
+      "description": "El entorno de supervivencia desolado y en ruinas después del colapso global."
+    },
+    {
+      "name": "Tecnología de IA",
+      "description": "La inteligencia artificial altamente desarrollada, la interacción hombre-máquina y el conflicto."
+    },
+    {
+      "name": "Monstruos del Espacio",
+      "description": "Gigantescos monstruos causando estragos en la Tierra o en el espacio."
+    },
+    {
+      "name": "Colonias Espaciales",
+      "description": "Bases de supervivencia establecidas por la humanidad en planetas extraterrestres."
+    },
+    {
+      "name": "Criaturas Ficticias",
+      "description": "Criaturas extrañas y plantas exóticas que no existen en la realidad."
+    },
+    {
+      "name": "Soldados del Futuro",
+      "description": "Unidades de élite del futuro equipadas con mechas avanzados o armas futuristas."
+    },
+    {
+      "name": "Reino de los Elfos",
+      "description": "Una comunidad mágica y misteriosa de seres fantásticos y ecosistemas mágicos."
+    },
+    {
+      "name": "Paisajes Extraterrestres",
+      "description": "Paisajes extraños y sobrenaturales en la superficie de planetas alienígenas."
+    },
+    {
+      "name": "Fantasía Mecánica",
+      "description": "Personajes y entornos altamente mecanizados, con un fuerte olor a metal."
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "name": "Abstrait et Texture",
+  "description": "Mettre en valeur la couleur, la texture ou la forme géométrique de l'art, souvent avec un fort impact visuel et une atmosphère.",
+  "groups": [
+    {
+      "name": "Marbrure",
+      "description": "Texture naturelle fluide, couleur élégante et changeante."
+    },
+    {
+      "name": "Texture de bois",
+      "description": "Présentation des rainures annuelles, transmettant une sensation de chaleur et de simplicité."
+    },
+    {
+      "name": "Effet d'encre éclaboussée",
+      "description": "Le mouvement et la collision de la peinture forment des motifs aléatoires et artistiques."
+    },
+    {
+      "name": "Formes géométriques",
+      "description": "Effet visuel abstrait formé par des points, des lignes et des surfaces."
+    },
+    {
+      "name": "Effet kaléidoscope",
+      "description": "Monde graphique magnifique formé par une symétrie multiple et une rotation."
+    },
+    {
+      "name": "Fluide et mouvement",
+      "description": "Lignes de couleur qui se fondent et s'étirent comme un liquide."
+    },
+    {
+      "name": "Assemblage de mosaïque",
+      "description": "Effet de blocs de couleur ou de fragments de photos assemblés en un motif complet."
+    },
+    {
+      "name": "Dégradé vectoriel",
+      "description": "Transition de couleur lisse générée par ordinateur."
+    },
+    {
+      "name": "Effet de pastel",
+      "description": "Tons de pastel doux et élégants, créant une atmosphère légère."
+    },
+    {
+      "name": "Texture métallique",
+      "description": "Surface avec une brillance métallique ou des traces d'oxydation."
+    },
+    {
+      "name": "Fragments de cristal",
+      "description": "Effet de réfraction et d'ombre translucide."
+    },
+    {
+      "name": "Effet de pixel",
+      "description": "Effet granulaire simulant l'écran électronique à basse résolution."
+    },
+    {
+      "name": "Motif et texture",
+      "description": "Motifs variés, utilisés pour la décoration ou l'arrière-plan."
+    },
+    {
+      "name": "Structure en spirale",
+      "description": "Image dynamique formée par des couches de rotation et d'accumulation en spirale."
+    },
+    {
+      "name": "Enroulement de ruban",
+      "description": "Effet tridimensionnel formé par l'entrelacement et l'enroulement des couleurs."
+    },
+    {
+      "name": "Texture de sable",
+      "description": "Motif fin formé par l'empilement ou le mouvement du sable."
+    },
+    {
+      "name": "Effet de lumière éblouissante",
+      "description": "Crée une atmosphère de science-fiction avec des faisceaux lumineux, des taches lumineuses et des lignes dynamiques."
+    },
+    {
+      "name": "Courbe ondulée",
+      "description": "Courbes ondulées et rythmées, pleines de rythme et de rythme."
+    },
+    {
+      "name": "Texture en relief",
+      "description": "Surface avec une sensation de relief ou de changement d'ombre."
+    },
+    {
+      "name": "Gouttes d'eau et ondulations",
+      "description": "Élément visuel principal formé par les ondulations de la surface de l'eau."
+    },
+    {
+      "name": "Papier ancien",
+      "description": "Texture de papier jaunie ou marquée par le temps, pleine de sens historique."
+    },
+    {
+      "name": "Fumée et brume",
+      "description": "Effet de fumée légère et flottante, vague et floue."
+    },
+    {
+      "name": "Mélange de couleurs",
+      "description": "Changement aléatoire formé par le mélange de plusieurs encres de couleurs."
+    },
+    {
+      "name": "Effet de verre brisé",
+      "description": "Effet de fissure et de fragmentation formé par la réfraction et la réflexion de la lumière."
+    }
+  ]
+}

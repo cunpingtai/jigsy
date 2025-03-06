@@ -1,0 +1,102 @@
+{
+  "name": "Ciencia y Futuro",
+  "description": "Enfoque en la investigación científica de vanguardia y la visión futura, desde el macrocosmos hasta el microcosmos, estimulando la curiosidad por lo desconocido.",
+  "groups": [
+    {
+      "name": "Tecnología de Robots",
+      "description": "La colaboración de robots de múltiples patas o humanoides con la inteligencia artificial."
+    },
+    {
+      "name": "Astronomía del Universo",
+      "description": "La observación y la investigación teórica de cuerpos celestes como estrellas, nebulosas y planetas."
+    },
+    {
+      "name": "Ingeniería Genética",
+      "description": "La innovación en la edición genética y la biología molecular."
+    },
+    {
+      "name": "Avances Médicos",
+      "description": "El desarrollo de nuevos medicamentos, la cirugía de vanguardia y el avance de los dispositivos médicos."
+    },
+    {
+      "name": "Protección del Medio Ambiente y Nuevas Energías",
+      "description": "Las energías renovables como la eólica y la solar, y la protección del ecosistema."
+    },
+    {
+      "name": "Biodiversidad",
+      "description": "La importancia de la diversidad de especies y el equilibrio ecológico."
+    },
+    {
+      "name": "Realidad Virtual (RV)",
+      "description": "La simulación digital y la interacción inmersiva del entretenimiento futuro."
+    },
+    {
+      "name": "Realidad Aumentada (RA)",
+      "description": "La tecnología que combina la información virtual con el entorno real."
+    },
+    {
+      "name": "Tecnología de Impresión 3D",
+      "description": "El proceso revolucionario de fabricación rápida y personalizada."
+    },
+    {
+      "name": "Nanotecnología",
+      "description": "El diseño de materiales o estructuras a nivel molecular o atómico."
+    },
+    {
+      "name": "Inteligencia Artificial (IA)",
+      "description": "El aprendizaje profundo, la toma de decisiones automatizada y la interacción hombre-máquina."
+    },
+    {
+      "name": "Planificación Urbana del Futuro",
+      "description": "El concepto de ciudad inteligente, con transporte inteligente, edificios inteligentes y desarrollo sostenible."
+    },
+    {
+      "name": "Migración a Marte",
+      "description": "La visión de establecer una base de supervivencia humana en un planeta extraterrestre."
+    },
+    {
+      "name": "Teoría de Viaje en el Tiempo y el Espacio",
+      "description": "La especulación científica y de ciencia ficción sobre la superación de las limitaciones temporales o espaciales."
+    },
+    {
+      "name": "Física Cuántica",
+      "description": "La investigación de vanguardia en campos como la entrelazamiento cuántico y la computación cuántica."
+    },
+    {
+      "name": "Seguridad de la Información y Hackers",
+      "description": "La defensa y el ataque en la era digital, y la protección de la privacidad."
+    },
+    {
+      "name": "Exploración de Marte",
+      "description": "La exploración de Marte con vehículos espaciales, el aterrizaje de humanos y la colonización interplanetaria."
+    },
+    {
+      "name": "Telescopios de Gran Alcance",
+      "description": "Los equipos clave para observar galaxias distantes y explorar el origen del universo."
+    },
+    {
+      "name": "Investigación Submarina",
+      "description": "La investigación científica de estaciones de observación submarina y la biología marina."
+    },
+    {
+      "name": "Supercomputadoras",
+      "description": "Los equipos centrales que soportan la investigación y el desarrollo de la ingeniería con cálculos de alto rendimiento."
+    },
+    {
+      "name": "Investigación Meteorológica",
+      "description": "La monitorización de fenómenos meteorológicos extremos, el cambio climático y el entorno atmosférico."
+    },
+    {
+      "name": "Interfaz Cerebro-Computadora",
+      "description": "La tecnología de vanguardia que permite la comunicación directa entre el cerebro humano y la computadora."
+    },
+    {
+      "name": "Coche Volador",
+      "description": "La nueva forma de transporte personal o público en el futuro."
+    },
+    {
+      "name": "Nuevos Materiales del Futuro",
+      "description": "Las invenciones potencialmente revolucionarias como el grafeno y los superconductores."
+    }
+  ]
+}

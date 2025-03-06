@@ -1,0 +1,102 @@
+{
+  "name": "Sports and Fitness",
+  "description": "Showcasing the diverse aspects of sports and healthy lifestyles, from intense competitions to daily fitness, inspiring people's vitality and passion.",
+  "groups": [
+    {
+      "name": "Soccer Field",
+      "description": "The world's most popular competitive sport, emphasizing teamwork and passion."
+    },
+    {
+      "name": "Basketball Showdown",
+      "description": "Intense confrontations and individual technical displays."
+    },
+    {
+      "name": "Tennis Scene",
+      "description": "Elegant swings and confrontations, emphasizing physical coordination and strategy."
+    },
+    {
+      "name": "Golf Swing",
+      "description": "A refined and gentlemanly sport on serene grasslands."
+    },
+    {
+      "name": "Marathon Long Run",
+      "description": "A great test of endurance and willpower in urban or cross-country races."
+    },
+    {
+      "name": "Competitive Gymnastics",
+      "description": "The combination of high skills and artistry in events like balance beam and floor exercise."
+    },
+    {
+      "name": "Skiing and Snowboarding",
+      "description": "Thrilling speed and skill on snow-covered mountains and ski resorts."
+    },
+    {
+      "name": "Ice Sports",
+      "description": "The beauty and passion of figure skating, ice hockey, and other ice-based sports."
+    },
+    {
+      "name": "Boxing and Martial Arts",
+      "description": "The ultimate test of strength, speed, and intelligence."
+    },
+    {
+      "name": "Racing",
+      "description": "Experiencing the thrill of speed in F1, rally racing, and other high-speed competitions."
+    },
+    {
+      "name": "Cycling Competition",
+      "description": "Endurance and tactics in road, mountain, or track cycling."
+    },
+    {
+      "name": "Swimming and Diving",
+      "description": "The challenge of physical coordination and control in water sports."
+    },
+    {
+      "name": "Extreme Sports (Skateboarding, Rock Climbing, etc.)",
+      "description": "Challenging human limits with adventure activities."
+    },
+    {
+      "name": "Gym Training",
+      "description": "Shaping a healthy physique through equipment, aerobic, and strength training."
+    },
+    {
+      "name": "Yoga and Meditation",
+      "description": "Uniting body and mind, emphasizing flexibility and breathing control."
+    },
+    {
+      "name": "Dance Performance",
+      "description": "The artistic and athletic combination of various dance styles, showcasing passion or elegance."
+    },
+    {
+      "name": "Equestrian Competition",
+      "description": "The harmony and elegant posture of horse and rider."
+    },
+    {
+      "name": "Table Tennis Match",
+      "description": "The quick reflexes and precise techniques in a fast-paced game."
+    },
+    {
+      "name": "Badminton",
+      "description": "The light and fast-paced game of shuttlecock flying through the air."
+    },
+    {
+      "name": "Judo and Wrestling",
+      "description": "Using technique and joint control for close combat."
+    },
+    {
+      "name": "Sailing and Navigation",
+      "description": "The sailing sport that emphasizes teamwork and wind harnessing."
+    },
+    {
+      "name": "Shooting and Archery",
+      "description": "A sport that requires a steady mind and focus to hit targets."
+    },
+    {
+      "name": "Cricket and American Football",
+      "description": "Intense team competitions from the Commonwealth or American sports."
+    },
+    {
+      "name": "Indoor Sports (Bowling, Pool, etc.)",
+      "description": "Combining entertainment and skill in indoor activities."
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "name": "Mondo animale",
+  "description": "Dalla terra al mare, dal polo al tropico, gli animali e il loro ambiente vitale mostrano la vivacità e il fascino del mondo naturale.",
+  "groups": [
+    {
+      "name": "Animali selvatici",
+      "description": "Specie che vivono in natura, con un forte istinto di sopravvivenza."
+    },
+    {
+      "name": "Animali della foresta pluviale tropicale",
+      "description": "Vivaci creature della foresta pluviale e la ricca catena alimentare."
+    },
+    {
+      "name": "Animali acquatici",
+      "description": "Pesci, coralli e mammiferi marini in mare, fiumi e laghi."
+    },
+    {
+      "name": "Animali domestici",
+      "description": "Animali da fattoria o da compagnia, come polli, anatre, mucche e pecore."
+    },
+    {
+      "name": "Mondo degli insetti",
+      "description": "Microcosmo con forme e numeri diversi."
+    },
+    {
+      "name": "Felini",
+      "description": "Predatori eleganti e feroci come leoni, tigri e leopardi."
+    },
+    {
+      "name": "Canidi",
+      "description": "Animali intelligenti e sociali come lupi, volpi e cani."
+    },
+    {
+      "name": "Uccelli da compagnia",
+      "description": "Uccelli con piumaggio colorato e canto melodioso."
+    },
+    {
+      "name": "Rettili e anfibi",
+      "description": "Animali a sangue freddo come lucertole, serpenti e rane."
+    },
+    {
+      "name": "Animali della savana",
+      "description": "Animali che corrono o vivono in branchi nella vasta savana."
+    },
+    {
+      "name": "Animali polari",
+      "description": "Rappresentanti della vita artica come pinguini e orsi polari."
+    },
+    {
+      "name": "Specie rare e in via d'estinzione",
+      "description": "Animali che sono a rischio di estinzione e hanno bisogno di protezione."
+    },
+    {
+      "name": "Animali giovani",
+      "description": "Giovanili di varie specie con aspetto adorabile."
+    },
+    {
+      "name": "Predatori",
+      "description": "Predatori feroci come ghepardi, aquile e avvoltoi."
+    },
+    {
+      "name": "Animali preistorici (dinosauri, ecc.)",
+      "description": "Grandi creature che dominavano la terra o il mare in epoche remote."
+    },
+    {
+      "name": "Primati",
+      "description": "Animali intelligenti e simili all'uomo come scimpanzé e scimmie."
+    },
+    {
+      "name": "Mostri marini",
+      "description": "Grandi creature marine come squali balena e calamari giganti."
+    },
+    {
+      "name": "Scena di caccia",
+      "description": "Momenti tesi di caccia di predatori o umani nella natura."
+    },
+    {
+      "name": "Animali sociali",
+      "description": "Animali che vivono in società come formiche e lupi."
+    },
+    {
+      "name": "Insetti, pesci, crostacei e molluschi",
+      "description": "Piccoli animali acquatici o costieri con corpi senza vertebre."
+    },
+    {
+      "name": "Protezione della natura",
+      "description": "Immagini di armonia tra uomo e animale nelle riserve naturali."
+    },
+    {
+      "name": "Interazione uomo-animale",
+      "description": "Momenti affettuosi tra uomo e animale come animali domestici o osservazione in natura."
+    },
+    {
+      "name": "Animali da fattoria",
+      "description": "Animali comuni come mucche, cavalli, maiali e pecore che vivono in fattoria."
+    },
+    {
+      "name": "Animali domestici e carini",
+      "description": "Animali domestici come gatti, cani e criceti che portano gioia e comfort."
+    }
+  ]
+}

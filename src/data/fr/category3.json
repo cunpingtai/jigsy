@@ -1,0 +1,102 @@
+{
+  "name": "Cuisine et Cuisson",
+  "description": "De la cuisine familiale aux plats renommés du monde, explorez le charme de la cuisine et les techniques de cuisson, ressentez le festin multiculturel des papilles gustatives.",
+  "groups": [
+    {
+      "name": "Cuisine traditionnelle chinoise",
+      "description": "L'essence des plats renommés de différentes régions, tels que la cuisine du Sichuan, la cuisine cantonaise, la cuisine de Huaiyang, etc."
+    },
+    {
+      "name": "Pâtisserie occidentale",
+      "description": "L'art sucré de la boulangerie, des gâteaux et des desserts."
+    },
+    {
+      "name": "Cuisine japonaise",
+      "description": "La simplicité de la cuisine japonaise, tels que les sushis, les sashimis et la présentation délicate."
+    },
+    {
+      "name": "Barbecue coréen",
+      "description": "La combinaison de la marinade et de la cuisson au charbon, accompagnée de nombreux plats d'accompagnement."
+    },
+    {
+      "name": "Cuisine d'Asie du Sud-Est",
+      "description": "La fusion de la noix de coco et des épices, tels que la cuisine thaïlandaise, la cuisine vietnamienne, etc."
+    },
+    {
+      "name": "Cuisine méditerranéenne",
+      "description": "La cuisine saine à base d'huile d'olive, d'herbes et de fruits de mer."
+    },
+    {
+      "name": "Grande cuisine française",
+      "description": "La cuisine romantique qui met l'accent sur les ingrédients de haute qualité et la présentation délicate."
+    },
+    {
+      "name": "Pâtes et Pizza italiennes",
+      "description": "La combinaison classique de la sauce tomate, du fromage et des pâtes ou de la pizza."
+    },
+    {
+      "name": "Festin de fruits de mer",
+      "description": "Le festin de fruits de mer, tels que les crevettes, les crabes et les coquillages."
+    },
+    {
+      "name": "Barbecue BBQ",
+      "description": "La fête animée de la cuisson en plein air et de la fumée."
+    },
+    {
+      "name": "Desserts et Gâteaux",
+      "description": "La dégustation sucrée des desserts, tels que les gâteaux, les tartes et les glaces."
+    },
+    {
+      "name": "Art du chocolat",
+      "description": "Le monde sucré et parfumé du chocolat, tels que les différentes saveurs de cacao et les formes artisanales."
+    },
+    {
+      "name": "Thé et Café",
+      "description": "La boisson chaude qui mélange la saveur épaisse et la culture profonde."
+    },
+    {
+      "name": "Cuisine épicée",
+      "description": "Les plats qui stimulent les papilles gustatives, tels que la fondue épicée, le sauté épicé, etc."
+    },
+    {
+      "name": "Cuisine végétarienne",
+      "description": "La cuisine saine à base de légumes, de fruits et de produits à base de soja."
+    },
+    {
+      "name": "Fondue chinoise et Hot Pot",
+      "description": "La combinaison de nombreux ingrédients dans un bouillon bouillant, tels que la fondue épicée et le Hot Pot."
+    },
+    {
+      "name": "Boîtes à lunch et Fast-food",
+      "description": "La commodité de la restauration rapide dans la vie trépidante, avec une variété de styles et de saveurs."
+    },
+    {
+      "name": "Snacks",
+      "description": "Les petites collations qui peuvent être dégustées à tout moment et en tout lieu, tels que les chips, les bonbons, etc."
+    },
+    {
+      "name": "Collection mondiale de pains",
+      "description": "Les différents styles de pain, tels que la baguette, le pain noir allemand, le pain mou asiatique, etc."
+    },
+    {
+      "name": "Cuisine créative",
+      "description": "L'innovation et la révolution de la cuisine, la fusion de nouveaux ingrédients et de nouvelles techniques de cuisson."
+    },
+    {
+      "name": "Cuisine maison",
+      "description": "La collision entre le goût traditionnel et le style personnel de la cuisine."
+    },
+    {
+      "name": "Scènes d'enseignement de la cuisine",
+      "description": "La démonstration ou le cours de cuisine, l'atmosphère de l'enseignement."
+    },
+    {
+      "name": "Disposition de la table de cuisine",
+      "description": "La présentation soignée et l'ambiance de la décoration de la table."
+    },
+    {
+      "name": "Cuisine de rue",
+      "description": "Le charme unique des stands de rue et des collations locales."
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "name": "Voyages et Sites",
+  "description": "Destinations populaires et paysages insolites du monde entier, mettant en valeur la culture et les merveilles de différentes régions, suscitant le désir d'explorer le monde.",
+  "groups": [
+    {
+      "name": "Villes du Monde",
+      "description": "Les célèbres bâtiments et paysages urbains internationaux."
+    },
+    {
+      "name": "Station Balnéaire",
+      "description": "Un sanctuaire de détente où se mêlent plage, soleil et vagues."
+    },
+    {
+      "name": "Tourisme Montagnard",
+      "description": "Randonnée, observation et aventure dans les zones montagneuses ou collinaires."
+    },
+    {
+      "name": "Parc à Thème",
+      "description": "Parc d'attractions et monde de conte de fées."
+    },
+    {
+      "name": "Plage et Île",
+      "description": "Un lieu de vacances romantique avec une eau claire et des palmiers."
+    },
+    {
+      "name": "Tour du Monde",
+      "description": "Collection de sites de plusieurs pays, pour voir le monde sans quitter la maison."
+    },
+    {
+      "name": "Route de Montagne",
+      "description": "Conduite ou cyclisme dans les montagnes, avec des paysages infinis."
+    },
+    {
+      "name": "Chalet en Forêt",
+      "description": "Un chalet tranquille loin de la ville, pour ressentir la nature de près."
+    },
+    {
+      "name": "Sites Historiques",
+      "description": "Bâtiments ou sites de valeur patrimoniale dans le fleuve de l'histoire."
+    },
+    {
+      "name": "Sites du Patrimoine Mondial",
+      "description": "Sites de réserve de valeur exceptionnelle et de culture commune de l'humanité."
+    },
+    {
+      "name": "Village Européen",
+      "description": "Rues pavées pittoresques et atmosphère artistique des petites villes."
+    },
+    {
+      "name": "Ville Antique d'Asie",
+      "description": "Ville ancienne avec une riche culture nationale après des milliers d'années de dépôt."
+    },
+    {
+      "name": "Aventure dans la Savane Africaine",
+      "description": "Expérience rapprochée de la faune sauvage et des vastes prairies."
+    },
+    {
+      "name": "Route Sauvage d'Amérique",
+      "description": "Voyage d'aventure à travers des paysages variés sur une longue route."
+    },
+    {
+      "name": "Voyage dans les Terres enneigées",
+      "description": "Expérience de la froideur extrême et des paysages magnifiques dans la neige et la glace."
+    },
+    {
+      "name": "Vue Panoramique en Montgolfière",
+      "description": "Admirez les magnifiques paysages et les formations géologiques spéciales dans les airs."
+    },
+    {
+      "name": "Voyage d'Aventure Extrême",
+      "description": "Itinéraire touristique avec des activités à forte stimulation comme le saut à l'élastique et le deltaplane."
+    },
+    {
+      "name": "Festival de la Culture Folklorique",
+      "description": "Expérience des activités de festival locales, ressentir le charme multiculturel."
+    },
+    {
+      "name": "Aventure dans le Désert",
+      "description": "Le spectacle du désert avec ses vastes étendues de sable, les caravanes de chameaux et le ciel étoilé."
+    },
+    {
+      "name": "Croisière en Mer",
+      "description": "Tour du monde en mer sur un luxueux paquebot, combinant vacances et tourisme."
+    },
+    {
+      "name": "Site de Photographie",
+      "description": "Un endroit idéal pour la photographie, la source d'inspiration des amateurs de photographie."
+    },
+    {
+      "name": "Voyage en Voiture",
+      "description": "Liberté et flexibilité du voyage sur la route, pour une expérience approfondie du charme le long du chemin."
+    },
+    {
+      "name": "Randonnée Pédestre",
+      "description": "Marche profonde des routards ou des amis des ânes, pour se rapprocher de la nature et de la culture."
+    },
+    {
+      "name": "Cyclisme Autour du Lac",
+      "description": "Cyclisme le long du lac, pour profiter de la beauté du lac et de l'air frais."
+    }
+  ]
+}

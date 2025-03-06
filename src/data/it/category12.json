@@ -1,0 +1,102 @@
+{
+  "name": "Paesaggi naturali",
+  "description": "Coprendo la grandezza e la sottigliezza della natura, dalle alte montagne e dai ghiacciai agli oceani e ai laghi, mostrando la ricca diversità ecologica e geografica della Terra.",
+  "groups": [
+    {
+      "name": "Montagne innevate",
+      "description": "Cime delle montagne coperte di neve e ghiaccio, situate in regioni di grande altitudine."
+    },
+    {
+      "name": "Laghi e cascate",
+      "description": "Le serene superfici dei laghi e le cascate che scorrono si completano a vicenda."
+    },
+    {
+      "name": "Deserti e Gobi",
+      "description": "Vaste distese di sabbia e paesaggi desolati in regioni estremamente aride."
+    },
+    {
+      "name": "Paesaggi forestali",
+      "description": "Alti alberi e vegetazione densa formano i polmoni naturali della Terra."
+    },
+    {
+      "name": "Mondo oceanico",
+      "description": "Vasti domini oceanici e la vita marina nei loro vibranti habitat blu."
+    },
+    {
+      "name": "Alba e tramonto",
+      "description": "Le maestose trasformazioni del cielo durante l'alba e il tramonto."
+    },
+    {
+      "name": "Foreste pluviali",
+      "description": "Ambienti umidi e piovosi con vegetazione rigogliosa e specie diverse."
+    },
+    {
+      "name": "Paesaggi di prateria",
+      "description": "Le interminabili praterie e il bestiame e le pecore che pascolano liberamente."
+    },
+    {
+      "name": "Campi di fiori e campo",
+      "description": "I colorati fiori e i coltivazioni intrecciate in un paesaggio romantico."
+    },
+    {
+      "name": "Colline e montagne",
+      "description": "Le dolci pendici e la vegetazione rigogliosa delle montagne basse e delle colline."
+    },
+    {
+      "name": "Coste delle isole",
+      "description": "Le pittoresche coste e le isole delineate dal mare."
+    },
+    {
+      "name": "Paesaggi dell'aurora",
+      "description": "Gli spettacolari spettacoli di luci colorate nei cieli delle alte latitudini."
+    },
+    {
+      "name": "Formazioni vulcaniche",
+      "description": "Vulcani e paesaggi geotermici in stati attivi o dormienti."
+    },
+    {
+      "name": "Foreste di pietra e rocce strane",
+      "description": "Le formazioni rocciose uniche e dalle forme strane, apparentemente scolpite."
+    },
+    {
+      "name": "Zone umide e paludi",
+      "description": "Le zone di transizione acqua-terra con ecosistemi diversi."
+    },
+    {
+      "name": "Calotte di ghiaccio polari",
+      "description": "Le massicce coperture di ghiaccio che coprono le regioni estremamente fredde."
+    },
+    {
+      "name": "Canyon e gole",
+      "description": "I profondi valli formati dall'erosione dei fiumi o del vento, con scogliere scoscese."
+    },
+    {
+      "name": "Paesaggi di altopiano",
+      "description": "I paesaggi espansivi e di grande altitudine con climi unici."
+    },
+    {
+      "name": "Formazioni carsiche",
+      "description": "Le formazioni geologiche uniche di rocce solubili, come grotte e inghiottitoi."
+    },
+    {
+      "name": "Paesaggi di natura selvaggia",
+      "description": "Gli ambienti naturali incontaminati e intatti."
+    },
+    {
+      "name": "Paesaggi stagionali",
+      "description": "Le mutevoli apparenze naturali della primavera, dell'estate, dell'autunno e dell'inverno."
+    },
+    {
+      "name": "Paesaggi dell'arcobaleno",
+      "description": "Le scene vibranti e impressionanti dell'arcobaleno nel cielo."
+    },
+    {
+      "name": "Caverne sotterranee",
+      "description": "Gli spazi misteriosi con stalattiti e fiumi sotterranei."
+    },
+    {
+      "name": "Alberi antichi",
+      "description": "Gli alti e antichi alberi che hanno resistito agli anni."
+    }
+  ]
+}

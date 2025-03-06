@@ -1,0 +1,102 @@
+{
+  "name": "Abstrakt und Texturen",
+  "description": "Hervorhebung der Farbe, der Textur oder der geometrischen Formen, oft mit starkem visuellen Schock und Atmosphäre.",
+  "groups": [
+    {
+      "name": "Marmor-Texturen",
+      "description": "Natürlich fließende Texturen, farblich edel und vielfältig."
+    },
+    {
+      "name": "Holzstruktur",
+      "description": "Präsentation von Jahresringen, Übermittlung von Wärme und Einfachheit."
+    },
+    {
+      "name": "Tusche-Schwaden",
+      "description": "Farbstofffluss und Kollisionen bilden zufällige und künstlerisch anmutende Muster."
+    },
+    {
+      "name": "Geometrische Formen",
+      "description": "Visuelle Effekte, die durch die Kombination von Punkten, Linien und Flächen entstehen."
+    },
+    {
+      "name": "Kaleidoskop-Effekt",
+      "description": "Eine Welt von vielfachen Symmetrien und Drehungen, prächtig und farbenfroh."
+    },
+    {
+      "name": "Flüssigkeitsfluss",
+      "description": "Farbige Linien, die wie Flüssigkeiten ineinander fließen und sich ausdehnen."
+    },
+    {
+      "name": "Mosaik-Komposition",
+      "description": "Ein vollständiges Bild, das aus Farbblöcken oder Fotofragmenten zusammengesetzt wird."
+    },
+    {
+      "name": "Vektor-Gradient",
+      "description": "Glatte Farbübergänge, die durch Computergrafiken generiert werden."
+    },
+    {
+      "name": "Pastell-Schleier",
+      "description": "Sanfte, zarte Pastellfarben, die eine leichte Atmosphäre erzeugen."
+    },
+    {
+      "name": "Metall-Effekt",
+      "description": "Oberflächen mit metallischem Glanz oder oxidierten Spuren."
+    },
+    {
+      "name": "Kristall-Splitter",
+      "description": "Kristallklar und transparente Brechungen und Lichteffekte."
+    },
+    {
+      "name": "Pixel-Art",
+      "description": "Simulation von niedriger Auflösung auf elektronischen Bildschirmen."
+    },
+    {
+      "name": "Muster-Hintergrund",
+      "description": "Vielfältige Muster, die für Dekoration oder Hintergründe verwendet werden können."
+    },
+    {
+      "name": "Wirbel-Struktur",
+      "description": "Schichtweise rotierende und spiralig sich sammelnde dynamische Bilder."
+    },
+    {
+      "name": "Farbband-Wicklung",
+      "description": "Bänder aus Farben, die sich kreuzen und winden, um eine dreidimensionale Wirkung zu erzeugen."
+    },
+    {
+      "name": "Sand-Texturen",
+      "description": "Feine Muster, die durch das Stapeln oder Fließen von Sandkörnern entstehen."
+    },
+    {
+      "name": "Glow-Linien",
+      "description": "Lichtstrahlen, Lichtflecken und dynamische Linien, die eine Science-Fiction-Atmosphäre erzeugen."
+    },
+    {
+      "name": "Wellen-Kurven",
+      "description": "Wellenförmige Kurven, die Rhythmus und Melodie vermitteln."
+    },
+    {
+      "name": "Relief-Struktur",
+      "description": "Oberflächen mit plastischem Relief oder Schattenveränderungen."
+    },
+    {
+      "name": "Wasser-Tropfen und Wellen",
+      "description": "Visuelle Elemente, die sich auf die Ausbreitung von Wasserwellen konzentrieren."
+    },
+    {
+      "name": "Altes Papier",
+      "description": "Gelblich oder mit Altersspuren versehene Papier-Texturen, voll von Nostalgie."
+    },
+    {
+      "name": "Rauch-Nebel",
+      "description": "Leicht und luftig, wie Nebel, der sich auflöst."
+    },
+    {
+      "name": "Tinten-Mischung",
+      "description": "Zufällige Veränderungen durch die Mischung von Tinten."
+    },
+    {
+      "name": "Glas-Splitter-Effekt",
+      "description": "Bruchlinien und Splitter, die einen Moment der Explosion erzeugen."
+    }
+  ]
+}

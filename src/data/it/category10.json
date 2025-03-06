@@ -1,0 +1,102 @@
+{
+  "name": "Architettura e monumenti",
+  "description": "Le realizzazioni architettoniche dell'umanità in epoche e regioni diverse, dai siti antichi ai monumenti moderni, riflettono l'evoluzione della cultura e della tecnologia.",
+  "groups": [
+    {
+      "name": "Architettura greco-romana",
+      "description": "Spesso utilizza colonne e archi, maestosa e ricca di bellezza classica."
+    },
+    {
+      "name": "Architettura cinese antica",
+      "description": "Tetti a sbalzo, strutture in legno e altre essenze dell'architettura tradizionale orientale."
+    },
+    {
+      "name": "Chiese gotiche",
+      "description": "Opere d'arte religiosa con guglie e vetrate colorate."
+    },
+    {
+      "name": "Stile islamico",
+      "description": "Architettura orientale con cupole e archi."
+    },
+    {
+      "name": "Grattacieli contemporanei",
+      "description": "Il panorama urbano moderno costruito con cemento e acciaio."
+    },
+    {
+      "name": "Skyline della città",
+      "description": "Il profilo urbano grandioso composto da molte costruzioni iconiche."
+    },
+    {
+      "name": "Templi e palazzi",
+      "description": "Edifici religiosi o reali con decorazioni splendide e una lunga storia."
+    },
+    {
+      "name": "Castelli medievali europei",
+      "description": "Forti e torri con funzioni difensive e artistiche."
+    },
+    {
+      "name": "Monumenti famosi nel mondo",
+      "description": "Edifici iconici come la Torre Eiffel e la Statua della Libertà."
+    },
+    {
+      "name": "Ponte sul mare",
+      "description": "Progetti di ponti spettacolari che collegano due rive o baie."
+    },
+    {
+      "name": "Case tradizionali",
+      "description": "Stili di vita locali conservati nelle case tradizionali."
+    },
+    {
+      "name": "Rovine di siti antichi",
+      "description": "Resti di edifici dopo l'erosione del tempo e della storia."
+    },
+    {
+      "name": "Edifici sull'acqua",
+      "description": "Edifici costruiti sull'acqua o sotto l'acqua, con funzioni pratiche e ornamentali."
+    },
+    {
+      "name": "Atmosfera cittadina",
+      "description": "Edifici e strade pittoresche in Europa o in altre regioni."
+    },
+    {
+      "name": "Edifici industriali",
+      "description": "Fabbriche e ciminiere che mostrano lo spirito dell'era industriale."
+    },
+    {
+      "name": "Sculture e monumenti commemorativi",
+      "description": "Simboli della città per commemorare persone o eventi importanti."
+    },
+    {
+      "name": "Giardini e parchi",
+      "description": "Luoghi che combinano la vita umana e la natura."
+    },
+    {
+      "name": "Architettura moderna e minimalista",
+      "description": "Design contemporaneo con linee semplici e funzionalità."
+    },
+    {
+      "name": "Ville rurali in Europa e America",
+      "description": "Case calde e confortevoli immerse in paesaggi rurali."
+    },
+    {
+      "name": "Templi e pagode asiatiche",
+      "description": "Stili di architettura religiosa comuni in Estremo Oriente e Sud-Est Asiatico."
+    },
+    {
+      "name": "Edifici sotterranei (miniere, ecc.)",
+      "description": "Spazi artificiali o grotte naturali nascosti sotto la superficie terrestre."
+    },
+    {
+      "name": "Architettura in legno",
+      "description": "Edifici costruiti principalmente in legno, semplici e caldi."
+    },
+    {
+      "name": "Architettura in mattoni e pietra",
+      "description": "Edifici solidi e duraturi, comuni in castelli, palazzi e case tradizionali cinesi."
+    },
+    {
+      "name": "Città costiere",
+      "description": "Layout urbano e atmosfera portuale nelle zone costiere."
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "name": "Architecture and Landmarks",
+  "description": "Human civilization's architectural achievements across different eras and regions, reflecting the evolution of culture and technology.",
+  "groups": [
+    {
+      "name": "Ancient Greek and Roman Architecture",
+      "description": "Characterized by the use of columns and arches, grand and rich in classical beauty."
+    },
+    {
+      "name": "Traditional Chinese Architecture",
+      "description": "Featuring flying eaves and wooden structures, the essence of Eastern traditional architecture."
+    },
+    {
+      "name": "Gothic Cathedrals",
+      "description": "Interwoven with pointed towers and stained glass, a masterpiece of religious art."
+    },
+    {
+      "name": "Islamic Style",
+      "description": "Represented by domes and arches, Middle Eastern flair architecture."
+    },
+    {
+      "name": "Contemporary Skyscrapers",
+      "description": "The modern city skyline forged from steel and concrete."
+    },
+    {
+      "name": "Urban Skyline",
+      "description": "The grand outline of a metropolis composed of multiple landmark buildings."
+    },
+    {
+      "name": "Temples and Palaces",
+      "description": "Religious or royal buildings, often with lavish decorations and history."
+    },
+    {
+      "name": "European Medieval Castles",
+      "description": "Thick castle walls and pointed towers, combining defense and art."
+    },
+    {
+      "name": "World Famous Landmarks",
+      "description": "Global icons such as the Eiffel Tower and the Statue of Liberty."
+    },
+    {
+      "name": "Bridges Across the Sea",
+      "description": "Majestic bridge engineering projects connecting shores or sea bays."
+    },
+    {
+      "name": "Traditional Folk Houses",
+      "description": "Local residential forms preserved in various folk cultures."
+    },
+    {
+      "name": "Ancient Ruins",
+      "description": "Building remnants weathered by history."
+    },
+    {
+      "name": "Waterborne Architecture",
+      "description": "Structures built on or under water, combining functionality and aesthetics."
+    },
+    {
+      "name": "Small Town Charm",
+      "description": "European or other regional small town architecture and streets with unique characteristics."
+    },
+    {
+      "name": "Industrial Architecture",
+      "description": "Factory buildings, chimneys, and other industrial era architectural forms."
+    },
+    {
+      "name": "Sculptures and Memorials",
+      "description": "Urban landmarks commemorating important individuals or events."
+    },
+    {
+      "name": "Gardens and Parks",
+      "description": "Green spaces designed to integrate human habitation with nature."
+    },
+    {
+      "name": "Modern Minimalist Architecture",
+      "description": "Simple lines, functionality prioritized, highlighting contemporary design principles."
+    },
+    {
+      "name": "Western Countryside Villas",
+      "description": "Cozy residences nestled in rural landscapes."
+    },
+    {
+      "name": "Asian Temple Pagodas",
+      "description": "Common religious architectural styles in East Asia or Southeast Asia."
+    },
+    {
+      "name": "Underground Architecture (Mines, etc.)",
+      "description": "Man-made spaces or natural caves hidden beneath the earth's surface."
+    },
+    {
+      "name": "Wooden Structure Architecture",
+      "description": "Using wood as the primary material, rustic and warm."
+    },
+    {
+      "name": "Brick and Stone Structure Architecture",
+      "description": "Durable, often seen in castles, palaces, and traditional Chinese old houses."
+    },
+    {
+      "name": "Coastal Cities",
+      "description": "The architectural layout and harbor atmosphere of coastal areas."
+    }
+  ]
+}

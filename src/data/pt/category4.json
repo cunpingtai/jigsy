@@ -1,0 +1,102 @@
+{
+  "name": "Esportes e Fitness",
+  "description": "Mostra a rica diversidade do esporte e do estilo de vida saudável, desde competições intensas até exercícios diários, estimulando a vitalidade e paixão das pessoas.",
+  "groups": [
+    {
+      "name": "Campo de Futebol",
+      "description": "O esporte mais popular do mundo, com trabalho em equipe e paixão."
+    },
+    {
+      "name": "Basquete",
+      "description": "Confronto intenso e exibição de habilidades individuais."
+    },
+    {
+      "name": "Cena de Tênis",
+      "description": "Elegante batida e confronto, com foco na coordenação corporal e estratégia."
+    },
+    {
+      "name": "Golfe",
+      "description": "Esporte elegante e delicado em campos tranquilos."
+    },
+    {
+      "name": "Maratona",
+      "description": "Grande teste de resistência e vontade em corridas urbanas ou off-road."
+    },
+    {
+      "name": "Ginástica Artística",
+      "description": "Combinação de alta habilidade técnica e arte."
+    },
+    {
+      "name": "Esqui e Snowboard",
+      "description": "Diversão de velocidade e habilidade na neve e nas pistas de esqui."
+    },
+    {
+      "name": "Esportes no Gelo",
+      "description": "Beleza e paixão no gelo, como patinação artística e hóquei."
+    },
+    {
+      "name": "Boxe e Luta",
+      "description": "Confronto de força, velocidade e inteligência."
+    },
+    {
+      "name": "Corrida de Carros",
+      "description": "Experiência de velocidade e paixão em competições de alta velocidade, como F1 e rally."
+    },
+    {
+      "name": "Corrida de Bicicleta",
+      "description": "Combinação de resistência e tática em corridas de estrada, montanha ou pista."
+    },
+    {
+      "name": "Natação e Mergulho",
+      "description": "Teste de coordenação e controle do corpo na água."
+    },
+    {
+      "name": "Esportes Radicais (Skate, Escalada, etc.)",
+      "description": "Desafio de aventura que ultrapassa os limites do corpo."
+    },
+    {
+      "name": "Treinamento de Academia",
+      "description": "Moldar a saúde física com treinamento de equipamentos, aeróbica e força."
+    },
+    {
+      "name": "Ioga e Meditação",
+      "description": "União de corpo e mente, com foco na flexibilidade e controle da respiração."
+    },
+    {
+      "name": "Apresentação de Dança",
+      "description": "Combinação de arte e esporte, com paixão ou elegância de várias danças."
+    },
+    {
+      "name": "Competição de Equitação",
+      "description": "Combinação de cooperação e elegância entre humanos e cavalos."
+    },
+    {
+      "name": "Jogo de Tênis de Mesa",
+      "description": "Diversão de movimentos ágeis e precisos entre pequenas bolas."
+    },
+    {
+      "name": "Esporte de Badminton",
+      "description": "Diversão de bater na bola de pena no ar."
+    },
+    {
+      "name": "Judô e Luta Livre",
+      "description": "Confronto de técnicas e controle de articulações."
+    },
+    {
+      "name": "Vela e Navegação",
+      "description": "Esporte aquático de navegação com vento, com foco na cooperação em equipe."
+    },
+    {
+      "name": "Tiro com Arco",
+      "description": "Esporte de foco e controle mental, com foco no acerto do alvo."
+    },
+    {
+      "name": "Críquete e Rugby",
+      "description": "Confronto intenso e paixão em esportes de equipe, como críquete e rugby."
+    },
+    {
+      "name": "Esportes Internos (Boliche, Bilhar, etc.)",
+      "description": "Diversão de entretenimento e habilidade em esportes internos."
+    }
+  ]
+}

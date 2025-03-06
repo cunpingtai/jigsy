@@ -1,0 +1,102 @@
+{
+  "name": "Deportes y Fitness",
+  "description": "Muestra la rica diversidad de la competición deportiva y el estilo de vida saludable, desde la intensa competición hasta el fitness diario, estimulando la vitalidad y la pasión de las personas.",
+  "groups": [
+    {
+      "name": "Campo de Fútbol",
+      "description": "El deporte de equipo más popular del mundo, la colaboración y la pasión se encuentran."
+    },
+    {
+      "name": "Baloncesto",
+      "description": "La intensa competición y la exhibición de habilidades personales."
+    },
+    {
+      "name": "Escena de Tenis",
+      "description": "El elegante golpeo y la competición, enfocándose en la coordinación corporal y la estrategia."
+    },
+    {
+      "name": "Golf",
+      "description": "El deporte elegante y delicado en el tranquilo campo de césped."
+    },
+    {
+      "name": "Maratón",
+      "description": "La gran prueba de resistencia y voluntad en la carrera urbana o de campo traviesa."
+    },
+    {
+      "name": "Gimnasia Artística",
+      "description": "La combinación de alta habilidad técnica y artística en eventos como la barra de equilibrio y la gimnasia libre."
+    },
+    {
+      "name": "Esquí y Snowboard",
+      "description": "La diversión de la velocidad y la habilidad en la montaña y en la pista de esquí."
+    },
+    {
+      "name": "Deportes de Hielo",
+      "description": "La belleza y la pasión en el hielo, como el patinaje artístico y el hockey sobre hielo."
+    },
+    {
+      "name": "Boxeo y Lucha",
+      "description": "La lucha extrema de fuerza, velocidad e inteligencia."
+    },
+    {
+      "name": "Carreras de Coches",
+      "description": "La emoción de la velocidad y la competición en eventos como la Fórmula 1 y el rally."
+    },
+    {
+      "name": "Ciclismo",
+      "description": "La resistencia y la estrategia en eventos como el ciclismo de carretera, de montaña o en pista."
+    },
+    {
+      "name": "Natación y Buceo",
+      "description": "La prueba de la coordinación y el control del cuerpo en el agua."
+    },
+    {
+      "name": "Deportes Extremos (Skate, Escalada, etc.)",
+      "description": "La aventura que desafía los límites del cuerpo."
+    },
+    {
+      "name": "Entrenamiento de Gimnasio",
+      "description": "La formación de la salud y la forma física a través de equipos, aeróbicos y entrenamiento de fuerza."
+    },
+    {
+      "name": "Yoga y Meditación",
+      "description": "La armonía del cuerpo y la mente, enfocándose en la flexibilidad y la regulación de la respiración."
+    },
+    {
+      "name": "Actuación de Baile",
+      "description": "La combinación de arte y deporte, con pasión o elegancia en varios estilos de baile."
+    },
+    {
+      "name": "Competición Ecuestre",
+      "description": "La cooperación y la elegancia entre el hombre y el caballo."
+    },
+    {
+      "name": "Ping Pong",
+      "description": "La agilidad y la precisión en el juego de la pequeña pelota."
+    },
+    {
+      "name": "Bádminton",
+      "description": "La diversión de la velocidad y la habilidad en el juego de la pluma."
+    },
+    {
+      "name": "Judo y Lucha Libre",
+      "description": "La lucha cuerpo a cuerpo con técnicas y control de articulaciones."
+    },
+    {
+      "name": "Vela y Navegación",
+      "description": "La emoción de navegar en el agua, donde la cooperación en equipo es crucial."
+    },
+    {
+      "name": "Tiro con Arco",
+      "description": "La estabilidad mental y la concentración determinan el objetivo."
+    },
+    {
+      "name": "Críquet y Rugby",
+      "description": "La competición de equipo intensa y emocionante en los deportes de la Commonwealth o americanos."
+    },
+    {
+      "name": "Deportes de Interior (Bolos, Billar, etc.)",
+      "description": "La diversión y la habilidad en los deportes de interior que combinan el entretenimiento y la destreza."
+    }
+  ]
+}

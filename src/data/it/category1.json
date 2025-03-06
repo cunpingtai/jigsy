@@ -1,0 +1,102 @@
+{
+  "name": "Scienza e Futuro",
+  "description": "Focalizzati sulla ricerca scientifica all'avanguardia e sulle prospettive future, dall'universo macroscopico al nanomondo, stimolando la curiosità dell'ignoto.",
+  "groups": [
+    {
+      "name": "Tecnologia dei robot",
+      "description": "Collaborazione tra robot a più zampe o umanoidi e intelligenza artificiale."
+    },
+    {
+      "name": "Astronomia spaziale",
+      "description": "Osservazione e ricerca teorica di corpi celesti come stelle, nebulose, pianeti, ecc."
+    },
+    {
+      "name": "Ingegneria genetica",
+      "description": "Innovazioni nella modifica genetica e nelle scienze biologiche."
+    },
+    {
+      "name": "Avanzamenti medici",
+      "description": "Sviluppo di nuovi farmaci, progressi nella chirurgia avanzata e nei dispositivi medici."
+    },
+    {
+      "name": "Protezione ambientale e nuove energie",
+      "description": "Energia rinnovabile come energia eolica, solare, ecc. e protezione dell'ecosistema."
+    },
+    {
+      "name": "Biodiversità",
+      "description": "Importanza della diversità delle specie e dell'equilibrio ecologico."
+    },
+    {
+      "name": "Realtà virtuale (VR)",
+      "description": "Simulazione digitale e intrattenimento immersivo del futuro."
+    },
+    {
+      "name": "Realtà aumentata (AR)",
+      "description": "Tecnologia che combina informazioni virtuali con l'ambiente reale."
+    },
+    {
+      "name": "Tecnologia di stampa 3D",
+      "description": "Processo di produzione rivoluzionario che consente la prototipazione rapida e la personalizzazione."
+    },
+    {
+      "name": "Nanotecnologia",
+      "description": "Progettazione di materiali o strutture a livello molecolare o atomico."
+    },
+    {
+      "name": "Intelligenza artificiale (AI)",
+      "description": "Apprendimento profondo, decisioni automatizzate e interazione uomo-macchina."
+    },
+    {
+      "name": "Pianificazione urbana del futuro",
+      "description": "Concetto di città intelligente, edifici intelligenti e sviluppo sostenibile."
+    },
+    {
+      "name": "Colonizzazione spaziale",
+      "description": "Prospettiva di stabilire basi di sopravvivenza umana su pianeti esterni."
+    },
+    {
+      "name": "Teoria del viaggio nel tempo e dello spazio",
+      "description": "Ipotesi scientifiche e fantascientifiche che superano i limiti di tempo e spazio."
+    },
+    {
+      "name": "Fisica quantistica",
+      "description": "Ricerca all'avanguardia come l'entanglement quantistico e i computer quantistici."
+    },
+    {
+      "name": "Sicurezza informatica e hacker",
+      "description": "Difesa e attacco informatico nell'era digitale e la protezione della privacy."
+    },
+    {
+      "name": "Esplorazione di Marte",
+      "description": "Esplorazione di Marte con rover, missioni umane e colonizzazione interplanetaria."
+    },
+    {
+      "name": "Telescopi spaziali",
+      "description": "Strumenti chiave per l'osservazione di galassie lontane e l'esplorazione dell'origine dell'universo."
+    },
+    {
+      "name": "Ricerca subacquea",
+      "description": "Stazioni di osservazione sottomarine e ricerca scientifica della vita marina."
+    },
+    {
+      "name": "Supercomputer",
+      "description": "Strumento chiave per la ricerca scientifica e l'ingegneria con prestazioni di calcolo ad alte prestazioni."
+    },
+    {
+      "name": "Ricerca meteorologica",
+      "description": "Monitoraggio di fenomeni meteorologici estremi, cambiamenti climatici e monitoraggio dell'ambiente atmosferico."
+    },
+    {
+      "name": "Interfaccia uomo-macchina",
+      "description": "Tecnologia all'avanguardia che consente la comunicazione diretta tra il cervello umano e il computer."
+    },
+    {
+      "name": "Auto volanti",
+      "description": "Nuova forma di trasporto personale o pubblico nel futuro."
+    },
+    {
+      "name": "Nuovi materiali del futuro",
+      "description": "Invenzioni potenzialmente rivoluzionarie come il grafene e i superconduttori."
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "name": "Travel and Attractions",
+  "description": "Popular destinations and off-the-beaten-path scenery from around the world, showcasing the culture and beauty of different regions, inspiring people to explore the world.",
+  "groups": [
+    {
+      "name": "World Famous Cities",
+      "description": "The famous buildings and cityscapes of international metropolises."
+    },
+    {
+      "name": "Seaside Resorts",
+      "description": "Relaxing sanctuaries of beaches, sunshine, and waves."
+    },
+    {
+      "name": "Mountain Tourism",
+      "description": "Hiking, sightseeing, and adventure in high mountains or hilly areas."
+    },
+    {
+      "name": "Theme Parks",
+      "description": "Amusement facilities and the joyous world of fairy tales."
+    },
+    {
+      "name": "Beaches and Islands",
+      "description": "Romantic beach resorts with clear water and swaying coconut trees."
+    },
+    {
+      "name": "Around the World",
+      "description": "A collection of multi-country attractions, seeing the world without leaving home."
+    },
+    {
+      "name": "Mountain Loop Road",
+      "description": "Endless scenic views for driving or cycling."
+    },
+    {
+      "name": "Forest Cabins",
+      "description": "Quiet cabins away from the city, close to nature."
+    },
+    {
+      "name": "Historical Sites",
+      "description": "Heritage-level buildings or sites deposited in the long river of history."
+    },
+    {
+      "name": "World Heritage Sites",
+      "description": "Preserved areas with outstanding universal value and common cultural heritage."
+    },
+    {
+      "name": "European Towns",
+      "description": "Quaint cobblestone streets and the artistic atmosphere of small towns."
+    },
+    {
+      "name": "Asian Ancient Cities",
+      "description": "Ancient cities with rich ethnic cultures and a millennium of accumulation."
+    },
+    {
+      "name": "African Savannah Adventure",
+      "description": "The shock of close contact with wild animals and the vast savannah."
+    },
+    {
+      "name": "American Wilderness Road",
+      "description": "An adventurous journey through diverse terrains on a long road."
+    },
+    {
+      "name": "Snow and Ice Travel",
+      "description": "The extreme cold test and magnificent scenery of the ice and snow world."
+    },
+    {
+      "name": "Hot Air Balloon Scenery",
+      "description": "Viewing the earth's beautiful scenery and unique landforms from the air."
+    },
+    {
+      "name": "Extreme Sports Tour",
+      "description": "Tour routes for high-stimulus activities like bungee jumping and paragliding."
+    },
+    {
+      "name": "Folk Culture Festival",
+      "description": "Experience local festival activities and feel the charm of multiculturalism."
+    },
+    {
+      "name": "Desert Adventure",
+      "description": "The magnificent desert spectacle of vast sand seas, camel caravans, and starry skies."
+    },
+    {
+      "name": "Sea Cruise",
+      "description": "Cruising the sea on a luxury cruise, combining vacation and sightseeing."
+    },
+    {
+      "name": "Photography Holy Land",
+      "description": "The source of inspiration for photography enthusiasts with excellent light and shadow."
+    },
+    {
+      "name": "Road Trip",
+      "description": "The freedom and flexibility of road travel, experiencing the local scenery along the way."
+    },
+    {
+      "name": "Hiking",
+      "description": "The deep walking of backpackers or hikers, getting close to nature and culture."
+    },
+    {
+      "name": "Cycling Around the Lake",
+      "description": "Cycling along the lake shore, enjoying the lake and mountain scenery and fresh air."
+    }
+  ]
+}

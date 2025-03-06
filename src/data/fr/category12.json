@@ -1,0 +1,102 @@
+{
+  "name": "Paysages naturels",
+  "description": "Englobant la grandeur et la subtilité de la nature, des hautes montagnes et des glaciers aux océans et aux lacs, montrant la riche diversité écologique et géographique de la Terre.",
+  "groups": [
+    {
+      "name": "Montagnes enneigées",
+      "description": "Pics de montagnes couverts de neige et de glace, situés dans des régions de grande altitude."
+    },
+    {
+      "name": "Lacs et cascades",
+      "description": "Les surfaces sereines des lacs et les cascades qui coulent se complètent."
+    },
+    {
+      "name": "Déserts et Gobi",
+      "description": "Vastes étendues de sable et paysages désolés dans des régions extrêmement arides."
+    },
+    {
+      "name": "Paysages forestiers",
+      "description": "Les grands arbres et la végétation dense forment les poumons naturels de la Terre."
+    },
+    {
+      "name": "Monde océanique",
+      "description": "Les vastes domaines océaniques et la vie marine dans leurs habitats bleus vibrants."
+    },
+    {
+      "name": "Aube et crépuscule",
+      "description": "Les majestueuses transformations du ciel pendant l'aube et le crépuscule."
+    },
+    {
+      "name": "Forêts tropicales",
+      "description": "Les environnements humides et pluvieux avec une végétation luxuriante et des espèces diverses."
+    },
+    {
+      "name": "Paysages de prairie",
+      "description": "Les prairies interminables et le bétail et les moutons qui paissent librement."
+    },
+    {
+      "name": "Champs de fleurs et de campagne",
+      "description": "Les fleurs colorées et les cultures entrelacées dans un paysage romantique."
+    },
+    {
+      "name": "Collines et montagnes",
+      "description": "Les pentes douces et la végétation luxuriante des montagnes basses et des collines."
+    },
+    {
+      "name": "Côtes des îles",
+      "description": "Les côtes pittoresques et les îles dessinées par la mer."
+    },
+    {
+      "name": "Paysages d'aurore",
+      "description": "Les spectaculaires spectacles de lumières colorées dans les cieux des latitudes élevées."
+    },
+    {
+      "name": "Formations volcaniques",
+      "description": "Volcans et paysages géothermiques dans des états actifs ou dormants."
+    },
+    {
+      "name": "Forêts de pierre et roches étranges",
+      "description": "Les formations rocheuses uniques et aux formes étranges, apparemment taillées."
+    },
+    {
+      "name": "Marais et marécages",
+      "description": "Les zones de transition eau-terre avec des écosystèmes divers."
+    },
+    {
+      "name": "Calottes glaciaires polaires",
+      "description": "Les épaisses couches de glace couvrant les régions extrêmement froides."
+    },
+    {
+      "name": "Gorges et canyons",
+      "description": "Les vallées profondes formées par l'érosion des rivières ou du vent, avec des falaises escarpées."
+    },
+    {
+      "name": "Paysages de plateau",
+      "description": "Les paysages expansifs et de grande altitude avec des climats uniques."
+    },
+    {
+      "name": "Formations karstiques",
+      "description": "Les formations géologiques uniques de roches solubles, comme les grottes et les gouffres."
+    },
+    {
+      "name": "Paysages de nature sauvage",
+      "description": "Les environnements naturels vierges et intouchés."
+    },
+    {
+      "name": "Paysages saisonniers",
+      "description": "Les apparences naturelles changeantes du printemps, de l'été, de l'automne et de l'hiver."
+    },
+    {
+      "name": "Paysages d'arc-en-ciel",
+      "description": "Les scènes vibrantes et impressionnantes d'arc-en-ciel dans le ciel."
+    },
+    {
+      "name": "Grottes souterraines",
+      "description": "Les espaces mystérieux avec des stalactites et des rivières souterraines."
+    },
+    {
+      "name": "Arbres anciens",
+      "description": "Les grands et anciens arbres qui ont résisté aux années."
+    }
+  ]
+}

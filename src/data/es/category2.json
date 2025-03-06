@@ -1,0 +1,102 @@
+{
+  "name": "Vehículos de Transporte",
+  "description": "Muestra las diversas formas en que los humanos viajan y transportan bienes, desde la antigüedad hasta la actualidad, desde la tierra hasta el aire, testigo de la evolución de la tecnología y la vida.",
+  "groups": [
+    {
+      "name": "Coche Clásico",
+      "description": "La elegancia retro y el valor de colección de los coches antiguos."
+    },
+    {
+      "name": "Coche Moderno",
+      "description": "Diseños variados para el uso diario y familiar."
+    },
+    {
+      "name": "Tren y Vía Férrea",
+      "description": "El transporte de larga distancia, la cultura ferroviaria y la estación de tren."
+    },
+    {
+      "name": "Avión y Aeropuerto",
+      "description": "El viaje aéreo y el símbolo de la tecnología de vuelo moderna."
+    },
+    {
+      "name": "Barco y Navegación",
+      "description": "La experiencia vasta del transporte marítimo de larga distancia o el viaje en crucero."
+    },
+    {
+      "name": "Metro y Tren Ligero",
+      "description": "Vehículos convenientes en el sistema de transporte público de la ciudad."
+    },
+    {
+      "name": "Motocicleta y Cultura de la Motocicleta",
+      "description": "El símbolo de la velocidad y la libertad, el encanto único de montar en la calle."
+    },
+    {
+      "name": "Globo Aerostático",
+      "description": "La forma romántica de ascender lentamente y contemplar el paisaje."
+    },
+    {
+      "name": "Dirigible y Transporte Aéreo",
+      "description": "Vehículos aéreos que combinan lo clásico y lo romántico."
+    },
+    {
+      "name": "Nave Espacial y Vehículo Espacial",
+      "description": "La tecnología de vanguardia y el sueño humano de explorar el espacio."
+    },
+    {
+      "name": "Carruaje Clásico",
+      "description": "La magnificencia y la antigüedad de los principales vehículos de transporte en la historia."
+    },
+    {
+      "name": "Tren de Levitación Magnética",
+      "description": "La tecnología futura de trenes de alta velocidad y bajo ruido."
+    },
+    {
+      "name": "Ascensor Espacial (Ciencia Ficción)",
+      "description": "Vehículos conceptuales futuros que conectan la Tierra con la órbita."
+    },
+    {
+      "name": "Coche Concepto del Futuro",
+      "description": "Vehículos experimentales con diseños vanguardistas y alta tecnología."
+    },
+    {
+      "name": "Submarino y Navegación Submarina",
+      "description": "Vehículos especiales para explorar los misterios del océano."
+    },
+    {
+      "name": "Camión de Carga",
+      "description": "El sólido respaldo de la logística moderna y el transporte por carretera."
+    },
+    {
+      "name": "Crucero de Lujo",
+      "description": "El palacio flotante que combina el ocio en el mar y el turismo."
+    },
+    {
+      "name": "Vía Férrea de Alta Velocidad",
+      "description": "El sistema de transporte rápido de pasajeros que cruza la ciudad y la región."
+    },
+    {
+      "name": "Carrera y Coche Deportivo",
+      "description": "La cumbre de la velocidad y la ingeniería de vehículos."
+    },
+    {
+      "name": "Vehículo Militar",
+      "description": "Equipo militar como tanques, aviones militares y vehículos blindados."
+    },
+    {
+      "name": "Teleférico de Gran Altura",
+      "description": "El sistema de teleférico que cruza el valle o el espacio aéreo de la ciudad."
+    },
+    {
+      "name": "Vehículo de Rescate",
+      "description": "Vehículos de servicio de emergencia como camiones de bomberos, ambulancias y coches de policía."
+    },
+    {
+      "name": "Bicicleta y Ciclismo",
+      "description": "El medio de transporte ecológico y saludable."
+    },
+    {
+      "name": "Vehículo Autónomo",
+      "description": "La tendencia futura de la inteligencia artificial y el transporte inteligente."
+    }
+  ]
+}

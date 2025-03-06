@@ -1,0 +1,102 @@
+{
+  "name": "Verkehrsmittel",
+  "description": "Zeigt die vielfältigen Möglichkeiten des menschlichen Reisens und des Gütertransports, von der Antike bis zur Gegenwart, von der Erde bis zum Himmel, und dokumentiert den Wandel von Technologie und Leben.",
+  "groups": [
+    {
+      "name": "Klassische Oldtimer",
+      "description": "Der Retro-Charme und der Sammlerwert alter Autos."
+    },
+    {
+      "name": "Moderne Autos",
+      "description": "Vielfältiges Design für den täglichen Pendelverkehr und den Familiengebrauch."
+    },
+    {
+      "name": "Züge und Schienen",
+      "description": "Langstreckentransport, Schienenkultur und Bahnhofsarchitektur."
+    },
+    {
+      "name": "Flugzeuge und Flughäfen",
+      "description": "Symbol für Luftreisen und moderne Flugtechnik."
+    },
+    {
+      "name": "Schiffe und Seetransport",
+      "description": "Die Weite des Ozeans erleben, sei es beim Überseetransport oder auf einer Kreuzfahrt."
+    },
+    {
+      "name": "U-Bahnen und Straßenbahnen",
+      "description": "Bequeme Verkehrsmittel im städtischen Nahverkehr."
+    },
+    {
+      "name": "Motorräder und Motorradkultur",
+      "description": "Symbol für Geschwindigkeit und Freiheit, der einzigartige Charme des Straßenfahrens."
+    },
+    {
+      "name": "Heißluftballons",
+      "description": "Romantische Art, langsam in die Höhe zu steigen und die Landschaft zu überblicken."
+    },
+    {
+      "name": "Luftschiffe und Luftverkehr",
+      "description": "Luftfahrzeuge, die sowohl klassisch als auch romantisch sind."
+    },
+    {
+      "name": "Raumschiffe und Raumfahrzeuge",
+      "description": "Spitzenforschung und menschliche Träume im Weltraum."
+    },
+    {
+      "name": "Klassische Pferdekutschen",
+      "description": "Pracht und Nostalgie der Hauptverkehrsmittel in der Geschichte."
+    },
+    {
+      "name": "Magnetschwebebahnen",
+      "description": "Zukunftstechnologie für schnelle und leise Züge."
+    },
+    {
+      "name": "Weltraumaufzug (Science-Fiction)",
+      "description": "Konzeptfahrzeug der Zukunft, das die Erde mit der Umlaufbahn verbindet."
+    },
+    {
+      "name": "Zukunftskonzeptautos",
+      "description": "Zukunftsweisende Fahrzeuge mit avantgardistischem Design und hochtechnologischer Ausstattung."
+    },
+    {
+      "name": "U-Boote und Unterwasserfahrzeuge",
+      "description": "Spezielle Fahrzeuge zur Erforschung der Geheimnisse der Tiefsee."
+    },
+    {
+      "name": "Frachtwagen",
+      "description": "Solide Unterstützung für moderne Logistik und Straßentransport."
+    },
+    {
+      "name": "Luxus-Kreuzfahrtschiffe",
+      "description": "Schwimmende Paläste, die eine Kombination aus Seereisen und Sightseeing bieten."
+    },
+    {
+      "name": "Hochgeschwindigkeitszüge",
+      "description": "Schnelles Nahverkehrssystem, das Städte und Regionen verbindet."
+    },
+    {
+      "name": "Rennwagen und Supersportwagen",
+      "description": "Höchstgeschwindigkeit und Spitzenleistung der Fahrzeugtechnik."
+    },
+    {
+      "name": "Militärfahrzeuge",
+      "description": "Militärische Ausrüstung wie Panzer, Militärflugzeuge und gepanzerte Fahrzeuge."
+    },
+    {
+      "name": "Seilbahnen in großer Höhe",
+      "description": "Luftseilbahnen, die Täler oder städtische Lufträume überqueren."
+    },
+    {
+      "name": "Rettungsfahrzeuge",
+      "description": "Notfallfahrzeuge wie Feuerwehrwagen, Krankenwagen und Polizeiautos."
+    },
+    {
+      "name": "Fahrräder und Radfahren",
+      "description": "Umweltfreundliche und gesunde Art der Fortbewegung."
+    },
+    {
+      "name": "Fahrzeuge ohne Fahrer",
+      "description": "Zukunftstrend von AI-Autofahren und intelligentem Verkehr."
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Effet 3D",
+    "description": "Avec une forte sensation de profondeur ou une modélisation 3D, l'impact visuel est plus fort."
+  },
+  {
+    "name": "Difficulté élevée",
+    "description": "Des fragments d'image complexes, riches en détails, nécessitent une patience et une observation plus élevées de la part du joueur."
+  },
+  {
+    "name": "Convivialité pour les enfants",
+    "description": "Des couleurs vives, des éléments simples et sûrs, adaptés à l'initiation des jeunes enfants à la puzzle."
+  },
+  {
+    "name": "Éléments populaires",
+    "description": "Combinaison de sujets populaires, de tendances ou de mèmes en ligne pour attirer l'attention."
+  },
+  {
+    "name": "Style rétro",
+    "description": "Effet d'image antique ou d'effet de photo ancienne, créant une sensation de nostalgie et d'histoire."
+  },
+  {
+    "name": "Style dessiné à la main",
+    "description": "Mettre en valeur les lignes dessinées à la main ou la texture de l'illustration, pleine d'ambiance artistique."
+  },
+  {
+    "name": "Composition numérique",
+    "description": "Assembler plusieurs images ou matériaux pour créer un effet de composition fantastique."
+  },
+  {
+    "name": "Grande scène",
+    "description": "Un large champ de vision, de nombreux éléments, peut apporter une expérience immersive panoramique."
+  },
+  {
+    "name": "Style frais",
+    "description": "Des tons frais et doux, une image fraîche, donnant une sensation de calme et de confort."
+  },
+  {
+    "name": "Richesse des détails",
+    "description": "Contient de nombreux éléments minuscules, nécessite une observation et un assemblage minutieux."
+  },
+  {
+    "name": "Couleur saturée",
+    "description": "Des couleurs vives et éclatantes, un contraste fort, un impact visuel très fort."
+  },
+  {
+    "name": "Style sombre",
+    "description": "Une atmosphère générale sombre ou un style gothique, une combinaison de mystère et de profondeur."
+  },
+  {
+    "name": "Style onirique",
+    "description": "Des éléments tels que des halos et des couleurs douces créent une sensation de rêve."
+  },
+  {
+    "name": "Photographie réelle",
+    "description": "Utilisation de photos de scènes réelles, préservant l'authenticité de la lumière et des détails."
+  },
+  {
+    "name": "Art de la composition",
+    "description": "Superposition de plusieurs scènes ou matériaux, plein de créativité et d'imagination."
+  },
+  {
+    "name": "Style minimaliste",
+    "description": "Les éléments et les couleurs de l'image sont extrêmement simplifiés, mettant en valeur la simplicité et le sens de la haute qualité."
+  },
+  {
+    "name": "Couleurs vives",
+    "description": "Utilisation de plusieurs couleurs, dynamique et vive, mémorable."
+  },
+  {
+    "name": "Saveur classique",
+    "description": "Intégration d'éléments de culture traditionnelle ou historique, dégageant une beauté classique et une connotation culturelle."
+  },
+  {
+    "name": "Créativité",
+    "description": "Un sujet ou une méthode d'expression innovant, apportant une surprise inattendue."
+  },
+  {
+    "name": "Vision alternative",
+    "description": "Utilisation d'angles de vue non conventionnels ou de traitement spécial de la lumière et de l'ombre, créant une sensation unique."
+  },
+  {
+    "name": "Design fluide",
+    "description": "Des lignes d'image fluides, pleines de dynamisme et de modernité."
+  },
+  {
+    "name": "Montage",
+    "description": "Assemblage de plusieurs scènes ou éléments différents, créant un effet artistique sautillant."
+  },
+  {
+    "name": "Surréalisme",
+    "description": "Dépassement des limites de la physique ou de la logique, créant une expérience visuelle extraordinaire."
+  },
+  {
+    "name": "Style mignon",
+    "description": "Utilisation de personnages mignons ou de style de dessin animé, une atmosphère légère et vivante."
+  }
+]

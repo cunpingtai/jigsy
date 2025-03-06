@@ -1,0 +1,102 @@
+{
+  "name": "Geschichte und Kultur",
+  "description": "Die Entwicklung der menschlichen Zivilisation und die kulturelle Vielfalt, von Mythen und Legenden bis zu antiken Stätten, die die Tiefe und den Charme der Geschichte zeigen.",
+  "groups": [
+    {
+      "name": "Altes Ägypten",
+      "description": "Die mysteriöse Kultur der Pyramiden, Pharaonen und Hieroglyphen."
+    },
+    {
+      "name": "Altes Babylon",
+      "description": "Die glänzende Kultur des Zweistromlandes und die Legende vom Hängenden Garten."
+    },
+    {
+      "name": "Maya-Inka-Zivilisation",
+      "description": "Die faszinierende Sonnenanbetung und die steinernen Relikte in Mittel- und Südamerika."
+    },
+    {
+      "name": "Chinesische Dynastien",
+      "description": "Der Wechsel der Dynastien von Xia, Shang und Zhou bis zu Ming und Qing."
+    },
+    {
+      "name": "Römisches Reich",
+      "description": "Die Gladiatoren, der Triumphbogen und die prächtige Stadtplanung."
+    },
+    {
+      "name": "Renaissance",
+      "description": "Die Wiederbelebung von Kunst und Wissenschaft in Europa und die Geburt großer Meister."
+    },
+    {
+      "name": "Griechische Mythologie",
+      "description": "Die kulturelle Quelle der olympischen Götter und der Heldenlegenden."
+    },
+    {
+      "name": "Hofleben des Adels",
+      "description": "Der Alltag des königlichen und adligen Hofes in Europa oder im Osten."
+    },
+    {
+      "name": "Volkslegenden",
+      "description": "Die Heldenabenteuer und die Legenden von Göttern und Geistern, die in verschiedenen Regionen überliefert werden."
+    },
+    {
+      "name": "Chinesische traditionelle Feste",
+      "description": "Die Volksbräuche und kulturellen Konnotationen des Frühlingsfestes, des Mondfestes usw."
+    },
+    {
+      "name": "Viktorianisches Zeitalter in Großbritannien",
+      "description": "Die sozialen Veränderungen und das Erscheinungsbild von Gentlemen und Damen in der Ära der industriellen Revolution."
+    },
+    {
+      "name": "Japanische Samurai-Kultur",
+      "description": "Das Schwert der Samurai, der Weg des Samurai und der politische Hintergrund des Shogunats."
+    },
+    {
+      "name": "Nordische Mythologie",
+      "description": "Die Götter wie Odin und Thor und die Legende des Weltenbaums."
+    },
+    {
+      "name": "Ritter und Burgen",
+      "description": "Das Feudalsystem und der Rittergeist im mittelalterlichen Europa."
+    },
+    {
+      "name": "Alte indische Zivilisation",
+      "description": "Die Wiege des Buddhismus, des Hinduismus und der vielschichtigen Kultur."
+    },
+    {
+      "name": "Religiöse Kunst",
+      "description": "Die künstlerische Darstellung des Christentums, des Islam, des Buddhismus usw."
+    },
+    {
+      "name": "Seidenstraße",
+      "description": "Die Handels- und kulturellen Austauschwege, die über die Ozeane führen."
+    },
+    {
+      "name": "Piraten und das Zeitalter der Seefahrt",
+      "description": "Die Entdeckungen, der Handel und die Piratenlegenden im Zeitalter der großen Seefahrt."
+    },
+    {
+      "name": "Reenactment historischer Schlachten",
+      "description": "Die berühmten historischen Kriegsschauplätze und die Darstellung von Strategie und Taktik."
+    },
+    {
+      "name": "Peking-Oper und traditionelles chinesisches Theater",
+      "description": "Die Bühnenbilder, die voller nationaler Merkmale und künstlerischer Übertreibungen sind."
+    },
+    {
+      "name": "Volksbräuche auf der ganzen Welt",
+      "description": "Die traditionellen Feste und Bräuche der verschiedenen Völker auf der ganzen Welt."
+    },
+    {
+      "name": "Ureinwohnerkultur",
+      "description": "Die Stämme und Ureinwohner, die ihren ursprünglichen Lebensstil bewahren."
+    },
+    {
+      "name": "Volkskunsthandwerk",
+      "description": "Die überlieferten Handwerkskünste wie Stickerei, Keramik, Schattenspiel usw."
+    },
+    {
+      "name": "Entwicklung der traditionellen Kleidung",
+      "description": "Der Wandel der Zeiten von der antiken Kleidung bis zur modernen Mode."
+    }
+  ]
+}

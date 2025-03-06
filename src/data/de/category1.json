@@ -1,0 +1,102 @@
+{
+  "name": "Wissenschaft und Zukunft",
+  "description": "Fokus auf modernste wissenschaftliche Forschung und Zukunftsvisionen, vom Makrokosmos bis zur Nanotechnologie, um die Neugier auf das Unbekannte zu wecken.",
+  "groups": [
+    {
+      "name": "Robotertechnologie",
+      "description": "Zusammenarbeit von mehrfüßigen oder humanoiden Robotern mit künstlicher Intelligenz."
+    },
+    {
+      "name": "Astronomie",
+      "description": "Beobachtung und theoretische Erforschung von Sternen, Nebeln, Planeten und anderen Himmelskörpern."
+    },
+    {
+      "name": "Gentechnik",
+      "description": "Innovative Durchbrüche in Genbearbeitung und Biowissenschaften."
+    },
+    {
+      "name": "Medizinische Durchbrüche",
+      "description": "Fortschritte in der Medikamentenentwicklung, Spitzenchirurgie und medizinischen Geräten."
+    },
+    {
+      "name": "Umweltschutz und Erneuerbare Energien",
+      "description": "Wind- und Solarenergie sowie andere erneuerbare Energien und Umweltschutz."
+    },
+    {
+      "name": "Biodiversität",
+      "description": "Die Bedeutung der Artenvielfalt und des ökologischen Gleichgewichts."
+    },
+    {
+      "name": "Virtuelle Realität (VR)",
+      "description": "Digitale Simulation und immersive interaktive Unterhaltung der Zukunft."
+    },
+    {
+      "name": "Erweiterte Realität (AR)",
+      "description": "Technologie zur Kombination virtueller Informationen mit der realen Umgebung."
+    },
+    {
+      "name": "3D-Drucktechnologie",
+      "description": "Revolutionäre Fertigungstechnik für schnelles Prototyping und individuelle Fertigung."
+    },
+    {
+      "name": "Nanotechnologie",
+      "description": "Material- und Strukturdesign auf molekularer oder atomarer Ebene."
+    },
+    {
+      "name": "Künstliche Intelligenz (KI)",
+      "description": "Deep Learning, automatisierte Entscheidungsfindung und Mensch-Maschine-Interaktion."
+    },
+    {
+      "name": "Zukunftsstadtplanung",
+      "description": "Intelligenter Verkehr, Smart Buildings und nachhaltige Stadtentwicklungskonzepte."
+    },
+    {
+      "name": "Weltraumkolonisation",
+      "description": "Vision der Errichtung menschlicher Siedlungen auf anderen Planeten."
+    },
+    {
+      "name": "Zeitreisetheorie",
+      "description": "Wissenschaftliche Hypothesen und Science-Fiction jenseits der Zeit- und Raumgrenzen."
+    },
+    {
+      "name": "Quantenphysik",
+      "description": "Spitzenforschung in Quantenverschränkung, Quantencomputing und verwandten Bereichen."
+    },
+    {
+      "name": "Informationssicherheit und Hacking",
+      "description": "Cybersicherheit und Datenschutz im digitalen Zeitalter."
+    },
+    {
+      "name": "Mars-Erkundung",
+      "description": "Erforschung mit Mars-Rovern, bemannte Landungen und interplanetare Migration."
+    },
+    {
+      "name": "Weltraumteleskope",
+      "description": "Schlüsselgeräte zur Beobachtung ferner Galaxien und Erforschung des Ursprungs des Universums."
+    },
+    {
+      "name": "Unterwasserforschung",
+      "description": "Wissenschaftliche Untersuchungen von Tiefseeobservatorien und Meereslebewesen."
+    },
+    {
+      "name": "Supercomputer",
+      "description": "Hochleistungsrechner als Kerngeräte zur Unterstützung von Wissenschaft und Technik."
+    },
+    {
+      "name": "Meteorologische Forschung",
+      "description": "Überwachung von Extremwetter, Klimawandel und atmosphärischer Umwelt."
+    },
+    {
+      "name": "Gehirn-Computer-Schnittstelle",
+      "description": "Zukunftstechnologie für direkte Kommunikation zwischen menschlichem Gehirn und Computer."
+    },
+    {
+      "name": "Fliegende Autos",
+      "description": "Neue Form des zukünftigen Individual- und öffentlichen Verkehrs."
+    },
+    {
+      "name": "Zukunftsmaterialien",
+      "description": "Bahnbrechende Erfindungen wie Graphen und Supraleiter, die die Welt verändern könnten."
+    }
+  ]
+}

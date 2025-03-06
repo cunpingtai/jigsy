@@ -1,0 +1,98 @@
+[
+  {
+    "name": "3D-Effekt",
+    "description": "Besitzt einen starken räumlichen Eindruck oder eine 3D-Modellierung, was zu einer stärkeren visuellen Wirkung führt."
+  },
+  {
+    "name": "Schwierig",
+    "description": "Das Bild ist fragmentiert und detailreich, was höhere Anforderungen an die Geduld und die Beobachtungsgabe des Spielers stellt."
+  },
+  {
+    "name": "Kinderfreundlich",
+    "description": "Die Farben sind hell und die Elemente sind einfach und sicher, was es für junge Kinder geeignet macht, Puzzles zu lösen."
+  },
+  {
+    "name": "Trendelemente",
+    "description": "Verbindet sich mit aktuellen Trends, Mode oder Internet-Memes, um Aufmerksamkeit zu erregen."
+  },
+  {
+    "name": "Retro-Stil",
+    "description": "Imitiert alten Gemälden oder alten Fotografien, um ein nostalgisches und historisches Gefühl zu erzeugen."
+  },
+  {
+    "name": "Handgezeichnet",
+    "description": "Betont handgezeichnete Linien oder Illustrationsqualität, was eine künstlerische Atmosphäre schafft."
+  },
+  {
+    "name": "Digitale Collage",
+    "description": "Erstellt fantastische Kombinationseffekte, indem mehrere Bilder oder Materialien kombiniert werden."
+  },
+  {
+    "name": "Großes Szenario",
+    "description": "Das Blickfeld ist breit, die Elemente sind vielfältig und können ein umfassendes Erlebnis bieten."
+  },
+  {
+    "name": "Süß und Frisch",
+    "description": "Die Farbtöne sind frisch und mild, das Bild ist frisch, was ein ruhiges und angenehmes Gefühl vermittelt."
+  },
+  {
+    "name": "Detailreich",
+    "description": "Enthält viele kleine Elemente, die sorgfältig unterschieden und kombiniert werden müssen."
+  },
+  {
+    "name": "Hohe Sättigung",
+    "description": "Die Farben sind leuchtend und lebendig, der Kontrast ist stark, was zu einer starken visuellen Wirkung führt."
+  },
+  {
+    "name": "Dunkel und Mysteriös",
+    "description": "Das Gesamtbild ist dunkel oder hat einen gotischen Stil, was Geheimnis und Tiefe vermittelt."
+  },
+  {
+    "name": "Traumhaft",
+    "description": "Verwendet Glanzlichter, weiche Farben usw., um ein traumartiges Empfinden zu erzeugen."
+  },
+  {
+    "name": "Realistische Fotografie",
+    "description": "Verwendet echte Szenenfotos, um die ursprüngliche Atmosphäre und die Details zu bewahren."
+  },
+  {
+    "name": "Kombinationskunst",
+    "description": "Überlagert mehrere Szenen oder Materialien, um eine kreative und imaginative Atmosphäre zu schaffen."
+  },
+  {
+    "name": "Minimalistisch",
+    "description": "Die Elemente und Farben sind extrem vereinfacht, um Einfachheit und Eleganz zu betonen."
+  },
+  {
+    "name": "Bunt und Lebendig",
+    "description": "Verwendet viele Farben, um eine lebendige und unvergessliche Atmosphäre zu schaffen."
+  },
+  {
+    "name": "Klassischer Charme",
+    "description": "Integriert traditionelle Kultur- oder historische Elemente, um eine klassische Schönheit und kulturelle Tiefe zu vermitteln."
+  },
+  {
+    "name": "Kreativität pur",
+    "description": "Präsentiert neue und unerwartete Ideen, um Überraschungen zu erzeugen."
+  },
+  {
+    "name": "Unkonventionelle Sicht",
+    "description": "Verwendet ungewöhnliche Blickwinkel oder spezielle Lichteffekte, um eine einzigartige Wahrnehmung zu erzeugen."
+  },
+  {
+    "name": "Fließendes Design",
+    "description": "Die Bildlinien sind fließend, was Dynamik und Modernität vermittelt."
+  },
+  {
+    "name": "Montage",
+    "description": "Kombiniert mehrere unterschiedliche Szenen oder Elemente, um einen springenden Kunsteffekt zu erzeugen."
+  },
+  {
+    "name": "Überrealität",
+    "description": "Bricht physikalische oder logische Grenzen, um ein über das Normale hinausgehendes visuelles Erlebnis zu schaffen."
+  },
+  {
+    "name": "Süß und Cartoonartig",
+    "description": "Präsentiert sich in Q- oder Cartoonform, um eine leichte und fröhliche Atmosphäre zu schaffen."
+  }
+]

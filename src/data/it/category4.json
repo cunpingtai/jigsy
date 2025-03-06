@@ -1,0 +1,102 @@
+{
+  "name": "Sport e Fitness",
+  "description": "Mostra la ricca varietà di sport competitivi e stili di vita sani, dall'intensa competizione all'allenamento quotidiano, stimolando la vitalità e la passione delle persone.",
+  "groups": [
+    {
+      "name": "Calcio",
+      "description": "Lo sport di squadra più popolare al mondo, con una combinazione di cooperazione e passione."
+    },
+    {
+      "name": "Basket",
+      "description": "La competizione intensa e la tecnica individuale."
+    },
+    {
+      "name": "Tennis",
+      "description": "L'elegante gioco di racchetta e la strategia."
+    },
+    {
+      "name": "Golf",
+      "description": "Lo sport elegante e raffinato sul verde."
+    },
+    {
+      "name": "Maratona",
+      "description": "La grande sfida di resistenza e determinazione in città o in natura."
+    },
+    {
+      "name": "Ginnastica artistica",
+      "description": "La combinazione di alta tecnica e arte."
+    },
+    {
+      "name": "Sci e Snowboard",
+      "description": "La velocità e la tecnica sulla neve."
+    },
+    {
+      "name": "Sport su ghiaccio",
+      "description": "La grazia e la passione sul ghiaccio."
+    },
+    {
+      "name": "Pugilato e Arti marziali",
+      "description": "La forza, la velocità e la strategia nella lotta."
+    },
+    {
+      "name": "Automobilismo",
+      "description": "La velocità e l'emozione nelle corse ad alta velocità."
+    },
+    {
+      "name": "Ciclismo",
+      "description": "La resistenza e la tattica nelle corse su strada, in montagna o in pista."
+    },
+    {
+      "name": "Nuoto e Subacquea",
+      "description": "La coordinazione e il controllo del corpo in acqua."
+    },
+    {
+      "name": "Sport estremi (Skate, Arrampicata, ecc.)",
+      "description": "La sfida e l'avventura che supera i limiti del corpo."
+    },
+    {
+      "name": "Palestra",
+      "description": "L'allenamento con attrezzature, aerobica e pesi per una forma fisica sana."
+    },
+    {
+      "name": "Yoga e Meditazione",
+      "description": "L'armonia tra corpo e mente, la flessibilità e la respirazione."
+    },
+    {
+      "name": "Danza",
+      "description": "La combinazione di arte e sport, la passione e l'eleganza di vari stili di danza."
+    },
+    {
+      "name": "Equitazione",
+      "description": "La complicità tra uomo e cavallo, la grazia e la forza."
+    },
+    {
+      "name": "Tennis da tavolo",
+      "description": "La velocità e la precisione nel gioco della pallina."
+    },
+    {
+      "name": "Badminton",
+      "description": "Il divertimento e la sfida nel gioco della palla volante."
+    },
+    {
+      "name": "Judo e Lotta",
+      "description": "La tecnica e il controllo del corpo nella lotta ravvicinata."
+    },
+    {
+      "name": "Vela",
+      "description": "La sfida e l'avventura sul mare, la cooperazione di squadra."
+    },
+    {
+      "name": "Tiro con l'arco",
+      "description": "La concentrazione e la precisione nel colpire il bersaglio."
+    },
+    {
+      "name": "Cricket e Rugby",
+      "description": "La competizione di squadra e la passione per il gioco."
+    },
+    {
+      "name": "Sport indoor (Bowling, Biliardo, ecc.)",
+      "description": "Il divertimento e la tecnica nei giochi indoor."
+    }
+  ]
+}

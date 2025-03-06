@@ -1,0 +1,102 @@
+{
+  "name": "Veicoli",
+  "description": "Mostra i vari modi in cui gli esseri umani si spostano e trasportano merci, dall'antichità ai giorni nostri, dalla terra al cielo, testimoniando l'evoluzione della tecnologia e della vita.",
+  "groups": [
+    {
+      "name": "Auto d'epoca",
+      "description": "L'eleganza retrò e il valore collezionistico delle auto d'epoca."
+    },
+    {
+      "name": "Auto moderne",
+      "description": "Il design variegato per l'uso quotidiano e familiare."
+    },
+    {
+      "name": "Treni e ferrovie",
+      "description": "Il trasporto a lunga distanza, la cultura ferroviaria e l'aspetto delle stazioni."
+    },
+    {
+      "name": "Aerei e aeroporti",
+      "description": "Il viaggio aereo e il simbolo della moderna tecnologia di volo."
+    },
+    {
+      "name": "Navi e navigazione",
+      "description": "L'esperienza vasta del trasporto marittimo a lungo raggio o delle crociere."
+    },
+    {
+      "name": "Metro e tram",
+      "description": "I mezzi di trasporto convenienti nel sistema di trasporto pubblico urbano."
+    },
+    {
+      "name": "Moto e cultura motociclistica",
+      "description": "Il simbolo della velocità e della libertà, il fascino unico del giro in città."
+    },
+    {
+      "name": "Mongolfiere",
+      "description": "Il modo romantico di sollevarsi lentamente e guardare il paesaggio dall'alto."
+    },
+    {
+      "name": "Dirigibili e trasporto aereo",
+      "description": "Il mezzo di trasporto aereo che unisce l'antico e il romantico."
+    },
+    {
+      "name": "Navicelle spaziali e veicoli spaziali",
+      "description": "La tecnologia all'avanguardia e il sogno umano dell'esplorazione spaziale."
+    },
+    {
+      "name": "Carrozze d'epoca",
+      "description": "La magnificenza e il fascino delle principali carrozze del periodo storico."
+    },
+    {
+      "name": "Treni a levitazione magnetica",
+      "description": "La tecnologia ferroviaria del futuro, ad alta velocità e a basso rumore."
+    },
+    {
+      "name": "Ascensore spaziale (fantascienza)",
+      "description": "Il veicolo concettuale del futuro, collega la Terra all'orbita."
+    },
+    {
+      "name": "Auto concetto del futuro",
+      "description": "Il veicolo sperimentale con design avanzato e tecnologia all'avanguardia."
+    },
+    {
+      "name": "Sottomarini e navigazione subacquea",
+      "description": "Il veicolo speciale per esplorare i segreti del mare."
+    },
+    {
+      "name": "Camion per il trasporto merci",
+      "description": "Il supporto solido per la moderna logistica e il trasporto su strada."
+    },
+    {
+      "name": "Navi da crociera di lusso",
+      "description": "Il palazzo galleggiante che combina la vacanza in mare e il turismo."
+    },
+    {
+      "name": "Strade ad alta velocità",
+      "description": "Il sistema di trasporto rapido che attraversa la città e la regione."
+    },
+    {
+      "name": "Auto da corsa e supercar",
+      "description": "La massima espressione della velocità e dell'ingegneria automobilistica."
+    },
+    {
+      "name": "Veicoli militari",
+      "description": "L'equipaggiamento militare come i carri armati, gli aerei militari, i veicoli corazzati, ecc."
+    },
+    {
+      "name": "Funivie ad alta quota",
+      "description": "Il sistema di trasporto aereo che attraversa la valle o lo spazio urbano."
+    },
+    {
+      "name": "Veicoli di soccorso",
+      "description": "Gli strumenti di servizio d'emergenza come i camion dei pompieri, le ambulanze, le auto della polizia, ecc."
+    },
+    {
+      "name": "Biciclette e ciclismo",
+      "description": "Il modo di viaggio ecologico e salutare."
+    },
+    {
+      "name": "Veicoli a guida autonoma",
+      "description": "Il trend futuro dell'AI per la guida autonoma e il traffico intelligente."
+    }
+  ]
+}

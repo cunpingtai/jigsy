@@ -1,0 +1,102 @@
+{
+  "name": "História e Cultura",
+  "description": "O desenvolvimento da civilização humana e a diversidade cultural, desde mitos e lendas até ruínas antigas, exibindo a riqueza e o fascínio da história.",
+  "groups": [
+    {
+      "name": "Civilização Antiga do Egito",
+      "description": "A cultura misteriosa de pirâmides, faraós e hieróglifos."
+    },
+    {
+      "name": "Babilônia Antiga",
+      "description": "A brilhante civilização do vale do Tigre e a lenda dos Jardins Suspensos."
+    },
+    {
+      "name": "Civilização Maia e Inca",
+      "description": "O fascínio do culto ao sol e as ruínas esculpidas na América Central e do Sul."
+    },
+    {
+      "name": "Dinastias Chinesas",
+      "description": "Das dinastias Xia a Qing, a mudança dinástica e a cultura brilhante."
+    },
+    {
+      "name": "Império Romano Antigo",
+      "description": "Gladiadores, Arco do Triunfo e a construção de cidades esplêndidas."
+    },
+    {
+      "name": "Período do Renascimento",
+      "description": "O renascimento das artes e ciências na Europa, com a emergência de grandes nomes."
+    },
+    {
+      "name": "Mitologia Grega",
+      "description": "Os deuses do Olimpo e as lendas de heróis, a fonte cultural."
+    },
+    {
+      "name": "Vida da Nobreza",
+      "description": "A vida diária das cortes europeias ou orientais e a nobreza."
+    },
+    {
+      "name": "Contos Folclóricos",
+      "description": "As histórias de aventuras heroicas e lendas transmitidas em diferentes lugares."
+    },
+    {
+      "name": "Festas Tradicionais Chinesas",
+      "description": "O significado cultural e popular das festas como o Ano Novo Chinês, o Festival de Meio-Autuno, etc."
+    },
+    {
+      "name": "Era Vitoriana",
+      "description": "A mudança social durante a Revolução Industrial e a postura de senhores e senhoras."
+    },
+    {
+      "name": "Cultura Samurai",
+      "description": "A espada samurai, o caminho do samurai e o contexto político do xogunato."
+    },
+    {
+      "name": "Mitologia Nórdica",
+      "description": "Os deuses como Odin, Thor, etc., e as lendas da Árvore do Mundo."
+    },
+    {
+      "name": "Cavaleiros e Castelos",
+      "description": "O sistema feudal da Europa medieval e o espírito cavaleiresco."
+    },
+    {
+      "name": "Civilização Indiana Antiga",
+      "description": "O berço do budismo, hinduísmo e a cultura multilayered."
+    },
+    {
+      "name": "Arte Religiosa",
+      "description": "As expressões artísticas do cristianismo, islamismo, budismo, etc."
+    },
+    {
+      "name": "Rota da Seda Marítima",
+      "description": "A rota de comércio e troca cultural que cruza os oceanos."
+    },
+    {
+      "name": "Era dos Piratas e da Navegação",
+      "description": "A era de exploração, comércio e lendas de piratas."
+    },
+    {
+      "name": "Recriação de Batalhas Antigas",
+      "description": "A exibição de cenas de batalhas históricas famosas e estratégias."
+    },
+    {
+      "name": "Máscara de Ópera Chinesa e Ópera",
+      "description": "As imagens teatrais cheias de características étnicas e exagero artístico."
+    },
+    {
+      "name": "Folclore de Diferentes Lugares",
+      "description": "As celebrações e costumes tradicionais de diferentes etnias ao redor do mundo."
+    },
+    {
+      "name": "Cultura Indígena",
+      "description": "Os grupos étnicos que mantiveram seu estilo de vida tradicional."
+    },
+    {
+      "name": "Artesanato Tradicional",
+      "description": "As habilidades manuais transmitidas de geração em geração, como bordado, cerâmica, sombra de papel, etc."
+    },
+    {
+      "name": "Evolução da Roupa Tradicional",
+      "description": "A mudança ao longo do tempo das roupas formais desde a antiguidade até a moda moderna."
+    }
+  ]
+}

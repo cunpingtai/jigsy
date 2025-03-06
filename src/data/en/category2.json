@@ -1,0 +1,102 @@
+{
+  "name": "Transportation",
+  "description": "Showcasing the various ways of human transportation and cargo transportation, from ancient to modern, from land to air, witnessing the evolution of technology and life.",
+  "groups": [
+    {
+      "name": "Classic Vintage Cars",
+      "description": "The retro elegance and collectible value of old cars."
+    },
+    {
+      "name": "Modern Sedans",
+      "description": "The diversification of design for daily commuting and family use."
+    },
+    {
+      "name": "Trains and Railways",
+      "description": "Long-distance transportation, railway culture, and station scenery."
+    },
+    {
+      "name": "Airplanes and Airports",
+      "description": "Air travel and the symbol of modern flying technology."
+    },
+    {
+      "name": "Ships and Maritime",
+      "description": "The vast experience of ocean freight or cruise travel."
+    },
+    {
+      "name": "Subways and Light Rails",
+      "description": "The convenient vehicles in urban public transportation systems."
+    },
+    {
+      "name": "Motorcycles and Bike Culture",
+      "description": "The symbol of speed and freedom, the unique charm of street riding."
+    },
+    {
+      "name": "Hot Air Balloons",
+      "description": "The romantic way of slowly rising and overlooking scenery."
+    },
+    {
+      "name": "Airships and Air Transportation",
+      "description": "The transportation tool that combines classic and romantic elements."
+    },
+    {
+      "name": "Spacecraft and Spacecraft",
+      "description": "The cutting-edge technology and human dreams of exploring space."
+    },
+    {
+      "name": "Classic Horse-Drawn Carriages",
+      "description": "The grandeur and retro of the main transportation tools in history."
+    },
+    {
+      "name": "Magnetic Levitation Trains",
+      "description": "The high-speed, low-noise train technology of the future."
+    },
+    {
+      "name": "Space Elevators (Science Fiction)",
+      "description": "The conceptual future transportation tool connecting the earth and orbit."
+    },
+    {
+      "name": "Future Concept Cars",
+      "description": "The avant-garde, high-tech experimental vehicles."
+    },
+    {
+      "name": "Submarines and Underwater Navigation",
+      "description": "The special vehicles for exploring ocean secrets."
+    },
+    {
+      "name": "Freight Trucks",
+      "description": "The solid backbone of modern logistics and highway transportation."
+    },
+    {
+      "name": "Luxury Cruise Ships",
+      "description": "The floating palaces combining sea travel and sightseeing."
+    },
+    {
+      "name": "High-Speed Railways",
+      "description": "The fast passenger transportation system spanning cities and regions."
+    },
+    {
+      "name": "Racing Cars and Supercars",
+      "description": "The pinnacle of speed and vehicle engineering."
+    },
+    {
+      "name": "Military Vehicles",
+      "description": "Tanks, military aircraft, armored vehicles, and other military equipment."
+    },
+    {
+      "name": "Cable Cars",
+      "description": "The cable car routes crossing valleys or urban skies."
+    },
+    {
+      "name": "Rescue Vehicles",
+      "description": "Fire trucks, ambulances, police cars, and other emergency service tools."
+    },
+    {
+      "name": "Bicycles and Cycling",
+      "description": "The green, healthy, and convenient way of transportation."
+    },
+    {
+      "name": "Autonomous Vehicles",
+      "description": "The future trend of AI autonomous driving and intelligent transportation."
+    }
+  ]
+}

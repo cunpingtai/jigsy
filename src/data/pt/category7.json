@@ -1,0 +1,102 @@
+{
+  "name": "Viagem e Pontos Turísticos",
+  "description": "Destinos mais procurados e vistas escondidas em todo o mundo, exibindo a cultura e a beleza de diferentes regiões, inspirando as pessoas a explorar o mundo.",
+  "groups": [
+    {
+      "name": "Cidades Famosas do Mundo",
+      "description": "Edifícios e vistas urbanas famosas de metrópoles internacionais."
+    },
+    {
+      "name": "Destinos de Praia",
+      "description": "Praias, sol, ondas e locais de relaxamento."
+    },
+    {
+      "name": "Turismo de Montanha",
+      "description": "Caminhadas, vistas e aventuras em áreas montanhosas ou colinosas."
+    },
+    {
+      "name": "Parques Temáticos",
+      "description": "Mundos de diversão com instalações de lazer e atmosfera de conto de fadas."
+    },
+    {
+      "name": "Praias e Ilhas",
+      "description": "Praias tranquilas, sombra de coqueiros e destinos românticos."
+    },
+    {
+      "name": "Viagem ao Redor do Mundo",
+      "description": "Coleção de pontos turísticos de vários países, permitindo que você veja o mundo sem sair de casa."
+    },
+    {
+      "name": "Estradas de Montanha",
+      "description": "Estradas sinuosas pelas montanhas, perfeitas para dirigir ou pedalar."
+    },
+    {
+      "name": "Cabanas na Floresta",
+      "description": "Cabanas isoladas longe da cidade, permitindo uma experiência mais próxima com a natureza."
+    },
+    {
+      "name": "Sítios Históricos",
+      "description": "Edifícios ou locais de grande valor histórico."
+    },
+    {
+      "name": "Sítios do Patrimônio Mundial",
+      "description": "Áreas protegidas de grande valor cultural e patrimônio comum da humanidade."
+    },
+    {
+      "name": "Pequenas Cidades Europeias",
+      "description": "Ruas de pedra antiga, atmosfera artística e charme de pequenas cidades."
+    },
+    {
+      "name": "Cidades Antigas Asiáticas",
+      "description": "Cidades antigas que acumularam mil anos de história e cultura étnica rica."
+    },
+    {
+      "name": "Aventuras na Savana Africana",
+      "description": "Experiências próximas com animais selvagens e vastas savanas."
+    },
+    {
+      "name": "Estradas Selvagens da América",
+      "description": "Viagens de aventura por estradas longas e diversificadas."
+    },
+    {
+      "name": "Viagens ao Polo Norte",
+      "description": "Desafios extremos em climas frios e paisagens impressionantes."
+    },
+    {
+      "name": "Vistas de Balão",
+      "description": "Observação de paisagens terrestres e formações geológicas únicas do alto."
+    },
+    {
+      "name": "Viagens de Esporte Radical",
+      "description": "Rotas turísticas para esportes radicais como bungee jumping e paragliding."
+    },
+    {
+      "name": "Festivais Culturais",
+      "description": "Experiência de festivais locais, sentindo a diversidade cultural."
+    },
+    {
+      "name": "Aventuras no Deserto",
+      "description": "Imensos desertos, caravanas e paisagens noturnas estreladas."
+    },
+    {
+      "name": "Cruzeiros Marítimos",
+      "description": "Viagens de cruzeiro luxuoso pelo mar, combinando férias e turismo."
+    },
+    {
+      "name": "Locais de Fotografia",
+      "description": "Locais com luz e sombra ideais, fonte de inspiração para fotógrafos."
+    },
+    {
+      "name": "Viagens de Carro",
+      "description": "Viagens de carro com liberdade e flexibilidade, experimentando a atmosfera ao longo do caminho."
+    },
+    {
+      "name": "Caminhadas Longas",
+      "description": "Caminhadas profundas, seja como mochileiro ou como viajante, se aproximando da natureza e da cultura."
+    },
+    {
+      "name": "Cicloturismo ao Redor dos Lagos",
+      "description": "Cicloturismo ao longo das margens dos lagos, desfrutando da paisagem e do ar fresco."
+    }
+  ]
+}

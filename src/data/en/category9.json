@@ -1,0 +1,102 @@
+{
+  "name": "Art and Painting",
+  "description": "Collecting various forms of human artistic expression, from traditional oil painting to new media installations, reflecting the aesthetic characteristics of different cultures and eras.",
+  "groups": [
+    {
+      "name": "Impressionist Masterpieces",
+      "description": "Pursuing light and color changes, such as Monet and Renoir's works."
+    },
+    {
+      "name": "Abstract Art",
+      "description": "Using shapes, lines, and colors to convey subjective emotions."
+    },
+    {
+      "name": "Classical Realism",
+      "description": "Realistic techniques, precise brushstrokes, emphasizing perspective and human anatomy."
+    },
+    {
+      "name": "Contemporary Art",
+      "description": "Breaking traditional media boundaries, emphasizing concept and innovation."
+    },
+    {
+      "name": "Watercolor and Ink",
+      "description": "Eastern ink wash and blank space, poetic and serene."
+    },
+    {
+      "name": "Mural and Graffiti",
+      "description": "Large-scale public space paintings, bringing vitality to urban landscapes."
+    },
+    {
+      "name": "Pop Art",
+      "description": "Popular art born from mass culture and consumer society."
+    },
+    {
+      "name": "Modern Illustration",
+      "description": "Creative painting forms commonly seen in commerce and publishing."
+    },
+    {
+      "name": "Watercolor Painting",
+      "description": "Transparent color, soft layering, and painting techniques."
+    },
+    {
+      "name": "Comic Style",
+      "description": "Japanese or Western comic creation, with vivid frames and characters."
+    },
+    {
+      "name": "Still Life Drawing",
+      "description": "Depicting desktop objects, highlighting light, texture, and structure."
+    },
+    {
+      "name": "Human Body Art",
+      "description": "Displaying human curves and beauty, combining anatomy and aesthetics."
+    },
+    {
+      "name": "Landscape Sketching",
+      "description": "On-site depiction of nature, recording real light and shadow changes."
+    },
+    {
+      "name": "Digital Art",
+      "description": "Multi-form art created using computers or digital boards."
+    },
+    {
+      "name": "Surrealism",
+      "description": "Combining dreams and reality elements, creating absurd and fantastical feelings."
+    },
+    {
+      "name": "Renaissance Period",
+      "description": "Masterpieces by Da Vinci, Michelangelo, and other great masters."
+    },
+    {
+      "name": "Concept Art",
+      "description": "Creative images used for pre-production design in film, games, etc."
+    },
+    {
+      "name": "Street Culture Graffiti",
+      "description": "Self-expression and social issues fusion in youth subculture."
+    },
+    {
+      "name": "Printmaking Art",
+      "description": "Using carving, etching, or screen printing for multiple reproductions."
+    },
+    {
+      "name": "Ukiyo-e Style",
+      "description": "Folk art prints originating from Japan's Edo period."
+    },
+    {
+      "name": "Sculpture Art (3D)",
+      "description": "Three-dimensional works shaped from wood, stone, metal, or clay."
+    },
+    {
+      "name": "Installation Art",
+      "description": "Comprehensive environment and material creation, offering immersive or interactive experiences."
+    },
+    {
+      "name": "Expressionism",
+      "description": "Exaggeration and distortion to emphasize the artist's intense inner emotions."
+    },
+    {
+      "name": "New Media Interactive Art",
+      "description": "Using digital technology to interact with the audience, pushing the boundaries of art."
+    }
+  ]
+}

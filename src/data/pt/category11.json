@@ -1,0 +1,102 @@
+{
+  "name": "Mundo Animal",
+  "description": "Desde a terra até o mar, desde o Ártico até o Trópico, a diversidade de animais e seus habitats naturais, exibindo a vitalidade e o fascínio do mundo natural.",
+  "groups": [
+    {
+      "name": "Animais Selvagens",
+      "description": "Habitantes das florestas, dotados de instinto de sobrevivência forte."
+    },
+    {
+      "name": "Animais da Floresta Tropical",
+      "description": "A variedade de espécies da floresta tropical e a rica cadeia alimentar."
+    },
+    {
+      "name": "Vida Aquática",
+      "description": "Peixes, corais e mamíferos marinhos dos oceanos, rios e lagos."
+    },
+    {
+      "name": "Aves e Animais Domésticos",
+      "description": "Animais criados pelo homem, como aves e mamíferos, em fazendas ou residências."
+    },
+    {
+      "name": "Mundo dos Insetos",
+      "description": "Os atores principais do mundo microscópico, com suas formas variadas."
+    },
+    {
+      "name": "Animais Felinos",
+      "description": "Os elegantes e ferozes predadores, como leões, tigres e leopardos."
+    },
+    {
+      "name": "Animais Caninos",
+      "description": "Incluindo lobos, raposas e cães, inteligentes e sociais."
+    },
+    {
+      "name": "Observação de Aves",
+      "description": "As cores brilhantes das asas e os cantos melodiosos dos seres celestes."
+    },
+    {
+      "name": "Anfíbios e Répteis",
+      "description": "A forma e o comportamento das criaturas de sangue frio, como lagartos, serpentes e rãs."
+    },
+    {
+      "name": "Animais de Pastagem",
+      "description": "As espécies que correm ou se agrupam nas vastas planícies, como antílopes e zebras."
+    },
+    {
+      "name": "Animais Polares",
+      "description": "Os representantes adaptados ao clima frio, como pinguins e ursos polares."
+    },
+    {
+      "name": "Raros e Ameaçados",
+      "description": "A coleção de espécies ameaçadas de extinção, necessitando de proteção urgente."
+    },
+    {
+      "name": "Filhotes de Animais",
+      "description": "A inocência e a graça dos bebês de diferentes espécies."
+    },
+    {
+      "name": "Aves de Rapina e Feras",
+      "description": "Os predadores naturais, como falcões, águias e ursos."
+    },
+    {
+      "name": "Criaturas Pré-Históricas (Dinossauros etc.)",
+      "description": "Os gigantes que dominaram a Terra ou os oceanos em eras passadas."
+    },
+    {
+      "name": "Primatas",
+      "description": "As espécies inteligentes, próximas ao homem, como macacos e gorilas."
+    },
+    {
+      "name": "Monstros Marinhos",
+      "description": "Os gigantes que habitam as profundezas do mar, como baleias e polvos gigantes."
+    },
+    {
+      "name": "Cenas de Caça",
+      "description": "Os momentos tensos de caça em ambientes selvagens, envolvendo feras ou humanos."
+    },
+    {
+      "name": "Grupos de Animais",
+      "description": "As formações sociais de animais, como colônias de formigas ou manadas de lobos."
+    },
+    {
+      "name": "Peixes, Insetos e Crustáceos",
+      "description": "As variedades de invertebrados e peixes em habitats aquáticos ou marginais."
+    },
+    {
+      "name": "Conservação Selvagem",
+      "description": "As imagens de harmonia entre humanos e animais em áreas naturais protegidas."
+    },
+    {
+      "name": "Interação Humano-Animal",
+      "description": "As cenas de proximidade com a natureza, como a convivência com animais de estimação ou observação em ambientes selvagens."
+    },
+    {
+      "name": "Animais de Fazenda",
+      "description": "Os animais comuns em fazendas, vivendo uma vida tranquila."
+    },
+    {
+      "name": "Animais de Estimação e Fofos",
+      "description": "Os animais domésticos, como gatos, cães e hamsters, que nos trazem alegria."
+    }
+  ]
+}

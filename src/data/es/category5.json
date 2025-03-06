@@ -1,0 +1,102 @@
+{
+  "name": "Historia y Cultura",
+  "description": "La evolución de la civilización humana y la diversidad cultural, desde los mitos y leyendas hasta los antiguos sitios, mostrando la historia y el encanto.",
+  "groups": [
+    {
+      "name": "Civilización Antigua de Egipto",
+      "description": "La misteriosa cultura de las pirámides, los faraones y los jeroglíficos."
+    },
+    {
+      "name": "Antigua Babilonia",
+      "description": "La brillante civilización de los ríos Tigris y Éufrates y la leyenda de los jardines colgantes."
+    },
+    {
+      "name": "Civilización Maya e Inca",
+      "description": "El fascinante culto al sol y los fascinantes restos de piedra."
+    },
+    {
+      "name": "Historia de China",
+      "description": "Desde las dinastías Xia, Shang y Zhou hasta la dinastía Ming y Qing, el cambio de dinastías y la brillante cultura."
+    },
+    {
+      "name": "Imperio Romano",
+      "description": "Los gladiadores, el arco de triunfo y la espléndida construcción de la ciudad."
+    },
+    {
+      "name": "Renacimiento",
+      "description": "El renacimiento del arte y la ciencia en Europa, con la aparición de grandes maestros."
+    },
+    {
+      "name": "Mitología Griega",
+      "description": "La fuente de la cultura de los dioses olímpicos y las leyendas de los héroes."
+    },
+    {
+      "name": "Vida de la Nobleza",
+      "description": "La vida cotidiana de la realeza y la nobleza en Europa u Oriente."
+    },
+    {
+      "name": "Leyendas y Cuentos Populares",
+      "description": "Las aventuras de héroes y las leyendas de dioses y monstruos que se transmiten en todo el mundo."
+    },
+    {
+      "name": "Festivales Tradicionales Chinos",
+      "description": "La cultura y el significado de festivales como el Año Nuevo Chino y el Festival del Medio Otoño."
+    },
+    {
+      "name": "Era Victoriana",
+      "description": "La revolución industrial y el cambio social en Gran Bretaña, con la apariencia de caballeros y damas."
+    },
+    {
+      "name": "Cultura de los Samuráis",
+      "description": "La espada samurái, el código de honor y el trasfondo político del shogunato."
+    },
+    {
+      "name": "Mitología Nórdica",
+      "description": "Los dioses como Odín y Thor y la leyenda del árbol del mundo."
+    },
+    {
+      "name": "Caballeros y Castillos",
+      "description": "El sistema feudal y el espíritu de los caballeros en la Europa medieval."
+    },
+    {
+      "name": "Civilización Antigua de la India",
+      "description": "El lugar de nacimiento del budismo, el hinduismo y la cultura de múltiples capas."
+    },
+    {
+      "name": "Arte Religioso",
+      "description": "Las formas de arte de las religiones como el cristianismo, el islam y el budismo."
+    },
+    {
+      "name": "Ruta de la Seda Marítima",
+      "description": "La ruta comercial y cultural que cruza los océanos."
+    },
+    {
+      "name": "Era de los Piratas y la Navegación",
+      "description": "La era de los descubrimientos, el comercio y las leyendas de los piratas."
+    },
+    {
+      "name": "Recreación de Batallas Antiguas",
+      "description": "Las famosas escenas de batalla de la historia y la estrategia militar."
+    },
+    {
+      "name": "Ópera de Pekín y Obras de Teatro",
+      "description": "Las imágenes de escenario llenas de características nacionales y la exageración artística."
+    },
+    {
+      "name": "Folklore de Diferentes Regiones del Mundo",
+      "description": "Las costumbres y festivales tradicionales de diferentes etnias en todo el mundo."
+    },
+    {
+      "name": "Cultura de los Pueblos Indígenas",
+      "description": "Las tribus y los pueblos indígenas que conservan su forma de vida original."
+    },
+    {
+      "name": "Artesanía Popular",
+      "description": "Las habilidades artesanales transmitidas de generación en generación, como el bordado, la cerámica y el teatro de sombras."
+    },
+    {
+      "name": "Evolución de la Vestimenta Tradicional",
+      "description": "El cambio de la vestimenta desde los trajes ceremoniales antiguos hasta la moda moderna."
+    }
+  ]
+}

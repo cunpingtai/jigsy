@@ -1,0 +1,102 @@
+{
+  "name": "Veículos de Transporte",
+  "description": "Mostra a variedade de formas de transporte humano e de carga, desde os tempos antigos até os dias atuais, testemunhando a evolução da tecnologia e da vida.",
+  "groups": [
+    {
+      "name": "Carros Clássicos",
+      "description": "A elegância retrô dos carros antigos e seu valor de coleção."
+    },
+    {
+      "name": "Carros Modernos",
+      "description": "Design diversificado para uso diário e familiar."
+    },
+    {
+      "name": "Trens e Ferrovias",
+      "description": "Transporte de longa distância, cultura ferroviária e paisagem da estação."
+    },
+    {
+      "name": "Aviões e Aeroportos",
+      "description": "Viagem aérea e símbolo da tecnologia moderna de voo."
+    },
+    {
+      "name": "Navios e Navegação",
+      "description": "Experiência vasta de transporte marítimo de longo curso ou cruzeiro."
+    },
+    {
+      "name": "Metrô e Trem Leve",
+      "description": "Veículos convenientes no sistema de transporte público da cidade."
+    },
+    {
+      "name": "Motocicletas e Cultura Motociclista",
+      "description": "Símbolo de velocidade e liberdade, charme único do passeio de rua."
+    },
+    {
+      "name": "Balões de Ar Quente",
+      "description": "Método romântico de subir lentamente e apreciar a paisagem."
+    },
+    {
+      "name": "Dirigíveis e Tráfego Aéreo",
+      "description": "Veículo de viagem aérea com atmosfera clássica e romântica."
+    },
+    {
+      "name": "Naves Espaciais e Veículos Espaciais",
+      "description": "Tecnologia de ponta e sonhos humanos na exploração do espaço."
+    },
+    {
+      "name": "Carruagens Clássicas",
+      "description": "Glamour e retrô dos principais meios de transporte da época."
+    },
+    {
+      "name": "Trens de Levitação Magnética",
+      "description": "Tecnologia futura de trens de alta velocidade e baixo ruído."
+    },
+    {
+      "name": "Elevadores Espaciais (Ficção Científica)",
+      "description": "Veículo conceitual futuro que conecta a Terra à órbita."
+    },
+    {
+      "name": "Carros Conceito do Futuro",
+      "description": "Modelos experimentais com design avançado e alta tecnologia."
+    },
+    {
+      "name": "Submarinos e Navegação Subaquática",
+      "description": "Veículo especial para explorar os mistérios do fundo do mar."
+    },
+    {
+      "name": "Caminhões de Carga",
+      "description": "A espinha dorsal da logística moderna e do transporte rodoviário."
+    },
+    {
+      "name": "Navios de Cruzeiro de Luxo",
+      "description": "Palácio flutuante que combina férias no mar e turismo."
+    },
+    {
+      "name": "Ferrovias de Alta Velocidade",
+      "description": "Sistema de transporte rápido que atravessa cidades e regiões."
+    },
+    {
+      "name": "Carros de Corrida e Super Carros",
+      "description": "O pico da velocidade e da engenharia de veículos."
+    },
+    {
+      "name": "Veículos Militares",
+      "description": "Equipamento militar como tanques, aeronaves e veículos blindados."
+    },
+    {
+      "name": "Teleféricos de Alta Altitude",
+      "description": "Caminho aéreo que atravessa vales ou o espaço urbano."
+    },
+    {
+      "name": "Veículos de Resgate",
+      "description": "Ferramentas de serviço de emergência como caminhões de bombeiros, ambulâncias e carros de polícia."
+    },
+    {
+      "name": "Bicicletas e Ciclismo",
+      "description": "Método de transporte verde e saudável."
+    },
+    {
+      "name": "Veículos Autônomos",
+      "description": "Tendência futura de direção autônoma e tráfego inteligente."
+    }
+  ]
+}

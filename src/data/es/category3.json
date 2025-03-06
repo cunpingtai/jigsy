@@ -1,0 +1,102 @@
+{
+  "name": "Cocina y Gastronomía",
+  "description": "Desde platos caseros hasta platos famosos de todo el mundo, explora el encanto de la comida y las habilidades culinarias, y disfruta de un festín de sabores multiculturales.",
+  "groups": [
+    {
+      "name": "Platos Tradicionales Chinos",
+      "description": "La esencia de los platos famosos de diferentes regiones, como la cocina de Sichuan, la cocina cantonesa y la cocina de Huaiyang."
+    },
+    {
+      "name": "Repostería Occidental",
+      "description": "El arte de hornear pan, pasteles y postres dulces."
+    },
+    {
+      "name": "Cocina Japonesa",
+      "description": "La sencillez y el sabor delicado del sushi, el sashimi y otros platos japoneses."
+    },
+    {
+      "name": "Barbacoa Coreana",
+      "description": "La combinación de la marinada y la parrilla de carbón, acompañada de una variedad de platos pequeños."
+    },
+    {
+      "name": "Cocina del Sudeste Asiático",
+      "description": "El sabor tailandés, vietnamita y otros sabores que combinan leche de coco y especias."
+    },
+    {
+      "name": "Cocina Mediterránea",
+      "description": "La cocina saludable que combina el aceite de oliva, las hierbas y los mariscos."
+    },
+    {
+      "name": "Cena Francesa",
+      "description": "La comida romántica que presta atención a los ingredientes de alta calidad y a la presentación delicada."
+    },
+    {
+      "name": "Pasta e Pizza Italiana",
+      "description": "La combinación clásica de salsa de tomate, queso y pasta o pizza."
+    },
+    {
+      "name": "Festín de Mariscos",
+      "description": "La comida de mar que combina camarones, cangrejos y otros mariscos con un sabor fresco y dulce."
+    },
+    {
+      "name": "Barbacoa y Parrilla",
+      "description": "La fiesta animada que combina la parrilla al aire libre y el sabor ahumado."
+    },
+    {
+      "name": "Postres y Pasteles",
+      "description": "El dulce disfrute que combina la apariencia exquisita y la textura múltiple."
+    },
+    {
+      "name": "Arte del Chocolate",
+      "description": "El mundo dulce y fragante que combina varios sabores de cacao y formas artesanales."
+    },
+    {
+      "name": "Té y Café",
+      "description": "La bebida caliente que combina el sabor profundo y la cultura."
+    },
+    {
+      "name": "Comida Picante",
+      "description": "Los platos estimulantes que incluyen el hot pot, el salteado picante, etc."
+    },
+    {
+      "name": "Cocina Vegetariana",
+      "description": "La comida saludable que se basa en verduras, frutas y productos de soja."
+    },
+    {
+      "name": "Hot Pot y Comida Picante",
+      "description": "La combinación de una variedad de ingredientes en un caldo caliente y picante."
+    },
+    {
+      "name": "Comida para Llevar y Rápida",
+      "description": "La comida conveniente y variada que se adapta al ritmo de vida rápido."
+    },
+    {
+      "name": "Aperitivos y Bocadillos",
+      "description": "Los pequeños bocados que se pueden disfrutar en cualquier momento y lugar."
+    },
+    {
+      "name": "Colección Mundial de Panes",
+      "description": "La variedad de sabores, como la baguette francesa, el pan de centeno alemán, el pan suave asiático, etc."
+    },
+    {
+      "name": "Cocina Creativa",
+      "description": "La innovación que combina ingredientes novedosos y técnicas de cocina."
+    },
+    {
+      "name": "Cocina Casera",
+      "description": "La comida casera que combina el sabor tradicional y el estilo personal."
+    },
+    {
+      "name": "Escena de Enseñanza de Cocina",
+      "description": "La demostración o la enseñanza en forma de clase que combina la operación y el ambiente."
+    },
+    {
+      "name": "Decoración de Mesa de Comida",
+      "description": "La presentación cuidadosa que combina la vista y el gusto."
+    },
+    {
+      "name": "Comida Callejera",
+      "description": "El encanto único de los puestos callejeros y los aperitivos característicos de diferentes regiones."
+    }
+  ]
+}

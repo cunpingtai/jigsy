@@ -1,0 +1,102 @@
+{
+  "name": "Tierwelt",
+  "description": "Von Land zu Meer, von der Arktis bis zur Tropen, die vielfältigen Tiere und ihre Lebensräume, präsentieren die Dynamik und den Charme der Natur.",
+  "groups": [
+    {
+      "name": "Wildtiere",
+      "description": "In der Wildnis lebende, mit starkem Überlebenswillen ausgestattete Arten."
+    },
+    {
+      "name": "Tiere der Tropen",
+      "description": "Die bunte Vielfalt der Regenwaldtiere und ihre reiche Nahrungskette."
+    },
+    {
+      "name": "Wassertiere",
+      "description": "Fische, Korallen und Meeressäugetiere in Meeren, Flüssen und Seen."
+    },
+    {
+      "name": "Haustiere",
+      "description": "Von Menschen gezüchtete oder auf Farmen lebende Tiere wie Hühner, Enten, Rinder und Schafe."
+    },
+    {
+      "name": "Insektenwelt",
+      "description": "Die vielfältigen, winzigen Hauptdarsteller der Mikrowelt."
+    },
+    {
+      "name": "Katzenartige",
+      "description": "Elegante und wilde Jäger wie Löwen, Tiger und Leoparden."
+    },
+    {
+      "name": "Hundeartige",
+      "description": "Intelligente und soziale Tiere wie Wölfe, Füchse und Hunde."
+    },
+    {
+      "name": "Vogelbeobachtung",
+      "description": "Die farbenfrohen Flügel und die melodischen Vogelstimmen der Himmelswesen."
+    },
+    {
+      "name": "Amphibien und Reptilien",
+      "description": "Die Formen und Gewohnheiten der kaltblütigen Lebewesen wie Eidechsen, Schlangen und Frösche."
+    },
+    {
+      "name": "Graslandtiere",
+      "description": "Die auf weiten Grasflächen laufenden oder in Herden lebenden Arten wie Antilopen und Zebras."
+    },
+    {
+      "name": "Polartiere",
+      "description": "Die an extreme Kälte angepassten Vertreter wie Pinguine und Eisbären."
+    },
+    {
+      "name": "Seltene und bedrohte Arten",
+      "description": "Eine Sammlung von Arten, die vor dem Aussterben stehen und dringend geschützt werden müssen."
+    },
+    {
+      "name": "Tierbabys",
+      "description": "Die niedlichen und kindlichen Seiten vieler Tierarten."
+    },
+    {
+      "name": "Raubsäuger und Raubvögel",
+      "description": "Die von Natur aus wilden und jagenden Tiere wie Leoparden, Falken und Geiern."
+    },
+    {
+      "name": "Urtiere (Dinosaurier usw.)",
+      "description": "Die riesigen Lebewesen, die einst die Erde oder die Meere beherrschten."
+    },
+    {
+      "name": "Primaten",
+      "description": "Die intelligenten und menschennahen Arten wie Affen und Menschenaffen."
+    },
+    {
+      "name": "Tiefseemonster",
+      "description": "Die riesigen Bewohner der Tiefsee wie Wale, Haie und riesige Tintenfische."
+    },
+    {
+      "name": "Jagdszenen",
+      "description": "Die spannenden Momente, wenn wilde Tiere oder Menschen auf der Jagd sind."
+    },
+    {
+      "name": "Tiergesellschaften",
+      "description": "Die sozialen Formen des Zusammenlebens von Tieren wie Ameisen, Wölfen und anderen."
+    },
+    {
+      "name": "Kleintiere",
+      "description": "Die kleinen, wasserlebenden oder am Wasser lebenden Wirbellosen."
+    },
+    {
+      "name": "Wildschutz",
+      "description": "Die friedliche Koexistenz von Menschen und Tieren in Naturschutzgebieten."
+    },
+    {
+      "name": "Mensch-Tier-Interaktion",
+      "description": "Die herzlichen Szenen von Haustieren, Wildtierbeobachtungen und anderen Begegnungen mit der Natur."
+    },
+    {
+      "name": "Farmtiere",
+      "description": "Die auf Farmen lebenden, alltäglichen Tiere wie Rinder, Pferde und Schweine."
+    },
+    {
+      "name": "Haustiere und Niedliche",
+      "description": "Die heimischen Haustiere wie Katzen, Hunde, Hamster und andere niedliche Kreaturen."
+    }
+  ]
+}

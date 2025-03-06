@@ -1,0 +1,102 @@
+{
+  "name": "Sports et Fitness",
+  "description": "Présentant la richesse du sport et du mode de vie sain, de la compétition intense à l'entraînement quotidien, stimulant la vitalité et la passion des gens.",
+  "groups": [
+    {
+      "name": "Terrain de football",
+      "description": "Le sport d'équipe le plus populaire au monde, alliant coopération et passion."
+    },
+    {
+      "name": "Match de basket-ball",
+      "description": "La compétition intense et la performance individuelle."
+    },
+    {
+      "name": "Scène de tennis",
+      "description": "La grâce du jeu et l'importance de la coordination et de la stratégie."
+    },
+    {
+      "name": "Swing de golf",
+      "description": "Le sport élégant et délicat sur le terrain de golf."
+    },
+    {
+      "name": "Marathon",
+      "description": "L'épreuve d'endurance et de volonté en ville ou en nature."
+    },
+    {
+      "name": "Gymnastique artistique",
+      "description": "La combinaison de haute technicité et d'art."
+    },
+    {
+      "name": "Ski et snowboard",
+      "description": "La vitesse et la technique sur la neige et dans les stations de ski."
+    },
+    {
+      "name": "Sports de glace",
+      "description": "La grâce et la passion sur la glace."
+    },
+    {
+      "name": "Boxe et combat",
+      "description": "La lutte entre force, vitesse et intelligence."
+    },
+    {
+      "name": "Course automobile",
+      "description": "La vitesse et la passion sur la piste."
+    },
+    {
+      "name": "Course de vélo",
+      "description": "L'endurance et la tactique sur route, en montagne ou sur piste."
+    },
+    {
+      "name": "Natation et plongée",
+      "description": "L'épreuve de coordination et de contrôle dans l'eau."
+    },
+    {
+      "name": "Sports extrêmes (skate, escalade, etc.)",
+      "description": "Les défis extrêmes pour le corps."
+    },
+    {
+      "name": "Entraînement en salle de sport",
+      "description": "La sculpture du corps par l'entraînement en salle."
+    },
+    {
+      "name": "Yoga et méditation",
+      "description": "L'harmonie du corps et de l'esprit."
+    },
+    {
+      "name": "Spectacle de danse",
+      "description": "La combinaison de l'art et du sport."
+    },
+    {
+      "name": "Compétition équestre",
+      "description": "La complicité entre l'homme et le cheval."
+    },
+    {
+      "name": "Match de tennis de table",
+      "description": "La précision et la rapidité du jeu."
+    },
+    {
+      "name": "Badminton",
+      "description": "Le plaisir du volant qui vole à grande vitesse."
+    },
+    {
+      "name": "Judo et lutte",
+      "description": "La lutte rapprochée avec technique et contrôle des articulations."
+    },
+    {
+      "name": "Voile et navigation",
+      "description": "La navigation à voile et l'importance de la coopération en équipe."
+    },
+    {
+      "name": "Tir à l'arc et tir",
+      "description": "La stabilité mentale et la concentration pour atteindre la cible."
+    },
+    {
+      "name": "Cricket et rugby",
+      "description": "La compétition intense et l'esprit d'équipe."
+    },
+    {
+      "name": "Sports en salle (bowling, billard, etc.)",
+      "description": "La combinaison de divertissement et de compétence en salle."
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "name": "Culinary Delights",
+  "description": "Exploring the charm of culinary arts and cooking techniques, from home-cooked dishes to world-renowned cuisine, experiencing the diverse flavors of multiculturalism.",
+  "groups": [
+    {
+      "name": "Traditional Chinese Cuisine",
+      "description": "The essence of regional Chinese dishes such as Sichuan, Cantonese, and Huaiyang cuisine."
+    },
+    {
+      "name": "Western Baking",
+      "description": "The sweet art of baking bread, cakes, and pastries."
+    },
+    {
+      "name": "Japanese Cuisine",
+      "description": "The simple yet refined flavors of sushi, sashimi, and delicate plating."
+    },
+    {
+      "name": "Korean BBQ",
+      "description": "The combination of marination and charcoal grilling, paired with a variety of side dishes."
+    },
+    {
+      "name": "Southeast Asian Cuisine",
+      "description": "The fusion of coconut milk and spices in Thai, Vietnamese, and other regional flavors."
+    },
+    {
+      "name": "Mediterranean Flavors",
+      "description": "Healthy cooking with olive oil, herbs, and seafood."
+    },
+    {
+      "name": "French Fine Dining",
+      "description": "Emphasizing high-quality ingredients and exquisite plating for romantic cuisine."
+    },
+    {
+      "name": "Italian Pasta and Pizza",
+      "description": "The classic combination of tomato sauce, cheese, and pasta or pizza."
+    },
+    {
+      "name": "Seafood Feast",
+      "description": "Fresh seafood and sweet flavors in a seafood banquet."
+    },
+    {
+      "name": "BBQ and Grilling",
+      "description": "Outdoor grilling and smoky flavors for lively gatherings."
+    },
+    {
+      "name": "Desserts and Cakes",
+      "description": "Exquisite craftsmanship and multiple textures for sweet indulgence."
+    },
+    {
+      "name": "Chocolate Art",
+      "description": "Multiple cocoa flavors and handmade craftsmanship in a sweet world."
+    },
+    {
+      "name": "Tea and Coffee",
+      "description": "The rich flavors and cultural heritage of hot beverages."
+    },
+    {
+      "name": "Spicy Cuisine",
+      "description": "Stimulating flavors such as hot pot and spicy stir-fries."
+    },
+    {
+      "name": "Vegetarian Cuisine",
+      "description": "Healthy eating with vegetables, fruits, and legumes as the main ingredients."
+    },
+    {
+      "name": "Hot Pot and Braised Dishes",
+      "description": "Multiple ingredients in a simmering pot, with spicy and savory flavors."
+    },
+    {
+      "name": "Convenience Food and Fast Food",
+      "description": "Convenient and flavorful meals for a fast-paced lifestyle, with variety and taste."
+    },
+    {
+      "name": "Snacks and Leisure Food",
+      "description": "Easy-to-eat snacks for any time and place, with a variety of flavors."
+    },
+    {
+      "name": "Global Bread Collection",
+      "description": "A variety of bread styles from around the world, such as baguettes, dark rye, and soft Asian bread."
+    },
+    {
+      "name": "Creative Cuisine",
+      "description": "Fusion of new ingredients and cooking techniques, pushing the boundaries of culinary innovation."
+    },
+    {
+      "name": "Private Kitchen Delights",
+      "description": "Home-cooked flavors and personal touches in culinary creations."
+    },
+    {
+      "name": "Cooking Class Scenes",
+      "description": "Demonstrative or classroom-style teaching operations and atmosphere."
+    },
+    {
+      "name": "Food Table Setting",
+      "description": "Visual and flavorful emphasis on table setting and environmental design."
+    },
+    {
+      "name": "Street Food",
+      "description": "The unique charm of street vendors and regional snacks."
+    }
+  ]
+}

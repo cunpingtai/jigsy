@@ -1,0 +1,102 @@
+{
+  "name": "Arte y Pintura",
+  "description": "Recopila diversas formas de expresión artística humana, desde la pintura al óleo tradicional hasta las instalaciones de nuevos medios, reflejando las distintas características estéticas de diferentes culturas y épocas.",
+  "groups": [
+    {
+      "name": "Pinturas Impresionistas",
+      "description": "Buscan la luz y el cambio de color, como las obras de Monet y Renoir."
+    },
+    {
+      "name": "Obras Abstractas",
+      "description": "Utilizan formas, líneas y colores para transmitir emociones subjetivas."
+    },
+    {
+      "name": "Pinturas Clásicas",
+      "description": "Técnica realista, pinceladas finas, enfatiza la perspectiva y la anatomía humana."
+    },
+    {
+      "name": "Arte Contemporáneo",
+      "description": "Rompe los medios tradicionales, enfatiza el concepto y la innovación."
+    },
+    {
+      "name": "Pintura China de Tinta y Agua",
+      "description": "El encanto oriental de la tinta y el espacio en blanco, lleno de poesía."
+    },
+    {
+      "name": "Murales y Grafitis",
+      "description": "Pintura a gran escala en espacios públicos, da vida a la ciudad."
+    },
+    {
+      "name": "Arte Pop",
+      "description": "Arte popular que proviene de la cultura de masas y la sociedad de consumo."
+    },
+    {
+      "name": "Ilustración Moderna",
+      "description": "Forma creativa de pintura comercial y editorial."
+    },
+    {
+      "name": "Acuarela",
+      "description": "Técnica de pintura con colores transparentes y capas suaves."
+    },
+    {
+      "name": "Estilo de Cómic",
+      "description": "Creación de cómics japoneses o europeos, con viñetas y personajes distintivos."
+    },
+    {
+      "name": "Naturaleza Muerta",
+      "description": "Pintura de objetos de escritorio, destacando la luz, la textura y la estructura."
+    },
+    {
+      "name": "Arte del Cuerpo Humano",
+      "description": "Muestra la belleza y la curva del cuerpo humano, fusionando la anatomía y la estética."
+    },
+    {
+      "name": "Pintura de Paisajes",
+      "description": "Pintura en el lugar para capturar los cambios reales de luz y sombra."
+    },
+    {
+      "name": "Arte Digital",
+      "description": "Arte de múltiples formas creado con computadora o tableta digital."
+    },
+    {
+      "name": "Surrealismo",
+      "description": "Fusión de elementos oníricos y reales, creando una sensación de fantasía absurda."
+    },
+    {
+      "name": "Renacimiento",
+      "description": "Obras clásicas de maestros como Leonardo da Vinci y Miguel Ángel."
+    },
+    {
+      "name": "Arte Conceptual",
+      "description": "Diseños creativos utilizados en el diseño previo de cine, juegos, etc."
+    },
+    {
+      "name": "Grafiti de Cultura Callejera",
+      "description": "La expresión de la subcultura juvenil y la fusión de temas sociales."
+    },
+    {
+      "name": "Arte de Grabado",
+      "description": "Reproducción múltiple mediante tallado, grabado o impresión en pantalla."
+    },
+    {
+      "name": "Estilo Ukiyo-e",
+      "description": "Arte popular japonés de la era Edo."
+    },
+    {
+      "name": "Arte de Escultura (3D)",
+      "description": "Obras tridimensionales creadas con madera, piedra, metal o arcilla."
+    },
+    {
+      "name": "Arte de Instalación",
+      "description": "Creación inmersiva o interactiva que combina el entorno y los materiales."
+    },
+    {
+      "name": "Expresionismo",
+      "description": "Exageración y deformación para resaltar la intensa emoción interna del artista."
+    },
+    {
+      "name": "Arte de Interacción de Nuevos Medios",
+      "description": "Creación vanguardista que utiliza la tecnología digital para interactuar con el público."
+    }
+  ]
+}

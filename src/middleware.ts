@@ -6,12 +6,18 @@ import language from "../languages.json";
 
 const isPrivateRoute = createRouteMatcher(["/demo(.*)"]);
 
+const ignorePaths = ["/generate"];
+
 const languages = language.languages;
 acceptLanguage.languages(languages);
 
 export default clerkMiddleware(async (auth, request) => {
   if (isPrivateRoute(request)) {
     await auth.protect();
+  }
+
+  if (ignorePaths.some((path) => request.nextUrl.pathname.startsWith(path))) {
+    return NextResponse.next();
   }
 
   let lng;

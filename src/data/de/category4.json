@@ -1,0 +1,102 @@
+{
+  "name": "Sport und Fitness",
+  "description": "Zeigt die vielfältigen Aspekte von Sport und gesunder Lebensweise, von intensiven Wettkämpfen bis hin zu täglicher Fitness, um die Energie und Begeisterung der Menschen zu wecken.",
+  "groups": [
+    {
+      "name": "Fußballarena",
+      "description": "Die weltweit beliebteste Wettkampfsportart, Teamwork und Leidenschaft."
+    },
+    {
+      "name": "Basketball-Duell",
+      "description": "Intensive Konfrontationen und individuelle technische Brillanz."
+    },
+    {
+      "name": "Tennis-Szenario",
+      "description": "Elegante Schläge und Wettkämpfe, die Körperkoordination und Strategie betonen."
+    },
+    {
+      "name": "Golf-Schwung",
+      "description": "Die ruhige und feine Herrensportart auf dem Rasen."
+    },
+    {
+      "name": "Marathon-Langlauf",
+      "description": "Die extreme Herausforderung von Ausdauer und Willenskraft in Stadt- oder Geländeläufen."
+    },
+    {
+      "name": "Turnen",
+      "description": "Die Kombination von Balance, Freiheit und künstlerischer Darstellung."
+    },
+    {
+      "name": "Ski und Snowboard",
+      "description": "Das Vergnügen von Geschwindigkeit und Technik auf Schnee und Eis."
+    },
+    {
+      "name": "Eis-Sport",
+      "description": "Die Schönheit und Leidenschaft von Eiskunstlauf, Eishockey und mehr auf dem Eis."
+    },
+    {
+      "name": "Boxen und Kampfsport",
+      "description": "Die extreme Konfrontation von Kraft, Geschwindigkeit und Intelligenz."
+    },
+    {
+      "name": "Autorennen",
+      "description": "Das Erleben von Geschwindigkeit und Leidenschaft in Formel-1- und Rallye-Rennen."
+    },
+    {
+      "name": "Radrennen",
+      "description": "Die Ausdauer und Taktik von Straßen-, Mountainbike- und Bahnradsport."
+    },
+    {
+      "name": "Schwimmen und Tauchen",
+      "description": "Die Herausforderung von Körperkoordination und Kontrolle im Wasser."
+    },
+    {
+      "name": "Extremsport (Skateboard, Klettern etc.)",
+      "description": "Abenteuerliche Aktivitäten, die die menschlichen Grenzen herausfordern."
+    },
+    {
+      "name": "Fitnessstudio-Training",
+      "description": "Das Formen eines gesunden Körpers durch Geräte-, Cardio- und Krafttraining."
+    },
+    {
+      "name": "Yoga-Meditation",
+      "description": "Die Verbindung von Körper und Geist, mit Schwerpunkt auf Flexibilität und Atemtechnik."
+    },
+    {
+      "name": "Tanzdarbietung",
+      "description": "Die Kombination von Kunst und Sport in verschiedenen Tanzstilen, von leidenschaftlich bis elegant."
+    },
+    {
+      "name": "Reitsport",
+      "description": "Die harmonische Zusammenarbeit zwischen Mensch und Pferd, mit eleganten Bewegungen."
+    },
+    {
+      "name": "Tischtennis-Duell",
+      "description": "Die schnellen Schritte und präzisen Techniken im Tischtennisspiel."
+    },
+    {
+      "name": "Badminton-Sport",
+      "description": "Das schnelle Fliegen des Federballes im Luftkampf."
+    },
+    {
+      "name": "Judo und Ringen",
+      "description": "Die Anwendung von Techniken und Gelenksteuerung im Nahkampf."
+    },
+    {
+      "name": "Segeln und Seefahrt",
+      "description": "Das Segeln auf dem Wasser, bei dem Teamarbeit von entscheidender Bedeutung ist."
+    },
+    {
+      "name": "Schießen und Bogenschießen",
+      "description": "Der ruhige Geist und die Konzentration, die für das Treffen von Zielen entscheidend sind."
+    },
+    {
+      "name": "Cricket und American Football",
+      "description": "Die intensive Mannschaftskonfrontation in Commonwealth- oder US-amerikanischen Sportarten."
+    },
+    {
+      "name": "Innen-Sportarten (Bowling, Billard etc.)",
+      "description": "Unterhaltende und technisch anspruchsvolle Aktivitäten in Innenräumen."
+    }
+  ]
+}

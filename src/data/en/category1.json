@@ -1,0 +1,102 @@
+{
+  "name": "Science and Future",
+  "description": "Focuses on the most cutting-edge scientific research and futuristic visions, from macrocosmic universe to microscopic nanotechnology, inspiring people's curiosity about the unknown.",
+  "groups": [
+    {
+      "name": "Robotics Technology",
+      "description": "Collaboration between multi-legged or humanoid robots and artificial intelligence."
+    },
+    {
+      "name": "Cosmic Astronomy",
+      "description": "Observation and theoretical research of celestial bodies such as stars, nebulae, and planets."
+    },
+    {
+      "name": "Genetic Engineering",
+      "description": "Breakthroughs in gene editing and biological sciences."
+    },
+    {
+      "name": "Medical Breakthroughs",
+      "description": "Advances in new drug development, cutting-edge surgery, and medical equipment."
+    },
+    {
+      "name": "Environmental Protection and New Energy",
+      "description": "Renewable energy sources such as wind and solar power, and ecological conservation."
+    },
+    {
+      "name": "Biodiversity",
+      "description": "The importance of diverse species and ecological balance."
+    },
+    {
+      "name": "Virtual Reality (VR)",
+      "description": "Digital simulation and immersive interactive entertainment of the future."
+    },
+    {
+      "name": "Augmented Reality (AR)",
+      "description": "Technology that combines virtual information with the real environment."
+    },
+    {
+      "name": "3D Printing Technology",
+      "description": "Revolutionary rapid prototyping and customized manufacturing processes."
+    },
+    {
+      "name": "Nanotechnology",
+      "description": "Designing materials or structures at the molecular or atomic level."
+    },
+    {
+      "name": "Artificial Intelligence (AI)",
+      "description": "Deep learning, automated decision-making, and human-machine interaction."
+    },
+    {
+      "name": "Future City Planning",
+      "description": "Concepts of smart transportation, intelligent architecture, and sustainable development in cities."
+    },
+    {
+      "name": "Space Colonization",
+      "description": "Establishing human settlements on other planets in the future."
+    },
+    {
+      "name": "Time-Space Travel Theory",
+      "description": "Science fiction and scientific hypotheses that transcend time or space limitations."
+    },
+    {
+      "name": "Quantum Physics",
+      "description": "Research directions such as quantum entanglement and quantum computing."
+    },
+    {
+      "name": "Information Security and Hacking",
+      "description": "Network defense and digital privacy protection in the digital age."
+    },
+    {
+      "name": "Mars Exploration",
+      "description": "Exploration of Mars, including Mars rovers and manned landing missions."
+    },
+    {
+      "name": "Deep Space Telescope",
+      "description": "Key equipment for observing distant galaxies and exploring the origins of the universe."
+    },
+    {
+      "name": "Underwater Research",
+      "description": "Scientific research on ocean floors and deep-sea biology."
+    },
+    {
+      "name": "Supercomputer",
+      "description": "High-performance computing supporting scientific research and engineering."
+    },
+    {
+      "name": "Weather Research",
+      "description": "Extreme weather, climate change, and atmospheric environment monitoring."
+    },
+    {
+      "name": "Brain-Computer Interface",
+      "description": "Frontier technology that enables direct communication between the human brain and computers."
+    },
+    {
+      "name": "Flying Cars",
+      "description": "New forms of personal or public transportation in the future."
+    },
+    {
+      "name": "Future New Materials",
+      "description": "Innovations that could change the world, such as graphene and superconductors."
+    }
+  ]
+}

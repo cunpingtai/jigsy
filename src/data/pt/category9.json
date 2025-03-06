@@ -1,0 +1,102 @@
+{
+  "name": "Arte e Pintura",
+  "description": "Reúne as diversas formas de expressão artística humana, desde a pintura tradicional a instalações de mídia nova, refletindo as características estéticas diferentes de culturas e épocas.",
+  "groups": [
+    {
+      "name": "Pinturas Famosas do Impressionismo",
+      "description": "Buscando a mudança de luz e cor, como as obras de Monet, Renoir."
+    },
+    {
+      "name": "Obras Abstratas",
+      "description": "Usando formas, linhas, cores para transmitir emoções subjetivas."
+    },
+    {
+      "name": "Pintura Clássica",
+      "description": "Técnicas realistas, pinceladas precisas, enfatizando a perspectiva e a anatomia humana."
+    },
+    {
+      "name": "Arte Contemporânea",
+      "description": "Quebrando as fronteiras tradicionais, enfatizando o conceito e a inovação."
+    },
+    {
+      "name": "Caligrafia e Pintura Chinesas",
+      "description": "A cor preta oriental e o espaço branco, poético e cheio de significado."
+    },
+    {
+      "name": "Muralismo e Graffiti",
+      "description": "Pinturas em larga escala em espaços públicos, dando vida às cidades."
+    },
+    {
+      "name": "Arte Pop",
+      "description": "Origem da cultura popular e sociedade consumista, arte popular."
+    },
+    {
+      "name": "Ilustração Moderna",
+      "description": "Formas criativas de pintura, comumente vistas em publicidade e editoração."
+    },
+    {
+      "name": "Pintura a Água",
+      "description": "Técnicas de pintura transparentes, camadas suaves e delicadas."
+    },
+    {
+      "name": "Estilo de Mangá",
+      "description": "Criatividade de mangá japonês ou ocidental, com quadros vivos e personagens."
+    },
+    {
+      "name": "Desenho de Natureza Morta",
+      "description": "Desenhando objetos sobre uma mesa, destacando a luz, a textura e a estrutura."
+    },
+    {
+      "name": "Arte do Corpo Humano",
+      "description": "Exibindo as curvas e a beleza do corpo humano, fundindo anatomia e estética."
+    },
+    {
+      "name": "Paisagem ao Ar Livre",
+      "description": "Pintando ao ar livre, registrando as mudanças reais de luz e sombra."
+    },
+    {
+      "name": "Arte Digital",
+      "description": "Criando arte com computadores ou tablets, formas múltiplas."
+    },
+    {
+      "name": "Surrealismo",
+      "description": "Fundindo sonho e realidade, criando um sentimento de fantasia e estranheza."
+    },
+    {
+      "name": "Renascimento",
+      "description": "Obras-primas de mestres como Da Vinci, Michelangelo."
+    },
+    {
+      "name": "Arte Conceitual",
+      "description": "Principalmente usada para design pré-produção de cinema e jogos."
+    },
+    {
+      "name": "Cultura de Rua",
+      "description": "Expressão de si mesmo e fusão de temas sociais na juventude."
+    },
+    {
+      "name": "Arte de Gravura",
+      "description": "Usando escultura, gravura ou serigrafia para múltiplas cópias."
+    },
+    {
+      "name": "Estilo Ukiyo-e",
+      "description": "Arte popular japonesa do período Edo, xilogravura."
+    },
+    {
+      "name": "Arte Escultórica (3D)",
+      "description": "Obras tridimensionais feitas de madeira, pedra, metal ou argila."
+    },
+    {
+      "name": "Arte de Instalação",
+      "description": "Combinando ambiente e materiais, criando experiências imersivas ou interativas."
+    },
+    {
+      "name": "Expressionismo",
+      "description": "Exagero e distorção para enfatizar as emoções intensas do artista."
+    },
+    {
+      "name": "Arte de Nova Mídia Interativa",
+      "description": "Usando tecnologia digital para criar interações com o público."
+    }
+  ]
+}

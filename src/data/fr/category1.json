@@ -1,0 +1,102 @@
+{
+  "name": "Science et Futur",
+  "description": "Se concentrant sur la recherche scientifique de pointe et les prévisions futures, de l'univers macroscopique au nanomonde, stimulant la curiosité pour l'inconnu.",
+  "groups": [
+    {
+      "name": "Technologie des robots",
+      "description": "La coopération entre les robots à pattes ou humanoïdes et l'intelligence artificielle."
+    },
+    {
+      "name": "Astronomie spatiale",
+      "description": "Observation et recherche théorique des étoiles, des nébuleuses, des planètes, etc."
+    },
+    {
+      "name": "Ingénierie génétique",
+      "description": "Innovation et percée dans l'édition génétique et les sciences biologiques."
+    },
+    {
+      "name": "Avancées médicales",
+      "description": "Progrès dans la recherche de nouveaux médicaments, la chirurgie de pointe et les dispositifs médicaux."
+    },
+    {
+      "name": "Protection de l'environnement et énergies renouvelables",
+      "description": "Énergies renouvelables comme l'énergie éolienne, solaire, etc. et la protection de l'environnement."
+    },
+    {
+      "name": "Biodiversité",
+      "description": "Importance de la diversité des espèces et de l'équilibre écologique."
+    },
+    {
+      "name": "Réalité virtuelle (VR)",
+      "description": "Divertissement futuriste basé sur la simulation numérique et l'interaction immersive."
+    },
+    {
+      "name": "Réalité augmentée (AR)",
+      "description": "Technologie qui combine les informations virtuelles avec l'environnement réel."
+    },
+    {
+      "name": "Impression 3D",
+      "description": "Technologie révolutionnaire de fabrication rapide et personnalisée."
+    },
+    {
+      "name": "Nanotechnologie",
+      "description": "Conception de matériaux ou de structures au niveau moléculaire ou atomique."
+    },
+    {
+      "name": "Intelligence artificielle (IA)",
+      "description": "Apprentissage en profondeur, prise de décision automatisée et interaction homme-machine."
+    },
+    {
+      "name": "Planification urbaine future",
+      "description": "Concept de ville intelligente, de bâtiment intelligent et de développement durable."
+    },
+    {
+      "name": "Colonisation de l'espace",
+      "description": "Perspective de construire une base de survie humaine sur une planète étrangère."
+    },
+    {
+      "name": "Théorie du voyage dans le temps et de l'espace",
+      "description": "Science-fiction et hypothèse scientifique qui dépasse les limites du temps ou de l'espace."
+    },
+    {
+      "name": "Physique quantique",
+      "description": "Domaines de recherche de pointe tels que l'intrication quantique et l'informatique quantique."
+    },
+    {
+      "name": "Sécurité de l'information et hackers",
+      "description": "Cyberdéfense, protection de la vie privée à l'ère numérique."
+    },
+    {
+      "name": "Exploration de Mars",
+      "description": "Exploration de Mars, atterrissage humain et migration interstellaire."
+    },
+    {
+      "name": "Télescope spatial",
+      "description": "Équipement clé pour observer les galaxies lointaines et explorer l'origine de l'univers."
+    },
+    {
+      "name": "Recherche sous-marine",
+      "description": "Recherche scientifique sur les fonds marins et la vie marine."
+    },
+    {
+      "name": "Superordinateur",
+      "description": "Équipement central pour la recherche et l'ingénierie à haute performance."
+    },
+    {
+      "name": "Recherche météorologique",
+      "description": "Surveillance des conditions météorologiques extrêmes, du changement climatique et de l'environnement atmosphérique."
+    },
+    {
+      "name": "Interface cerveau-machine",
+      "description": "Technologie de pointe qui permet à un cerveau humain de communiquer directement avec un ordinateur."
+    },
+    {
+      "name": "Voiture volante",
+      "description": "Nouvelle forme de transport personnel ou public dans le futur."
+    },
+    {
+      "name": "Nouveaux matériaux futuristes",
+      "description": "Inventions potentiellement révolutionnaires comme le graphène, les supraconducteurs, etc."
+    }
+  ]
+}

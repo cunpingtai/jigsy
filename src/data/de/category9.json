@@ -1,0 +1,102 @@
+{
+  "name": "Kunst und Malerei",
+  "description": "Sammlung vielfältiger Formen der künstlerischen Darstellung, von traditionellen Ölgemälden bis hin zu neuen Medieninstallationen, die die ästhetischen Besonderheiten unterschiedlicher Kulturen und Epochen widerspiegeln.",
+  "groups": [
+    {
+      "name": "Impressionistische Meisterwerke",
+      "description": "Verfolgen Sie die Veränderungen von Licht und Farbe, wie in den Werken von Monet und Renoir."
+    },
+    {
+      "name": "Abstrakte Werke",
+      "description": "Verwenden Sie Formen, Linien und Farben, um subjektive Emotionen zu vermitteln."
+    },
+    {
+      "name": "Klassizistische Ölgemälde",
+      "description": "Realistische Techniken, feine Pinselstriche, betonen die Perspektive und die Anatomie des Menschen."
+    },
+    {
+      "name": "Zeitgenössische Kunst",
+      "description": "Überwinden Sie traditionelle Medien, betonen Sie Konzepte und Innovationen."
+    },
+    {
+      "name": "Tuschmalerei",
+      "description": "Die östliche Tuschefarbe und die Leerstellen, poetisch und reich an Atmosphäre."
+    },
+    {
+      "name": "Wandmalerei und Graffiti",
+      "description": "Großflächige Malereien im öffentlichen Raum, verleihen der Stadt ein lebendiges Aussehen."
+    },
+    {
+      "name": "Pop-Art",
+      "description": "Kunstform, die aus der Popkultur und der Konsumgesellschaft entstand."
+    },
+    {
+      "name": "Moderne Illustration",
+      "description": "Vielfach anzutreffen in kommerziellen und veröffentlichten kreativen Illustrationsformen."
+    },
+    {
+      "name": "Aquarellmalerei",
+      "description": "Transparente Farben, weiche Schichten, eine Maltechnik."
+    },
+    {
+      "name": "Manga-Stil",
+      "description": "Japanische oder westliche Comic-Kreationen, mit lebhaften Panels und Charakteren."
+    },
+    {
+      "name": "Stillleben-Zeichnung",
+      "description": "Zeichnen Sie Gegenstände auf dem Tisch, betonen Sie Licht, Textur und Struktur."
+    },
+    {
+      "name": "Körperkunst",
+      "description": "Präsentieren Sie die Kurven und die Schönheit des menschlichen Körpers, kombiniert mit Anatomie und Ästhetik."
+    },
+    {
+      "name": "Landschaftsmalerei",
+      "description": "Malen Sie direkt vor Ort, dokumentieren Sie die tatsächlichen Veränderungen von Licht und Schatten."
+    },
+    {
+      "name": "Digitale Kunst",
+      "description": "Kunstformen, die mit dem Computer oder dem Grafiktablett erstellt werden."
+    },
+    {
+      "name": "Surrealismus",
+      "description": "Kombinieren Sie Traum und Realität, erzeugen Sie eine fantastische Atmosphäre."
+    },
+    {
+      "name": "Renaissance-Zeit",
+      "description": "Klassiker von Meistern wie Leonardo da Vinci und Michelangelo."
+    },
+    {
+      "name": "Konzeptkunst",
+      "description": "Hauptsächlich für die Vorproduktion von Film und Spiel verwendet, um kreative Bilder zu erstellen."
+    },
+    {
+      "name": "Straßenkultur-Graffiti",
+      "description": "Selbstausdruck und soziale Themen der Jugendkultur."
+    },
+    {
+      "name": "Druckgrafik",
+      "description": "Verwenden Sie Gravuren, Ätzungen oder Siebdruck, um multiple Kopien zu erstellen."
+    },
+    {
+      "name": "Ukiyo-e-Stil",
+      "description": "Eine volkstümliche Druckkunst, die in der Edo-Zeit Japans entstand."
+    },
+    {
+      "name": "Skulpturenkunst (3D)",
+      "description": "Dreidimensionale Werke, die aus Holz, Stein, Metall oder Ton geformt werden."
+    },
+    {
+      "name": "Installationen",
+      "description": "Kombinieren Sie Umgebung und Materialien, um eine immersive oder interaktive Erfahrung zu schaffen."
+    },
+    {
+      "name": "Expressionismus",
+      "description": "Übertreiben und verzerren, um die starken inneren Emotionen des Künstlers hervorzuheben."
+    },
+    {
+      "name": "Neue Medien-Interaktionskunst",
+      "description": "Verwenden Sie digitale Technologien, um mit dem Publikum zu interagieren und avantgardistische Werke zu schaffen."
+    }
+  ]
+}
