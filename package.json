@@ -5,14 +5,14 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "prebuild": "prisma generate && prisma:migrate:deploy",
+    "prebuild": "npm run deploy",
     "start": "next start -p 3000",
     "lint": "next lint",
     "prisma:generate": "prisma generate",
     "prisma:migrate:dev": "prisma migrate dev",
     "prisma:migrate:deploy": "prisma migrate deploy",
     "prisma:studio": "prisma studio",
-    "deploy": "npm run prisma:generate && npm run prisma:migrate:deploy && npm run build"
+    "deploy": "npm run prisma:generate && npm run prisma:migrate:deploy"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.8.0",
