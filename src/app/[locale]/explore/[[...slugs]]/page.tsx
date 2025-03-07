@@ -60,7 +60,7 @@ export default async function Explore({
   const { locale, slugs } = await params;
   const { page } = await searchParams;
   const [categoryName, groupName] = slugs || [];
-  // const user = await getCurrentUser();
+  const user = await getCurrentUser();
   const categories = await server.categoryService.getAllCategories({
     language: locale,
   });
@@ -121,8 +121,7 @@ export default async function Explore({
         className="mb-8"
       />
       <MainContent
-        // isAdmin={user?.role === "ADMIN"}
-        isAdmin={false}
+        isAdmin={user?.role === "ADMIN"}
         locale={locale}
         category={category}
         group={group}
