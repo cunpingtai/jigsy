@@ -55,7 +55,7 @@ export async function PUT(
                 : undefined;
 
             if (status === "COMPLETED") {
-              throw new Error("游戏已完成");
+              return existingRecord;
             }
           }
         } catch (e: any) {

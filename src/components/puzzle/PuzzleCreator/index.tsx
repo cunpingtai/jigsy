@@ -35,9 +35,9 @@ import {
   calculatePuzzleDifficulty,
   getImageUrl,
 } from "@/lib/utils";
-import { SignedOut } from "@clerk/nextjs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useI18n } from "@/app/[locale]/providers";
+import { SignedOut } from "@/components/shared/SignedOut";
 
 export type PuzzleType =
   | "image"

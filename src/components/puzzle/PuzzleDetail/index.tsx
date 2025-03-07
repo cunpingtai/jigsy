@@ -18,7 +18,6 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { Atom } from "@/services";
-import { SignedIn } from "@clerk/nextjs";
 import {
   calculateEstimatedTime,
   calculatePuzzleDifficulty,
@@ -31,6 +30,7 @@ import { PuzzleCard } from "@/components/home/PuzzleCard";
 import * as client from "@/services/client";
 import { useI18n } from "@/app/[locale]/providers";
 import { ShareModal } from "./ShareModal";
+import { SignedIn } from "@/components/shared/SignedIn";
 
 interface PuzzleDetailProps {
   puzzle: Atom;

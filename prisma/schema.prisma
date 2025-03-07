@@ -23,11 +23,64 @@ datasource db {
 // UserAtomRecord 是用户对标准原子的使用记录，比如用户玩过拼图
 // UserAtomRecord meta 是用户对标准原子的使用记录的元数据
 
+model Account {
+  id                String   @id @default(cuid())
+  userId            String
+  type              String // 添加此字段
+  provider          String // 修改 providerId 为 provider
+  providerAccountId String // 保留此字段
+  refresh_token     String?  @db.Text // 修改字段名
+  access_token      String?  @db.Text // 修改字段名
+  expires_at        Int? // 添加此字段
+  token_type        String? // 添加此字段
+  scope             String? // 添加此字段
+  id_token          String?  @db.Text // 添加此字段
+  session_state     String? // 添加此字段
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id])
+
+  @@unique([provider, providerAccountId]) // 修改唯一约束
+  @@index([userId])
+  @@map("jigsaw_account")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  userId       String
+  expires      DateTime
+  sessionToken String   @unique
+  accessToken  String   @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@map("jigsaw_session")
+}
+
+model VerificationRequest {
+  id         String   @id @default(cuid())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([identifier, token])
+  @@map("jigsaw_verification_request")
+}
+
 model User {
-  id               Int               @id @default(autoincrement())
-  clerkId          String            @unique
-  email            String            @unique
+  id               String            @id @default(cuid())
   name             String?
+  email            String?           @unique
+  emailVerified    DateTime?
+  image            String?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  accounts         Account[]
+  sessions         Session[]
   avatar           String?
   points           Int               @default(0)
   level            Int               @default(1)
@@ -45,8 +98,6 @@ model User {
   atomCommentLikes AtomCommentLike[] // 用户评论的原子点赞
   commentLikes     CommentLike[] // 用户评论的点赞
   challenges       UserChallenge[]
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
   role             UserRole?         @default(USER)
 
   @@map("jigsaw_user")
@@ -58,7 +109,7 @@ model StandardAtom {
   title        String // 原子标题
   content      String           @db.Text // 原子内容
   coverImage   String? // 封面图片
-  userId       Int // 创建者
+  userId       String // 创建者
   user         User             @relation(fields: [userId], references: [id])
   category     Category         @relation(fields: [categoryId], references: [id])
   categoryId   Int
@@ -166,7 +217,7 @@ model Group {
 // UserAtomRecord meta 是用户对标准原子的使用记录的元数据
 model UserAtomRecord {
   id        Int          @id @default(autoincrement())
-  userId    Int
+  userId    String
   user      User         @relation(fields: [userId], references: [id])
   atomId    Int
   atom      StandardAtom @relation(fields: [atomId], references: [id])
@@ -181,7 +232,7 @@ model UserAtomRecord {
 
 model FieldConfig {
   id          Int          @id @default(autoincrement())
-  userId      Int
+  userId      String
   user        User         @relation(fields: [userId], references: [id])
   atomId      Int
   atom        StandardAtom @relation(fields: [atomId], references: [id])
@@ -200,7 +251,7 @@ model FieldConfig {
 
 model Favorite {
   id        Int          @id @default(autoincrement())
-  userId    Int
+  userId    String
   user      User         @relation(fields: [userId], references: [id])
   atomId    Int
   atom      StandardAtom @relation(fields: [atomId], references: [id])
@@ -218,7 +269,7 @@ model Goal {
   title     String // 目标标题
   current   Int // 当前进度 (如: 15)
   target    Int // 目标值 (如: 20)
-  userId    Int
+  userId    String
   user      User     @relation(fields: [userId], references: [id])
   streaks   Streak[] // 一对多关系
   createdAt DateTime @default(now())
@@ -232,7 +283,7 @@ model Goal {
 model Streak {
   id        Int      @id @default(autoincrement())
   date      DateTime // 打卡日期
-  userId    Int
+  userId    String
   goalId    Int
   goal      Goal     @relation(fields: [goalId], references: [id])
   createdAt DateTime @default(now())
@@ -246,7 +297,7 @@ model Streak {
 // 积分历史记录
 model PointsHistory {
   id          Int      @id @default(autoincrement())
-  userId      Int
+  userId      String
   user        User     @relation(fields: [userId], references: [id])
   points      Int // 变动积分值（可正可负）
   type        String // 积分类型：发帖/评论/签到等
@@ -264,7 +315,7 @@ model Post {
   id        Int           @id @default(autoincrement())
   title     String
   content   String        @db.Text
-  userId    Int
+  userId    String
   user      User          @relation(fields: [userId], references: [id])
   comments  Comment[]
   likes     PostLike[] // 修改为关联点赞表
@@ -289,7 +340,7 @@ model Featured {
   reason     String? // 精选原因
   order      Int      @default(0) // 排序权重
   featuredAt DateTime @default(now()) // 精选时间
-  featuredBy Int // 由哪个管理员设置的精选
+  featuredBy String // 由哪个管理员设置的精选
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
@@ -305,7 +356,7 @@ model AtomFeatured {
   reason     String? // 精选原因
   order      Int          @default(0) // 排序权重
   featuredAt DateTime     @default(now()) // 精选时间
-  featuredBy Int // 由哪个管理员设置的精选
+  featuredBy String // 由哪个管理员设置的精选
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
 
@@ -319,7 +370,7 @@ model PostLike {
   id        Int      @id @default(autoincrement())
   postId    Int
   post      Post     @relation(fields: [postId], references: [id])
-  userId    Int
+  userId    String
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
 
@@ -347,7 +398,7 @@ model AtomLike {
   id             Int          @id @default(autoincrement())
   standardAtomId Int
   standardAtom   StandardAtom @relation(fields: [standardAtomId], references: [id])
-  userId         Int
+  userId         String
   user           User         @relation(fields: [userId], references: [id])
   createdAt      DateTime     @default(now())
 
@@ -364,7 +415,7 @@ model AtomComment {
   content        String // 评论内容
   standardAtomId Int
   standardAtom   StandardAtom      @relation(fields: [standardAtomId], references: [id])
-  userId         Int
+  userId         String
   user           User              @relation(fields: [userId], references: [id])
   parentId       Int? // 父评论ID
   parent         AtomComment?      @relation("AtomCommentReplies", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -383,7 +434,7 @@ model AtomCommentLike {
   id        Int         @id @default(autoincrement())
   commentId Int
   comment   AtomComment @relation(fields: [commentId], references: [id])
-  userId    Int
+  userId    String
   user      User        @relation(fields: [userId], references: [id])
   createdAt DateTime    @default(now())
 
@@ -398,7 +449,7 @@ model CommentLike {
   id        Int      @id @default(autoincrement())
   commentId Int
   comment   Comment  @relation(fields: [commentId], references: [id])
-  userId    Int
+  userId    String
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
 
@@ -413,7 +464,7 @@ model CommentLike {
 model Comment {
   id        Int           @id @default(autoincrement())
   content   String
-  userId    Int
+  userId    String
   user      User          @relation(fields: [userId], references: [id])
   postId    Int
   post      Post          @relation(fields: [postId], references: [id])
@@ -462,7 +513,7 @@ model Challenge {
 // 用户参与记录
 model UserChallenge {
   id          Int       @id @default(autoincrement())
-  userId      Int
+  userId      String
   user        User      @relation(fields: [userId], references: [id])
   challengeId Int
   challenge   Challenge @relation(fields: [challengeId], references: [id])

@@ -24,12 +24,14 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { UserMenu } from "../UserMenu";
-import { SignedIn } from "@clerk/nextjs";
 import { LanguageSelector } from "../LanguageSelector";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useI18n } from "@/app/[locale]/providers";
+import { SignedIn } from "../SignedIn";
+import { signIn, useSession } from "next-auth/react";
+import { useGoogleOneTapLogin } from "@react-oauth/google";
 export const Header: FC<{ locale?: string; isAdmin?: boolean }> = ({
   locale,
   isAdmin,
@@ -85,6 +87,26 @@ export const Header: FC<{ locale?: string; isAdmin?: boolean }> = ({
     //   href: "/community",
     // },
   ];
+
+  const { status } = useSession();
+  useGoogleOneTapLogin({
+    onSuccess: async (credentialResponse) => {
+      // 使用 credential 参数，并指定 callbackUrl 避免重定向
+      const result = await signIn("credentials", {
+        redirect: false,
+        credential: credentialResponse.credential,
+        callbackUrl: window.location.href,
+      });
+
+      if (!result?.ok) {
+        console.error("登录失败:", result?.error);
+      }
+    },
+    onError: () => {
+      console.log("Login Failed");
+    },
+    disabled: status === "authenticated" || status === "loading",
+  });
 
   const { theme, setTheme } = useTheme();
   const [searchQuery, setSearchQuery] = useState("");
@@ -202,7 +224,7 @@ export const Header: FC<{ locale?: string; isAdmin?: boolean }> = ({
               console.log(language);
             }}
           />
-          <UserMenu locale={locale || "en"} />
+          <UserMenu />
         </div>
       </div>
     </header>
