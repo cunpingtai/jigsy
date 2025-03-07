@@ -146,7 +146,7 @@ model Tag {
 
   id          Int           @id @default(autoincrement())
   name        String        @unique
-  description String?
+  description String?       @db.Text
   atoms       TagsOnAtoms[] // 多对多关系
   posts       TagsOnPosts[] // 多对多关系
   createdAt   DateTime      @default(now())
@@ -187,7 +187,7 @@ model Category {
 
   id          Int            @id @default(autoincrement())
   name        String         @unique
-  description String?
+  description String?        @db.Text
   atoms       StandardAtom[] // 添加这个反向关联字段
   groups      Group[] // 一对多关系
   createdAt   DateTime       @default(now())
@@ -201,7 +201,7 @@ model Group {
 
   id          Int            @id @default(autoincrement())
   name        String
-  description String?
+  description String?        @db.Text
   categoryId  Int
   category    Category       @relation(fields: [categoryId], references: [id])
   atoms       StandardAtom[] // 一对多关系
@@ -238,7 +238,7 @@ model FieldConfig {
   atom        StandardAtom @relation(fields: [atomId], references: [id])
   recordId    Int
   name        String
-  description String?
+  description String?      @db.Text
   title       String
   value       String       @db.Text
   createdAt   DateTime     @default(now())
