@@ -17,7 +17,7 @@ export async function GET(
 
     // 获取标签基本信息
     const tag = await prisma.tag.findFirst({
-      where: { name },
+      where: { name: decodeURIComponent(name) },
       include: {
         _count: {
           select: {
