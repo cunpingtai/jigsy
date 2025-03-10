@@ -13,6 +13,8 @@ import {
   Group,
   ChartBarStacked,
   Home,
+  Clock,
+  Rocket,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import {
@@ -59,23 +61,37 @@ export const Header: FC<{ locale?: string; isAdmin?: boolean }> = ({
       href: "/puzzle/create",
     },
     {
-      icon: ChartBarStacked,
-      label: data.categories,
-      href: "/demo/categories-page",
+      label: "调度",
+      href: "/cron",
+      icon: Clock,
       private: true,
+      root: true,
     },
     {
-      icon: Group,
-      label: data.groups,
-      href: "/demo/groups-page",
+      label: "生成",
+      href: "/generate",
+      icon: Rocket,
       private: true,
+      root: true,
     },
-    {
-      icon: Tag,
-      label: data.tags,
-      href: "/demo/tags-page",
-      private: true,
-    },
+    // {
+    //   icon: ChartBarStacked,
+    //   label: data.categories,
+    //   href: "/demo/categories-page",
+    //   private: true,
+    // },
+    // {
+    //   icon: Group,
+    //   label: data.groups,
+    //   href: "/demo/groups-page",
+    //   private: true,
+    // },
+    // {
+    //   icon: Tag,
+    //   label: data.tags,
+    //   href: "/demo/tags-page",
+    //   private: true,
+    // },
     // {
     //   icon: Video,
     //   label: "学习",
@@ -137,7 +153,7 @@ export const Header: FC<{ locale?: string; isAdmin?: boolean }> = ({
                 const c = (
                   <NavigationMenuItem key={item.href}>
                     <Link
-                      href={`/${locale}${item.href}`}
+                      href={item.root ? item.href : `/${locale}${item.href}`}
                       legacyBehavior
                       passHref
                     >

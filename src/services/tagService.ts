@@ -27,7 +27,7 @@ export const createTagService = (api: {
 
     getTagByName: (
       name: string,
-      params?: { page?: number; pageSize?: number }
+      params?: { page?: number; pageSize?: number; language?: string }
     ): Promise<{
       id: number;
       name: string;

@@ -24,6 +24,7 @@ const generateSchema = z.object({
       image: z.string().optional(),
     })
   ),
+  userId: z.string().min(1, "用户ID不能为空"),
 });
 
 export async function POST(request: NextRequest) {
@@ -40,7 +41,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { data: datas } = validationResult.data;
+    const { data: datas, userId } = validationResult.data;
 
     const result = await prisma.$transaction(async (tx) => {
       // 创建生成记录
@@ -51,8 +52,6 @@ export async function POST(request: NextRequest) {
           predictionId: "",
         },
       });
-
-      const records = [];
       for (const data of datas) {
         const {
           title,
@@ -111,31 +110,54 @@ export async function POST(request: NextRequest) {
           groupId = newGroup.id;
         }
 
+        // 优化标签处理 - 批量操作
         const tagIds = [];
+        const tagNames = tags.map((tag) => tag.name);
+        // 1. 批量查询已存在的标签
+        const existingTags = await tx.tag.findMany({
+          where: {
+            name: { in: tagNames },
+            language,
+          },
+        });
 
-        for (const tag of tags) {
-          const existingTag = await tx.tag.findFirst({
-            where: { name: tag.name, language },
+        // 2. 找出需要创建的新标签
+        const existingTagNames = existingTags.map((tag) => tag.name);
+        const tagsToCreate = tags.filter(
+          (tag) => !existingTagNames.includes(tag.name)
+        );
+
+        // 3. 批量创建新标签
+        if (tagsToCreate.length > 0) {
+          const createdTags = await tx.tag.createMany({
+            data: tagsToCreate.map((tag) => ({
+              name: tag.name || "",
+              description: tag.description || "",
+              language,
+            })),
+            skipDuplicates: true, // 跳过重复项
           });
 
-          if (existingTag) {
-            tagIds.push(existingTag.id);
-          } else {
-            // 创建新标签
-            const newTag = await tx.tag.create({
-              data: {
-                name: tag.name,
-                description: tag.description,
-                language,
-              },
-            });
-            tagIds.push(newTag.id);
-          }
+          // 4. 查询所有标签以获取ID (包括新创建的)
+          const allTags = await tx.tag.findMany({
+            where: {
+              name: { in: tagNames },
+              language,
+            },
+          });
+
+          // 5. 收集所有标签ID
+          tagIds.push(...allTags.map((tag) => tag.id));
+        } else {
+          // 如果没有新标签需要创建，直接使用现有标签
+          tagIds.push(...existingTags.map((tag) => tag.id));
         }
 
         // 创建 AI 生成记录
         const record = await tx.aIGenerated.create({
           data: {
+            userId,
+            atomId: undefined,
             title,
             recordId: r.id,
             language,
@@ -147,22 +169,14 @@ export async function POST(request: NextRequest) {
             status: AIGeneratedStatus.NOT_STARTED,
           },
         });
-
-        // 添加额外信息到返回结果
-        records.push({
-          ...record,
-          categoryId,
-          groupId,
-          tagIds,
-        });
       }
-      return { records, recordId: r.id };
+
+      return { recordId: r.id };
     });
 
     return NextResponse.json(
       {
         success: true,
-        data: result.records,
         recordId: result.recordId,
       },
       { status: 201 }

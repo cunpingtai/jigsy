@@ -5,7 +5,7 @@ import language from "../languages.json";
 const languages = language.languages;
 acceptLanguage.languages(languages);
 
-const whiteList = ["/generate", "/api", "/trpc", "/categories"];
+const whiteList = ["/generate", "/api", "/trpc", "/categories", "/cron"];
 
 export default async function middleware(request: NextRequest) {
   let lng;

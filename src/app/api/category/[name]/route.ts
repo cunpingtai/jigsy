@@ -7,11 +7,13 @@ export async function GET(
   { params }: { params: Promise<{ name: string }> }
 ) {
   try {
+    const { searchParams } = new URL(req.url);
     const { name } = await params;
-
+    const language = searchParams.get("language") || "zh";
     const category = await prisma.category.findFirst({
       where: {
         name: name,
+        language: language,
       },
       include: {
         groups: {

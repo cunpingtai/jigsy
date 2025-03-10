@@ -14,10 +14,11 @@ export async function GET(
     const page = parseInt(searchParams.get("page") || "1");
     const pageSize = parseInt(searchParams.get("pageSize") || "10");
     const skip = (page - 1) * pageSize;
+    const language = searchParams.get("language") || "zh";
 
     // 获取标签基本信息
     const tag = await prisma.tag.findFirst({
-      where: { name: decodeURIComponent(name) },
+      where: { name: decodeURIComponent(name), language },
       include: {
         _count: {
           select: {

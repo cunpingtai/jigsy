@@ -7,8 +7,6 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
 
-    console.log("searchParams", searchParams);
-
     // 分页参数
     const page = parseInt(searchParams.get("page") || "1");
     const pageSize = parseInt(searchParams.get("pageSize") || "10");
@@ -73,11 +71,8 @@ export async function GET(req: Request) {
       };
     }
 
-    console.log("where", where);
-
     // 计算总数
     const total = await prisma.standardAtom.count({ where });
-    console.log("total", total);
     // 查询数据
     const atoms = await prisma.standardAtom.findMany({
       where,
@@ -104,7 +99,6 @@ export async function GET(req: Request) {
       skip: (page - 1) * pageSize,
       take: pageSize,
     });
-
     // 单独查询字段配置
     const atomIds = atoms.map((atom) => atom.id);
     const fieldConfigs =

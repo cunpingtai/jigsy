@@ -168,7 +168,9 @@ export default function TagDemo({ locale }: { locale: string }) {
       if (searchTagId) {
         response = await client.tagService.getTag(parseInt(searchTagId));
       } else {
-        response = await client.tagService.getTagByName(searchTagName);
+        response = await client.tagService.getTagByName(searchTagName, {
+          language: locale,
+        });
       }
 
       setSearchResult(response);

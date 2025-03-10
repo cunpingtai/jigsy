@@ -1,3 +1,5 @@
+"use client";
+
 import { FC, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -5,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { PlayIcon, StopCircleIcon, RefreshCwIcon } from "lucide-react";
 import { toast } from "sonner";
+import { getCurrentUser } from "@/app/api/util";
 
 interface SchedulerControlProps {
   className?: string;

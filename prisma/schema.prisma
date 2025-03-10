@@ -145,7 +145,7 @@ model Tag {
   language String? // 语言
 
   id          Int           @id @default(autoincrement())
-  name        String        @unique
+  name        String
   description String?       @db.Text
   atoms       TagsOnAtoms[] // 多对多关系
   posts       TagsOnPosts[] // 多对多关系
@@ -186,7 +186,7 @@ model Category {
   language String? // 语言
 
   id          Int            @id @default(autoincrement())
-  name        String         @unique
+  name        String
   description String?        @db.Text
   atoms       StandardAtom[] // 添加这个反向关联字段
   groups      Group[] // 一对多关系
@@ -623,46 +623,46 @@ enum TutorialType {
   TIPS // 实用技巧
 }
 
-
 model AIGenerated {
-  id Int @id @default(autoincrement())
-  title String
-  language String
-  content String @db.Text
-  category String
-  group String
-  tags String
-  status AIGeneratedStatus @default(NOT_STARTED)
-  image String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  record AIGeneratedRecord @relation(fields: [recordId], references: [id])
-  recordId Int
-  atomId Int?
-  
-  @@map("jigsaw_ai_generated")
+  id        Int               @id @default(autoincrement())
+  title     String
+  language  String
+  content   String            @db.Text
+  category  String
+  group     String
+  tags      String
+  status    AIGeneratedStatus @default(NOT_STARTED)
+  image     String
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  record    AIGeneratedRecord @relation(fields: [recordId], references: [id])
+  recordId  Int
+  atomId    Int?
+  userId    String
+
   @@index([title])
   @@index([recordId])
+  @@map("jigsaw_ai_generated")
 }
 
 model AIGeneratedRecord {
-  id Int @id @default(autoincrement())
-  status AIGeneratedStatus @default(NOT_STARTED)
-  result String @db.Text  // 修改为 Text 类型，可存储更长文本
+  id           Int               @id @default(autoincrement())
+  status       AIGeneratedStatus @default(NOT_STARTED)
+  result       String            @db.Text // 修改为 Text 类型，可存储更长文本
   predictionId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  aiGenerated AIGenerated[]
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  aiGenerated  AIGenerated[]
 
-  @@map("jigsaw_ai_generated_record")
   @@index([status])
+  @@map("jigsaw_ai_generated_record")
 }
 
 model AICron {
-  id Int @id @default(autoincrement())
-  status AICronStatus @default(STOP)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        Int          @id @default(autoincrement())
+  status    AICronStatus @default(STOP)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 }
 
 enum AICronStatus {

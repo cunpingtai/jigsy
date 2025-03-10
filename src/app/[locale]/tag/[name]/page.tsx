@@ -25,6 +25,7 @@ export default async function Page({
     {
       page: currentPage,
       pageSize,
+      language: locale,
     }
   );
 

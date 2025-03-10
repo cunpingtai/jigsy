@@ -67,7 +67,9 @@ export default function CategoryDebugComponent({ locale }: { locale: string }) {
           parseInt(categoryId)
         );
       } else if (categoryName) {
-        data = await client.categoryService.getCategoryByName(categoryName);
+        data = await client.categoryService.getCategoryByName(categoryName, {
+          language: locale,
+        });
       }
 
       setCategoryData(data!);

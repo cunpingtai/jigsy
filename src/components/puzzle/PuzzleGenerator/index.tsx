@@ -66,22 +66,7 @@ export const PuzzleGenerator = forwardRef<PuzzleGameRef, PuzzleGeneratorProps>(
     let fitSize = { width: 0, height: 0 };
 
     if (!width && !height) {
-      if (config.tilesX < 4) {
-        width = 200;
-        height = 200;
-      } else if (config.tilesX < 6) {
-        width = 300;
-        height = 300;
-      } else if (config.tilesX < 8) {
-        width = 400;
-        height = 400;
-      } else if (config.tilesX < 10) {
-        width = 500;
-        height = 500;
-      } else if (config.tilesX < 12) {
-        width = 600;
-        height = 600;
-      } else if (config.tilesX < 16) {
+      if (config.tilesX < 16) {
         width = 800;
         height = 800;
       } else if (config.tilesX < 20) {

@@ -29,8 +29,11 @@ export const createCategoryService = (api: {
     },
 
     // 获取单个分类（通过名称）
-    getCategoryByName: (name: string): Promise<Category> => {
-      return api.get(`/category/${encodeURIComponent(name)}`);
+    getCategoryByName: (
+      name: string,
+      params?: { language?: string }
+    ): Promise<Category> => {
+      return api.get(`/category/${encodeURIComponent(name)}`, params);
     },
 
     // 创建分类

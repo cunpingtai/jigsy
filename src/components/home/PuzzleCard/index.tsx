@@ -88,7 +88,7 @@ export const PuzzleCard: FC<PuzzleCardProps> = ({
         </div>
         <div>
           {puzzle.tags && puzzle.tags.length > 0 && (
-            <div className="flex items-center gap-2 mt-2">
+            <div className="flex flex-wrap items-center gap-2 mt-2">
               {puzzle.tags.map((tag) => (
                 <Link key={tag.tag.id} href={`/${locale}/tag/${tag.tag.name}`}>
                   <Badge variant="outline">{tag.tag.name}</Badge>

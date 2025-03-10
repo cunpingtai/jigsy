@@ -63,6 +63,9 @@ async function processGenerationRecord(recordId: number) {
         // 准备输入数据
         const processedInput = {
           prompt: item.content,
+          aspect_ratio: "1:1",
+          number_of_images: 1,
+          prompt_optimizer: true,
         };
 
         // 创建预测任务
@@ -272,7 +275,7 @@ async function processCompletedGenerations() {
           .filter((id) => !isNaN(id));
 
         // 默认用户ID
-        const userId = "cm7yz1oz60000qk0kxmhtliy1";
+        const userId = record.userId;
 
         // 创建原子
         await prisma.$transaction(async (tx) => {
@@ -302,6 +305,7 @@ async function processCompletedGenerations() {
             });
           }
 
+          const randomTileSize = Math.floor(Math.random() * 17) + 4;
           // 创建字段配置
           const fieldConfigsData = [
             {
@@ -332,7 +336,7 @@ async function processCompletedGenerations() {
               recordId: 0,
               name: "tilesX",
               title: "横向切片数",
-              value: "14",
+              value: randomTileSize.toString(),
               description: "拼图横向切片的数量",
             },
             {
@@ -341,7 +345,7 @@ async function processCompletedGenerations() {
               recordId: 0,
               name: "tilesY",
               title: "纵向切片数",
-              value: "14",
+              value: randomTileSize.toString(),
               description: "拼图纵向切片的数量",
             },
             {
@@ -350,7 +354,7 @@ async function processCompletedGenerations() {
               recordId: 0,
               name: "width",
               title: "宽度",
-              value: "1440",
+              value: "0",
               description: "拼图画布宽度",
             },
             {
@@ -359,7 +363,7 @@ async function processCompletedGenerations() {
               recordId: 0,
               name: "height",
               title: "高度",
-              value: "1080",
+              value: "0",
               description: "拼图画布高度",
             },
             {
@@ -395,7 +399,7 @@ async function processCompletedGenerations() {
               recordId: 0,
               name: "jitter",
               title: "抖动程度",
-              value: "0.3",
+              value: Math.random().toFixed(2),
               description: "拼图块分布的随机抖动程度",
             },
             {

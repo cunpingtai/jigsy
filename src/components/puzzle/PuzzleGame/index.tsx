@@ -701,41 +701,37 @@ export const PuzzleGame: FC<PuzzleGameProps> = ({
               <div className="flex items-center gap-2">
                 <Input
                   type="number"
-                  min={200}
+                  min={0}
                   max={4096}
-                  value={tempSettings.width || undefined}
+                  value={tempSettings.width || 0}
                   placeholder={
                     !tempSettings.width ? "auto" : tempSettings.width.toString()
                   }
                   onChange={(e) => {
-                    const value = parseInt(e.target.value);
-                    if (!isNaN(value) && value >= 200 && value <= 4096) {
-                      setTempSettings((prev) => ({
-                        ...prev,
-                        width: value,
-                      }));
-                    }
+                    const value = parseInt(e.target.value) || 0;
+                    setTempSettings((prev) => ({
+                      ...prev,
+                      width: value,
+                    }));
                   }}
                 />
                 <span className="text-sm text-muted-foreground">x</span>
                 <Input
                   type="number"
-                  min={200}
+                  min={0}
                   max={4096}
-                  value={tempSettings.height || undefined}
+                  value={tempSettings.height || 0}
                   placeholder={
                     !tempSettings.height
                       ? "auto"
                       : tempSettings.height.toString()
                   }
                   onChange={(e) => {
-                    const value = parseInt(e.target.value);
-                    if (!isNaN(value) && value >= 200 && value <= 4096) {
-                      setTempSettings((prev) => ({
-                        ...prev,
-                        height: value,
-                      }));
-                    }
+                    const value = parseInt(e.target.value) || 0;
+                    setTempSettings((prev) => ({
+                      ...prev,
+                      height: value,
+                    }));
                   }}
                 />
               </div>
