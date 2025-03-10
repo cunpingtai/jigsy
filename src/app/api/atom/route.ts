@@ -16,6 +16,11 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  let defaultStatus: AtomStatus = AtomStatus.DRAFT;
+  if (process.env.DEFAULT_JIGSAW_PUZZLE_PUBLISHSTATUS === "true") {
+    defaultStatus = AtomStatus.PUBLISHED;
+  }
+
   try {
     const body = await req.json();
     const {
@@ -24,7 +29,6 @@ export async function POST(req: Request) {
       coverImage,
       categoryId,
       groupId,
-      status = AtomStatus.DRAFT,
       tags = [],
       language = "en",
       // 拼图配置参数
@@ -55,7 +59,7 @@ export async function POST(req: Request) {
           userId,
           categoryId,
           groupId,
-          status,
+          status: defaultStatus,
         },
         include: {
           tags: {

@@ -24,6 +24,8 @@ interface GameRecordListProps {
   records: {
     id: number;
     atom: Atom;
+    createdAt: string;
+    updatedAt: string;
     meta: {
       endTime?: string;
       status: string;
@@ -100,30 +102,26 @@ export const GameRecordList: FC<GameRecordListProps> = ({
                 </p>
                 <div className="flex items-center text-sm text-gray-500">
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {record.meta.startTime ? (
+                  {
                     <span>
-                      {formatDate(record.meta.startTime, "yyyy-MM-dd HH:mm")}
+                      {formatDate(record.createdAt, "yyyy-MM-dd HH:mm")}
                     </span>
-                  ) : (
-                    <span>{data.unknown}</span>
-                  )}
+                  }
                 </div>
                 <div className="flex items-center text-sm text-gray-500">
                   <ClockIcon className="mr-2 h-4 w-4" />
                   <span>
                     {data.gameDuration}:{" "}
-                    {record.meta.endTime
-                      ? formatDuration(
-                          {
-                            minutes: Math.floor(
-                              (new Date(record.meta.endTime).getTime() -
-                                new Date(record.meta.startTime).getTime()) /
-                                (1000 * 60)
-                            ),
-                          },
-                          { format: ["minutes"] }
-                        )
-                      : data.unknown}
+                    {formatDuration(
+                      {
+                        minutes: Math.floor(
+                          (new Date(record.updatedAt).getTime() -
+                            new Date(record.createdAt).getTime()) /
+                            (1000 * 60)
+                        ),
+                      },
+                      { format: ["minutes"] }
+                    )}
                   </span>
                 </div>
               </div>

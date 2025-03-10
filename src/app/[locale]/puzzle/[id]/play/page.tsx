@@ -1,7 +1,7 @@
 import PuzzleGameWrapper from "@/components/puzzle/PuzzleGame";
 import * as server from "@/services/server";
-import { currentUser } from "@clerk/nextjs/server";
 import { staticDataFetcher } from "@/fetch";
+import { getCurrentUser } from "@/app/api/util";
 
 export async function generateMetadata({
   params,
@@ -24,7 +24,7 @@ export default async function PuzzlePlayPage({
 }) {
   const { id, locale } = await params;
   const puzzle = await server.atomService.getAtomById(parseInt(id));
-  const user = await currentUser();
+  const user = await getCurrentUser();
   return (
     <div className="min-h-screen">
       <PuzzleGameWrapper

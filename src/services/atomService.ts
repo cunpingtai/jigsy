@@ -147,6 +147,8 @@ export const createAtomService = (api: {
       PaginatedData<{
         id: number;
         atom: Atom;
+        createdAt: string;
+        updatedAt: string;
         meta: {
           endTime?: string;
           status: string;

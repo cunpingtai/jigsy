@@ -62,7 +62,7 @@ export const metaFetcher = (lang: string) =>
     .then((r) => generateBaseFieldMap(r.data.fields));
 
 export const scriptFetcher = (lang: string) =>
-  instance
+  resourceInstance
     .get<{ data: Meta }>(`/${lang}/${endpoints.script}`)
     .then((r) => {
       return r.data?.fields || [];

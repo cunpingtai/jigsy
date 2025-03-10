@@ -1,25 +1,11 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import acceptLanguage from "accept-language";
 import language from "../languages.json";
-
-const isPrivateRoute = createRouteMatcher(["/demo(.*)"]);
-
-const ignorePaths = ["/generate"];
 
 const languages = language.languages;
 acceptLanguage.languages(languages);
 
-export default clerkMiddleware(async (auth, request) => {
-  if (isPrivateRoute(request)) {
-    await auth.protect();
-  }
-
-  if (ignorePaths.some((path) => request.nextUrl.pathname.startsWith(path))) {
-    return NextResponse.next();
-  }
-
+export default async function middleware(request: NextRequest) {
   let lng;
   if (!lng) lng = acceptLanguage.get(request.headers.get("Accept-Language"));
   if (!lng) lng = language.fallbackLng;
@@ -40,7 +26,7 @@ export default clerkMiddleware(async (auth, request) => {
   }
 
   return NextResponse.next();
-});
+}
 
 export const config = {
   matcher: [

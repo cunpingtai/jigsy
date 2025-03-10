@@ -6,6 +6,9 @@ import { AtomStatus } from "@prisma/client";
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
+
+    console.log("searchParams", searchParams);
+
     // 分页参数
     const page = parseInt(searchParams.get("page") || "1");
     const pageSize = parseInt(searchParams.get("pageSize") || "10");
@@ -70,9 +73,11 @@ export async function GET(req: Request) {
       };
     }
 
+    console.log("where", where);
+
     // 计算总数
     const total = await prisma.standardAtom.count({ where });
-
+    console.log("total", total);
     // 查询数据
     const atoms = await prisma.standardAtom.findMany({
       where,
@@ -92,7 +97,6 @@ export async function GET(req: Request) {
           },
         },
         featured: true,
-        fieldConfigs: true,
       },
       orderBy: {
         [sortBy]: sortOrder,
@@ -101,9 +105,28 @@ export async function GET(req: Request) {
       take: pageSize,
     });
 
+    // 单独查询字段配置
+    const atomIds = atoms.map((atom) => atom.id);
+    const fieldConfigs =
+      atomIds.length > 0
+        ? await prisma.fieldConfig.findMany({
+            where: {
+              atomId: {
+                in: atomIds,
+              },
+            },
+          })
+        : [];
+
     // 处理数据格式
     const atomsWithConfig = atoms.map((atom) => {
-      const config = atom.fieldConfigs.reduce(
+      // 过滤出当前原子的字段配置
+      const atomFieldConfigs = fieldConfigs.filter(
+        (config) => config.atomId === atom.id
+      );
+
+      // 将字段配置转换为对象格式
+      const config = atomFieldConfigs.reduce(
         (acc, field) => ({
           ...acc,
           [field.name]: field.value,
@@ -111,13 +134,19 @@ export async function GET(req: Request) {
         {}
       );
 
-      // 移除原始的fieldConfigs数据
-      const { fieldConfigs, ...atomData } = atom;
+      // 处理特殊字段
+      const isFeatured =
+        atom.featured &&
+        Array.isArray(atom.featured) &&
+        atom.featured.length > 0 &&
+        atom.featured.some((f) => f && f.status === true);
 
+      // 创建一个新对象而不是修改原对象
       return {
-        ...atomData,
+        ...atom,
         config,
-        isFeatured: atom.featured,
+        isFeatured: isFeatured || false,
+        featured: undefined, // 移除不需要的嵌套数据
       };
     });
 

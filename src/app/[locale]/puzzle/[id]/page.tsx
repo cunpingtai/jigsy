@@ -2,6 +2,27 @@ import { getCurrentUser } from "@/app/api/util";
 import MainLayout from "@/components/layout/main-layout";
 import { PuzzleDetail } from "@/components/puzzle/PuzzleDetail";
 import * as server from "@/services/server";
+import { Metadata } from "next";
+
+// 添加生成元数据的函数
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string; locale: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const atom = await server.atomService.getAtomById(Number(id));
+
+  return {
+    title: atom.title,
+    description: atom.content,
+    openGraph: {
+      title: atom.title,
+      description: atom.content,
+      type: "article",
+    },
+  };
+}
 
 export default async function PuzzlePage({
   params,

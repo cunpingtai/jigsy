@@ -35,9 +35,9 @@ import {
   calculatePuzzleDifficulty,
   getImageUrl,
 } from "@/lib/utils";
-import { SignedOut } from "@clerk/nextjs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useI18n } from "@/app/[locale]/providers";
+import { SignedOut } from "@/components/shared/SignedOut";
 
 export type PuzzleType =
   | "image"
@@ -365,7 +365,9 @@ export const PuzzleCreator: FC<PuzzleCreatorProps> = ({
                       className="flex flex-col items-center gap-1 py-2"
                     >
                       <tab.icon className="h-5 w-5" />
-                      <span className="text-xs">{tab.label}</span>
+                      <span className="text-xs w-full overflow-hidden whitespace-nowrap text-ellipsis">
+                        {tab.label}
+                      </span>
                     </TabsTrigger>
                   ))}
                 </TabsList>

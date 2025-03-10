@@ -28,8 +28,8 @@ export const PuzzleGenerator = forwardRef<PuzzleGameRef, PuzzleGeneratorProps>(
       useMeasure<HTMLDivElement>();
     const [mounted, setMounted] = useState(false);
     const [image, setImage] = useState<fabric.Image | null>(null);
-    const width = Number(config.width);
-    const height = Number(config.height);
+    let width = Number(config.width);
+    let height = Number(config.height);
 
     const calculateFitSize = useCallback(
       (
@@ -64,6 +64,34 @@ export const PuzzleGenerator = forwardRef<PuzzleGameRef, PuzzleGeneratorProps>(
     }, [preview, loadImage, onLoaded]);
 
     let fitSize = { width: 0, height: 0 };
+
+    if (!width && !height) {
+      if (config.tilesX < 4) {
+        width = 200;
+        height = 200;
+      } else if (config.tilesX < 6) {
+        width = 300;
+        height = 300;
+      } else if (config.tilesX < 8) {
+        width = 400;
+        height = 400;
+      } else if (config.tilesX < 10) {
+        width = 500;
+        height = 500;
+      } else if (config.tilesX < 12) {
+        width = 600;
+        height = 600;
+      } else if (config.tilesX < 16) {
+        width = 800;
+        height = 800;
+      } else if (config.tilesX < 20) {
+        width = 1000;
+        height = 1000;
+      } else if (config.tilesX < 24) {
+        width = 1200;
+        height = 1200;
+      }
+    }
 
     if (image) {
       if (width || height) {

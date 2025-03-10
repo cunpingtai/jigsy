@@ -16,8 +16,8 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { SignedIn } from "@clerk/nextjs";
 import { useI18n } from "@/app/[locale]/providers";
+import { SignedIn } from "@/components/shared/SignedIn";
 
 export const PuzzleExplorer: FC<{
   locale: string;

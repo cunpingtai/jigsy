@@ -20,10 +20,13 @@ export default async function Page({
   const pageSize = 24;
   const currentPage = parseInt(page) || 1;
 
-  const response = await server.tagService.getTagByName(name, {
-    page: currentPage,
-    pageSize,
-  });
+  const response = await server.tagService.getTagByName(
+    decodeURIComponent(name),
+    {
+      page: currentPage,
+      pageSize,
+    }
+  );
 
   // 转换数据为 AtomFeatured 格式
   const featuredAtoms = response.data.map((atom) => ({
@@ -38,7 +41,7 @@ export default async function Page({
     <MainLayout locale={locale}>
       <TagPuzzlesPage
         locale={locale}
-        tagName={name}
+        tagName={decodeURIComponent(name)}
         initialPuzzles={featuredAtoms}
         initialTotalPages={totalPages}
         initialPage={currentPage}

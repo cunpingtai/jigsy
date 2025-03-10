@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { currentUserId, getCurrentUser } from "../../util";
-import { currentUser } from "@clerk/nextjs/server";
 
 // 删除原子
 export async function DELETE(
@@ -10,6 +9,10 @@ export async function DELETE(
 ) {
   try {
     const { atomId } = await params;
+    const user = await getCurrentUser();
+    if (user?.role !== "ADMIN") {
+      return NextResponse.json({ error: "用户权限不足" }, { status: 401 });
+    }
 
     // 使用事务确保原子和配置同时删除
     await prisma.$transaction(async (tx) => {
@@ -87,6 +90,11 @@ export async function PUT(
       meta,
       ...restData
     } = body;
+
+    const user = await getCurrentUser();
+    if (!user || user.role !== "ADMIN") {
+      return NextResponse.json({ error: "用户权限不足" }, { status: 401 });
+    }
 
     // 使用事务进行更新
     const result = await prisma.$transaction(async (tx) => {

@@ -1,4 +1,6 @@
 export const data = {
+  myAccount: "我的账户",
+  logout: "退出登录",
   adminPuzzleList: "拼图管理",
   adminPuzzle: "管理拼图",
   searchPuzzles: "搜索拼图",

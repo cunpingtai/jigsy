@@ -377,6 +377,12 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
   };
 
   const handleTagSelect = (tag: Tag) => {
+    const existingTag = selectedTags.find((t) => t.id === tag.id);
+    if (existingTag) {
+      handleTagRemove(existingTag.id);
+      return;
+    }
+
     if (selectedTags.length >= 5) return;
     if (selectedTags.some((t) => t.id === tag.id)) return;
 
@@ -391,14 +397,6 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
     setSelectedTags(newTags);
     handleChange("tags", newTags);
   };
-
-  const filteredTags = tags
-    .filter(
-      (tag) =>
-        tag.name.toLowerCase().includes(tagInput.toLowerCase()) &&
-        !selectedTags.some((t) => t.id === tag.id)
-    )
-    .slice(0, 20);
 
   const searchTags = useCallback(
     async (tag: string) => {
@@ -609,29 +607,30 @@ export const PuzzleSettings: FC<PuzzleSettingsProps> = ({
                 onChange={(e) => setTagInput(e.target.value)}
                 disabled={selectedTags.length >= 5}
               />
-              {tagInput && (
-                <div className="absolute z-10 w-full mt-1 bg-background border rounded-md shadow-md max-h-[200px] overflow-y-auto">
-                  {loading.tags ? (
-                    <div className="px-3 py-2 text-muted-foreground">
-                      {data.loading}
+              <div className="flex gap-2 space-x-2 p-2">
+                {loading.tags ? (
+                  <div className="px-3 py-2 text-muted-foreground">
+                    {data.loading}
+                  </div>
+                ) : (
+                  tags.map((tag) => (
+                    <div
+                      key={tag.id}
+                      className={`px-3 rounded-sm py-2 hover:bg-accent cursor-pointer text-sm ${
+                        selectedTags.some((t) => t.id === tag.id)
+                          ? "bg-accent/50"
+                          : ""
+                      }`}
+                      onClick={() => handleTagSelect(tag)}
+                    >
+                      {tag.name}
+                      {selectedTags.some((t) => t.id === tag.id) && (
+                        <span className="ml-2 text-primary">✓</span>
+                      )}
                     </div>
-                  ) : filteredTags.length > 0 ? (
-                    filteredTags.map((tag) => (
-                      <div
-                        key={tag.id}
-                        className="px-3 py-2 hover:bg-accent cursor-pointer text-sm"
-                        onClick={() => handleTagSelect(tag)}
-                      >
-                        {tag.name}
-                      </div>
-                    ))
-                  ) : (
-                    <div className="px-3 py-2 text-muted-foreground">
-                      {data.noMatchingTags}
-                    </div>
-                  )}
-                </div>
-              )}
+                  ))
+                )}
+              </div>
             </div>
             {isAdmin ? (
               <Button

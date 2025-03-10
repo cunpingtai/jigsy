@@ -21,6 +21,7 @@ export const GameStats: FC<GameStatsProps> = ({
 }) => {
   const localeMap = {
     zh: zhCN,
+    "zh-CN": zhCN,
     en: enUS,
     ja: ja,
     ko: ko,

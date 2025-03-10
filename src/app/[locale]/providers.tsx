@@ -3,7 +3,6 @@
 import { ThemeProvider } from "next-themes";
 import { createContext, useContext } from "react";
 import { StaticData } from "@/lib/data";
-
 export function Providers({
   children,
   locale,
