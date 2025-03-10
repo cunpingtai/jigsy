@@ -14,7 +14,7 @@ import category12 from "./category12.json";
 
 export const data = {
   prompt: `{category}、{group}、「{tags}」
-  分类、分组、タグに基づいて約100文字の文を生成します`,
+  分类、分组、タグに基づいて約230文字の文を生成します`,
   country: "日本",
   tags,
   categories: [

@@ -14,7 +14,7 @@ import category12 from "./category12.json";
 
 export const data = {
   prompt: `{category}，{group}，「{tags}」
-  카테고리, 그룹 및 태그에 따라 약 100자의 문장을 생성합니다`,
+  카테고리, 그룹 및 태그에 따라 약 230자의 문장을 생성합니다`,
   country: "한국",
   tags,
   categories: [

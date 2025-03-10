@@ -87,6 +87,19 @@ export const createCloudflareService = (api: {
         `/resource/upload?${queryParam}=${encodeURIComponent(filePathOrName)}`
       );
     },
+
+    // 上传 URL 到 Cloudflare R2
+    uploadUrl: (
+      url: string,
+      directory?: string
+    ): Promise<{
+      success: boolean;
+      url: string;
+      fileName: string;
+      filePath: string;
+    }> => {
+      return api.post("/resource/upload-url", { url, directory });
+    },
   };
 
   return obj;

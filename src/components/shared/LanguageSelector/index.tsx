@@ -83,7 +83,7 @@ interface LanguageSelectorProps {
 
 export const LanguageSelector: FC<LanguageSelectorProps> = ({
   className,
-  defaultLanguage = "zh",
+  defaultLanguage = "zh-CN",
   onLanguageChange,
 }) => {
   const { langs } = useI18n();

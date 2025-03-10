@@ -14,7 +14,7 @@ import category12 from "./category12.json";
 
 export const data = {
   prompt: `{category}，{group}，„{tags}“
-  Generieren Sie einen Absatz von etwa 100 Wörtern basierend auf der Kategorie, Gruppe und den Tags`,
+  Generieren Sie einen Absatz von etwa 230 Wörtern basierend auf der Kategorie, Gruppe und den Tags`,
   country: "Deutschland",
   tags,
   categories: [

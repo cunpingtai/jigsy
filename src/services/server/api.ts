@@ -1,7 +1,8 @@
 import { cookies, headers } from "next/headers";
 import { directFetch } from "./fetch";
 // 服务端 API 基础 URL
-const API_BASE_URL = process.env.SERVER_API_BASE_URL || "/api";
+const API_BASE_URL =
+  process.env.SERVER_API_BASE_URL || "http://localhost:3000/api";
 
 // 创建请求头
 const createHeaders = async () => {
@@ -70,7 +71,7 @@ export const post = async <T = any>(url: string, data?: any): Promise<T> => {
 
   const fullUrl = `${API_BASE_URL}${normalizedUrl}`;
   console.log("服务端 POST 请求:", fullUrl);
-
+  console.log("fullUrl", fullUrl);
   const response = await directFetch(fullUrl, {
     method: "POST",
     headers: await createHeaders(),

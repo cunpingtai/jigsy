@@ -15,7 +15,7 @@ import category12 from "./category12.json";
 export const data = {
   country: "中国",
   prompt: `{category}，{group}，「{tags}」
-  根据分类，分组和标签生成一段标签和文案，100字左右
+  根据分类，分组和标签生成一段标签和文案，230字左右
   `,
   tags,
   categories: [

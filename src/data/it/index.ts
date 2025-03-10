@@ -14,7 +14,7 @@ import category12 from "./category12.json";
 
 export const data = {
   prompt: `{category}，{group}，「{tags}」
-  Genera un testo di circa 100 parole basato sulla categoria, sul gruppo e sui tag`,
+  Genera un testo di circa 230 parole basato sulla categoria, sul gruppo e sui tag`,
   country: "Italia",
   tags,
   categories: [

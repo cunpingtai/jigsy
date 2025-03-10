@@ -10,10 +10,10 @@ import { data as ko } from "./ko";
 import { data as pt } from "./pt";
 
 export const data = {
+  "zh-CN": zh,
   de,
   en,
   ru,
-  zh,
   es,
   fr,
   it,

@@ -384,8 +384,10 @@ export type AtomCommentResponse = {
 };
 
 // AI 解析响应类型
-export interface ParsedResponse {
+type QAType = {
   question: string;
   title: string;
   answer: string;
-}
+};
+
+export type ParsedResponse = Record<string, QAType>;

@@ -22,7 +22,7 @@ const languageNames: Record<LanguageCode, string> = {
   de: "德语",
   en: "英语",
   ru: "俄语",
-  zh: "中文",
+  "zh-CN": "中文",
   es: "西班牙语",
   fr: "法语",
   it: "意大利语",
@@ -34,7 +34,7 @@ const languageNames: Record<LanguageCode, string> = {
 export const LanguageSelector: FC<LanguageSelectorProps> = ({
   className,
   onChange,
-  defaultLanguage = "zh",
+  defaultLanguage = "zh-CN",
 }) => {
   const [selectedLanguage, setSelectedLanguage] =
     useState<LanguageCode>(defaultLanguage);

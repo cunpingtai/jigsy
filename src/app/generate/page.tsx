@@ -3,11 +3,12 @@
 import { data } from "@/data";
 import "../globals.css";
 import { LanguageSelector } from "./LanguageSelector";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shuffle, MessageSquare } from "lucide-react";
 import { createAiService } from "@/services/aiService";
 import { ParsedResponse } from "@/services/types";
+import { SchedulerControl } from "@/components/shared/SchedulerControl";
 
 interface LanguageData {
   prompt: string;
@@ -26,30 +27,71 @@ interface LanguageData {
   }[];
 }
 
-interface GeneratedContent {
-  category: {
-    name: string;
-    description: string;
-  };
-  group: {
-    name: string;
-    description: string;
-  };
-  tags: {
-    name: string;
-    description: string;
-  }[];
-}
-
 export default function GeneratePage() {
-  const [lang, setLang] = useState<keyof typeof data>("zh");
-  const [langData, setLangData] = useState<LanguageData | null>(null);
-  const [generatedContent, setGeneratedContent] =
-    useState<GeneratedContent | null>(null);
+  const [lang, setLang] = useState<keyof typeof data>("zh-CN");
   const [examText, setExamText] = useState<string>("");
   const [parsedResult, setParsedResult] = useState<ParsedResponse | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  const [randomIndex, setRandomIndex] = useState<{
+    randomCategoryIndex: number;
+    randomGroupIndex: number;
+    tagIndices: number[];
+  } | null>(null);
+
+  const langData = useMemo(() => {
+    return data[lang] as LanguageData;
+  }, [lang]);
+
+  const generateRandomIndex = useCallback(() => {
+    // 随机选择一个分类
+    const randomCategoryIndex = Math.floor(
+      Math.random() * langData.categories.length
+    );
+    const randomCategory = langData.categories[randomCategoryIndex];
+    // 随机选择该分类下的一个分组
+    const randomGroupIndex = Math.floor(
+      Math.random() * randomCategory.groups.length
+    );
+
+    // 随机选择2-4个标签
+    const tagCount = Math.floor(Math.random() * 3) + 2; // 2到4之间的随机数
+    // 创建一个随机的标签索引数组
+    const tagIndices = Array.from({ length: tagCount }, () =>
+      Math.floor(Math.random() * langData.tags.length)
+    );
+
+    setRandomIndex({
+      randomCategoryIndex,
+      randomGroupIndex,
+      tagIndices,
+    });
+  }, [langData.categories, langData.tags]);
+
+  const getGeneratedContent = useCallback(
+    (data: any) => {
+      if (!randomIndex) return null;
+
+      const { randomCategoryIndex, randomGroupIndex, tagIndices } = randomIndex;
+
+      const randomCategory = data.categories[randomCategoryIndex];
+      const randomGroup = randomCategory.groups[randomGroupIndex];
+      const randomTags = tagIndices.map((index) => data.tags[index]);
+
+      return {
+        category: randomCategory,
+        group: randomGroup,
+        tags: randomTags,
+      };
+    },
+    [randomIndex]
+  );
+
+  const generatedContent = useMemo(() => {
+    if (!langData) return null;
+    return getGeneratedContent(langData);
+  }, [getGeneratedContent, langData]);
 
   const prompt = useMemo(() => {
     if (!langData || !generatedContent) return "";
@@ -58,44 +100,6 @@ export default function GeneratePage() {
       .replace("{group}", generatedContent.group.name)
       .replace("{tags}", generatedContent.tags.map((t) => t.name).join(", "));
   }, [langData, generatedContent]);
-
-  useEffect(() => {
-    setLangData(data[lang] as LanguageData);
-    console.log(data[lang]);
-  }, [lang]);
-
-  const generateRandomContent = () => {
-    if (!langData) return;
-
-    // 随机选择一个分类
-    const randomCategoryIndex = Math.floor(
-      Math.random() * langData.categories.length
-    );
-    const randomCategory = langData.categories[randomCategoryIndex];
-
-    // 随机选择该分类下的一个分组
-    const randomGroupIndex = Math.floor(
-      Math.random() * randomCategory.groups.length
-    );
-    const randomGroup = randomCategory.groups[randomGroupIndex];
-
-    // 随机选择2-4个标签
-    const tagCount = Math.floor(Math.random() * 3) + 2; // 2到4之间的随机数
-    const shuffledTags = [...langData.tags].sort(() => 0.5 - Math.random());
-    const randomTags = shuffledTags.slice(0, tagCount);
-
-    setGeneratedContent({
-      category: {
-        name: randomCategory.name,
-        description: randomCategory.description,
-      },
-      group: {
-        name: randomGroup.name,
-        description: randomGroup.description,
-      },
-      tags: randomTags,
-    });
-  };
 
   // 创建 AI 服务实例
   const aiService = createAiService();
@@ -113,6 +117,7 @@ export default function GeneratePage() {
 
     try {
       const result = await aiService.parseQuestionAnswerDirect(examText);
+      console.log(result);
       setParsedResult(result);
       // 使用 SSE 流式获取结果
       // aiService.parseQuestionAnswer(examText, {
@@ -141,6 +146,52 @@ export default function GeneratePage() {
     }
   }, [prompt]);
 
+  // 添加保存生成内容的函数
+  const saveGeneratedContent = async () => {
+    if (!generatedContent || !parsedResult || !langData) return;
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const datas = Object.entries(data).map(([k, d]) => {
+        const content = getGeneratedContent(d);
+        if (!content) return;
+        return {
+          title: parsedResult[k].title,
+          language: k,
+          content: parsedResult[k].answer,
+          category: content.category.name,
+          group: content.group.name,
+          tags: content.tags.map((t) => t.name).join(","),
+          image: "", // 可以后续添加图片
+        };
+      });
+      const response = await fetch("/api/admin/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          data: datas,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "保存失败");
+      }
+
+      // 保存成功提示
+      alert("内容保存成功！");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "保存失败");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <html>
       <body>
@@ -149,7 +200,7 @@ export default function GeneratePage() {
           <div className="flex items-center gap-4 mb-6">
             <LanguageSelector defaultLanguage={lang} onChange={setLang} />
             <Button
-              onClick={generateRandomContent}
+              onClick={generateRandomIndex}
               className="flex items-center gap-2"
             >
               <Shuffle className="h-4 w-4" />
@@ -189,15 +240,15 @@ export default function GeneratePage() {
                   <div className="bg-white p-4 rounded-md border">
                     <div className="mb-3">
                       <span className="font-medium text-blue-600">标题：</span>
-                      <span>{parsedResult.title}</span>
+                      <span>{parsedResult[lang].title}</span>
                     </div>
                     <div className="mb-3">
                       <span className="font-medium text-blue-600">问题：</span>
-                      <span>{parsedResult.question}</span>
+                      <span>{parsedResult[lang].question}</span>
                     </div>
                     <div>
                       <span className="font-medium text-green-600">答案：</span>
-                      <span>{parsedResult.answer}</span>
+                      <span>{parsedResult[lang].answer}</span>
                     </div>
                   </div>
                 </div>
@@ -280,6 +331,15 @@ export default function GeneratePage() {
             <div>
               {generatedContent ? (
                 <div className="bg-white border-2 border-blue-200 rounded-lg p-6 sticky top-6">
+                  <div className="pb-4">
+                    <Button
+                      onClick={saveGeneratedContent}
+                      disabled={isLoading || !parsedResult}
+                      className="w-full flex items-center justify-center gap-2"
+                    >
+                      {isLoading ? "保存中..." : "保存生成内容"}
+                    </Button>
+                  </div>
                   <h2 className="text-2xl font-bold mb-6 text-blue-600">
                     随机生成结果
                   </h2>

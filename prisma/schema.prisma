@@ -622,3 +622,57 @@ enum TutorialType {
   GUIDE // 详细攻略
   TIPS // 实用技巧
 }
+
+
+model AIGenerated {
+  id Int @id @default(autoincrement())
+  title String
+  language String
+  content String @db.Text
+  category String
+  group String
+  tags String
+  status AIGeneratedStatus @default(NOT_STARTED)
+  image String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  record AIGeneratedRecord @relation(fields: [recordId], references: [id])
+  recordId Int
+  atomId Int?
+  
+  @@map("jigsaw_ai_generated")
+  @@index([title])
+  @@index([recordId])
+}
+
+model AIGeneratedRecord {
+  id Int @id @default(autoincrement())
+  status AIGeneratedStatus @default(NOT_STARTED)
+  result String @db.Text  // 修改为 Text 类型，可存储更长文本
+  predictionId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  aiGenerated AIGenerated[]
+
+  @@map("jigsaw_ai_generated_record")
+  @@index([status])
+}
+
+model AICron {
+  id Int @id @default(autoincrement())
+  status AICronStatus @default(STOP)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum AICronStatus {
+  START // 开始
+  STOP // 停
+}
+
+enum AIGeneratedStatus {
+  NOT_STARTED // 未开始
+  IN_PROGRESS // 进行中
+  COMPLETED // 已完成
+  FAILED // 失败
+}

@@ -5,6 +5,8 @@ import language from "../languages.json";
 const languages = language.languages;
 acceptLanguage.languages(languages);
 
+const whiteList = ["/generate", "/api", "/trpc", "/categories"];
+
 export default async function middleware(request: NextRequest) {
   let lng;
   if (!lng) lng = acceptLanguage.get(request.headers.get("Accept-Language"));
@@ -13,7 +15,8 @@ export default async function middleware(request: NextRequest) {
   if (
     !languages.some((loc) => request.nextUrl.pathname.startsWith(`/${loc}`)) &&
     !request.nextUrl.pathname.startsWith("/_next") &&
-    !request.nextUrl.pathname.startsWith("/api")
+    !request.nextUrl.pathname.startsWith("/api") &&
+    !whiteList.includes(request.nextUrl.pathname)
   ) {
     const locale = lng;
 
@@ -33,6 +36,6 @@ export const config = {
     // Skip Next.js internals and all static files, unless found in search params
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
     // Always run for API routes
-    "/(api|trpc)(.*)",
+    "/(api|trpc|generate)(.*)",
   ],
 };

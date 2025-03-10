@@ -15,7 +15,7 @@ import category12 from "./category12.json";
 export const data = {
   country: "Portugal",
   prompt: `{category}，{group}，「{tags}」
-  Gere uma frase com base na categoria, grupo e tags, com cerca de 100 palavras,`,
+  Gere uma frase com base na categoria, grupo e tags, com cerca de 230 palavras,`,
   tags,
   categories: [
     category1,

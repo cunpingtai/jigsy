@@ -14,7 +14,7 @@ import category12 from "./category12.json";
 
 export const data = {
   prompt: `{category}, {group}, 「{tags}」
-  Generar un texto de unos 100 caracteres basado en la categoría, el grupo y los tags`,
+  Generar un texto de unos 230 caracteres basado en la categoría, el grupo y los tags`,
   country: "España",
   tags,
   categories: [

@@ -15,7 +15,7 @@ import category12 from "./category12.json";
 export const data = {
   country: "Россия",
   prompt: `{category}, {group}, "{tags}"
-  Генерация текста длиной около 100 символов на основе категории, группы и тегов,`,
+  Генерация текста длиной около 230 символов на основе категории, группы и тегов,`,
   tags,
   categories: [
     category1,

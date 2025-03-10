@@ -14,7 +14,7 @@ import category12 from "./category12.json";
 
 export const data = {
   prompt: `{category}, {group}, "{tags}"
-  Generate a paragraph of around 100 words based on the category, group, and tags`,
+  Generate a paragraph of around 230 words based on the category, group, and tags`,
   country: "United States",
   tags,
   categories: [
