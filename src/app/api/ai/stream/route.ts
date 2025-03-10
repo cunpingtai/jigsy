@@ -1,5 +1,6 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
+import { getCurrentUser } from "../../util";
 
 // 创建 SSE 响应
 function createSSEResponse(data: string, event?: string): string {
@@ -15,6 +16,12 @@ function createSSEResponse(data: string, event?: string): string {
 
 export async function POST(request: NextRequest) {
   const { text } = await request.json();
+
+  const user = await getCurrentUser();
+  if (!user || user.role !== "ADMIN") {
+    return NextResponse.json({ error: "用户未登录" }, { status: 401 });
+  }
+
   if (!text) {
     return new Response(
       createSSEResponse(JSON.stringify({ error: "缺少文本参数" }), "error"),

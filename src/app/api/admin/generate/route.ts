@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient, AIGeneratedStatus } from "@prisma/client";
 import { z } from "zod";
+import { getCurrentUser } from "../../util";
 
 const prisma = new PrismaClient();
 
@@ -30,6 +31,11 @@ const generateSchema = z.object({
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+
+    const user = await getCurrentUser();
+    if (!user || user.role !== "ADMIN") {
+      return NextResponse.json({ error: "用户未登录" }, { status: 401 });
+    }
 
     // 验证请求数据
     const validationResult = generateSchema.safeParse(body);

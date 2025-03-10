@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
+import { getCurrentUser } from "../util";
 
 // 定义响应类型
 interface ParsedResponse {
@@ -12,6 +13,11 @@ export async function POST(request: NextRequest) {
   try {
     // 从请求体中获取文本
     const { text } = await request.json();
+
+    const user = await getCurrentUser();
+    if (!user || user.role !== "ADMIN") {
+      return NextResponse.json({ error: "用户未登录" }, { status: 401 });
+    }
 
     if (!text) {
       return NextResponse.json({ error: "缺少文本参数" }, { status: 400 });
