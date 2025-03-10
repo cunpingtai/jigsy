@@ -133,6 +133,7 @@ const SearchPage = ({ locale }: { locale: string }) => {
                     ? atom.config?.tilesX * atom.config?.tilesY
                     : 0;
                   return {
+                    pieces,
                     description: atom.content || "",
                     status: atom.status,
                     id: atom.id.toString(),

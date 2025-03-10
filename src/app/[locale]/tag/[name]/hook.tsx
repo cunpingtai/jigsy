@@ -40,6 +40,7 @@ export const TagPuzzlesPage = ({
   const puzzles = initialPuzzles.map(({ atom }) => {
     const pieces = atom.config ? atom.config?.tilesX * atom.config?.tilesY : 0;
     return {
+      pieces,
       id: atom.id.toString(),
       title: atom.title,
       author: atom.user?.name || "",

@@ -164,6 +164,7 @@ export const PuzzleExplorer: FC<{
             ? atom.config?.tilesX * atom.config?.tilesY
             : 0;
           return {
+            pieces,
             tags: atom.tags?.map(({ tag }) => ({
               tag: {
                 id: tag.id.toString(),

@@ -2,7 +2,7 @@
 import { FC } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Heart, Trophy } from "lucide-react";
+import { Heart, Trophy, Puzzle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -18,6 +18,7 @@ interface PuzzleCardProps {
     description: string;
     difficulty: string;
     status: string;
+    pieces: number;
     tags?: Array<{
       tag: {
         id: string;
@@ -51,6 +52,10 @@ export const PuzzleCard: FC<PuzzleCardProps> = ({
           height={1024}
           className="object-contain transition-transform duration-300 group-hover:scale-105"
         />
+        <div className="absolute bottom-2 left-2 bg-black/70 text-white px-2 py-1 rounded-md text-xs font-medium flex items-center gap-2">
+          <Puzzle className="w-4 h-4 text-yellow-500" />
+          {data.pieces.replace("{value}", puzzle.pieces.toString())}
+        </div>
       </div>
       <CardContent className="p-4">
         <h3 className="font-semibold transition-colors hover:text-primary">

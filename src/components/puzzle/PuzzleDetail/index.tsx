@@ -12,7 +12,6 @@ import {
   BookmarkPlus,
   Play,
   Star,
-  Calendar,
   BookOpen,
 } from "lucide-react";
 import Image from "next/image";
@@ -291,6 +290,9 @@ export const PuzzleDetail: FC<PuzzleDetailProps> = ({
                 key={atom.id}
                 locale={locale}
                 puzzle={{
+                  pieces: atom.config
+                    ? atom.config?.tilesX * atom.config?.tilesY
+                    : 0,
                   status: atom.status,
                   id: atom.id.toString(),
                   title: atom.title,
