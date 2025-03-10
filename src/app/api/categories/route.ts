@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     }
 
     // 检查分类名称是否已存在
-    const existingCategory = await prisma.category.findUnique({
+    const existingCategory = await prisma.category.findFirst({
       where: { name, language },
     });
 

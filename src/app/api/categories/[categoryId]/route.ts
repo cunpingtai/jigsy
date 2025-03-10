@@ -91,7 +91,7 @@ export async function PUT(
 
     // 如果要更新名称，检查新名称是否已存在
     if (newName && newName !== existingCategory.name) {
-      const nameExists = await prisma.category.findUnique({
+      const nameExists = await prisma.category.findFirst({
         where: { name: newName },
       });
 
